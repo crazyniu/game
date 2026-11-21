@@ -275,7 +275,13 @@
   "WIN_TITLE": "通关成功",
   "WIN_DOUBLE": "领双倍",
   "LV_CURRENT": "当前",
-  "MAP_RANGE": "第 %d–%d 关"
+  "MAP_RANGE": "第 %d–%d 关",
+  "H_UNLOCK_TITLE": "新功能",
+  "H_ENTRY_LOCKED": "第 %d 关",
+  "UI_CHALLENGE_TAG": "困难",
+  "UI_TAG_SUPER": "超难",
+  "RESULT_FIRST_3STAR": "首次三星",
+  "COMBO_GOAL": "连击目标"
  },
  "en": {
   "UI_PLAY": "Play",
@@ -553,7 +559,13 @@
   "WIN_TITLE": "Level Clear!",
   "WIN_DOUBLE": "Get x2",
   "LV_CURRENT": "Now",
-  "MAP_RANGE": "Levels %d–%d"
+  "MAP_RANGE": "Levels %d–%d",
+  "H_UNLOCK_TITLE": "Unlocked!",
+  "H_ENTRY_LOCKED": "Level %d",
+  "UI_CHALLENGE_TAG": "Hard",
+  "UI_TAG_SUPER": "Super Hard",
+  "RESULT_FIRST_3STAR": "First 3 stars",
+  "COMBO_GOAL": "Combo goal"
  },
  "zh_TW": {
   "UI_PLAY": "開始",
@@ -831,7 +843,13 @@
   "WIN_TITLE": "通關成功",
   "WIN_DOUBLE": "領雙倍",
   "LV_CURRENT": "目前",
-  "MAP_RANGE": "第 %d–%d 關"
+  "MAP_RANGE": "第 %d–%d 關",
+  "H_UNLOCK_TITLE": "新功能",
+  "H_ENTRY_LOCKED": "第 %d 關",
+  "UI_CHALLENGE_TAG": "困難",
+  "UI_TAG_SUPER": "超難",
+  "RESULT_FIRST_3STAR": "首次三星",
+  "COMBO_GOAL": "連擊目標"
  },
  "ja": {
   "UI_PLAY": "スタート",
@@ -1109,7 +1127,13 @@
   "WIN_TITLE": "クリア！",
   "WIN_DOUBLE": "2倍GET",
   "LV_CURRENT": "いまここ",
-  "MAP_RANGE": "ステージ %d–%d"
+  "MAP_RANGE": "ステージ %d–%d",
+  "H_UNLOCK_TITLE": "新機能！",
+  "H_ENTRY_LOCKED": "Lv.%d",
+  "UI_CHALLENGE_TAG": "ハード",
+  "UI_TAG_SUPER": "超ハード",
+  "RESULT_FIRST_3STAR": "初の星3つ",
+  "COMBO_GOAL": "コンボ目標"
  },
  "ko": {
   "UI_PLAY": "시작",
@@ -1387,7 +1411,13 @@
   "WIN_TITLE": "클리어!",
   "WIN_DOUBLE": "2배 받기",
   "LV_CURRENT": "현재",
-  "MAP_RANGE": "레벨 %d–%d"
+  "MAP_RANGE": "레벨 %d–%d",
+  "H_UNLOCK_TITLE": "새 기능!",
+  "H_ENTRY_LOCKED": "레벨 %d",
+  "UI_CHALLENGE_TAG": "어려움",
+  "UI_TAG_SUPER": "매우 어려움",
+  "RESULT_FIRST_3STAR": "첫 별 3개",
+  "COMBO_GOAL": "콤보 목표"
  },
  "de": {
   "UI_PLAY": "Spielen",
@@ -1665,7 +1695,13 @@
   "WIN_TITLE": "Geschafft!",
   "WIN_DOUBLE": "x2 holen",
   "LV_CURRENT": "Jetzt",
-  "MAP_RANGE": "Level %d–%d"
+  "MAP_RANGE": "Level %d–%d",
+  "H_UNLOCK_TITLE": "Neu!",
+  "H_ENTRY_LOCKED": "Level %d",
+  "UI_CHALLENGE_TAG": "Schwer",
+  "UI_TAG_SUPER": "Superschwer",
+  "RESULT_FIRST_3STAR": "Erste 3 Sterne",
+  "COMBO_GOAL": "Combo-Ziel"
  },
  "fr": {
   "UI_PLAY": "Jouer",
@@ -1943,7 +1979,13 @@
   "WIN_TITLE": "Réussi !",
   "WIN_DOUBLE": "Prendre x2",
   "LV_CURRENT": "Ici",
-  "MAP_RANGE": "Niveaux %d–%d"
+  "MAP_RANGE": "Niveaux %d–%d",
+  "H_UNLOCK_TITLE": "Nouveau !",
+  "H_ENTRY_LOCKED": "Niv. %d",
+  "UI_CHALLENGE_TAG": "Difficile",
+  "UI_TAG_SUPER": "Très difficile",
+  "RESULT_FIRST_3STAR": "1res 3 étoiles",
+  "COMBO_GOAL": "Objectif combo"
  },
  "es": {
   "UI_PLAY": "Jugar",
@@ -2221,7 +2263,13 @@
   "WIN_TITLE": "¡Superado!",
   "WIN_DOUBLE": "Cobrar x2",
   "LV_CURRENT": "Aquí",
-  "MAP_RANGE": "Niveles %d–%d"
+  "MAP_RANGE": "Niveles %d–%d",
+  "H_UNLOCK_TITLE": "¡Nuevo!",
+  "H_ENTRY_LOCKED": "Nivel %d",
+  "UI_CHALLENGE_TAG": "Difícil",
+  "UI_TAG_SUPER": "Muy difícil",
+  "RESULT_FIRST_3STAR": "Primeras 3★",
+  "COMBO_GOAL": "Meta de combo"
  },
  "pt": {
   "UI_PLAY": "Jogar",
@@ -2499,7 +2547,13 @@
   "WIN_TITLE": "Passou!",
   "WIN_DOUBLE": "Pegar x2",
   "LV_CURRENT": "Aqui",
-  "MAP_RANGE": "Fases %d–%d"
+  "MAP_RANGE": "Fases %d–%d",
+  "H_UNLOCK_TITLE": "Novidade!",
+  "H_ENTRY_LOCKED": "Nível %d",
+  "UI_CHALLENGE_TAG": "Difícil",
+  "UI_TAG_SUPER": "Muito difícil",
+  "RESULT_FIRST_3STAR": "Primeiras 3★",
+  "COMBO_GOAL": "Meta de combo"
  },
  "it": {
   "UI_PLAY": "Gioca",
@@ -2777,7 +2831,13 @@
   "WIN_TITLE": "Superato!",
   "WIN_DOUBLE": "Prendi x2",
   "LV_CURRENT": "Qui",
-  "MAP_RANGE": "Livelli %d–%d"
+  "MAP_RANGE": "Livelli %d–%d",
+  "H_UNLOCK_TITLE": "Novità!",
+  "H_ENTRY_LOCKED": "Liv. %d",
+  "UI_CHALLENGE_TAG": "Difficile",
+  "UI_TAG_SUPER": "Molto difficile",
+  "RESULT_FIRST_3STAR": "Prime 3★",
+  "COMBO_GOAL": "Obiettivo combo"
  },
  "ru": {
   "UI_PLAY": "Играть",
@@ -3055,7 +3115,13 @@
   "WIN_TITLE": "Пройдено!",
   "WIN_DOUBLE": "Взять x2",
   "LV_CURRENT": "Сейчас",
-  "MAP_RANGE": "Уровни %d–%d"
+  "MAP_RANGE": "Уровни %d–%d",
+  "H_UNLOCK_TITLE": "Новинка!",
+  "H_ENTRY_LOCKED": "Ур. %d",
+  "UI_CHALLENGE_TAG": "Сложно",
+  "UI_TAG_SUPER": "Очень сложно",
+  "RESULT_FIRST_3STAR": "Первые 3★",
+  "COMBO_GOAL": "Цель комбо"
  },
  "tr": {
   "UI_PLAY": "Oyna",
@@ -3333,6 +3399,12 @@
   "WIN_TITLE": "Başardın!",
   "WIN_DOUBLE": "2 kat al",
   "LV_CURRENT": "Şimdi",
-  "MAP_RANGE": "Seviye %d–%d"
+  "MAP_RANGE": "Seviye %d–%d",
+  "H_UNLOCK_TITLE": "Yeni!",
+  "H_ENTRY_LOCKED": "Sv. %d",
+  "UI_CHALLENGE_TAG": "Zor",
+  "UI_TAG_SUPER": "Çok zor",
+  "RESULT_FIRST_3STAR": "İlk 3 yıldız",
+  "COMBO_GOAL": "Kombo hedefi"
  }
 }

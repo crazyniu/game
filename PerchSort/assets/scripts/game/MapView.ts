@@ -98,8 +98,10 @@ export class MapView {
   }
   private levelNode(level: number, x: number, y: number, index: number): void {
     const state = Progress.node_state(this.profile, level), side = 176, n = UI.hit_area(this.body, 'Level_' + level, [x - side / 2, y - side / 2 - 14, side, side + 20], () => state === 'locked' ? this.callbacks.gate(this.world) : this.callbacks.level(level));
-    Flat.image(n, state === 'cleared' ? 'f_node_blue' : state === 'current' ? 'f_node_green' : 'f_node_gray', [0, 0, side, side * 310 / 300]);
-    Flat.text(n, String(level), [0, side * .16, side, side * .56], 64, state === 'cleared' ? onTone('blue') : state === 'current' ? onTone('green') : onTone('gray'));
+    const kind = Progress.kind(level), tone = state === 'locked' ? 'gray' : state === 'current' ? 'green' : kind === 'hard' ? 'orange' : kind === 'boss' ? 'purple' : 'blue';
+    Flat.image(n, 'f_node_' + tone, [0, 0, side, side * 310 / 300]);
+    Flat.text(n, String(level), [0, side * .16, side, side * .56], 64, { color: '#FFFFFF', depth: ({ gray: '#7C889C', green: '#268F1B', orange: '#B23A0E', purple: '#4C1D95', blue: '#1E55C4' } as Record<string, string>)[tone] });
+    if (kind !== 'normal' && state !== 'locked') UI.image(n, 'art/flat/kind_hard', [-6, -6, 58, 58]);
     if (state === 'locked') UI.image(n, 'art/flat/ic_lock', [side - 56, -6, 52, 52]);
     else if (state === 'cleared') for (let s = 0; s < 3; s++) UI.art(n, s < this.profile.best_stars(level) ? 'island_star_full' : 'island_star_empty', [side / 2 - 66 + s * 44, side - 22, 44, 44]);
     if (state === 'current' && !this.instant) Kit.breathe(n);

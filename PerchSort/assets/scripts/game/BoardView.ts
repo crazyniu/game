@@ -94,6 +94,8 @@ export class BoardView {
   private hintShown = '';
   private hintMove: Move | null = null;
   private hints = new Map<string, Move>();
+  /** This level's combo goal (Progress.combo_goal); 0 when it has none. */
+  comboGoal = 0;
   private failures = new Map<string, number>();
   private winnable = new Set<string>();
   private slots: BranchSlot[];
@@ -169,6 +171,7 @@ export class BoardView {
     this.hud = UI.group(this.node, 'HUD');
     this.houseLayer = UI.group(this.hud, 'HouseLayer');
     this.buildHouse();
+    this.comboGoal = this.level.id >= 1 ? Progress.combo_goal(this.level.id, GameSession.route_chain(this.level, Art.data('levels/hints')[String(this.level.id)] || [])) : 0;
     this.status = UI.group(this.hud, 'Status', [28,48, this.statusWidth(),92]);
     const gear = UI.hit_area(this.hud, 'Settings', [928,36,128,128], () => { if(!this.state.is_won()){this.suspend_input(); callbacks.settings();} });
     UI.image(gear, 'art/flat/f_key_blue', [12,12,104,104]); UI.image(gear, 'art/flat/f_g_gear', [35,30,58,58]);
@@ -442,6 +445,15 @@ export class BoardView {
     const stars=this.session.stars();
     for(let i=0;i<3;i++) UI.image(this.status,i<stars?'island_star_full':'island_star_empty',[30+i*48,23,46,46],true);
     if(keep>=0){ UI.art(this.status,'icon_star_budget_steps',[186,23,46,46],[317,217,652,801]);this.number(this.status,String(keep),[238,24,width-268,44],-1); }
+    // level kind tag beside the status, and the combo goal below it (fishsort's HUD)
+    const kind=Progress.kind(this.level.id);if(kind!=='normal'&&this.level.id<=Levels.COUNT)Flat.kindTag(this.status,kind,width+12,14,64);
+    if(this.comboGoal){
+      const done=this.session.best_chain>=this.comboGoal,pill=UI.group(this.status,'ComboGoal',[0,104,250,72]);
+      Flat.plateIn(pill,'f_hud',[0,0,250,72]);
+      Flat.text(pill,'×'+this.comboGoal,[16,0,96,72],46,{color:'#FFD640',outline:'#C47400'},-1);
+      if(done)UI.image(pill,'art/flat/f_check',[150,8,56,56]);
+      else Flat.text(pill,`${Math.min(this.session.best_chain,this.comboGoal)}/${this.comboGoal}`,[110,0,124,72],40,ON_DARK);
+    }
   }
   private buildSkillRow():void {
     UI.clear(this.skillRow); this.skillKeys.clear();

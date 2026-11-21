@@ -275,3 +275,9 @@ WIN_TITLE,通关成功,Level Clear!,通關成功,クリア！,클리어!,Geschaf
 WIN_DOUBLE,领双倍,Get x2,領雙倍,2倍GET,2배 받기,x2 holen,Prendre x2,Cobrar x2,Pegar x2,Prendi x2,Взять x2,2 kat al
 LV_CURRENT,当前,Now,目前,いまここ,현재,Jetzt,Ici,Aquí,Aqui,Qui,Сейчас,Şimdi
 MAP_RANGE,第 %d–%d 关,Levels %d–%d,第 %d–%d 關,ステージ %d–%d,레벨 %d–%d,Level %d–%d,Niveaux %d–%d,Niveles %d–%d,Fases %d–%d,Livelli %d–%d,Уровни %d–%d,Seviye %d–%d
+H_UNLOCK_TITLE,新功能,Unlocked!,新功能,新機能！,새 기능!,Neu!,Nouveau !,¡Nuevo!,Novidade!,Novità!,Новинка!,Yeni!
+H_ENTRY_LOCKED,第 %d 关,Level %d,第 %d 關,Lv.%d,레벨 %d,Level %d,Niv. %d,Nivel %d,Nível %d,Liv. %d,Ур. %d,Sv. %d
+UI_CHALLENGE_TAG,困难,Hard,困難,ハード,어려움,Schwer,Difficile,Difícil,Difícil,Difficile,Сложно,Zor
+UI_TAG_SUPER,超难,Super Hard,超難,超ハード,매우 어려움,Superschwer,Très difficile,Muy difícil,Muito difícil,Molto difficile,Очень сложно,Çok zor
+RESULT_FIRST_3STAR,首次三星,First 3 stars,首次三星,初の星3つ,첫 별 3개,Erste 3 Sterne,1res 3 étoiles,Primeras 3★,Primeiras 3★,Prime 3★,Первые 3★,İlk 3 yıldız
+COMBO_GOAL,连击目标,Combo goal,連擊目標,コンボ目標,콤보 목표,Combo-Ziel,Objectif combo,Meta de combo,Meta de combo,Obiettivo combo,Цель комбо,Kombo hedefi

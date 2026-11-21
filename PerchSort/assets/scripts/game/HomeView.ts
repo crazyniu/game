@@ -1,4 +1,4 @@
-import { Node, Vec3, tween } from 'cc';
+import { Node, Sprite, Vec3, tween } from 'cc';
 import { UI, Rect } from './UI';
 import { Kit } from './Popups';
 import { Flat, ON_LIGHT, onTone } from './Flat';
@@ -9,7 +9,7 @@ import { Worlds } from '../meta/Worlds';
 import { Tasks } from '../meta/Tasks';
 import { Levels } from '../core/Levels';
 
-export interface HomeCallbacks { play: (level: number) => void; map: () => void; shop: () => void; aviary: () => void; settings: () => void; daily: () => void; draw: () => void; tasks: () => void; chest: () => void; coins: () => void; freeCoins: () => boolean }
+export interface HomeCallbacks { play: (level: number) => void; map: () => void; shop: () => void; aviary: () => void; settings: () => void; daily: () => void; draw: () => void; tasks: () => void; chest: () => void; coins: () => void; freeCoins: () => boolean; locked: (level: number) => void }
 
 /**
  * Home in fishsort's flat style: the feather capsule on top, the Bird Sort sign, daily things down the left (check-in, lucky draw, star
@@ -35,19 +35,23 @@ export class HomeView {
     UI.image(p, 'panel_home_title_sign', [220, 120, 640, 476]);
     this.capsule();
     this.birds(world);
-    left.forEach((e, i) => this.entry(e, 122, 380 + i * 270, i * .08));
-    right.forEach((e, i) => this.entry(e, 958, 380 + i * 270, .04 + i * .08));
+    const feature = ['signin', 'draw', 'chest', '', 'album', 'tasks'];
+    left.forEach((e, i) => this.entry(e, 122, 380 + i * 270, i * .08, feature[i]));
+    right.forEach((e, i) => this.entry(e, 958, 380 + i * 270, .04 + i * .08, feature[3 + i]));
     this.bottom(level);
   }
   private capsule(): void { Flat.capsule(this.node, [32, 64, 320, 88], this.profile.coins, this.callbacks.freeCoins() ? this.callbacks.coins : undefined); }
-  private entry([name, icon, content, word, action, dot]: [string, string, Rect | undefined, string, () => void, boolean], cx: number, top: number, delay: number): void {
-    const n = UI.hit_area(this.node, name, [cx - 90, top, 180, 194], action);
+  /** An entry; one whose feature has not opened yet is greyed with a lock and shows the level that opens it (fishsort). */
+  private entry([name, icon, content, word, action, dot]: [string, string, Rect | undefined, string, () => void, boolean], cx: number, top: number, delay: number, feature: string): void {
+    const open = !feature || Progress.feature_open(this.profile, feature), at = Progress.FEATURES[feature];
+    const n = UI.hit_area(this.node, name, [cx - 90, top, 180, 194], open ? action : () => this.callbacks.locked(at));
     Flat.image(n, 'f_card_glass', [10, 0, 161, 161]);
-    UI.art(n, icon, [25, 8, 130, 130], content);
+    const picture = UI.art(n, icon, [25, 8, 130, 130], content);
     const plate = UI.group(n, 'Label', [0, 136, 180, 58]);
-    Flat.plateIn(plate, 'f_plate_blue', [0, 0, 180, 58]);
-    Flat.text(plate, tr(word), [10, Flat.face(58) - 25, 160, 50], 35, onTone('plate'));
-    if (dot) Flat.dot(n, 164, 8);
+    Flat.plateIn(plate, open ? 'f_plate_blue' : 'j_btn_gray', [0, 0, 180, 58]);
+    Flat.text(plate, open ? tr(word) : tr('H_ENTRY_LOCKED', at), [10, Flat.face(58) - 25, 160, 50], 35, onTone(open ? 'plate' : 'gray'));
+    if (!open) { const sprite = picture.getComponent(Sprite); if (sprite) sprite.grayscale = true; UI.opacity(picture, .6); UI.image(n, 'art/flat/ic_lock', [118, 82, 54, 54]); }
+    else if (dot) Flat.dot(n, 164, 8);
     Kit.pop(n, delay);
   }
   /** One branch between the entry columns with three birds of the world being played (with their skins); a tap makes one perform. */

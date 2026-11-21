@@ -26,7 +26,7 @@ import {createPlatform} from './platform/index';
 import {MockAd} from './game/MockAd';
 import {TaskView} from './game/TaskView';
 import {Tasks} from './meta/Tasks';
-import {I18n} from './game/I18n';
+import {I18n,tr} from './game/I18n';
 import {Flat} from './game/Flat';
 const {ccclass}=_decorator;
 type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
@@ -114,7 +114,7 @@ export class Boot extends Component{
   if(this.loading.isValid)this.loading.destroy();this.ready=true;
   if(this.autoplay)void this.drive(Number(this.args.get('autoTo')||Levels.COUNT));
   const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup.startsWith('tasks'))TaskView.preview(this.popups,popup);else if(popup==='win'){this.popups.win({stars:3,moves:12,par:14,reward:125,boosters:[2,2]},()=>{},()=>{},()=>{});}else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
-  if(!this.testMode&&!this.instant&&this.profile.best_stars(1)>0&&Progress.daily_reward_available(this.profile,Progress.today()))this.scheduleOnce(()=>{if(this.screen instanceof HomeView&&!this.popupHost.children.length)this.popups.daily_reward();},.9);
+  if(!this.testMode&&!this.instant&&Progress.feature_open(this.profile,'signin')&&Progress.daily_reward_available(this.profile,Progress.today()))this.scheduleOnce(()=>{if(this.screen instanceof HomeView&&!this.popupHost.children.length)this.popups.daily_reward();},.9);
   console.log('PERCH_READY',JSON.stringify({engine:'Cocos Creator 3.8.8',page:this.page,levels:Levels.COUNT,test:this.testMode}));
  }
  private async setScreen(page:string,build:()=>Screen,trial=0):Promise<void>{
@@ -166,7 +166,7 @@ export class Boot extends Component{
   });
   return {node,slide};
  }
- async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>this.openTasks(),chest:()=>this.popups.chest(),coins:()=>this.coinShop(),freeCoins:()=>this.adEntry(Ads.FREE_COINS)!=='hidden'},this.instant));}
+ async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>this.openTasks(),chest:()=>this.popups.chest(),coins:()=>this.coinShop(),freeCoins:()=>this.adEntry(Ads.FREE_COINS)!=='hidden',locked:n=>this.popups.notice(tr('H_UNLOCKS_AT',n))},this.instant));}
  async open_map(world=0):Promise<void>{await this.setScreen('map',()=>new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant));if(world>=1&&world<=Levels.WORLDS&&Progress.is_world_unlocked(this.profile,world))(this.screen as MapView).open_world(world);}
  async open_trial(number:number):Promise<void>{
   const def=Number.isInteger(number)?Levels.trial(number):undefined;
@@ -253,29 +253,33 @@ export class Boot extends Component{
  }
  private rescueOffer():void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});Kit.perch(d.content,[540,d.ys[0]+135],320);Kit.liveBird(d.content,'sunny',[418,d.ys[0]+5,112,130]);Kit.liveBird(d.content,'sky',[550,d.ys[0]+5,112,130]);Kit.button(d.content,'Rescue',[270,d.actionY,540,Kit.BUTTON_H],'white_free_rewind',()=>d.invoke(()=>board.rescue()),'wide');}
  private restartOffer(picture:string):void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});UI.art(d.content,picture,[450,d.ys[0],180,180]);Kit.button(d.content,'Restart',[270,d.actionY,540,Kit.BUTTON_H],'white_action_replay',()=>d.invoke(()=>board.restart()),'wide');}
- private settlements = new WeakMap<GameSession, { payout: ReturnType<typeof Progress.on_win>; unlockedWorld: number; outfit: string }>();
+ private settlements = new WeakMap<GameSession, { payout: ReturnType<typeof Progress.on_win>; unlockedWorld: number; outfit: string; opened: string[]; goal: number }>();
  private settle(level:number,session:GameSession):void{
   const nextWorld=Progress.world_of_level(level)+1;
   const locked=nextWorld<=Levels.WORLDS && !Progress.is_world_unlocked(this.profile,nextWorld);
   for(const species of session.state.homed) Aviary.add_flock_home(this.profile,Board.SPECIES[species]);
   this.profile.inventory=session.state.inventory.slice();
   const next=level<Levels.COUNT ? Levels.get_level(level+1) : {};
-  const payout=Progress.on_win(this.profile,level,session.move_count(),session.par,session.state.chorus_coins,next);
+  const before=this.profile.highest_unlocked,goal=this.screen instanceof BoardView?this.screen.comboGoal:0;
+  const payout=Progress.on_win(this.profile,level,session.move_count(),session.par,session.state.chorus_coins,next,Math.random,goal,session.best_chain);
+  const opened=Progress.newly_open(before,this.profile.highest_unlocked);
   const unlockedWorld=locked && Progress.is_world_unlocked(this.profile,nextWorld) ? nextWorld : 0;
   // Task center counters; the first clear of a world also gives a common skin of that world's birds.
   const today=Progress.today(),homed=session.state.homed.filter(species=>Board.SPECIES[species]!=='crow').length;
   for(const [id,n] of [['levels',1],['stars',payout.stars],['flocks',homed],['combos',Math.round(session.state.chorus_coins/5)],['tools',session.tools_used]] as [string,number][])Tasks.count(this.profile,id,n,today);
   const outfit=payout.world>0?Tasks.give_skin(this.profile,Progress.world_of_level(level)):'';
-  this.settlements.set(session,{payout,unlockedWorld,outfit});
+  this.settlements.set(session,{payout,unlockedWorld,outfit,opened,goal});
   this.save();
  }
  private onWon(level:number,session:GameSession):void{
-  const {payout,unlockedWorld,outfit}=this.settlements.get(session)!;
+  const {payout,unlockedWorld,outfit,opened,goal}=this.settlements.get(session)!;
   this.settlements.delete(session);
   const hasNext=level<Levels.COUNT;
   const after=(action:()=>void)=>{
-   if(payout.world>0)this.popups.world_complete(Progress.world_of_level(level),payout.world,outfit?()=>this.popups.outfit_gift(outfit,action):action);
-   else action();
+   // world clear (with its skin), then each feature that just opened, then the chosen action
+   const features=(i:number):void=>{if(i<opened.length)this.popups.feature_open(opened[i],()=>features(i+1));else action();};
+   if(payout.world>0)this.popups.world_complete(Progress.world_of_level(level),payout.world,outfit?()=>this.popups.outfit_gift(outfit,()=>features(0)):()=>features(0));
+   else features(0);
   };
   const next=()=>{
    if(unlockedWorld)this.popups.world_unlock(unlockedWorld,()=>this.open_board((unlockedWorld-1)*Levels.PER_WORLD+1));
@@ -283,7 +287,7 @@ export class Boot extends Component{
    else this.open_map();
   };
   const leave=(action:()=>void)=>()=>void this.levelEnd(level).then(()=>after(action));
-  this.popups.win({stars:payout.stars,moves:session.move_count(),par:session.par,reward:payout.total-payout.world,boosters:payout.boosters,world:Progress.world_of_level(level)},
+  this.popups.win({stars:payout.stars,moves:session.move_count(),par:session.par,reward:payout.total-payout.world-payout.first3-payout.combo_goal,boosters:payout.boosters,world:Progress.world_of_level(level),kind:payout.kind,first3:payout.first3,first3Tool:payout.first3_tool,comboGoal:goal,comboCoins:payout.combo_goal},
    leave(next),leave(()=>this.open_board(level)),leave(()=>this.open_home()),hasNext);
  }
  private adEntry(placement:string):AdEntry{
