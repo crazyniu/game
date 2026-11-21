@@ -813,10 +813,10 @@ export class BoardView {
         case 'egg_revealed':{const entry=this.birds.get(event.id);if(entry){entry.code|=Board.REVEALED;void entry.bird.reveal();}break;}
         case 'woke':{const entry=this.birds.get(event.id);if(entry){entry.code&=~Board.ASLEEP;void entry.bird.wake();this.callbacks.sound('wake_bell');}break;}
         case 'flock_home':{
-          const later=events.slice(index+1).some(item=>item.type==='flock_home');
-          if(!this.state.is_won())void this.flockHome(event);
-          else if(later){void this.flockHome(event);await this.wait(.63);}
-          else await this.flockHome(event);break;
+          const later=events.slice(index+1).filter(item=>item.type==='flock_home').length,chain=this.state.chain-later;
+          if(!this.state.is_won())void this.flockHome(event,chain);
+          else if(later){void this.flockHome(event,chain);await this.wait(.63);}
+          else await this.flockHome(event,chain);break;
         }
         case 'gift':{
           const targets=this.giftTargets(events,index),later=events.slice(index+1).some(item=>item.type==='flock_home');
@@ -863,7 +863,8 @@ export class BoardView {
       for(const entry of riders)if(entry.bird.node.isValid){const r=UI.rect(entry.bird.node),weight=Math.min(1,Math.abs(r[0]+r[2]/2-edge)/length);entry.bird.sag=7*(.4+.6*weight)*curve;}
     });
   }
-  private async flockHome(event:GameEvent):Promise<void> {
+  /** chain: flocks home in a row, counting this one (Rules.finish pays 5 feathers for each after the first). */
+  private async flockHome(event:GameEvent,chain:number):Promise<void> {
     const generation=this.generation,door=this.doorPoint(),ids=(event.ids as number[]).slice().reverse();
     const flights:BirdView[]=[],travel:Promise<void>[]=[];
     ids.forEach((id,k)=>{
@@ -876,9 +877,22 @@ export class BoardView {
     if(!this.valid(generation))return;
     for(const bird of flights){this.homing.delete(bird);bird.destroy();}
     this.callbacks.sound('nest_home');this.setResident(Board.species_index(event.species));this.sparkles(door,12,150,.6);
-    console.info(`FLOCK_HOME species=${event.species} chain=${this.state.chain}`);
+    console.info(`FLOCK_HOME species=${event.species} chain=${chain}`);
+    if(chain>1)this.combo(chain);
     void this.animate(.35,t=>{this.house.setScale(1+Math.sin(t*Math.PI*2)*.1,1-Math.sin(t*Math.PI*2)*.1,1);});
     void this.animate(.8,t=>UI.opacity(this.glow,Math.sin(t*Math.PI)*.9));
+  }
+  /** The chorus combo beside the house: x2, x3 ... and the 5 feathers it pays, popping in and floating up. */
+  private combo(chain:number):void {
+    if(this.instant)return;
+    const generation=this.generation,house=UI.rect(this.house),w=250,h=200,x=house[0]+house[2]+12,y=house[1]+house[3]*.2;
+    const box=UI.group(this.effects,'Combo',[x,y,w,h]);
+    UI.number(box,'x'+chain,[0,0,w,120],'gold',-1);UI.art(box,'icon_purchase_feather',[4,130,64,64]);UI.number(box,'+5',[76,134,150,56],'gold',-1);
+    this.callbacks.sound('star_'+Math.min(3,chain-1));
+    void this.animate(1.3,t=>{
+      const s=t<.15?.5+.65*t/.15:t<.25?1.15-.15*(t-.15)/.1:1;
+      box.setScale(s,s,1);UI.move(box,x+w*(1-s)/2,y-90*t+h*(1-s)/2);UI.opacity(box,t<.7?1:1-(t-.7)/.3);
+    },'linear').then(()=>{if(this.valid(generation)&&box.isValid){box.removeFromParent();box.destroy();}});
   }
   private birdCenter(bird:BirdView):Point{const rect=UI.rect(bird.node);return [rect[0]+rect[2]/2,rect[1]+rect[3]*.45];}
   private giftTargets(events:GameEvent[],index:number):Point[] {

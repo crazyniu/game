@@ -250,14 +250,14 @@ export class Popups {
     editorNode.on('text-changed',(edit:EditBox)=>{const number=parseInt(edit.string.replace(/[^0-9]/g,''),10);quantity=Number.isNaN(number)?1:Math.max(1,Math.min(max,number));refresh();});
     input.enabled=this.profile.coins>=it.price;editorNode.active=true;return d;
   }
-  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[]},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
+  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[];world?:number},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
     const entry=result.reward>0?this.adEntry(Ads.DOUBLE_COINS):'hidden';let doubled=false;
     const counts=new Map<number,number>();result.boosters.forEach(kind=>counts.set(kind,(counts.get(kind)||0)+1));
     const items:Array<[string,number]>=[];if(result.reward>0)items.push(['icon_purchase_feather',result.reward]);counts.forEach((count,kind)=>items.push(['island_icon_'+BOOSTER_ART[kind],count]));
     const heights=[280,60];if(items.length)heights.push(170);
     const d=Kit.jungle(this.host,'win_title',heights,{footer:72,width:880,actionHeight:Kit.BUTTON_H*2+24,birdsAbove:true});
     const bg=UI.image(d.node,'background_home_jungle',[0,0,1080,1920]);bg.setSiblingIndex(0);
-    this.celebration(d);Kit.stars(d.content,d.ys[0],result.stars,true);for(let i=0;i<result.stars;i++)Kit.after(d.node,.4+i*.18,()=>this.sound('star_'+(i+1)));
+    this.celebration(d,result.world??1);Kit.stars(d.content,d.ys[0],result.stars,true);for(let i=0;i<result.stars;i++)Kit.after(d.node,.4+i*.18,()=>this.sound('star_'+(i+1)));
     // Moves: a quiet line under the stars.
     const small=48,si=56,mw=si+10+Kit.numberWidth(String(result.moves),small),mx=540-mw/2;
     UI.art(d.content,'icon_star_budget_steps',[mx,d.ys[1]+30-si/2,si,si],[317,217,652,801]);this.count(d.content,result.moves,[mx+si+10,d.ys[1]+30-small/2,mw-si-10,small],.5);
@@ -289,7 +289,8 @@ export class Popups {
     const holder=UI.group(parent,'Counter',rect);let shown=-1;const state={n:Kit.instant?value:0};const update=()=>{const n=Math.round(state.n);if(n===shown)return;shown=n;UI.clear(holder);Kit.number(holder,prefix+n,[0,0,rect[2],rect[3]]);};update();
     if(!Kit.instant)tween(holder).delay(delay).to(.65,{}, {onUpdate:(_target,ratio)=>{state.n=value*ratio!;update();}}).start();
   }
-  private celebration(d:Dialog):void { [['sunny',432,216],['sky',208,184],['berry',688,184]].forEach(([s,x,side],i)=>{const size=Number(side),b=Kit.liveBird(d.content,String(s),[Number(x),d.rect[1]+28-size,size,size]);if(!Kit.instant){const p=b.node.position.clone();b.node.setPosition(p.x+(i===1?-420:420),p.y+200,p.z);tween(b.node).delay(.45+i*.15).to(.9,{position:p},{easing:'quadOut'}).call(()=>b.showcase()).start();}}); }
+  /** Three birds of the world just played cheer above the popup. */
+  private celebration(d:Dialog,world:number):void { [['sunny',432,216],['sky',208,184],['berry',688,184]].forEach(([s,x,side],i)=>{const size=Number(side),b=Kit.liveBird(d.content,Worlds.look(world,String(s)),[Number(x),d.rect[1]+28-size,size,size]);if(!Kit.instant){const p=b.node.position.clone();b.node.setPosition(p.x+(i===1?-420:420),p.y+200,p.z);tween(b.node).delay(.45+i*.15).to(.9,{position:p},{easing:'quadOut'}).call(()=>b.showcase()).start();}}); }
   private confetti(parent:Node):void { if(Kit.instant)return;['#f5b53c','#71d850','#5bd7db','#ed82aa'].forEach((color,k)=>{for(let i=0;i<10;i++){const x=80+(i*97+k*43)%940,p=UI.fill(parent,'Confetti',[x,-50-k*40,12,22],color,3),pos=p.position.clone();tween(p).delay(.3+k*.1+i*.04).to(2.7,{position:new Vec3(pos.x+Math.sin(i)*160,pos.y-2050,0),angle:360+i*25}).call(()=>Kit.destroy(p)).start();}}); }
   goal_info(species:string,world=1):Dialog {
     const effects:Record<string,string>={sunny:'wake',sky:'reveal',berry:'encore',mint:'grow',cocoa:'scare',snow:'undo',ember:'hatch',ink:'encore',hoot:'wake'},effect=effects[species];
@@ -397,11 +398,17 @@ export class Popups {
   new_friend(species:string,reward:number,onOK:()=>void=()=>{}):Dialog {
     const d=Kit.jungle(this.host,'popup_new_friend_title',[440,124.8,128,120],{footer:72,width:880});Kit.liveBird(d.content,species,[350,d.ys[0]+20,380,400]);Kit.lettering(d.content,'bird_'+species,[220,d.ys[1],640,124.8]);UI.word(d.content,'bird.'+Worlds.slot_of(species)+'.ability',[172,d.ys[2],736,128]);UI.price_pill(d.content,[350,d.ys[3],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
+  /** A skin given as a prize (`<bird>_outfit_<n>`): the bird wearing it under the skin's name. */
+  outfit_gift(outfit:string,onOK:()=>void=()=>{}):Dialog {
+    const [bird,n]=outfit.split('_outfit_'),d=Kit.jungle(this.host,'outfit_'+Worlds.design(bird,Number(n)).join('_'),[440],{footer:72,width:880});
+    Kit.glow(d.content,[320,d.ys[0],440,440]);Kit.liveBird(d.content,bird,[350,d.ys[0]+20,380,400],outfit).showcase();
+    Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));this.sound('collect');return d;
+  }
   unlock(booster:number,onOK:()=>void=()=>{}):Dialog {
     const d=Kit.jungle(this.host,'item_'+BOOSTER_WORD[booster],[440,100],{footer:72,width:900});Kit.breathe(UI.art(d.content,'island_icon_'+BOOSTER_ART[booster],[360,d.ys[0]+40,360,360]));Kit.lettering(d.content,'cap_'+BOOSTER_WORD[booster],[132,d.ys[1]+18,816,64]);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
   world_complete(world:number,reward:number,onOK:()=>void=()=>{}):Dialog {
-    const d=Kit.jungle(this.host,'popup_world_complete_title',[280,120],{footer:72,width:880,birdsAbove:true});this.celebration(d);Kit.stars(d.content,d.ys[0],3,true);UI.price_pill(d.content,[350,d.ys[1],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
+    const d=Kit.jungle(this.host,'popup_world_complete_title',[280,120],{footer:72,width:880,birdsAbove:true});this.celebration(d,world);Kit.stars(d.content,d.ys[0],3,true);UI.price_pill(d.content,[350,d.ys[1],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
   world_unlock(world:number,onPlay:()=>void):Dialog {
     const h=720*777/855,d=Kit.jungle(this.host,'popup_world_unlock_title',[h,124.8],{footer:72});const k=720/855,stage=UI.group(d.content,'Gate',[540-509.5*k,d.ys[0]-100*k,1024,1024]);stage.setScale(k,k,1);UI.image(stage,'gate_backdrop_w'+world,[0,0,1024,1024]);UI.image(stage,'gate_arch',[0,0,1024,1024]);

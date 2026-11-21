@@ -24,6 +24,7 @@ import {Platform} from './platform/Platform';
 import {DebugPlatform} from './platform/DebugPlatform';
 import {createPlatform} from './platform/index';
 import {MockAd} from './game/MockAd';
+import {TaskView} from './game/TaskView';
 const {ccclass}=_decorator;
 type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
 @ccclass('Boot')
@@ -108,7 +109,7 @@ export class Boot extends Component{
   if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel||this.autoplay)await this.open_board(validLevel?level:Math.min(Math.max(this.profile.highest_unlocked,1),Levels.COUNT));else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
   if(this.loading.isValid)this.loading.destroy();this.ready=true;
   if(this.autoplay)void this.drive(Number(this.args.get('autoTo')||Levels.COUNT));
-  const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup==='win'){this.popups.win({stars:3,moves:12,par:14,reward:125,boosters:[2,2]},()=>{},()=>{},()=>{});}else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
+  const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup.startsWith('tasks'))TaskView.preview(this.popups,popup);else if(popup==='win'){this.popups.win({stars:3,moves:12,par:14,reward:125,boosters:[2,2]},()=>{},()=>{},()=>{});}else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
   if(!this.testMode&&!this.instant&&this.profile.best_stars(1)>0&&Progress.daily_reward_available(this.profile,Progress.today()))this.scheduleOnce(()=>{if(this.screen instanceof HomeView&&!this.popupHost.children.length)this.popups.daily_reward();},.9);
   console.log('PERCH_READY',JSON.stringify({engine:'Cocos Creator 3.8.8',page:this.page,levels:Levels.COUNT,test:this.testMode}));
  }
@@ -159,7 +160,7 @@ export class Boot extends Component{
   });
   return {node,slide};
  }
- async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),chest:()=>this.popups.chest(),coins:()=>this.coinShop()},this.instant));}
+ async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>TaskView.preview(this.popups),chest:()=>this.popups.chest(),coins:()=>this.coinShop()},this.instant));}
  async open_map(world=0):Promise<void>{await this.setScreen('map',()=>new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant));if(world>=1&&world<=Levels.WORLDS&&Progress.is_world_unlocked(this.profile,world))(this.screen as MapView).open_world(world);}
  async open_trial(number:number):Promise<void>{
   const def=Number.isInteger(number)?Levels.trial(number):undefined;
@@ -169,7 +170,7 @@ export class Boot extends Component{
    settle:()=>{},
    won:({session})=>{
     const hasNext=number<Levels.trial_count();
-    this.popups.win({stars:session.stars(),moves:session.move_count(),par:session.par,reward:0,boosters:[]},
+    this.popups.win({stars:session.stars(),moves:session.move_count(),par:session.par,reward:0,boosters:[],world:Levels.world_of(def)},
      ()=>this.open_trial(number+1),()=>this.open_trial(number),()=>this.open_home(),hasNext);
    },
    settings:()=>this.settings(),buy:kind=>this.buyTool(kind),undo_more:()=>this.undoMore(),
@@ -259,7 +260,7 @@ export class Boot extends Component{
    else this.open_map();
   };
   const leave=(action:()=>void)=>()=>void this.levelEnd(level).then(()=>after(action));
-  this.popups.win({stars:payout.stars,moves:session.move_count(),par:session.par,reward:payout.total-payout.world,boosters:payout.boosters},
+  this.popups.win({stars:payout.stars,moves:session.move_count(),par:session.par,reward:payout.total-payout.world,boosters:payout.boosters,world:Progress.world_of_level(level)},
    leave(next),leave(()=>this.open_board(level)),leave(()=>this.open_home()),hasNext);
  }
  private adEntry(placement:string):AdEntry{

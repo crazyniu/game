@@ -5,7 +5,7 @@ import {Kit} from './Popups';
 import {Profile} from '../meta/Profile';
 import {Progress} from '../meta/Progress';
 const {ccclass}=_decorator;
-interface HomeCallbacks{play:(level:number)=>void;map:()=>void;shop:()=>void;aviary:()=>void;settings:()=>void;daily:()=>void;draw:()=>void;chest:()=>void;coins:()=>void;}
+interface HomeCallbacks{play:(level:number)=>void;map:()=>void;shop:()=>void;aviary:()=>void;settings:()=>void;daily:()=>void;draw:()=>void;tasks:()=>void;chest:()=>void;coins:()=>void;}
 interface HomeBird{node:Node;picture:Node;frames:string[];rest:number;phase:number;due:number;frame:number;time:number;scale:number;feet:number[];}
 @ccclass('HomeMotion')
 class HomeMotion extends Component{view!:HomeView;update(dt:number):void{this.view.update(dt);}}
@@ -19,13 +19,14 @@ export class HomeView{
   this.icon('Settings','pic_gear',976,104,96,0,this.callbacks.settings);
   const play=Kit.button(p,'Play',[290,1360,500,Kit.PLAY_H],'white_play',()=>this.callbacks.play(Progress.resume_level(this.profile)));
   const daily=this.icon('DailyReward','pic_calendar',960,1230,120,184,this.callbacks.daily),draw=this.icon('LuckyDraw','icon_home_draw',960,1450,120,184,this.callbacks.draw);
+  const tasks=this.icon('Tasks','pic_tasks',120,1230,120,184,this.callbacks.tasks);this.badge(tasks,3);
   if(Progress.daily_reward_available(this.profile,Progress.today()))this.badge(daily,1);
   if(Progress.draws_available(this.profile,Progress.today()))this.badge(draw,1);
   const entries:[string,string,()=>void][]=[['Map','pic_map',this.callbacks.map],['Shop','pic_shop',this.callbacks.shop],['Aviary','pic_aviary',this.callbacks.aviary],['Chest','pic_chest',this.callbacks.chest]];
   entries.forEach(([name,asset,action],i)=>{const n=this.icon(name,asset,174+244*i,1760,132,204,action);if(name==='Chest'&&Progress.chests_ready(this.profile)>0)this.badge(n,Progress.chests_ready(this.profile));});
  }
  private icon(name:string,asset:string,x:number,y:number,side:number,back:number,action:()=>void):Node{
-  const content:Record<string,Rect>={pic_gear:[21,28,203,202],pic_calendar:[49,39,154,194],icon_home_draw:[175,75,958,972],pic_map:[18,36,226,177],pic_shop:[18,17,196,221],pic_aviary:[21,49,200,164],pic_chest:[36,50,185,170]};
+  const content:Record<string,Rect>={pic_gear:[21,28,203,202],pic_calendar:[49,39,154,194],icon_home_draw:[175,75,958,972],pic_map:[18,36,226,177],pic_shop:[18,17,196,221],pic_aviary:[21,49,200,164],pic_chest:[36,50,185,170],pic_tasks:[0,0,256,256]};
   const n=UI.hit_area(this.node,name,[x-80,y-80,160,160],action);if(back){const frame=UI.image(n,'btn_home_icon_frame',[(160-back)/2,(160-back)/2,back,back],true);UI.opacity(frame,.88);}
   const face=UI.art(n,asset,[(160-side)/2,(160-side)/2,side,side],content[asset]);UI.outline(face);return n;
  }
