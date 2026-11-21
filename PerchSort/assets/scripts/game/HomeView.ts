@@ -11,9 +11,9 @@ import { Levels } from '../core/Levels';
 export interface HomeCallbacks { play: (level: number) => void; map: () => void; shop: () => void; aviary: () => void; settings: () => void; daily: () => void; draw: () => void; tasks: () => void; chest: () => void; coins: () => void; freeCoins: () => boolean }
 
 /**
- * Home (fishsort's home layout, docs/ux/home.md there): a coin capsule on top; daily things down the left (check-in, lucky draw, star
- * chest) and the standing systems down the right (shop, album, tasks), each a glass tile with a blue label plate; three birds of the
- * world being played in the middle; Settings, Play (with the level) and Levels along the bottom. Entries pop in one after another.
+ * Home in fishsort's flat style: the feather capsule on top, the Bird Sort sign, one branch with four birds of the world being played,
+ * two rows of entries (daily things: check-in, lucky draw, star chest; standing systems: shop, album, tasks), each a glass tile with a
+ * blue label plate; Settings, Play (with the level) and Levels along the bottom. Entries pop in one after another.
  */
 export class HomeView {
   node: Node;
@@ -32,9 +32,10 @@ export class HomeView {
       ['Aviary', 'pic_aviary', [21, 49, 200, 164], 'H_ALBUM', this.callbacks.aviary, false],
       ['Tasks', 'pic_tasks', undefined, 'UI_TAB_TASKS', this.callbacks.tasks, true],
     ];
-    left.forEach((e, i) => this.entry(e, 122, 325 + i * 242, i * .08));
-    right.forEach((e, i) => this.entry(e, 958, 325 + i * 242, .04 + i * .08));
+    UI.image(p, 'panel_home_title_sign', [162, 40, 758, 563]);
     this.birds(world);
+    left.forEach((e, i) => this.entry(e, 225 + i * 315, 1010, i * .06));
+    right.forEach((e, i) => this.entry(e, 225 + i * 315, 1255, .18 + i * .06));
     this.bottom(level);
   }
   private capsule(): void {
@@ -54,15 +55,14 @@ export class HomeView {
     if (dot) Flat.dot(n, 164, 8);
     Kit.pop(n, delay);
   }
-  /** The world's sunny, sky and berry birds (with their skins): the first large on a perch between the columns, two smaller below. */
+  /** One branch from the left edge with four birds of the world being played standing on it (with their skins); a tap makes one perform. */
   private birds(world: number): void {
-    const spots: [string, Rect, number][] = [['sunny', [365, 520, 350, 360], 400], ['sky', [150, 1080, 240, 250], 280], ['berry', [690, 1080, 240, 250], 280]];
-    for (const [slot, r, perch] of spots) {
-      const species = Worlds.look(world, slot), worn = this.profile.equipped[species];
-      Kit.perch(this.node, [r[0] + r[2] / 2, r[1] + r[3] - 8], perch);
+    UI.image(this.node, 'panel_home_perch_branch', [-74, 760, 1229, 422]);
+    (['sunny', 'sky', 'berry', 'mint'] as const).forEach((slot, i) => {
+      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], x = 330 + i * 167, r: Rect = [x - 105, 742, 210, 216];
       const bird = Kit.liveBird(this.node, species, r, worn ? `${species}_outfit_${worn.split('.')[2]}` : '');
       UI.hit_area(this.node, 'Bird_' + slot, r, () => bird.showcase());
-    }
+    });
   }
   private bottom(level: number): void {
     const y = 1920 - 72 - 225, h = 225;
