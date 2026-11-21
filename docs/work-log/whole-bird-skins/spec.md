@@ -20,3 +20,9 @@ painting of the whole bird with the costume, never a layer. Trial on one skin fi
 - Save fields and outfit ids (`outfit.<species>.<n>`) are unchanged.
 - Pipeline: `tools/birds/painted_skins/paint.sh` (local Codex, plain frame + front reference per frame),
   `collect.py` (downscale and align feet/body to the plain frame).
+
+## Lean frame set (current)
+Every skin ships the same 15 frames: `front`, `front_blink_01..02`, `flight_flap_01..06` and the mirrored
+`flight_flap_l_01..06`. Turns, preen, flap, hop, cheer, take-off, landing and the still poses are not shipped for
+skins; `BirdView` skips the idle actions a skin lacks and cheers with the flight flap. More actions return when
+player conversion justifies the painting. `outfit_parts.json` keeps propeller hubs only for the shipped frames.
