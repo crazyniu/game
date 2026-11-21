@@ -1048,6 +1048,222 @@
     },
     "lettering_bird_woodowl": {
       "file": "island_words/lettering_bird_woodowl.png"
+    },
+    "lettering_bird_greattit": {
+      "file": "island_words/lettering_bird_greattit.png"
+    },
+    "lettering_bird_bluetit": {
+      "file": "island_words/lettering_bird_bluetit.png"
+    },
+    "lettering_bird_bullfinch": {
+      "file": "island_words/lettering_bird_bullfinch.png"
+    },
+    "lettering_bird_greenwoodpecker": {
+      "file": "island_words/lettering_bird_greenwoodpecker.png"
+    },
+    "lettering_bird_wren": {
+      "file": "island_words/lettering_bird_wren.png"
+    },
+    "lettering_bird_wagtail": {
+      "file": "island_words/lettering_bird_wagtail.png"
+    },
+    "lettering_bird_robin": {
+      "file": "island_words/lettering_bird_robin.png"
+    },
+    "lettering_bird_nightjar": {
+      "file": "island_words/lettering_bird_nightjar.png"
+    },
+    "lettering_bird_barnowl": {
+      "file": "island_words/lettering_bird_barnowl.png"
+    },
+    "lettering_bird_emperorpenguin": {
+      "file": "island_words/lettering_bird_emperorpenguin.png"
+    },
+    "lettering_bird_bluepenguin": {
+      "file": "island_words/lettering_bird_bluepenguin.png"
+    },
+    "lettering_bird_gull": {
+      "file": "island_words/lettering_bird_gull.png"
+    },
+    "lettering_bird_puffin": {
+      "file": "island_words/lettering_bird_puffin.png"
+    },
+    "lettering_bird_waxwing": {
+      "file": "island_words/lettering_bird_waxwing.png"
+    },
+    "lettering_bird_snowbunting": {
+      "file": "island_words/lettering_bird_snowbunting.png"
+    },
+    "lettering_bird_ptarmigan": {
+      "file": "island_words/lettering_bird_ptarmigan.png"
+    },
+    "lettering_bird_snowyowl": {
+      "file": "island_words/lettering_bird_snowyowl.png"
+    },
+    "lettering_bird_shortearedowl": {
+      "file": "island_words/lettering_bird_shortearedowl.png"
+    },
+    "lettering_bird_canary": {
+      "file": "island_words/lettering_bird_canary.png"
+    },
+    "lettering_bird_bluebird": {
+      "file": "island_words/lettering_bird_bluebird.png"
+    },
+    "lettering_bird_galah": {
+      "file": "island_words/lettering_bird_galah.png"
+    },
+    "lettering_bird_hummingbird": {
+      "file": "island_words/lettering_bird_hummingbird.png"
+    },
+    "lettering_bird_sparrow": {
+      "file": "island_words/lettering_bird_sparrow.png"
+    },
+    "lettering_bird_javasparrow": {
+      "file": "island_words/lettering_bird_javasparrow.png"
+    },
+    "lettering_bird_cardinal": {
+      "file": "island_words/lettering_bird_cardinal.png"
+    },
+    "lettering_bird_nightingale": {
+      "file": "island_words/lettering_bird_nightingale.png"
+    },
+    "lettering_bird_screechowl": {
+      "file": "island_words/lettering_bird_screechowl.png"
+    },
+    "lettering_bird_goldcrest": {
+      "file": "island_words/lettering_bird_goldcrest.png"
+    },
+    "lettering_bird_flycatcher": {
+      "file": "island_words/lettering_bird_flycatcher.png"
+    },
+    "lettering_bird_jay": {
+      "file": "island_words/lettering_bird_jay.png"
+    },
+    "lettering_bird_greenmagpie": {
+      "file": "island_words/lettering_bird_greenmagpie.png"
+    },
+    "lettering_bird_treecreeper": {
+      "file": "island_words/lettering_bird_treecreeper.png"
+    },
+    "lettering_bird_whitecrested": {
+      "file": "island_words/lettering_bird_whitecrested.png"
+    },
+    "lettering_bird_scarletfinch": {
+      "file": "island_words/lettering_bird_scarletfinch.png"
+    },
+    "lettering_bird_frogmouth": {
+      "file": "island_words/lettering_bird_frogmouth.png"
+    },
+    "lettering_bird_orientalscops": {
+      "file": "island_words/lettering_bird_orientalscops.png"
+    },
+    "lettering_bird_wagtailyellow": {
+      "file": "island_words/lettering_bird_wagtailyellow.png"
+    },
+    "lettering_bird_kingfisher": {
+      "file": "island_words/lettering_bird_kingfisher.png"
+    },
+    "lettering_bird_flamingo": {
+      "file": "island_words/lettering_bird_flamingo.png"
+    },
+    "lettering_bird_mallard": {
+      "file": "island_words/lettering_bird_mallard.png"
+    },
+    "lettering_bird_grebe": {
+      "file": "island_words/lettering_bird_grebe.png"
+    },
+    "lettering_bird_egret": {
+      "file": "island_words/lettering_bird_egret.png"
+    },
+    "lettering_bird_mandarin": {
+      "file": "island_words/lettering_bird_mandarin.png"
+    },
+    "lettering_bird_nightheron": {
+      "file": "island_words/lettering_bird_nightheron.png"
+    },
+    "lettering_bird_fishowl": {
+      "file": "island_words/lettering_bird_fishowl.png"
+    },
+    "lettering_bird_siskin": {
+      "file": "island_words/lettering_bird_siskin.png"
+    },
+    "lettering_bird_bluejay": {
+      "file": "island_words/lettering_bird_bluejay.png"
+    },
+    "lettering_bird_grosbeak": {
+      "file": "island_words/lettering_bird_grosbeak.png"
+    },
+    "lettering_bird_greentit": {
+      "file": "island_words/lettering_bird_greentit.png"
+    },
+    "lettering_bird_nutcracker": {
+      "file": "island_words/lettering_bird_nutcracker.png"
+    },
+    "lettering_bird_spottedwoodpecker": {
+      "file": "island_words/lettering_bird_spottedwoodpecker.png"
+    },
+    "lettering_bird_crossbill": {
+      "file": "island_words/lettering_bird_crossbill.png"
+    },
+    "lettering_bird_longearedowl": {
+      "file": "island_words/lettering_bird_longearedowl.png"
+    },
+    "lettering_bird_borealowl": {
+      "file": "island_words/lettering_bird_borealowl.png"
+    },
+    "lettering_bird_conure": {
+      "file": "island_words/lettering_bird_conure.png"
+    },
+    "lettering_bird_bluegoldmacaw": {
+      "file": "island_words/lettering_bird_bluegoldmacaw.png"
+    },
+    "lettering_bird_spoonbill": {
+      "file": "island_words/lettering_bird_spoonbill.png"
+    },
+    "lettering_bird_lovebird": {
+      "file": "island_words/lettering_bird_lovebird.png"
+    },
+    "lettering_bird_toucan": {
+      "file": "island_words/lettering_bird_toucan.png"
+    },
+    "lettering_bird_cockatoo": {
+      "file": "island_words/lettering_bird_cockatoo.png"
+    },
+    "lettering_bird_scarletmacaw": {
+      "file": "island_words/lettering_bird_scarletmacaw.png"
+    },
+    "lettering_bird_potoo": {
+      "file": "island_words/lettering_bird_potoo.png"
+    },
+    "lettering_bird_spectacledowl": {
+      "file": "island_words/lettering_bird_spectacledowl.png"
+    },
+    "lettering_bird_narcissus": {
+      "file": "island_words/lettering_bird_narcissus.png"
+    },
+    "lettering_bird_blueflycatcher": {
+      "file": "island_words/lettering_bird_blueflycatcher.png"
+    },
+    "lettering_bird_ibis": {
+      "file": "island_words/lettering_bird_ibis.png"
+    },
+    "lettering_bird_greenpheasant": {
+      "file": "island_words/lettering_bird_greenpheasant.png"
+    },
+    "lettering_bird_warbler": {
+      "file": "island_words/lettering_bird_warbler.png"
+    },
+    "lettering_bird_craneChick": {
+      "file": "island_words/lettering_bird_craneChick.png"
+    },
+    "lettering_bird_redstart": {
+      "file": "island_words/lettering_bird_redstart.png"
+    },
+    "lettering_bird_hawkowl": {
+      "file": "island_words/lettering_bird_hawkowl.png"
+    },
+    "lettering_bird_eagleowl": {
+      "file": "island_words/lettering_bird_eagleowl.png"
     }
   },
   "words": {
@@ -2117,6 +2333,438 @@
     "bird.woodowl.name": {
       "gold": {
         "file": "island_words/lettering_bird_woodowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.greattit.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_greattit.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bluetit.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bluetit.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bullfinch.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bullfinch.png",
+        "cap": 96.0
+      }
+    },
+    "bird.greenwoodpecker.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_greenwoodpecker.png",
+        "cap": 96.0
+      }
+    },
+    "bird.wren.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_wren.png",
+        "cap": 96.0
+      }
+    },
+    "bird.wagtail.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_wagtail.png",
+        "cap": 96.0
+      }
+    },
+    "bird.robin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_robin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.nightjar.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_nightjar.png",
+        "cap": 96.0
+      }
+    },
+    "bird.barnowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_barnowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.emperorpenguin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_emperorpenguin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bluepenguin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bluepenguin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.gull.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_gull.png",
+        "cap": 96.0
+      }
+    },
+    "bird.puffin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_puffin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.waxwing.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_waxwing.png",
+        "cap": 96.0
+      }
+    },
+    "bird.snowbunting.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_snowbunting.png",
+        "cap": 96.0
+      }
+    },
+    "bird.ptarmigan.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_ptarmigan.png",
+        "cap": 96.0
+      }
+    },
+    "bird.snowyowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_snowyowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.shortearedowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_shortearedowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.canary.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_canary.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bluebird.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bluebird.png",
+        "cap": 96.0
+      }
+    },
+    "bird.galah.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_galah.png",
+        "cap": 96.0
+      }
+    },
+    "bird.hummingbird.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_hummingbird.png",
+        "cap": 96.0
+      }
+    },
+    "bird.sparrow.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_sparrow.png",
+        "cap": 96.0
+      }
+    },
+    "bird.javasparrow.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_javasparrow.png",
+        "cap": 96.0
+      }
+    },
+    "bird.cardinal.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_cardinal.png",
+        "cap": 96.0
+      }
+    },
+    "bird.nightingale.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_nightingale.png",
+        "cap": 96.0
+      }
+    },
+    "bird.screechowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_screechowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.goldcrest.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_goldcrest.png",
+        "cap": 96.0
+      }
+    },
+    "bird.flycatcher.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_flycatcher.png",
+        "cap": 96.0
+      }
+    },
+    "bird.jay.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_jay.png",
+        "cap": 96.0
+      }
+    },
+    "bird.greenmagpie.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_greenmagpie.png",
+        "cap": 96.0
+      }
+    },
+    "bird.treecreeper.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_treecreeper.png",
+        "cap": 96.0
+      }
+    },
+    "bird.whitecrested.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_whitecrested.png",
+        "cap": 96.0
+      }
+    },
+    "bird.scarletfinch.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_scarletfinch.png",
+        "cap": 96.0
+      }
+    },
+    "bird.frogmouth.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_frogmouth.png",
+        "cap": 96.0
+      }
+    },
+    "bird.orientalscops.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_orientalscops.png",
+        "cap": 96.0
+      }
+    },
+    "bird.wagtailyellow.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_wagtailyellow.png",
+        "cap": 96.0
+      }
+    },
+    "bird.kingfisher.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_kingfisher.png",
+        "cap": 96.0
+      }
+    },
+    "bird.flamingo.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_flamingo.png",
+        "cap": 96.0
+      }
+    },
+    "bird.mallard.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_mallard.png",
+        "cap": 96.0
+      }
+    },
+    "bird.grebe.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_grebe.png",
+        "cap": 96.0
+      }
+    },
+    "bird.egret.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_egret.png",
+        "cap": 96.0
+      }
+    },
+    "bird.mandarin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_mandarin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.nightheron.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_nightheron.png",
+        "cap": 96.0
+      }
+    },
+    "bird.fishowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_fishowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.siskin.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_siskin.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bluejay.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bluejay.png",
+        "cap": 96.0
+      }
+    },
+    "bird.grosbeak.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_grosbeak.png",
+        "cap": 96.0
+      }
+    },
+    "bird.greentit.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_greentit.png",
+        "cap": 96.0
+      }
+    },
+    "bird.nutcracker.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_nutcracker.png",
+        "cap": 96.0
+      }
+    },
+    "bird.spottedwoodpecker.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_spottedwoodpecker.png",
+        "cap": 96.0
+      }
+    },
+    "bird.crossbill.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_crossbill.png",
+        "cap": 96.0
+      }
+    },
+    "bird.longearedowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_longearedowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.borealowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_borealowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.conure.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_conure.png",
+        "cap": 96.0
+      }
+    },
+    "bird.bluegoldmacaw.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_bluegoldmacaw.png",
+        "cap": 96.0
+      }
+    },
+    "bird.spoonbill.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_spoonbill.png",
+        "cap": 96.0
+      }
+    },
+    "bird.lovebird.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_lovebird.png",
+        "cap": 96.0
+      }
+    },
+    "bird.toucan.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_toucan.png",
+        "cap": 96.0
+      }
+    },
+    "bird.cockatoo.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_cockatoo.png",
+        "cap": 96.0
+      }
+    },
+    "bird.scarletmacaw.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_scarletmacaw.png",
+        "cap": 96.0
+      }
+    },
+    "bird.potoo.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_potoo.png",
+        "cap": 96.0
+      }
+    },
+    "bird.spectacledowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_spectacledowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.narcissus.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_narcissus.png",
+        "cap": 96.0
+      }
+    },
+    "bird.blueflycatcher.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_blueflycatcher.png",
+        "cap": 96.0
+      }
+    },
+    "bird.ibis.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_ibis.png",
+        "cap": 96.0
+      }
+    },
+    "bird.greenpheasant.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_greenpheasant.png",
+        "cap": 96.0
+      }
+    },
+    "bird.warbler.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_warbler.png",
+        "cap": 96.0
+      }
+    },
+    "bird.craneChick.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_craneChick.png",
+        "cap": 96.0
+      }
+    },
+    "bird.redstart.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_redstart.png",
+        "cap": 96.0
+      }
+    },
+    "bird.hawkowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_hawkowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.eagleowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_eagleowl.png",
         "cap": 96.0
       }
     }
