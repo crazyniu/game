@@ -3,7 +3,7 @@
 export class Worlds {
   static readonly COUNT = 10;
   /** Worlds up to this one have all their birds painted and named; later worlds meet no new birds yet. */
-  static readonly READY = 2;
+  static readonly READY = 10;
   static readonly SLOTS = ['sunny', 'sky', 'berry', 'mint', 'cocoa', 'snow', 'ember', 'ink', 'hoot'];
   static readonly NAMES = ['green', 'bamboo', 'autumn', 'snow', 'blossom', 'mushroom', 'lakeside', 'pine', 'rainforest', 'wisteria'];
   private static readonly BIRDS: string[][] = [

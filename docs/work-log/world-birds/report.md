@@ -41,3 +41,11 @@ layered costume, but it is the same limit: no two paintings are identical.
 
 ## Open
 - Owner decisions listed in `spec.md`; the Blender pilot needs the owner's go-ahead.
+
+## Worlds 3-10 birds and names
+- All 72 birds of worlds 3-10 painted (27 frames + 12 mirrored + face each) and installed as WebP with feet entries.
+- Painted EN/ZH names for worlds 3-10 installed (`paint_names.py`, checked letter by letter, `install_names.py`). Five Chinese names with rare
+  characters that the painter drew wrong were replaced by common names in `names.tsv`: snowbunting 雪雀, whitecrested 白冠鸟, frogmouth 蛙嘴鸟,
+  grebe 水葫芦, potoo 林夜鹰.
+- `Worlds.READY` is 10: every world meets its birds and the aviary offers all ten worlds.
+- Not run in Creator or a browser; the owner checks the aviary world switch and the boards of worlds 3-10.
