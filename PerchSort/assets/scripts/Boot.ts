@@ -186,12 +186,14 @@ export class Boot extends Component{
   while(this.node.isValid){
    await pause(.35);
    const board=this.screen;
-   if(!(board instanceof BoardView)||board.busy)continue;
+   if(!(board instanceof BoardView))continue;
    const state=board.session.state,id=board.level.id;
+   // The board stays busy behind the win popup.
    if(state.is_won()){
     if(id>=last){console.log('PERCH_AUTOPLAY_DONE',id);return;}
     await pause(2.5);if(this.screen===board)await this.open_board(id+1);continue;
    }
+   if(board.busy)continue;
    const key=state.search_key(false).join(',');
    let move=(routes[String(id)]||[]).find(([route])=>route.join(',')===key)?.[1];
    if(!move){
