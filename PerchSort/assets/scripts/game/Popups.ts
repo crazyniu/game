@@ -131,9 +131,10 @@ export class Kit {
     Kit.toyFrame(d.content,d.rect); Flat.title(d.content,word(title),540,top+12); Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
     let y=top+120; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;}); Kit.pop(d.content); return d;
   }
-  static page(host:Node,name:string,title:string,balance?:number,onClose?:()=>void,coins?:()=>void):Dialog {
+  /** A sub-page (fishsort): back key top left and the title plate; no balance bar. */
+  static page(host:Node,name:string,title:string,_balance?:number,onClose?:()=>void,_coins?:()=>void):Dialog {
     const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Flat.title(d.content,word(title),540,170); Kit.close(d.content,[32,52],d.close,true);
-    if(balance!==undefined) Flat.capsule(d.content,[728,64,320,88],balance,coins); return d;
+    return d;
   }
   static glow(parent:Node,rect:Rect):void { const glow=UI.image(parent,'glow_soft',[rect[0]-rect[2]*.22,rect[1]-rect[3]*.22,rect[2]*1.44,rect[3]*1.44]); UI.opacity(glow,.65); }
   static stars(parent:Node,y:number,filled:number,animate=false):void {
@@ -315,7 +316,7 @@ export class Popups {
     });
     // Watching an ad doubles today's feathers (tools are not doubled).
     const entry=available?this.adEntry(Ads.DAILY_DOUBLE):'hidden';let busy=false;
-    const take=(double:boolean)=>{if(busy)return;const got=Progress.claim_daily_reward(this.profile,Progress.today());if(!got.day)return;if(double){this.profile.coins+=got.coins;got.coins*=2;}busy=true;this.save();UI.enabled(claim,false);if(ad)UI.enabled(ad,false);const tile=tiles[got.day-1];Kit.stop(tile);UI.opacity(tile.getChildByName('Body')!,.45);UI.check_badge(tile,[UI.rect(tile)[2]-44,44]);this.coin_flight(d.content,[540,UI.rect(tile)[1]+h/2],[792,96],()=>{const counter=d.content.getChildByName('Coins');if(counter)Kit.destroy(counter);UI.feather_bar(d.content,[736,48],this.profile.coins,this.callbacks.coins);this.sound('collect');Kit.after(d.node,.3,()=>this.rewards('daily_reward.title',got.coins,got.boosters,()=>{d.close();if(got.outfit)this.outfit_gift(got.outfit);},'pic_calendar'));});};
+    const take=(double:boolean)=>{if(busy)return;const got=Progress.claim_daily_reward(this.profile,Progress.today());if(!got.day)return;if(double){this.profile.coins+=got.coins;got.coins*=2;}busy=true;this.save();UI.enabled(claim,false);if(ad)UI.enabled(ad,false);const tile=tiles[got.day-1];Kit.stop(tile);UI.opacity(tile.getChildByName('Body')!,.45);UI.check_badge(tile,[UI.rect(tile)[2]-44,44]);this.coin_flight(d.content,[540,UI.rect(tile)[1]+h/2],[792,96],()=>{this.sound('collect');Kit.after(d.node,.3,()=>this.rewards('daily_reward.title',got.coins,got.boosters,()=>{d.close();if(got.outfit)this.outfit_gift(got.outfit);},'pic_calendar'));});};
     const claim=Kit.button(d.content,'Claim',[entry==='hidden'?325:94,1613,430,Kit.BUTTON_H],'white_claim',()=>take(false));UI.enabled(claim,available);
     const ad=entry==='hidden'?null:this.adButton(d.content,[556,1613,430,Kit.BUTTON_H],entry,()=>this.watch(Ads.DAILY_DOUBLE,()=>take(true)),'×2');return d;
   }

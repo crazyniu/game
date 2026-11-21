@@ -2,6 +2,8 @@ import { Node, Mask, EventTouch, EventMouse, Graphics, Color, UITransform, UIOpa
 import { UI, Rect, Point } from './UI';
 import { Art } from './Art';
 import { BirdView } from './BirdView';
+import { Flat, ON_DARK } from './Flat';
+import { word } from './I18n';
 import { Kit } from './Popups';
 import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
@@ -58,7 +60,6 @@ export class MapView {
     this.strip.on(Node.EventType.TOUCH_CANCEL,()=>{ this.pressed=false; this.showWorld(this.world); });
     this.strip.on(Node.EventType.MOUSE_WHEEL,(event:EventMouse)=>this.showWorld(this.world+(event.getScrollY()>0?-1:1)));
     this.play=Kit.button(this.node,'Play',[220,1432,640,Kit.PLAY_H],'white_play',()=>this.enter(this.world));
-    UI.art(this.play,`label_home_island_play_${Art.locale}`,[164,40,312,120]);
     this.bar=UI.group(this.node,'Bar'); this.buildBar(); this.showWorld(this.world,true);
   }
   private localPoint(event:EventTouch):Point {
@@ -81,7 +82,7 @@ export class MapView {
     const shade=UI.group(window,'NameShade',[0,852*.55,578,852*.45]).addComponent(Graphics),step=852*.45/128;
     for(let i=0;i<128;i++) { shade.fillColor=new Color(61,31,8,Math.round(255*.55*(i+.5)/128)); shade.rect(0,-step*(i+1),578,step); shade.fill(); }
     this.starProgress(card,world,[93,620,440,96]);
-    Kit.lettering(card,`world_${WORLD[world-1]}`,[126.2,754.4,373.6,103.76]);
+    Flat.text(card,word(`world_${WORLD[world-1]}`),[106,754,414,104],62,ON_DARK);
     const badge=UI.image(card,'world_medallion',[217,-84,192,192]); badge.name='WorldNumber'; Kit.number(badge,world,[51.84,53.76,88.32,80.64]);
     if(!Progress.is_world_unlocked(this.profile,world)) { UI.tint(window,'#9e9ea8'); shade.color=new Color('#9e9ea8'); UI.piece_fit(card,'island_padlock',[313,390],[220,220]); }
     else if(Progress.is_world_complete(this.profile,world)) UI.check_badge(card,[576,50]);
@@ -119,8 +120,7 @@ export class MapView {
     this.strip.active=false; this.play.active=false; this.pageNode=UI.group(this.node,'WorldPage'); this.pageNode.setSiblingIndex(this.bar.getSiblingIndex()); const page=this.pageNode;
     UI.image(page,world===1||world===Levels.WORLDS?`board_w${world}_open_bg`:`board_w${world}_bg`,[0,0,1080,1920]);
     Kit.sign(page,`world_${WORLD[world-1]}`,[240,96,600,209]);
-    const value=`${this.worldStars(world)}/${Levels.PER_WORLD*3}`,numbers=Art.pack().numbers;
-    const numberWidth=Array.from(value).reduce((width,c)=>width+Art.ink(`art/locale/${Art.locale}/${numbers.styles.brown.glyphs[c].replace(/\.png$/,'')}`)[2]+14,0)*44/numbers.cap;
+    const value=`${this.worldStars(world)}/${Levels.PER_WORLD*3}`,numberWidth=value.length*44*.6;
     this.starProgress(page,world,[540-(numberWidth+140)/2,300,numberWidth+140,72]);
     const previous=UI.button(page,'WorldPrevious','btn_world_previous',[24,934,112,112],()=>this.enter(world-1));
     const next=UI.button(page,'WorldNext','btn_world_next',[944,934,112,112],()=>this.enter(world+1));

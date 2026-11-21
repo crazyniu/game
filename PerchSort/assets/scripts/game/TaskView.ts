@@ -87,7 +87,7 @@ export class TaskView {
     if (done) Flat.card(n, 'f_card', [0, 0, r[2], r[3]], 240, 116); else Flat.card(n, 'f_block', [0, 0, r[2], r[3]], 240, 110);
     const [icon, content] = ICON[task.id];
     if (icon) UI.art(n, icon, [r[2] / 2 - 66, 22, 132, 132], content);
-    else Flat.text(n, '×2', [r[2] / 2 - 80, 30, 160, 116], 96, { color: '#FFD640', outline: '#C47400' });
+    else Flat.text(n, '×2', [r[2] / 2 - 120, 34, 160, 110], 84, { color: '#FFD640', outline: '#C47400' });
     // the points on an amber tag at the icon's corner
     const tag = UI.group(n, 'Points', [r[2] / 2 + 46, 24, 120, 58]);
     Flat.plateIn(tag, 'j_btn_amber', [0, 0, 120, 58]);
