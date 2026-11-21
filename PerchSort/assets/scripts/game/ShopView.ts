@@ -71,7 +71,7 @@ export class ShopView {
   private tap(it:CatalogItem):void {
     if(this.owned(it)){if(!this.equipped(it)&&Shop.equip(this.profile,it.id)===''){this.callbacks.sound?.('equip');this.callbacks.changed();this.refresh_balance();}return;}
     if(it.kind===Shop.BOOSTER){const popup=new Popups(this.node,this.profile,{save:()=>this.callbacks.changed(),play:()=>{},sound:this.callbacks.sound});const before=this.profile.inventory[it.booster!];popup.tool_purchase(it.booster!,()=>{this.callbacks.boosterPurchased?.(it.booster!,this.profile.inventory[it.booster!]-before);this.refresh_balance();});return;}
-    const d=Kit.purchase(this.node,'house_'+it.style,[500]);Kit.glow(d.content,[290,d.ys[0],500,500]);this.picture(d.content,it,[290,d.ys[0],500,500]);const buy=Kit.button(d.content,'Buy',[200,d.actionY,680,162],'',()=>{if(Shop.purchase(this.profile,it.id)!=='')return;this.callbacks.sound?.('collect');this.callbacks.changed();d.close();this.refresh_balance();},'wide');Kit.price(buy,[680,162],it.price);UI.enabled(buy,this.profile.coins>=it.price);
+    const d=Kit.purchase(this.node,'house_'+it.style,[500]);Kit.glow(d.content,[290,d.ys[0],500,500]);this.picture(d.content,it,[290,d.ys[0],500,500]);const buy=Kit.button(d.content,'Buy',[200,d.actionY,680,Kit.BUTTON_H],'',()=>{if(Shop.purchase(this.profile,it.id)!=='')return;this.callbacks.sound?.('collect');this.callbacks.changed();d.close();this.refresh_balance();},'wide');Kit.price(buy,[680,Kit.BUTTON_H],it.price);UI.enabled(buy,this.profile.coins>=it.price);
   }
   open_outfits(species:string):AviaryView {
     this.page.active=false;

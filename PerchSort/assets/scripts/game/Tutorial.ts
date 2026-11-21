@@ -102,7 +102,7 @@ export class Tutorial {
     this.caption(this.lesson ? `lesson.${this.lesson}.line` : LINES[this.step],this.modal.ys[1]);
     if (!this.lesson) for(let i=0;i<4;i++) UI.fill(this.layer,'StepDot',[462+i*44,this.modal.ys[2],24,24],i===this.step?'#5ebc35':'#b8ae8f',12);
     const word = this.lesson ? '' : this.step === 3 ? 'white_play' : 'white_tutorial_next';
-    const button = Kit.button(this.layer,this.lesson?'GotIt':this.step===3?'Play':'Next',[200,this.modal.actionY,680,162],word,()=>this.lesson||this.step===3?this.close():this.show_step(this.step+1),'wide');
+    const button = Kit.button(this.layer,this.lesson?'GotIt':this.step===3?'Play':'Next',[200,this.modal.actionY,680,Kit.BUTTON_H],word,()=>this.lesson||this.step===3?this.close():this.show_step(this.step+1),'wide');
     if (this.lesson) UI.word(button,'action.got_it',[108.8,32.4,462.4,97.2],'white');
     if (this.instant) this.pose_still();
     else { UI.opacity(this.layer,0); tween(this.layer.getComponent(UIOpacity)!).to(.2,{opacity:255}).start(); void this.loop(this.run); }

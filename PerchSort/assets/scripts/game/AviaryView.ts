@@ -86,7 +86,7 @@ export class AviaryView {
   confirm_outfit(id:string):void {
     if(this.node.getChildByName('Purchase'))return;const it=Shop.item(id)!,d=Kit.purchase(this.node,id.replace(/\./g,'_'),[500]);
     Kit.glow(d.content,[290,d.ys[0],500,500]);Kit.liveBird(d.content,this.species,[306,d.ys[0]+16,468,468],`${this.species}_outfit_${it.index}`);
-    const buy=Kit.button(d.content,'Buy',[200,d.actionY,680,162],'',()=>{if(Shop.purchase(this.profile,id)!=='')return;this.callbacks.sound?.('collect');d.close();this.refresh_balance();this.equip(id);},'wide');Kit.price(buy,[680,162],it.price);UI.enabled(buy,this.profile.coins>=it.price);
+    const buy=Kit.button(d.content,'Buy',[200,d.actionY,680,Kit.BUTTON_H],'',()=>{if(Shop.purchase(this.profile,id)!=='')return;this.callbacks.sound?.('collect');d.close();this.refresh_balance();this.equip(id);},'wide');Kit.price(buy,[680,Kit.BUTTON_H],it.price);UI.enabled(buy,this.profile.coins>=it.price);
   }
   static preview(host:Node,state:string,callbacks:PageCallbacks):AviaryView {
     const p=new Profile();p.coins=state==='detail_maximum'?99999:400;Aviary.SPECIES.forEach(([id])=>p.met[id]=true);
