@@ -6,7 +6,9 @@
 - `Art.ts` cuts frames from sheets; `BirdView` and `UI.silhouette` follow; `paint_frames.plain_image` reads sheets.
 
 ## Evidence
-- Not yet built or run; see the open items.
+- Mac worktree `game-bird-sheets`: `./run.sh build` exit 0; `scripts/capture.sh` (WEB_PORT=8772) for level 1, level 30, home, aviary
+  (met and unmet), shop: every capture rc 0 (the script fails on any Art load error). Captures (local, not committed) show birds standing
+  on their branches as before and the unmet silhouettes with their full rim.
 
 ## Open
-- Build web-mobile on the Mac and check birds on the board, home, aviary (including unmet silhouettes), shop and the propeller skin.
+- Owner review on device: flight, hop and cheer motion, skins in the aviary and on the board, the propeller skin.
