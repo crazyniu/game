@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "9e814322-f8fd-5c18-b04c-0b6c9902aded",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "9e814322-f8fd-5c18-b04c-0b6c9902aded@6c48a",
+      "displayName": "ptarmigan_outfit_2",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "9e814322-f8fd-5c18-b04c-0b6c9902aded",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "9e814322-f8fd-5c18-b04c-0b6c9902aded@f9941",
+      "displayName": "ptarmigan_outfit_2",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1953,
+        "height": 733,
+        "rawWidth": 1953,
+        "rawHeight": 733,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "9e814322-f8fd-5c18-b04c-0b6c9902aded@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -976.5,
+            -366.5,
+            0,
+            976.5,
+            -366.5,
+            0,
+            -976.5,
+            366.5,
+            0,
+            976.5,
+            366.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            733,
+            1953,
+            733,
+            0,
+            0,
+            1953,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -976.5,
+            -366.5,
+            0
+          ],
+          "maxPos": [
+            976.5,
+            366.5,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "9e814322-f8fd-5c18-b04c-0b6c9902aded@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}

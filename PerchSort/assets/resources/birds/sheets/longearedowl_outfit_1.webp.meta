@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e@6c48a",
+      "displayName": "longearedowl_outfit_1",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e@f9941",
+      "displayName": "longearedowl_outfit_1",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1894,
+        "height": 808,
+        "rawWidth": 1894,
+        "rawHeight": 808,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -947,
+            -404,
+            0,
+            947,
+            -404,
+            0,
+            -947,
+            404,
+            0,
+            947,
+            404,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            808,
+            1894,
+            808,
+            0,
+            0,
+            1894,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -947,
+            -404,
+            0
+          ],
+          "maxPos": [
+            947,
+            404,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "ac5f918d-336a-5c45-b4d9-ca8de6d43f5e@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}

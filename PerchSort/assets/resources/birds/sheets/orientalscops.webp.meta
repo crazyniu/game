@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af@6c48a",
+      "displayName": "orientalscops",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af@f9941",
+      "displayName": "orientalscops",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1966,
+        "height": 1073,
+        "rawWidth": 1966,
+        "rawHeight": 1073,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -983,
+            -536.5,
+            0,
+            983,
+            -536.5,
+            0,
+            -983,
+            536.5,
+            0,
+            983,
+            536.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            1073,
+            1966,
+            1073,
+            0,
+            0,
+            1966,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -983,
+            -536.5,
+            0
+          ],
+          "maxPos": [
+            983,
+            536.5,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "c241b4e2-b4c9-50ab-a2d4-e0128f04a7af@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}

@@ -1,74 +1,85 @@
 #!/usr/bin/env python3
-"""paint_skin.py <species> <slot> [--workers N] [frame...]: Codex paints every frame of one skin.
+"""paint_skin.py <species> <slot> [--workers N] [frame...]: Codex paints all frames of one skin in a single picture.
 
-One local Codex job per frame: input 1 = the plain frame (1024), input 2 = the approved reference of the costumed bird
-(out/ref_<species>_<slot>.png). Result: out/<species>_<slot>_<frame>_worn.png. Resumable: frames with an output are skipped.
-Run from the repository root.
+The nine plain frames of the skin set are laid out as a 3x3 sheet with an empty border round each frame (input 1); input 2, when it exists, is a
+reference of the costumed bird (out/ref_<species>_<slot>.png); without it the costume text of the skin table alone designs the costume, and the nine
+cells of one painting agree with each other. One Codex painting dresses every cell; the frame area of each cell is cut, cleaned of stray specks and written as
+out/<species>_<slot>_<frame>_worn.png, the format align.py reads. Only missing frames are written, so a repaint of flagged frames costs one
+painting. --workers is accepted for run_skins.py and ignored. Run from the repository root with numpy, scipy and pillow.
 """
-import glob, os, shutil, subprocess, sys, threading, queue
+import glob, os, shutil, subprocess, sys
+import numpy as np
 from PIL import Image
-
-
-def run_codex(cmd, **kw):
-    try:
-        subprocess.run(cmd, timeout=1500, **kw)
-    except subprocess.TimeoutExpired:
-        pass
+from scipy import ndimage
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from paint_frames import SKIN_FRAMES, BIRDS, D, ROOT, plain_image
+from paint_frames import SKIN_FRAMES, D, ROOT, plain_image
 from refs import skins
 
-HEAD = ("Edit the first input image: one frame of a cartoon plush bird. The second input image shows the same bird from the front "
-        "wearing a costume. Use your image generation tool once to paint the SAME bird in exactly the same pose, position, size, framing, "
-        "head angle, body tilt, wing and feet positions, eyes, eyelids, beak and lighting as the first image, now wearing the costume "
-        "exactly as designed in the second image (same shapes, panels, colours, trims and size relative to the body), seen from THIS "
-        "frame's angle: when the head turns, tilts, bows or lifts, the head part of the costume turns, tilts, bows or lifts with it; "
-        "when the wings move, any sleeve or trim on them moves with them. The costume is worn on the body only and follows its shape. "
-        "The bird's face, eyes, eyelids, beak and feet stay exactly as in the first image. Exactly one bird, no ground shadow, no motion "
-        "blur, no extra copies, no props, nothing floating around the bird, no leaves, petals, sparkles or glow. Keep the whole bird "
-        "inside the picture with margin, fully transparent background. ")
+CELL = 512
+FRAME = 400   # each plain frame sits in the middle of its cell; the empty border keeps neighbouring birds apart
+SHEET = ("Edit the first input image: a 3x3 sheet of nine animation frames of one cartoon plush bird, one frame per cell, read left to right, top to "
+         "bottom. %s Use your image generation tool once to paint the SAME 3x3 sheet: keep the grid, keep every cell's pose, position, size, head angle, "
+         "body tilt, wing and feet positions, eyes, eyelids, beak and lighting exactly as in the first image, every bird exactly the same size as in its "
+         "cell of the first image (never enlarged to fill the cell), now with the bird in every cell wearing the costume %s, seen from that cell's angle; "
+         "when the wings move, any sleeve or trim on them moves with them. The costume is identical in all nine cells and worn on the body only: it sits "
+         "on the head, face frame, chest and back and follows the round body. The bird's face, eyes, eyelids, beak and feet stay exactly as in the first "
+         "image. Each bird stays fully inside its own cell with margin; nothing crosses into another cell. No grid lines, no borders, no ground shadow, "
+         "no motion blur, no extra copies, no props, nothing floating around the birds, no leaves, petals, sparkles or glow, fully transparent "
+         "background. Costume %s: %s. Palette: %s.")
+WITH_REF = ("The second input image shows the same bird from the front wearing a costume.",
+            "exactly as designed in the second image (same shapes, panels, colours, trims, size relative to the body)")
+NO_REF = ("", "described below, clearly different in colour and shape from the plain bird")
+
+
+def clean(cell):
+    """Keep the bird: the largest blob of solid alpha and what touches it; faint specks and loose bits elsewhere become transparent."""
+    px = np.array(cell)
+    solid = px[..., 3] > 40
+    lab, n = ndimage.label(ndimage.binary_dilation(solid, iterations=3))
+    if n:
+        keep = lab == 1 + int(np.argmax(ndimage.sum(solid, lab, range(1, n + 1))))
+        px[~keep | (px[..., 3] <= 24)] = 0
+    return Image.fromarray(px, "RGBA")
 
 
 def main():
     args = sys.argv[1:]
-    workers = 12
     if "--workers" in args:
-        i = args.index("--workers"); workers = int(args[i + 1]); del args[i:i + 2]
-    species, slot = args[0], args[1]; only = args[2:]
+        i = args.index("--workers"); del args[i:i + 2]
+    species, slot = args[0], args[1]
     spec = next(s for s in skins() if s["species"] == species and s["slot"] == int(slot))
     ref = "%s/out/ref_%s_%s.png" % (D, species, slot)
-    assert os.path.exists(ref), "no approved reference " + ref
-    os.makedirs(D + "/src/frames", exist_ok=True)
-    jobs = queue.Queue()
-    for f in only or SKIN_FRAMES:
-        out = "%s/out/%s_%s_%s_worn.png" % (D, species, slot, f)
-        if os.path.exists(out):
-            continue
-        src = "%s/src/frames/%s_%s.png" % (D, species, f)
-        if not os.path.exists(src):
-            plain_image(species, f).resize((1024, 1024), Image.LANCZOS).save(src)
-        jobs.put((f, src, out))
-    print("jobs", jobs.qsize(), flush=True)
-
-    def work():
-        while True:
-            try:
-                f, src, out = jobs.get_nowait()
-            except queue.Empty:
-                return
-            log = out[:-4] + ".log"
-            with open(log, "w") as fh:
-                run_codex(["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
-                                "-C", ROOT, "-i", src, "-i", ref, "--", HEAD + "Costume %s: %s. Palette: %s." % (spec["name"], spec["text"], spec["palette"])],
-                               stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT)
-            sid = next((l.split()[2] for l in open(log, errors="ignore") if l.startswith("session id:")), "")
-            imgs = sorted(glob.glob(os.path.expanduser("~/.codex/generated_images/%s/*.png" % sid)), key=os.path.getmtime)
-            if imgs:
-                shutil.copy(imgs[-1], out)
-            print("%s %s (%d left)" % (f, "ok" if imgs else "FAILED", jobs.qsize()), flush=True)
-
-    ts = [threading.Thread(target=work) for _ in range(workers)]
-    [t.start() for t in ts]; [t.join() for t in ts]
+    has_ref = os.path.exists(ref)
+    out = lambda f: "%s/out/%s_%s_%s_worn.png" % (D, species, slot, f)
+    todo = [f for f in (args[2:] or SKIN_FRAMES) if not os.path.exists(out(f))]
+    if not todo:
+        return
+    stem = "%s/out/%s_%s_sheet" % (D, species, slot)
+    grid = Image.new("RGBA", (CELL * 3, CELL * 3), (0, 0, 0, 0))
+    for i, f in enumerate(SKIN_FRAMES):
+        grid.alpha_composite(plain_image(species, f).resize((FRAME, FRAME), Image.LANCZOS), ((i % 3) * CELL + (CELL - FRAME) // 2, (i // 3) * CELL + (CELL - FRAME) // 2))
+    grid.save(stem + "_plain.png")
+    with open(stem + ".log", "w") as fh:
+        try:
+            subprocess.run(["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox", "-C", ROOT, "-i", stem + "_plain.png"]
+                           + (["-i", ref] if has_ref else []) + ["--", SHEET % ((WITH_REF if has_ref else NO_REF) + (spec["name"], spec["text"], spec["palette"]))],
+                           stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT, timeout=1500)
+        except subprocess.TimeoutExpired:
+            pass
+    sid = next((l.split()[2] for l in open(stem + ".log", errors="ignore") if l.startswith("session id:")), "")
+    imgs = sorted(glob.glob(os.path.expanduser("~/.codex/generated_images/%s/*.png" % sid)), key=os.path.getmtime)
+    if not imgs:
+        print("%s_%s FAILED" % (species, slot), flush=True)
+        return
+    shutil.copy(imgs[-1], stem + ".png")
+    sheet = Image.open(stem + ".png").convert("RGBA")
+    w, h = sheet.size
+    for f in todo:
+        i = SKIN_FRAMES.index(f)
+        cx, cy, half = (i % 3 + 0.5) * w / 3, (i // 3 + 0.5) * h / 3, FRAME / CELL * w / 6
+        cell = sheet.crop((round(cx - half), round(cy - half), round(cx + half), round(cy + half)))
+        clean(cell.resize((1024, 1024), Image.LANCZOS)).save(out(f))
+    print("%s_%s ok (%d frames)" % (species, slot, len(todo)), flush=True)
 
 
 if __name__ == "__main__":

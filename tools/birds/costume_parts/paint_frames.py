@@ -38,12 +38,10 @@ FRAME_SETS = {'skin': SKIN_FRAMES, 'world': WORLD_FRAMES}
 
 
 def plain_image(species, frame):
-    """The plain frame of a bird as RGBA, whichever of PNG or WebP the resources hold."""
-    for ext in (".png", ".webp"):
-        path = os.path.join(BIRDS, "%s_%s%s" % (species, frame, ext))
-        if os.path.exists(path):
-            return Image.open(path).convert("RGBA")
-    raise FileNotFoundError("no frame %s_%s" % (species, frame))
+    """The plain frame of a bird as RGBA, from a single file or from the bird's sheet."""
+    sys.path.insert(0, os.path.join(ROOT, "tools/birds"))
+    from pack_sheets import frame_image
+    return frame_image("%s_%s" % (species, frame))
 
 
 def frames_of(species):
