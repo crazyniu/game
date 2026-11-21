@@ -2,6 +2,7 @@ import { Board, Booster } from '../core/Board';
 import { Levels, LevelDefinition } from '../core/Levels';
 import { GameSession } from '../core/GameSession';
 import type { Profile } from './Profile';
+import { Tasks } from './Tasks';
 export type RandomSource = () => number;
 export type Reward = Record<string, any>;
 export class Progress {
