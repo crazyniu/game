@@ -1,6 +1,6 @@
 import type { Profile } from './Profile';
 import { Progress } from './Progress';
-import { Aviary } from './Aviary';
+import { Worlds } from './Worlds';
 export interface ShopItem { id: string; kind: number; price: number; quantity: number; booster?: number; species?: string; style?: string; index?: number }
 export class Shop {
   static readonly BOOSTER = 0;
@@ -8,7 +8,6 @@ export class Shop {
   static readonly HOUSE = 2;
   static readonly HOUSE_STYLES = ['mushroom', 'teapot', 'lantern', 'acorn', 'pumpkin', 'beehive', 'teacup', 'pinecone', 'cage'];
   static readonly OUTFIT_PRICES = [300, 500, 800, 1000, 1300];
-  static readonly OUTFIT_COUNT = 5;
   private static items: ShopItem[] = [];
   static catalog(): ShopItem[] {
     if (!this.items.length) {
@@ -16,7 +15,7 @@ export class Shop {
         this.items.push({ id: 'booster.' + id, kind: this.BOOSTER, price, quantity: 1, booster: kind });
         this.items.push({ id: 'booster.' + id + '.x3', kind: this.BOOSTER, price: Math.floor((price * 5 + 1) / 2), quantity: 3, booster: kind });
       }
-      for (const [species] of Aviary.SPECIES) if (species !== 'crow') for (let index = 1; index <= this.OUTFIT_COUNT; index++) this.items.push({ id: `outfit.${species}.${index}`, kind: this.OUTFIT, price: this.OUTFIT_PRICES[index - 1], quantity: 1, species, index });
+      for (let world = 1; world <= Worlds.COUNT; world++) for (const species of Worlds.birds(world)) for (let index = 1; index <= Worlds.skins(species); index++) this.items.push({ id: `outfit.${species}.${index}`, kind: this.OUTFIT, price: this.OUTFIT_PRICES[index - 1], quantity: 1, species, index });
       for (const style of this.HOUSE_STYLES) this.items.push({ id: 'house.' + style, kind: this.HOUSE, price: 600, quantity: 1, style });
     }
     return this.items;
@@ -40,7 +39,7 @@ export class Shop {
     if (id === 'house.default') { p.equipped_house = 'default'; return ''; }
     if (id.startsWith('outfit.') && id.endsWith('.default')) {
       const species = id.slice(7, -8);
-      if (!Aviary.has_species(species) || species === 'crow') return 'unknown';
+      if (!Worlds.skins(species)) return 'unknown';
       delete p.equipped[species]; return '';
     }
     const item = this.item(id);

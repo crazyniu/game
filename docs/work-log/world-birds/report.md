@@ -61,3 +61,15 @@ layered costume, but it is the same limit: no two paintings are identical.
   clickable shell approved first.
 - Seen while reviewing (painting of the plain bird, not of the skins): some plain flight frames of world birds are cut at the frame edge
   (for example `mallard_flight_flap_03`).
+
+## World-bird skins in the game, standing frames
+- Shop catalog sells three skins per world bird (`Worlds.skins`, `Worlds.design`); the aviary detail page shows them (four tiles, two by
+  two); the shop skin tab switches worlds like the aviary; the purchase title is the design's painted name. The 45 design names were
+  painted again (EN/ZH, `skin_names.tsv`) because the world-1 titles still named the retired overlay skins.
+- The board's species keys under the house show the world's birds (they showed world-1 faces in every world).
+- `tools/birds/register_standing.py` checks every bird's and skin's standing frames: blink frames against the front, a skin's front
+  against its bird's front. 397 frames of world birds and their skins were drawn at another size or height (the bird jumped or floated when
+  it blinked); they are resampled onto the front. The world-1 birds were already consistent. A second pass finds nothing left.
+- `magpie_1` (painted frame by frame before the sheet method) was drawn too small and floated; repainted as one sheet.
+- Self-test (Mac build, `scripts/capture.sh`, 180 captures: boards of every world with every skin tier, the aviary detail of all 90 birds,
+  the shop skin tab of every world, purchase titles EN/ZH): all load without Art errors; birds and skins stand on their branches and perches.

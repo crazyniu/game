@@ -455,7 +455,7 @@ export class BoardView {
     UI.place(this.skillRow,[540-width/2,house[1]+house[3]+14,width,side]);
     names.forEach((species,i)=>{
       const key=UI.group(this.skillRow,`Key_${species}`,[i*(side+14),0,side,side]);
-      UI.art(key,'hud_tool_slot',[0,0,side,side]); UI.art(key,`${species}_face`,[side*.11,side*.11-2,side*.78,side*.78]);
+      UI.art(key,'hud_tool_slot',[0,0,side,side]); UI.art(key,`${Worlds.look(this.state.world,species)}_face`,[side*.11,side*.11-2,side*.78,side*.78]);
       const gift=BoardView.GIFT_COIN[species]; if(gift)UI.art(key,`gift_coin_${gift}`,[side*.648,side*.648,side*.44,side*.44]);
       if(fresh.goal_mask)UI.art(key,'pic_check_ring',[-side*.12,-side*.12,side*.42,side*.42]);
       const mark=UI.art(key,'pic_check',[-side*.12,-side*.12,side*.42,side*.42]);mark.name='Home';mark.active=false;
