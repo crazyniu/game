@@ -90,7 +90,7 @@ export class Kit {
     Flat.text(box,String(value),[x+feather+gap,Flat.face(size[1])-fs*.7,width+fs,fs*1.4],fs,onTone('green'),-1); return box;
   }
   static panel(parent:Node,rect:Rect):Node { return Flat.card(parent,'f_card',rect,240,116); }
-  static close(parent:Node,at:Point,action:()=>void,back=false):Node { return Flat.key(parent,back?'Back':'Close',[at[0],at[1],120,120],back?'blue':'red',back?'f_g_back':'f_g_x',action,.5); }
+  static close(parent:Node,at:Point|Rect,action:()=>void,back=false):Node { return Flat.key(parent,back?'Back':'Close',[at[0],at[1],at[2]??120,at[3]??120],back?'blue':'red',back?'f_g_back':'f_g_x',action,.5); }
   /** A title on a blue plate, centred where the painted sign used to be. */
   static sign(parent:Node,key:string,rect:Rect):Node { return Flat.title(parent,word(key),rect[0]+rect[2]/2,rect[1]+rect[3]*.6); }
   static simpleWord(parent:Node,id:string,style:string,anchor:Point,cap:number,align=0):Node {
@@ -133,7 +133,7 @@ export class Kit {
   }
   /** A sub-page (fishsort): back key top left and the title plate; no balance bar. */
   static page(host:Node,name:string,title:string,_balance?:number,onClose?:()=>void,_coins?:()=>void):Dialog {
-    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Flat.title(d.content,word(title),540,170); Kit.close(d.content,[32,52],d.close,true);
+    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Flat.title(d.content,word(title),540,Flat.HEAD_Y,115,640); Kit.close(d.content,[32,Flat.HEAD_Y-64,128,128],d.close,true);
     return d;
   }
   static glow(parent:Node,rect:Rect):void { const glow=UI.image(parent,'glow_soft',[rect[0]-rect[2]*.22,rect[1]-rect[3]*.22,rect[2]*1.44,rect[3]*1.44]); UI.opacity(glow,.65); }

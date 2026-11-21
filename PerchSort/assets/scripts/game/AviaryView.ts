@@ -29,8 +29,8 @@ export class AviaryView {
   destroy():void { Kit.destroy(this.node); }
   private reset():void { if(this.page)Kit.destroy(this.page);this.page=UI.group(this.node,'Page');this.coins=undefined;this.hero=undefined; }
   private outfit(species:string):string { const id=this.profile.equipped[species];return id?`${species}_outfit_${id.split('.')[2]}`:''; }
-  private navigation(back:boolean,action:()=>void):void {const key=back?'btn_forest_back':'btn_purchase_close',size=Art.size(key),ink=Art.ink(key),height=133.07;Kit.close(this.page,[48,119-(ink[1]+ink[3]/2)*height/size[1]],action,back);}
-  private title(key:string,rect:Rect):void { Flat.title(this.page,word(key),rect[0]+rect[2]/2,119,115,560); }
+  private navigation(back:boolean,action:()=>void):void {const key=back?'btn_forest_back':'btn_purchase_close',size=Art.size(key),ink=Art.ink(key),height=133.07;Kit.close(this.page,[32,Flat.HEAD_Y-64,128,128],action,true);}
+  private title(key:string,rect:Rect):void { Flat.title(this.page,word(key),540,Flat.HEAD_Y,115,560); }
   show_list():void {
     this.species='';this.reset();
     const ids=this.world_ids(this.world),top=232,view=1696-top;

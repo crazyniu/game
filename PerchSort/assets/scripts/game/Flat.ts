@@ -22,6 +22,8 @@ const ART = 'art/flat/';
 
 export class Flat {
   static readonly K = 1080 / 750;
+  /** Centre line of a page header: the back key on the left and the title plate share it (fishsort). */
+  static readonly HEAD_Y = 112;
   /** Plate pictures (buttons, label plates, the capsule) are 376 x 300 with 186-pixel round ends. */
   private static readonly PLATE: [number, number, number] = [376, 300, 186];
   static font: Font | null = null;

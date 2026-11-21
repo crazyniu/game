@@ -119,7 +119,7 @@ export class MapView {
     this.stopScroll(); if(this.pageNode)Kit.destroy(this.pageNode); this.world=world; this.page=true; this.pressed=false;
     this.strip.active=false; this.play.active=false; this.pageNode=UI.group(this.node,'WorldPage'); this.pageNode.setSiblingIndex(this.bar.getSiblingIndex()); const page=this.pageNode;
     UI.image(page,world===1||world===Levels.WORLDS?`board_w${world}_open_bg`:`board_w${world}_bg`,[0,0,1080,1920]);
-    Kit.sign(page,`world_${WORLD[world-1]}`,[240,96,600,209]);
+    Flat.title(page,word(`world_${WORLD[world-1]}`),540,Flat.HEAD_Y,115,640);
     const value=`${this.worldStars(world)}/${Levels.PER_WORLD*3}`,numberWidth=value.length*44*.6;
     this.starProgress(page,world,[540-(numberWidth+140)/2,300,numberWidth+140,72]);
     const previous=UI.button(page,'WorldPrevious','btn_world_previous',[24,934,112,112],()=>this.enter(world-1));
