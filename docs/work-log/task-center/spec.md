@@ -41,3 +41,14 @@ Every screen follows fishsort's flat style: `game/Flat.ts` (buttons, plates, car
 title plate), the KN Maiyuan game font, and twelve languages from `i18n/strings.csv` (`game/I18n.ts`; WeChat carries zh_CN and en).
 No painted words or digits remain except the Bird Sort sign. The shared `Kit` helpers map earlier painted ids to text keys
 (`I18n.wordKey`). Paid feather packs are gone; the plus key opens free feathers for an ad. The game is named Bird Sort.
+
+## Level kinds, combo goals, first three stars, feature levels (from fishsort)
+
+- Kinds: every world's 7th and 14th level is hard, its 21st super hard (`Progress.kind`); orange and purple tags with the flame on the
+  HUD, level card, map tiles and win page; first clears pay x1.5 and x2.
+- Combo goal (`Progress.combo_goal`): three quarters of the longest run of flocks home in the level's stored route, from level 6, at
+  least x2; shown under the HUD status; reaching it on a first clear pays 20 / 40 / 60 feathers by kind.
+- First three stars on a level: 30 feathers and one tool, a medal cell on the win page.
+- Features open by level (`Progress.FEATURES`): check-in 3, album 4, lucky draw 6, tasks 8, star chest 10. Locked entries are grey with
+  a lock and the level; a tap says which level opens it; the win that opens one shows a new-feature popup; the daily popup waits for
+  check-in.
