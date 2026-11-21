@@ -11,6 +11,7 @@ import { Progress } from '../meta/Progress';
 import { UI, Point, Rect } from './UI';
 import { Art } from './Art';
 import { BirdView } from './BirdView';
+import { Flat, ON_DARK } from './Flat';
 
 export interface BoardCallbacks {
   settle(session: GameSession): void;
@@ -422,16 +423,9 @@ export class BoardView {
     this.resident=BirdView.create(this.doorway,bird,this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant,outfit:this.outfitOf(bird)});
   }
   private doorPoint(): Point { return [this.doorRect[0]+this.doorRect[2]/2,this.doorRect[1]+this.doorRect[3]/2]; }
-  private glyph(character: string): string { return `digit_ui_${({'+':'plus','/':'slash','×':'x'} as Record<string,string>)[character] || character}`; }
-  private numberWidth(value:string,height:number): number {
-    return Array.from(value).reduce((sum,c)=>{const [w,h]=Art.size(this.glyph(c));return sum+w*height/h+height*.02;},-height*.02);
-  }
-  private number(parent:Node,value:string,rect:Rect,align=0):Node {
-    const node=UI.group(parent,'Digits',rect),height=Math.min(rect[3],rect[3]*rect[2]/this.numberWidth(value,rect[3]));
-    let x=(rect[2]-this.numberWidth(value,height))*(.5+.5*align); const y=(rect[3]-height)/2;
-    for(const c of value){const [w,h]=Art.size(this.glyph(c)),width=w*height/h; UI.image(node,this.glyph(c),[x,y,width,height]);x+=width+height*.02;}
-    return node;
-  }
+  /** Numbers in the game font, white with a navy outline (digits are about 0.6 of the size wide). */
+  private numberWidth(value:string,height:number): number { return value.length*height*.6; }
+  private number(parent:Node,value:string,rect:Rect,align=0):Node { return Flat.text(parent,value,rect,Math.round(rect[3]*.95),ON_DARK,align).node.parent!; }
   private statusWidth():number { return 60+3*46+4+14+46+6+this.numberWidth('88',44); }
   private hudPill(parent:Node,width:number,height:number):void {
     const end=320*height/532;

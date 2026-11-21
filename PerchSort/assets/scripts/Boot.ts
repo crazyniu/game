@@ -238,9 +238,9 @@ export class Boot extends Component{
     chests:Tasks.DAY_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.chests.includes(i)})),
     weekChests:Tasks.WEEK_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.weekChests.includes(i),outfit:c.skin&&skin?skin:undefined})),
     tasks:Tasks.DAILY.map(d=>({id:d.id,done:t.done[d.id]??0,target:d.target,points:d.points,claimed:t.claimed.includes(d.id)}))};},
-   claim:id=>{Tasks.claim(p,id,today());this.save();},
    open:(weekly,i)=>{const prize=Tasks.open(p,weekly,i,today())!;this.save();return {at:0,coins:prize.coins,boosters:prize.boosters,outfit:prize.outfit||undefined,opened:true};},
-  },p.coins,()=>{if(this.screen instanceof HomeView)this.screen.refresh();},()=>this.coinShop());
+   go:id=>{if(id==='draw')this.popups.lucky_draw();else this.open_board(Progress.resume_level(p));},
+  },()=>{if(this.screen instanceof HomeView)this.screen.refresh();});
  }
  /** Free feathers for an ad; without ads there is nowhere to get more, so nothing opens. */
  coinShop():void{if(this.adEntry(Ads.FREE_COINS)!=='hidden')this.popups.coin_shop();}

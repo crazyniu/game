@@ -49,13 +49,11 @@ export class UI {
   static painted(parent:Node,id:string,r:Rect,align=0):Node{const light=/^(brown_|row_|tab_|cap_|caption_)/.test(id);return Flat.text(parent,word(id.replace(/^(brown|caption|gold|white)_/,'')),r,Math.round(Math.min(r[3]*.75,72)),light?ON_LIGHT:ON_DARK,align).node.parent!;}
   static number(parent:Node,value:string|number,r:Rect,style='brown',align=0):Node{const n=this.group(parent,'Number',r);numbers.set(n,{style,align,digits:false});this.set_number(n,String(value));return n;}
   static digits(parent:Node,value:string|number,r:Rect):Node{const n=this.group(parent,'Digits',r);numbers.set(n,{style:'cream',align:0,digits:true});this.set_number(n,String(value));return n;}
+  /** Numbers in the game font: brown is navy on light cards, cream and white are white with a navy outline, gold is yellow with an amber outline. */
   static set_number(n:Node,value:string|number,style?:string):void{
-    this.clear(n);const config=numbers.get(n)!;if(style)config.style=style;const r=this.rect(n),v=String(value);
-    const names=Array.from(v).map(c=>config.digits?`icon_home_island_digit_${c}`:`art/locale/${Art.locale}/${Art.pack().numbers.styles[config.style==='white'?'cream':config.style].glyphs[c].replace(/\.png$/,'')}`);
-    if(!names.length)return;
-    if(config.digits){const cell=Art.size(names[0]),k=Math.min(r[2]/(cell[0]*names.length),r[3]/cell[1]);const top=Math.min(...names.map(name=>Art.ink(name)[1])),bottom=Math.max(...names.map(name=>Art.ink(name)[1]+Art.ink(name)[3])),h=bottom-top;names.forEach((name,i)=>this.image(n,name,[(r[2]-cell[0]*names.length*k)/2+i*cell[0]*k,r[3]/2-(top+h/2)*k,cell[0]*k,cell[1]*k]));return;}
-    const inks=names.map(name=>Art.ink(name)),width=inks.reduce((sum,c)=>sum+c[2]+14,0),k=Math.min(r[2]/width,r[3]/128);let x=(r[2]-width*k)*(.5+.5*config.align);
-    names.forEach((name,i)=>{const s=Art.size(name);this.image(n,name,[x+(7-inks[i][0])*k,(r[3]-128*k)/2,s[0]*k,128*k]);x+=(inks[i][2]+14)*k;});
+    this.clear(n);const config=numbers.get(n)!;if(style)config.style=style;const r=this.rect(n),v=String(value).replace(/x/g,'×');if(!v)return;
+    const ink=config.style==='brown'?ON_LIGHT:config.style==='gold'?{color:'#FFD640',outline:'#C47400'}:ON_DARK;
+    Flat.text(n,v,[0,0,r[2],r[3]],Math.round(r[3]*.9),ink,config.align);
   }
   static hit_area(parent:Node,name:string,r:Rect,action:()=>void):Node{
     const n=this.group(parent,name,r);actions.set(n,action);let start=new Vec2(),drag=0;

@@ -265,7 +265,8 @@
   "OUTFIT_HOOT_4": "熊猫",
   "OUTFIT_HOOT_5": "幽灵",
   "UI_NEXT_LEVEL": "下一关",
-  "UI_CLAIM": "领取"
+  "UI_CLAIM": "领取",
+  "TASK_GO": "前往"
  },
  "en": {
   "UI_PLAY": "Play",
@@ -533,7 +534,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Ghost",
   "UI_NEXT_LEVEL": "Next",
-  "UI_CLAIM": "Claim"
+  "UI_CLAIM": "Claim",
+  "TASK_GO": "Go"
  },
  "zh_TW": {
   "UI_PLAY": "開始",
@@ -801,7 +803,8 @@
   "OUTFIT_HOOT_4": "熊貓",
   "OUTFIT_HOOT_5": "幽靈",
   "UI_NEXT_LEVEL": "下一關",
-  "UI_CLAIM": "領取"
+  "UI_CLAIM": "領取",
+  "TASK_GO": "前往"
  },
  "ja": {
   "UI_PLAY": "スタート",
@@ -1069,7 +1072,8 @@
   "OUTFIT_HOOT_4": "パンダ",
   "OUTFIT_HOOT_5": "おばけ",
   "UI_NEXT_LEVEL": "次へ",
-  "UI_CLAIM": "受け取る"
+  "UI_CLAIM": "受け取る",
+  "TASK_GO": "GO"
  },
  "ko": {
   "UI_PLAY": "시작",
@@ -1337,7 +1341,8 @@
   "OUTFIT_HOOT_4": "판다",
   "OUTFIT_HOOT_5": "유령",
   "UI_NEXT_LEVEL": "다음",
-  "UI_CLAIM": "받기"
+  "UI_CLAIM": "받기",
+  "TASK_GO": "가기"
  },
  "de": {
   "UI_PLAY": "Spielen",
@@ -1605,7 +1610,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Gespenst",
   "UI_NEXT_LEVEL": "Weiter",
-  "UI_CLAIM": "Holen"
+  "UI_CLAIM": "Holen",
+  "TASK_GO": "Los"
  },
  "fr": {
   "UI_PLAY": "Jouer",
@@ -1873,7 +1879,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Fantôme",
   "UI_NEXT_LEVEL": "Suivant",
-  "UI_CLAIM": "Prendre"
+  "UI_CLAIM": "Prendre",
+  "TASK_GO": "Go"
  },
  "es": {
   "UI_PLAY": "Jugar",
@@ -2141,7 +2148,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Fantasma",
   "UI_NEXT_LEVEL": "Siguiente",
-  "UI_CLAIM": "Recoger"
+  "UI_CLAIM": "Recoger",
+  "TASK_GO": "Ir"
  },
  "pt": {
   "UI_PLAY": "Jogar",
@@ -2409,7 +2417,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Fantasma",
   "UI_NEXT_LEVEL": "Próximo",
-  "UI_CLAIM": "Pegar"
+  "UI_CLAIM": "Pegar",
+  "TASK_GO": "Ir"
  },
  "it": {
   "UI_PLAY": "Gioca",
@@ -2677,7 +2686,8 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Fantasma",
   "UI_NEXT_LEVEL": "Avanti",
-  "UI_CLAIM": "Prendi"
+  "UI_CLAIM": "Prendi",
+  "TASK_GO": "Vai"
  },
  "ru": {
   "UI_PLAY": "Играть",
@@ -2945,7 +2955,8 @@
   "OUTFIT_HOOT_4": "Панда",
   "OUTFIT_HOOT_5": "Привидение",
   "UI_NEXT_LEVEL": "Дальше",
-  "UI_CLAIM": "Забрать"
+  "UI_CLAIM": "Забрать",
+  "TASK_GO": "Вперёд"
  },
  "tr": {
   "UI_PLAY": "Oyna",
@@ -3213,6 +3224,7 @@
   "OUTFIT_HOOT_4": "Panda",
   "OUTFIT_HOOT_5": "Hayalet",
   "UI_NEXT_LEVEL": "Sonraki",
-  "UI_CLAIM": "Al"
+  "UI_CLAIM": "Al",
+  "TASK_GO": "Git"
  }
 }
