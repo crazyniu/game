@@ -12,8 +12,8 @@ export interface TaskChest { at: number; coins: number; boosters: number[]; outf
 export interface TaskBoard { points: number; chests: TaskChest[]; week: number; weekChests: TaskChest[]; tasks: TaskRow[] }
 export interface TaskActions {
   board(): TaskBoard;
-  /** Open a reached chest; returns what it held. */
-  open(weekly: boolean, index: number): TaskChest;
+  /** Open a reached chest; returns null if it is no longer claimable. */
+  open(weekly: boolean, index: number): TaskChest | null;
   /** Go and do a task (play the current level, or open the lucky draw). */
   go(id: string): void;
 }
@@ -104,6 +104,7 @@ export class TaskView {
   private open(index: number): void {
     const chest = this.actions.open(this.weekly, index);
     this.build();
+    if (!chest) return;
     if (chest.outfit) this.popups.outfit_gift(chest.outfit);
     else this.popups.rewards('tasks.title', chest.coins, chest.boosters);
   }

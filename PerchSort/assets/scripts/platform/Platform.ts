@@ -20,7 +20,8 @@ export interface PlatformConfig {
 
 let config: Promise<PlatformConfig> | null = null;
 export function loadPlatformConfig(): Promise<PlatformConfig> {
-  config ??= new Promise((resolve, reject) => resources.load('config/platform', JsonAsset, (e, a) => e ? reject(e) : resolve(a.json as PlatformConfig)));
+  config ??= new Promise<PlatformConfig>((resolve, reject) => resources.load('config/platform', JsonAsset, (e, a) => e ? reject(e) : resolve(a.json as PlatformConfig)))
+    .catch(error => { config = null; throw error; });
   return config;
 }
 /** This platform's ad units; all empty when the master switch is off. */

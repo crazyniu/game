@@ -330,14 +330,14 @@ export class Popups {
     Kit.breathe(UI.art(board,'icon_draw_center_chest',[311,305,216,224]));let busy=false,at=0;
     // An ad buys one more spin (Ads.DAILY_CAP).
     const entry=this.adEntry(Ads.DRAW);
-    const spinOnce=()=>{
-      if(busy)return;const got=Progress.draw(this.profile,Progress.today());if(got.cell===undefined)return;this.save();busy=true;UI.enabled(spin,false);if(ad)UI.enabled(ad,false);
+    const spinOnce=(today=Progress.today())=>{
+      if(busy)return;const got=Progress.draw(this.profile,today);if(got.cell===undefined)return;this.save();busy=true;UI.enabled(spin,false);if(ad)UI.enabled(ad,false);
       if(!Progress.unlimited&&stars[this.profile.draws_left]){const old=stars[this.profile.draws_left],r=UI.rect(old);Kit.destroy(old);stars[this.profile.draws_left]=UI.art(canvas,'star_draw_spent',r);}
       const steps=16+(got.cell-at+8)%8,roll=tween(d.node);for(let n=0;n<steps;n++){const selected=(at+n+1)%8;roll.call(()=>{cards.forEach((c,i)=>{UI.opacity(c,i===selected?1:.72);c.setScale(i===selected?1.06:1,i===selected?1.06:1,1);});this.sound('ui_tap');}).delay(Kit.instant?0:.04+.2*Math.pow(n/(steps-1),3));}
       roll.delay(Kit.instant?0:.55).call(()=>{at=got.cell;const boosters=got.booster>=0?Array(got.count).fill(got.booster):[];this.draw_rewards(got.coins,boosters,()=>{busy=false;cards.forEach(c=>{UI.opacity(c,1);c.setScale(1,1,1);});UI.enabled(spin,this.profile.draws_left>0);if(ad)UI.enabled(ad,this.adEntry(Ads.DRAW)==='ready');});}).start();
     };
-    const spin=Kit.button(d.content,'Draw',[entry==='hidden'?325:94,1540,430,Kit.BUTTON_H],'white_spin',spinOnce);UI.enabled(spin,this.profile.draws_left>0);
-    const ad=entry==='hidden'?null:this.adButton(d.content,[556,1540,430,Kit.BUTTON_H],entry,()=>{if(!busy)this.watch(Ads.DRAW,()=>{this.profile.draws_left++;this.save();spinOnce();});},'+1');return d;
+    const spin=Kit.button(d.content,'Draw',[entry==='hidden'?325:94,1540,430,Kit.BUTTON_H],'white_spin',()=>spinOnce());UI.enabled(spin,this.profile.draws_left>0);
+    const ad=entry==='hidden'?null:this.adButton(d.content,[556,1540,430,Kit.BUTTON_H],entry,()=>{if(!busy)this.watch(Ads.DRAW,()=>{const today=Progress.today();Progress.begin_draw_day(this.profile,today);this.profile.draws_left++;this.save();spinOnce(today);});},'+1');return d;
   }
   chest():Dialog {
     const ready=Progress.chests_ready(this.profile),collected=Math.max(0,Math.min(Progress.CHEST_STARS,Progress.chest_progress(this.profile)));

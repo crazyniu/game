@@ -85,7 +85,7 @@ export class Boot extends Component{
   const temporary=preview||(this.testMode&&this.args.has('fresh'));
   if(this.testMode)this.saveKey='perch-sort.test.'+(this.args.get('test')||'session');
   if(DEBUG)(globalThis as any).perchBoot=this;
-  this.platform=createPlatform();await this.platform.init();if(this.platform instanceof DebugPlatform)this.platform.view=new MockAd(this.popupHost.parent!);
+  this.platform=createPlatform();await this.platform.init();if(DEBUG&&this.platform instanceof DebugPlatform)this.platform.view=new MockAd(this.popupHost.parent!);
   await Art.init();Levels.configure(Art.data('levels/levels'),Art.data('levels/trial'));
   if(!temporary)await this.holdSaveLock();
   if(temporary){
@@ -241,7 +241,7 @@ export class Boot extends Component{
     chests:Tasks.DAY_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.chests.includes(i)})),
     weekChests:Tasks.WEEK_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.weekChests.includes(i),outfit:c.skin&&skin?skin:undefined})),
     tasks:Tasks.DAILY.map(d=>({id:d.id,done:t.done[d.id]??0,target:d.target,points:d.points,claimed:t.claimed.includes(d.id)}))};},
-   open:(weekly,i)=>{const prize=Tasks.open(p,weekly,i,today())!;this.save();return {at:0,coins:prize.coins,boosters:prize.boosters,outfit:prize.outfit||undefined,opened:true};},
+   open:(weekly,i)=>{const prize=Tasks.open(p,weekly,i,today());if(!prize)return null;this.save();return {at:0,coins:prize.coins,boosters:prize.boosters,outfit:prize.outfit||undefined,opened:true};},
    go:id=>{if(id==='draw')this.popups.lucky_draw();else this.open_board(Progress.resume_level(p));},
   },()=>{if(this.screen instanceof HomeView)this.screen.refresh();});
  }
