@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """install_skin.py <species_slot> <zip>: put a packed skin into the game resources.
 
-Removes every older file of the skin (overlay art, icons, other formats, .meta) and its entry in outfit_parts.json, then unpacks the WebP frames. Afterwards run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`.
+Removes every older file of the skin (overlay art, icons, other formats, .meta) and its entry in outfit_parts.json, then unpacks the WebP frames. Afterwards run `node tools/cocos-assets.mjs` and `node tools/cocos/meta.mjs`.
 """
 import glob, json, os, sys, zipfile
 

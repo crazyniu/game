@@ -1,0 +1,35 @@
+{
+  "codeName": "perchsort",
+  "name": { "en": "Perch Sort", "zh_CN": "小鸟归巢" },
+  "languages": { "app": ["en", "zh_CN"], "wechat": ["zh_CN", "en"] },
+  "version": "1.0.0",
+  "build": 1,
+  "privacyPolicy": "",
+  "ios": {
+    "bundleId": "dabudian.top.birdsort",
+    "team": "",
+    "minVersion": "15.0",
+    "admobAppId": "ca-app-pub-3940256099942544~1458002511",
+    "trackingText": {
+      "en": "This lets us show you ads that are more relevant to you.",
+      "zh_CN": "用来给你推荐更相关的广告。"
+    }
+  },
+  "android": {
+    "packageName": "dabudian.top.birdsort",
+    "minSdk": 24,
+    "targetSdk": 36,
+    "admobAppId": "ca-app-pub-3940256099942544~3347511713"
+  },
+  "wechat": { "appid": "" },
+  "ads": {
+    "enabled": true,
+    "ios": { "rewarded": "", "interstitial": "" },
+    "android": { "rewarded": "", "interstitial": "" },
+    "test": {
+      "ios": { "rewarded": "ca-app-pub-3940256099942544/1712485313", "interstitial": "ca-app-pub-3940256099942544/4411468910" },
+      "android": { "rewarded": "ca-app-pub-3940256099942544/5224354917", "interstitial": "ca-app-pub-3940256099942544/1033173712" }
+    },
+    "wechat": { "rewarded": "", "interstitial": "" }
+  }
+}

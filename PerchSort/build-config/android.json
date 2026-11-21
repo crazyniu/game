@@ -14,14 +14,14 @@
   "outputName": "android",
   "packages": {
     "android": {
-      "packageName": "local.perchsort.preview",
+      "packageName": "dabudian.top.birdsort",
       "orientation": {
         "portrait": true,
         "upsideDown": false,
         "landscapeRight": false,
         "landscapeLeft": false
       },
-      "apiLevel": 35,
+      "apiLevel": 36,
       "appABIs": [
         "arm64-v8a",
         "armeabi-v7a"

@@ -8,21 +8,27 @@ import {MapView} from './game/MapView';
 import {BoardView} from './game/BoardView';
 import {ShopView} from './game/ShopView';
 import {AviaryView} from './game/AviaryView';
-import {Popups,Kit,Dialog} from './game/Popups';
+import {Popups,Kit,Dialog,AdEntry} from './game/Popups';
 import {Tutorial} from './game/Tutorial';
 import {Levels} from './core/Levels';
 import {Board} from './core/Board';
+import type {Move} from './core/Board';
 import {GameSession} from './core/GameSession';
 import {Solver} from './core/Solver';
 import {Profile,ProfileStorage} from './meta/Profile';
 import {Progress} from './meta/Progress';
 import { Worlds } from './meta/Worlds';
 import {Aviary} from './meta/Aviary';
+import {Ads} from './meta/Ads';
+import {Platform} from './platform/Platform';
+import {DebugPlatform} from './platform/DebugPlatform';
+import {createPlatform} from './platform/index';
+import {MockAd} from './game/MockAd';
 const {ccclass}=_decorator;
 type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
 @ccclass('Boot')
 export class Boot extends Component{
- profile!:Profile;screen:Screen|null=null;popups!:Popups;sound!:Sound;root!:Node;screenHost!:Node;popupHost!:Node;overlayHost!:Node;page='home';ready=false;instant=false;testMode=false;overlay:ShopView|AviaryView|null=null;trial=0;
+ profile!:Profile;screen:Screen|null=null;popups!:Popups;sound!:Sound;root!:Node;screenHost!:Node;popupHost!:Node;overlayHost!:Node;page='home';ready=false;instant=false;testMode=false;autoplay=false;platform!:Platform;private pacing=Ads.pacing();overlay:ShopView|AviaryView|null=null;trial=0;
  private storage:ProfileStorage=sys.localStorage;private saveKey=Profile.SAVE_PATH;private args=new Map<string,string>();private loading!:Node;private nav=0;
  protected onLoad():void{view.setDesignResolutionSize(1080,1920,ResolutionPolicy.SHOW_ALL);profiler.hideStats();this.createCanvas();this.startGame().catch(e=>{console.error('Perch Sort startup failed',e);if(DEBUG)(globalThis as any).perchError=String(e);this.startupFailed();});}
  private createCanvas():void{
@@ -69,10 +75,13 @@ export class Boot extends Component{
   const requestedLevel=this.args.get('level')??null;
   const level=requestedLevel&&/^\d+$/.test(requestedLevel)?Number(requestedLevel):0;
   const validLevel=Number.isInteger(level)&&level>=1&&level<=Levels.COUNT;
-  const preview=requestedTrial===null&&validLevel&&!this.testMode;
+  // Autoplay drives real moves through the board on an in-memory copy of the save, exactly like a level preview.
+  this.autoplay=DEBUG&&this.args.has('autoplay')&&requestedTrial===null&&!this.testMode;
+  const preview=requestedTrial===null&&(validLevel||this.autoplay)&&!this.testMode;
   const temporary=preview||(this.testMode&&this.args.has('fresh'));
   if(this.testMode)this.saveKey='perch-sort.test.'+(this.args.get('test')||'session');
   if(DEBUG)(globalThis as any).perchBoot=this;
+  this.platform=createPlatform();await this.platform.init();if(this.platform instanceof DebugPlatform)this.platform.view=new MockAd(this.popupHost.parent!);
   await Art.init();Levels.configure(Art.data('levels/levels'),Art.data('levels/trial'));
   if(!temporary)await this.holdSaveLock();
   if(temporary){
@@ -85,20 +94,22 @@ export class Boot extends Component{
    }
    this.storage=memory;
   }
-  if(!preview&&!this.testMode&&this.storage.getItem(this.saveKey)===null&&sys.isBrowser&&['localhost','127.0.0.1'].includes(location.hostname)){
+  if(!preview&&!this.testMode&&sys.isBrowser&&['localhost','127.0.0.1'].includes(location.hostname)&&
+    this.storage.getItem(this.saveKey)===null&&this.storage.getItem(this.saveKey+'.bak')===null){
     const response=await fetch('/__profile');if(response.ok){const legacy=await response.json();if(legacy){const p=Profile.from_dict(legacy);p.save(this.storage,this.saveKey);}}
   }
   this.profile=Profile.load_saved(this.storage,this.saveKey);
   if(this.testMode&&this.args.has('unlock')){this.profile.highest_unlocked=210;this.profile.coins=50000;this.profile.inventory=[10,10,10,10,10,10];for(const [species] of Aviary.SPECIES)this.profile.met[species]=true;for(let world=2;world<=Worlds.COUNT;world++)for(const bird of Worlds.birds(world))this.profile.met[bird]=true;}
   if(this.testMode&&this.args.has('outfit'))for(const id of this.args.get('outfit')!.split(',')){this.profile.outfits['outfit.'+id]=true;this.profile.equipped[id.split('.')[0]]='outfit.'+id;}
   Art.setLocale(this.args.get('lang')??(this.profile.language||sys.language));
-  this.sound=new Sound(this.node);this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
-  this.popups=new Popups(this.popupHost,this.profile,{save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
+  this.sound=new Sound(this.node,kind=>this.platform.vibrate(kind));this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
+  this.popups=new Popups(this.popupHost,this.profile,{ad:p=>this.adEntry(p),rewarded:(p,done)=>void this.watchAd(p,done),save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
   if(this.profile.needs_recovery()){this.saveRecovery();await Art.waitPending();this.loading.destroy();return;}
-  if(DEBUG)(globalThis as any).perch={app:this,UI,Art,Levels,Progress,Profile,Board,Kit,get state(){const app=this.app;return {page:app.page,ready:app.ready,profile:app.profile.to_dict(),audio:app.sound.debug,errors:Art.errors,board:app.screen instanceof BoardView?{busy:app.screen.busy,level:app.screen.level.id,moves:app.screen.session.move_count(),won:app.screen.session.state.is_won(),branches:app.screen.session.state.items}:null};}};
-  if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel)await this.open_board(level);else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
+  if(DEBUG)(globalThis as any).perch={app:this,platform:this.platform,UI,Art,Levels,Progress,Profile,Board,Kit,get state(){const app=this.app;return {page:app.page,ready:app.ready,profile:app.profile.to_dict(),audio:app.sound.debug,errors:Art.errors,board:app.screen instanceof BoardView?{busy:app.screen.busy,level:app.screen.level.id,moves:app.screen.session.move_count(),won:app.screen.session.state.is_won(),branches:app.screen.session.state.items}:null};}};
+  if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel||this.autoplay)await this.open_board(validLevel?level:Math.min(Math.max(this.profile.highest_unlocked,1),Levels.COUNT));else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
   if(this.loading.isValid)this.loading.destroy();this.ready=true;
-  const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
+  if(this.autoplay)void this.drive(Number(this.args.get('autoTo')||Levels.COUNT));
+  const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup==='win'){this.popups.win({stars:3,moves:12,par:14,reward:125,boosters:[2,2]},()=>{},()=>{},()=>{});}else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
   if(!this.testMode&&!this.instant&&this.profile.best_stars(1)>0&&Progress.daily_reward_available(this.profile,Progress.today()))this.scheduleOnce(()=>{if(this.screen instanceof HomeView&&!this.popupHost.children.length)this.popups.daily_reward();},.9);
   console.log('PERCH_READY',JSON.stringify({engine:'Cocos Creator 3.8.8',page:this.page,levels:Levels.COUNT,test:this.testMode}));
  }
@@ -177,10 +188,36 @@ export class Boot extends Component{
   const opening=await Solver.hint_async(board.session.state.clone());
   if(this.screen===board&&board.session.move_count()===0&&opening.status===Solver.Status.SOLVED&&opening.moves.length)board.show_hint(opening.moves[0]);
  }
+ // Debug autoplay (./run.sh auto): plays the stored route, or the solver's move off-route, wins, then opens the next level until autoTo.
+ private async drive(last:number):Promise<void>{
+  const routes:Record<string,[number[],Move][]>=Art.data('levels/hints');
+  const pause=(seconds:number)=>new Promise<void>(done=>this.scheduleOnce(()=>done(),seconds));
+  while(this.node.isValid){
+   await pause(.35);
+   const board=this.screen;
+   if(!(board instanceof BoardView))continue;
+   const state=board.session.state,id=board.level.id;
+   // The board stays busy behind the win popup.
+   if(state.is_won()){
+    if(id>=last){console.log('PERCH_AUTOPLAY_DONE',id);return;}
+    await pause(2.5);if(this.screen===board)await this.open_board(id+1);continue;
+   }
+   if(board.busy)continue;
+   const key=state.search_key(false).join(',');
+   let move=(routes[String(id)]||[]).find(([route])=>route.join(',')===key)?.[1];
+   if(!move){
+    const result=await Solver.hint_async(state.clone(),[],400000,8000);
+    if(this.screen!==board)continue;
+    if(result.status!==Solver.Status.SOLVED||!result.moves.length){console.log('PERCH_AUTOPLAY_RESTART',id);board.restart();continue;}
+    move=result.moves[0];
+   }
+   if(move[1]<0)board.tap_swivel(move[0]);else{board.tap_branch(move[0]);board.tap_branch(move[1]);}
+  }
+ }
  async open_board(level:number):Promise<void>{
   this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),def.world,level===def.world*Levels.PER_WORLD);Progress.grant_starter_gifts(this.profile);this.save();
   await this.setScreen('board',()=>new BoardView(this.screenHost,this.profile,level,{settle:session=>this.settle(level,session),won:r=>this.onWon(level,r.session),settings:()=>this.settings(),buy:k=>this.buyTool(k),undo_more:()=>this.undoMore(),bird_info:s=>this.popups.goal_info(s,def.world),rescue_offer:()=>this.rescueOffer(),restart_offer:p=>this.restartOffer(p),profile_changed:()=>this.save(),sound:n=>this.sound.play(n)},{instant:this.instant,entrance:!this.instant}));
-  const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode)return;
+  const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode||this.autoplay)return;
   const queue:Array<(done:()=>void)=>void>=newSpecies.map(species=>done=>{this.popups.new_friend(species,Aviary.NEW_SPECIES_COINS,done);});
   for(const [kind,id] of Progress.BOOSTERS){const flag='unlock.'+id;if(Progress.booster_unlock_level(kind)===level&&!this.profile.has_tutorial(flag))queue.push(done=>{this.profile.set_tutorial(flag);this.save();this.popups.unlock(kind,done);});}
   if(level===1&&!this.profile.has_tutorial(Tutorial.FLAG))queue.push(done=>{this.profile.set_tutorial(Tutorial.FLAG);this.save();Tutorial.open(this.popupHost,done,this.instant);});
@@ -195,10 +232,10 @@ export class Boot extends Component{
  coinShop():void{this.popups.coin_shop();}
  private buyTool(kind:number):void{const board=this.screen as BoardView,before=this.profile.inventory[kind];this.popups.offer_tool(kind,()=>{board.granted(kind,this.profile.inventory[kind]-before);board.sync_inventory();board.refresh_hud();});}
  private undoMore():void{
-  const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'undo_more',[280,88],{close:true});UI.art(d.content,'pic_undo',[400,d.ys[0],280,280]);Kit.number(d.content,'+1',[340,d.ys[1],400,88]);const buy=Kit.button(d.content,'Buy',[94,d.actionY,430,162],'',()=>{if(this.profile.coins<Progress.UNDO_PRICE){this.coinShop();return;}this.profile.coins-=Progress.UNDO_PRICE;board.session.grant_undos(1);this.save();d.close();board.refresh_hud();});Kit.price(buy,[430,162],Progress.UNDO_PRICE);const ad=Kit.button(d.content,'WatchAd',[556,d.actionY,430,162],'',()=>{});UI.art(ad,'icon_watch_ad',[170,35,90,90]);UI.enabled(ad,false);
+  const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'undo_more',[280,88],{close:true});UI.art(d.content,'pic_undo',[400,d.ys[0],280,280]);Kit.number(d.content,'+1',[340,d.ys[1],400,88]);const entry=this.popups.adEntry(Ads.UNDO),buy=Kit.button(d.content,'Buy',[entry==='hidden'?325:94,d.actionY,430,Kit.BUTTON_H],'',()=>{if(this.profile.coins<Progress.UNDO_PRICE){this.coinShop();return;}this.profile.coins-=Progress.UNDO_PRICE;board.session.grant_undos(1);this.save();d.close();board.refresh_hud();});Kit.price(buy,[430,Kit.BUTTON_H],Progress.UNDO_PRICE);if(entry!=='hidden')this.popups.adButton(d.content,[556,d.actionY,430,Kit.BUTTON_H],entry,()=>this.popups.watch(Ads.UNDO,()=>{board.session.grant_undos(1);this.save();d.close();board.refresh_hud();}));
  }
- private rescueOffer():void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});Kit.perch(d.content,[540,d.ys[0]+135],320);Kit.liveBird(d.content,'sunny',[418,d.ys[0]+5,112,130]);Kit.liveBird(d.content,'sky',[550,d.ys[0]+5,112,130]);Kit.button(d.content,'Rescue',[270,d.actionY,540,162],'white_free_rewind',()=>d.invoke(()=>board.rescue()),'wide');}
- private restartOffer(picture:string):void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});UI.art(d.content,picture,[450,d.ys[0],180,180]);Kit.button(d.content,'Restart',[270,d.actionY,540,162],'white_action_replay',()=>d.invoke(()=>board.restart()),'wide');}
+ private rescueOffer():void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});Kit.perch(d.content,[540,d.ys[0]+135],320);Kit.liveBird(d.content,'sunny',[418,d.ys[0]+5,112,130]);Kit.liveBird(d.content,'sky',[550,d.ys[0]+5,112,130]);Kit.button(d.content,'Rescue',[270,d.actionY,540,Kit.BUTTON_H],'white_free_rewind',()=>d.invoke(()=>board.rescue()),'wide');}
+ private restartOffer(picture:string):void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});UI.art(d.content,picture,[450,d.ys[0],180,180]);Kit.button(d.content,'Restart',[270,d.actionY,540,Kit.BUTTON_H],'white_action_replay',()=>d.invoke(()=>board.restart()),'wide');}
  private settlements = new WeakMap<GameSession, { payout: ReturnType<typeof Progress.on_win>; unlockedWorld: number }>();
  private settle(level:number,session:GameSession):void{
   const nextWorld=Progress.world_of_level(level)+1;
@@ -224,8 +261,27 @@ export class Boot extends Component{
    else if(hasNext)this.open_board(level+1);
    else this.open_map();
   };
+  const leave=(action:()=>void)=>()=>void this.levelEnd(level).then(()=>after(action));
   this.popups.win({stars:payout.stars,moves:session.move_count(),par:session.par,reward:payout.total-payout.world,boosters:payout.boosters},
-   ()=>after(next),()=>after(()=>this.open_board(level)),()=>after(()=>this.open_home()),hasNext);
+   leave(next),leave(()=>this.open_board(level)),leave(()=>this.open_home()),hasNext);
+ }
+ private adEntry(placement:string):AdEntry{
+  if(!this.platform.hasCapability('ads')||!this.platform.adsAvailable())return 'hidden';
+  return Ads.left(this.profile,placement,Progress.today())>0?'ready':'used';
+ }
+ /** The reward runs only after the platform reports the ad watched to the end. */
+ private async watchAd(placement:string,reward:()=>void):Promise<void>{
+  if(this.adEntry(placement)!=='ready')return;
+  this.sound.pause();
+  const result=await this.platform.showRewarded(placement).catch(error=>{console.warn('Rewarded ad failed',error);}).finally(()=>this.sound.resume());
+  if(result!=='done')return;
+  Ads.record(this.profile,placement,Progress.today());this.pacing.lastRewarded=Date.now()/1000;this.save();reward();
+ }
+ /** Leaving a won level: an interstitial when Ads.INTERSTITIAL allows it. */
+ private async levelEnd(level:number):Promise<void>{
+  this.pacing.levelsSince++;const now=Date.now()/1000;
+  if(!this.platform.hasCapability('ads')||!Ads.interstitial_due(this.pacing,level,now))return;
+  if(await this.platform.showInterstitial(Ads.LEVEL_END).catch(error=>{console.warn('Interstitial ad failed',error);})){this.pacing.lastShown=Date.now()/1000;this.pacing.levelsSince=0;}
  }
  save():void{this.profile.save(this.storage,this.saveKey);if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof BoardView)this.screen.refresh_hud();else if(this.screen instanceof ShopView||this.screen instanceof AviaryView)this.screen.refresh_balance();else if(this.screen instanceof MapView)this.screen.refresh();this.overlay?.refresh_balance();}
  private restartGame():void{if(sys.isBrowser)location.reload();else void game.restart();}
@@ -241,16 +297,17 @@ export class Boot extends Component{
   cover.on(Node.EventType.TOUCH_END,retry);
   if(!Art.manifest)return;
   if(!this.profile)Art.setLocale(sys.language);
-  const button=Kit.button(cover,'Retry',[330,885,420,150],'',retry);this.recoveryWord(button,2,[65,30,290,90]);
+  const button=Kit.button(cover,'Retry',[330,885,420,Kit.BUTTON_H],'',retry);this.recoveryWord(button,2,[65,30,290,90]);
  }
  private saveRecovery():void{
-  this.page='save-recovery';UI.image(this.screenHost,'background_home_jungle',[0,0,1080,1920]);const d=Kit.jungle(this.popupHost,'',[400],{actionHeight:150});
+  this.page='save-recovery';UI.image(this.screenHost,'background_home_jungle',[0,0,1080,1920]);const d=Kit.jungle(this.popupHost,'',[400],{actionHeight:Kit.BUTTON_H});
   const word=(parent:Node,index:number,r:[number,number,number,number])=>this.recoveryWord(parent,index,r);
   word(d.content,0,[284,d.rect[1]+80,512,125]);word(d.content,1,[150,d.ys[0]+30,780,340]);
-  const retry=Kit.button(d.content,'Retry',[96,d.actionY,420,150],'',()=>this.restartGame());word(retry,2,[65,30,290,90]);
-  const leave=Kit.button(d.content,'Exit',[564,d.actionY,420,150],'',()=>{this.sound.pause();game.end();});word(leave,3,[65,30,290,90]);
+  const retry=Kit.button(d.content,'Retry',[96,d.actionY,420,Kit.BUTTON_H],'',()=>this.restartGame());word(retry,2,[65,30,290,90]);
+  const leave=Kit.button(d.content,'Exit',[564,d.actionY,420,Kit.BUTTON_H],'',()=>{this.sound.pause();game.end();},'blue');word(leave,3,[65,30,290,90]);
  }
  private applySound():void{this.sound.set_muted(this.profile.muted);this.sound.set_music_muted(this.profile.music_muted);this.sound.vibration=this.profile.vibration;}
  private refreshLanguage():void{if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof MapView){const world=this.screen.world,page=this.screen.page;this.screen.destroy();this.screen=new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant);if(page)this.screen.open_world(world);}else if(this.screen instanceof BoardView)this.screen.refresh_hud();}
- private until(predicate:()=>boolean):Promise<void>{return new Promise(resolve=>{const check=()=>{if(predicate())resolve();else this.scheduleOnce(check,.05);};check();});}
+ // A fresh callback per poll: Cocos drops a scheduleOnce of the callback that is currently firing, which left this waiting forever.
+ private until(predicate:()=>boolean):Promise<void>{return new Promise(resolve=>{const check=()=>{if(predicate())resolve();else this.scheduleOnce(()=>check(),.05);};check();});}
 }

@@ -1,0 +1,4 @@
+<resources>
+    <!-- App name in this system language (tools/native/apply.mjs, game.json). Not app_name: Creator generates that from the build name. -->
+    <string name="game_app_name">小鸟归巢</string>
+</resources>

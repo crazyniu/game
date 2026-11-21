@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!-- Advertising ID: apply.mjs writes tools:node="remove" when game.json turns ads off -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <!-- In-app billing: no payment provider is connected. Libraries (Cocos libservice) merge this permission in;
+         removed so Google Play does not list in-app purchases -->
+    <uses-permission android:name="com.android.vending.BILLING" tools:node="remove"/>
+
+    <!-- appCategory="game": from Android 16 (API 36) large screens ignore portrait-only, except for games (Google Play requires target 36 from 2026-08-31) -->
+    <application
+        android:appCategory="game"
+        android:allowBackup="true"
+        android:label="@string/game_app_name"
+        android:usesCleartextTraffic="false"
+        android:icon="@mipmap/ic_launcher">
+
+        <!-- Tell CocosNativeActivity the name of our .so -->
+        <meta-data android:name="android.app.lib_name"
+            android:value="cocos" />
+
+        <!-- AdMob app ID (tools/native/apply.mjs writes it from game.json) -->
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
+        <activity
+            android:name="com.cocos.game.AppActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
+            android:label="@string/game_app_name"
+            android:theme="@style/GameTheme"
+            android:launchMode="singleTask"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.cocos.lib.CocosEditBoxActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+    </application>
+
+</manifest>

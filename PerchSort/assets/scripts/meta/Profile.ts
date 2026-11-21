@@ -39,6 +39,9 @@ export class Profile {
   chests_opened = 0;
   draws_date = '';
   draws_left = 0;
+  /** Rewarded ads watched today per placement (meta/Ads.ts daily caps). */
+  ad_date = '';
+  ad_views: Record<string, number> = {};
   checkin_streak = 0;
   challenge_date = '';
   vibration = true;
@@ -70,7 +73,7 @@ export class Profile {
       worldRewardsGranted: Object.keys(this.rewarded_worlds).map(Number).sort((a, b) => a - b),
       muted: this.muted, musicMuted: this.music_muted,
       levelGifts: Object.keys(this.level_gifts).map(Number).sort((a, b) => a - b), chestsOpened: this.chests_opened,
-      checkinStreak: this.checkin_streak, drawDate: this.draws_date, drawsLeft: this.draws_left,
+      checkinStreak: this.checkin_streak, drawDate: this.draws_date, drawsLeft: this.draws_left, adDate: this.ad_date, adViews: { ...this.ad_views },
       challengeDate: this.challenge_date, vibration: this.vibration, language: this.language, lastLevel: this.last_level,
     };
   }
@@ -110,6 +113,7 @@ export class Profile {
     for (const level of gifts) if (level >= 1 && level <= Levels.COUNT) p.level_gifts[level] = true;
     p.chests_opened = Math.max(0, int(data.chestsOpened)); p.checkin_streak = clamp(int(data.checkinStreak), 0, 7);
     p.draws_date = String(data.drawDate ?? ''); p.draws_left = clamp(int(data.drawsLeft), 0, 99);
+    p.ad_date = String(data.adDate ?? ''); for (const [placement, count] of Object.entries(data.adViews ?? {})) p.ad_views[placement] = Math.max(0, int(count));
     p.challenge_date = String(data.challengeDate ?? ''); p.last_level = clamp(last, 0, Levels.COUNT);
     for (const world of data.worldRewardsGranted ?? []) if (world >= 1 && world <= Levels.WORLDS) p.rewarded_worlds[world] = true;
     const earned = Array.isArray(data.earnedBoosters) ? data.earnedBoosters : [];

@@ -7,26 +7,34 @@ A portrait bird-sorting puzzle game built with **Cocos Creator 3.8.8** and TypeS
 Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repository:
 
 ```bash
-./run.sh                         # build and open a dedicated portrait game window
-./run.sh play --level=12          # preview a level without changing normal progress
+./run.sh                          # pull, build and open a dedicated portrait game window
+./run.sh level 12                 # open level 12 on an in-memory copy of the save (also --level=12)
+./run.sh auto 3 30                # autoplay real moves from level 3 to 30 on an in-memory copy of the save
+./run.sh page shop                # open map [world], shop, aviary, or the settings/daily/draw/chest popup
 ./run.sh --trial=1                # open partial-goal trial 1 (three trials total)
-./run.sh serve                   # use the existing web build
-./run.sh editor                  # open PerchSort/ in Cocos Creator
-./run.sh build                   # build only
-./run.sh test                    # run the pure core/meta test suite
+./run.sh serve [options]          # use the existing web build
+./run.sh lan [serve] [options]    # serve on the local network for a phone or another computer
+./run.sh editor                   # open PerchSort/ in Cocos Creator
+./run.sh build                    # build only
+./run.sh cdp logs|eval|shot|burst|watch   # console, evaluation, captures and stall stacks in the game window
+./run.sh check                    # the CI checks: scripts, metas, PNG compression, source guards, tests, types
+./run.sh test                     # run the pure core/meta test suite
+./run.sh meta | art-compress | clean      # missing metas, lossless PNG recompression, Creator caches
 ```
 
-On macOS, `run.sh` opens the game in a 450×832 Chrome app window. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
+`play`, `serve`, `lan`, `build` and `editor` first fast-forward the current branch (`NO_PULL=1` skips); local changes are never discarded. Every build starts from an empty Creator cache and retries when Creator breaks the asset import (`tools/cocos/creator.sh`). `./run.sh lan` prints `http://<LAN IP>:8770/` (`LAN_PORT`; fishsort uses 8080 on the same Mac) and serves until Ctrl+C; the prior-save import is answered only to this machine.
+
+On macOS, `run.sh` opens the game in a 450×832 Chrome app window with remote debugging on port 9333 (`CDP_PORT`) for `./run.sh cdp`. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
 
 The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator` by default. Set `COCOS_CREATOR` to another installation path. `WEB_PORT` changes the default local port of 8765. Use `NO_OPEN=1` to start just the server. The generated web build is in `PerchSort/build/web-mobile`.
 
 To open manually in Creator, select the `PerchSort/` project, identified by its `package.json`. The entry scene is `assets/scenes/main.scene`; the root component is `assets/scripts/Boot.ts`.
 
-Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, `scripts/serve.py` makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
+Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, the local server (`tools/web/serve.mjs`) makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
 
 The three partial-goal trials open with `--trial=1`, `--trial=2`, or `--trial=3` (Windows: `.\run.ps1 -Trial 1`). They use copied board profiles: no trial progress, rewards or consumed stock is saved. Explicitly buying a tool or extra undo still spends real feathers through the normal price confirmation. The trial tab therefore holds the normal save lock. Next advances through the trials; they never appear on the map. The [trial route report](docs/work-log/trial-route/report.md) records the remaining user-play decision.
 
-The local game has no connected payment or rewarded-ad provider. Store confirmations and ad rewards cannot grant items without a confirmed provider callback. This is not a store release.
+Ads go through the platform layer: browser builds show a mock ad (debug only; `?ads=0` hides ad entries), iOS and Android use AdMob with Google's test units except in store packages, WeChat uses its own ad units. Rewards are granted only after an ad is watched to the end. No payment provider is connected.
 
 ## Project structure
 
@@ -45,7 +53,7 @@ Rules and solver live in `PerchSort/assets/scripts/core`; profiles and progressi
 Testing and acceptance belong to the user by default. The Cocos migration request explicitly authorizes self-testing; that authorization does not change the default for later tasks.
 
 ```bash
-npm --prefix PerchSort test
+./run.sh check
 npm --prefix PerchSort run typecheck
 ./run.sh build
 ```
@@ -59,11 +67,11 @@ Run `./package.sh` from the repository root and enter a platform number. The iOS
 | Number | Platform | Output choices |
 | --- | --- | --- |
 | 1 | WeChat Mini Game | WeChat Developer Tools project |
-| 2 | iOS | Xcode project, simulator app, unsigned device app or signed IPA |
-| 3 | Android | Debug APK, release AAB or Gradle project |
+| 2 | iOS | Xcode project, simulator app, unsigned device app, IPA, install on a paired iPhone, upload the last IPA to App Store Connect |
+| 3 | Android | APK, AAB (upload key and 16 KB page check) or Gradle project |
 | 4 | Web | Web-mobile build |
 
-Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. A release AAB needs `PERCH_ANDROID_PACKAGE` (application ID) and the release key in `PERCH_ANDROID_KEYSTORE`, `PERCH_ANDROID_KEYSTORE_PASSWORD`, `PERCH_ANDROID_KEY_ALIAS` and `PERCH_ANDROID_KEY_PASSWORD`; the build fails unless the new bundle is signed with that key. Generated files stay in the build directories. None of these commands upload a build.
+The game's identity lives in `game.json`: names, version and build numbers, iOS bundle ID and team, Android package name, AdMob app IDs and ad units, WeChat app ID. `tools/native/apply.mjs` (run by `./package.sh`, or `./run.sh native-apply`) writes it into the build configurations, `Info.plist`, `AndroidManifest.xml`, Gradle and `assets/resources/config/platform.json`. Only the IPA and AAB use the real ad units; every other build uses Google's test units. The real bundle ID, team, package name and ad units still have to be filled in. iOS needs Xcode on macOS; the ad SDK is downloaded into `PerchSort/native/engine/ios/sdk/`. Android needs Android Studio's SDK and NDK (`ANDROID_HOME`, the default location or `/Volumes/*/Android/sdk`); the first AAB creates an upload key outside the repository. Option 6 uploads with the account signed in to Xcode; nothing else uploads.
 
 For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.
 

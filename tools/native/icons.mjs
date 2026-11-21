@@ -10,7 +10,11 @@ const require = createRequire(new URL('../../PerchSort/package.json', import.met
 const sharp = require('sharp');
 const resources = resolve(root, 'PerchSort/assets/resources');
 const forest = resolve(resources, 'art/island/background_home_jungle.png');
-const sunny = resolve(resources, 'birds/sunny_front.png');
+// Sunny's front pose, cut from its frame sheet (resources/manifest.json: piece = x, y, offset x, offset y, width, height).
+const manifest = JSON.parse(await readFile(resolve(resources, 'manifest.json'), 'utf8'));
+const front = manifest.images['birds/sunny_front'];
+const [px, py, , , pw, ph] = front.piece;
+const sunny = await sharp(resolve(resources, front.path + '.webp')).extract({ left: px, top: py, width: pw, height: ph }).png().toBuffer();
 const out = resolve(root, 'build/native-art');
 const engine = resolve(root, 'PerchSort/native/engine');
 async function put(file, data) {

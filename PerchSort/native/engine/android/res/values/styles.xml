@@ -1,0 +1,4 @@
+<resources>
+    <!-- Fullscreen portrait. -->
+    <style name="GameTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
+</resources>

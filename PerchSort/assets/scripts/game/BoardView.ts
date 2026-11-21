@@ -521,12 +521,11 @@ export class BoardView {
     this.hideGuide();
     if(this.busy){if(this.buffering&&this.queued.length<2)this.queued.push([branch,false]);return;}
     if(this.session.selected<0){
-      if(Rules.can_swivel(this.state,branch)&&this.state.run_count(branch)===0){void this.action(()=>this.session.swivel(branch));return;}
       if(this.session.select(branch)){this.callbacks.sound('select');this.lift(branch,true);}else this.refuse(branch);
       this.refreshHintSelection();return;
     }
     const from=this.session.selected;this.lift(from,false);
-    if(from===branch){this.session.cancel_selection();if(Rules.can_swivel(this.state,branch))void this.action(()=>this.session.swivel(branch));else this.refreshHintSelection();return;}
+    if(from===branch){this.session.cancel_selection();this.refreshHintSelection();return;}
     if(Rules.can_transfer(this.state,from,branch)){void this.action(()=>this.session.try_move(from,branch));return;}
     this.session.cancel_selection();if(this.session.select(branch)){this.callbacks.sound('select');this.lift(branch,true);}else this.refuse(branch);
     this.refreshHintSelection();
@@ -558,6 +557,7 @@ export class BoardView {
     if(this.session.can_undo()&&this.session.undos_left<=0){this.suspend_input();this.callbacks.undo_more();return;}
     if(!this.session.undo())return;
     this.cancelPlayback();this.sync_inventory();this.callbacks.sound('undo');this.layoutBranches();this.prefetchHint();
+    this.busy=true;
     await this.finishAction(this.generation);
   }
   async use_tool(kind:number):Promise<void> {
