@@ -23,7 +23,7 @@ export class UI {
   static cover(parent:Node,name:string,r:Rect):Node{
     const [w,h]=Art.size(name),k=Math.max(r[2]/w,r[3]/h);return this.image(parent,name,[r[0]+(r[2]-w*k)/2,r[1]+(r[3]-h*k)/2,w*k,h*k]);
   }
-  static silhouette(n:Node):void{const [w,h]=Art.size(n.name);this.effect(n,'silhouette',{drawSize:new Vec4(w,h,0,0)});}
+  static silhouette(n:Node):void{const [w,h]=Art.texture_size(n.name);this.effect(n,'silhouette',{drawSize:new Vec4(w,h,0,0)});}
   static image_region(parent:Node,name:string,source:Rect,r:Rect):Node {
     const n=this.group(parent,name,r),sprite=n.addComponent(Sprite);sprite.sizeMode=Sprite.SizeMode.CUSTOM;sprite.trim=false;
     Art.load(name).then(frame=>{if(n.isValid){sprite.spriteFrame=Art.region(frame,source);sprite.sizeMode=Sprite.SizeMode.CUSTOM;}}).catch(e=>console.error(e));return n;
