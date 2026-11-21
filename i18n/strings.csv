@@ -15,14 +15,14 @@ H_RETRY,重试,Retry,重試,もう一度,다시 하기,Nochmal,Rejouer,Reintenta
 PAUSE_TITLE,暂停,Paused,暫停,ポーズ,일시 정지,Pause,Pause,Pausa,Pausa,Pausa,Пауза,Duraklat
 UI_PRIVACY_POLICY,隐私政策,Privacy Policy,隱私權政策,プライバシーポリシー,개인정보 처리방침,Datenschutzerklärung,Politique de confidentialité,Política de privacidad,Política de privacidade,Informativa privacy,Политика конфиденциальности,Gizlilik politikası
 H_UNLOCKS_AT,第 %d 关解锁,Level %d,第 %d 關解鎖,Lv.%dで解放,레벨 %d,Level %d,Niveau %d,Nivel %d,Nível %d,Livello %d,Уровень %d,Seviye %d
-H_DRAW,抽奖,Lucky Draw,抽獎,くじ引き,뽑기,Verlosung,Tirage,Sorteo,Sorteio,Estrazione,Лотерея,Çekiliş
+H_DRAW,抽奖,Draw,抽獎,くじ引き,뽑기,Verlosung,Tirage,Sorteo,Sorteio,Estrazione,Лотерея,Çekiliş
 H_CHEST,宝箱,Chest,寶箱,宝箱,상자,Truhe,Coffre,Cofre,Baú,Forziere,Сундук,Sandık
 H_ALBUM,图鉴,Album,圖鑑,図鑑,도감,Album,Album,Álbum,Álbum,Album,Альбом,Albüm
-H_HELP,玩法,How to Play,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
-FREE_FEATHERS,免费羽毛,Free Feathers,免費羽毛,無料の羽,무료 깃털,Gratis-Federn,Plumes gratuites,Plumas gratis,Penas grátis,Piume gratis,Перья даром,Bedava tüy
+H_HELP,玩法,Help,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
+FREE_FEATHERS,免费羽毛,Feathers,免費羽毛,無料の羽,무료 깃털,Gratis-Federn,Plumes gratuites,Plumas gratis,Penas grátis,Piume gratis,Перья даром,Bedava tüy
 H_WATCH_AD,看广告,Watch,看廣告,広告を見る,광고 보기,Ansehen,Regarder,Ver,Assistir,Guarda,Смотреть,İzle
 SHOP_AD_LEFT,今日 %d/%d,Today %d/%d,今日 %d/%d,今日 %d/%d,오늘 %d/%d,Heute %d/%d,Auj. %d/%d,Hoy %d/%d,Hoje %d/%d,Oggi %d/%d,Сегодня %d/%d,Bugün %d/%d
-SHOP_AD_DONE,今日已领完,Come back tomorrow,今日已領完,また明日,내일 또 와요,Morgen wieder,Reviens demain,Vuelve mañana,Volte amanhã,Torna domani,Приходи завтра,Yarın gel
+SHOP_AD_DONE,今日已领完,Tomorrow,今日已領完,また明日,내일 또 와요,Morgen wieder,Reviens demain,Vuelve mañana,Volte amanhã,Torna domani,Приходи завтра,Yarın gel
 UI_OK,好的,OK,好的,OK,확인,OK,OK,OK,OK,OK,ОК,Tamam
 UI_BUY,购买,Buy,購買,購入,구매,Kaufen,Acheter,Comprar,Comprar,Compra,Купить,Satın al
 UI_EQUIP,装备,Equip,裝備,装備,장착,Anlegen,Équiper,Equipar,Equipar,Indossa,Надеть,Giy
@@ -33,7 +33,7 @@ UI_REPLAY,重玩,Replay,重玩,もう一度,다시 하기,Nochmal,Rejouer,Repeti
 UI_NEXT,下一步,Next,下一步,次へ,다음,Weiter,Suivant,Siguiente,Próximo,Avanti,Далее,İleri
 UI_GOT_IT,知道了,Got it,知道了,OK,알겠어요,Verstanden,Compris,Entendido,Entendi,Capito,Понятно,Anladım
 UI_CONTINUE,继续,Continue,繼續,つづける,계속,Weiter,Continuer,Continuar,Continuar,Continua,Дальше,Devam
-UI_FREE_REWIND,免费回退,Free Rewind,免費回退,無料で戻す,무료 되돌리기,Gratis zurück,Retour gratuit,Retroceso gratis,Voltar grátis,Indietro gratis,Откат даром,Bedava geri al
+UI_FREE_REWIND,免费回退,Rewind,免費回退,無料で戻す,무료 되돌리기,Gratis zurück,Retour gratuit,Retroceso gratis,Voltar grátis,Indietro gratis,Откат даром,Bedava geri al
 UI_UNDO,撤销,Undo,撤銷,戻す,되돌리기,Zurück,Annuler,Deshacer,Desfazer,Annulla,Отмена,Geri al
 UI_TODAY,今日,Today,今日,今日,오늘,Heute,Aujourd’hui,Hoy,Hoje,Oggi,Сегодня,Bugün
 UI_WEEK,本周,This Week,本週,今週,이번 주,Diese Woche,Cette semaine,Esta semana,Esta semana,Settimana,Неделя,Bu hafta
@@ -46,11 +46,11 @@ T_WORLD_COMPLETE,通关！,Cleared!,通關！,クリア！,클리어!,Geschafft!
 T_WORLD_UNLOCK,新世界,New World,新世界,新しい世界,새 세계,Neue Welt,Nouveau monde,Nuevo mundo,Novo mundo,Nuovo mondo,Новый мир,Yeni dünya
 T_GIFT,礼物,Gift,禮物,プレゼント,선물,Geschenk,Cadeau,Regalo,Presente,Regalo,Подарок,Hediye
 T_STUCK,卡住了,Stuck!,卡住了,つまった！,막혔어요!,Festgefahren!,Bloqué !,¡Atascado!,Travou!,Bloccato!,Тупик!,Sıkıştın!
-T_UNDO_MORE,更多撤销,More Undos,更多撤銷,戻すを追加,되돌리기 추가,Mehr Zurück,Plus d’annulations,Más deshacer,Mais desfazer,Altri annulla,Ещё отмены,Daha fazla geri al
-T_DAILY_REWARD,每日奖励,Daily Reward,每日獎勵,デイリーボーナス,매일 보상,Tagesbonus,Cadeau du jour,Premio diario,Prêmio diário,Premio del giorno,Награда дня,Günlük ödül
+T_UNDO_MORE,更多撤销,Undos,更多撤銷,戻すを追加,되돌리기 추가,Mehr Zurück,Plus d’annulations,Más deshacer,Mais desfazer,Altri annulla,Ещё отмены,Daha fazla geri al
+T_DAILY_REWARD,每日奖励,Daily,每日獎勵,デイリーボーナス,매일 보상,Tagesbonus,Cadeau du jour,Premio diario,Prêmio diário,Premio del giorno,Награда дня,Günlük ödül
 T_DRAW,幸运抽奖,Lucky Draw,幸運抽獎,ラッキーくじ,행운 뽑기,Glückslos,Tirage chanceux,Sorteo de la suerte,Sorteio da sorte,Estrazione fortunata,Удачная лотерея,Şans çekilişi
 T_STAR_CHEST,星星宝箱,Star Chest,星星寶箱,スター宝箱,별 상자,Sternentruhe,Coffre étoilé,Cofre estelar,Baú de estrelas,Forziere stellato,Звёздный сундук,Yıldız sandığı
-T_AVIARY,鸟类图鉴,Bird Album,鳥類圖鑑,鳥図鑑,새 도감,Vogelalbum,Album d’oiseaux,Álbum de aves,Álbum de aves,Album uccelli,Альбом птиц,Kuş albümü
+T_AVIARY,鸟类图鉴,Album,鳥類圖鑑,鳥図鑑,새 도감,Vogelalbum,Album d’oiseaux,Álbum de aves,Álbum de aves,Album uccelli,Альбом птиц,Kuş albümü
 T_OUTFITS,装扮,Outfits,裝扮,着せかえ,의상,Outfits,Tenues,Atuendos,Roupas,Costumi,Наряды,Kıyafetler
 T_TOOLS,道具,Tools,道具,アイテム,도구,Hilfen,Outils,Ayudas,Ajudas,Aiuti,Помощники,Yardımcılar
 T_HOUSES,鸟屋,Birdhouses,鳥屋,巣箱,새집,Vogelhäuser,Nichoirs,Casitas,Casinhas,Casette,Домики,Kuş evleri
@@ -58,22 +58,22 @@ T_TERMS,条款,Terms,條款,規約,약관,Bedingungen,Conditions,Términos,Termo
 T_CREDITS,制作,Credits,製作,クレジット,제작,Credits,Crédits,Créditos,Créditos,Crediti,Авторы,Emeği geçenler
 T_CONTACT,联系,Contact,聯繫,お問い合わせ,문의,Kontakt,Contact,Contacto,Contato,Contatti,Связь,İletişim
 T_WORLDS,世界,Worlds,世界,ワールド,세계,Welten,Mondes,Mundos,Mundos,Mondi,Миры,Dünyalar
-T_TUTORIAL,玩法,How to Play,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
+T_TUTORIAL,玩法,Help,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
 T_NEW_TOOL,新道具,New Tool,新道具,新しいアイテム,새 도구,Neue Hilfe,Nouvel outil,Nueva ayuda,Nova ajuda,Nuovo aiuto,Новый помощник,Yeni yardımcı
-T_DAILY_CHALLENGE,每日挑战,Daily Challenge,每日挑戰,デイリーチャレンジ,일일 도전,Tagesaufgabe,Défi du jour,Reto diario,Desafio diário,Sfida del giorno,Испытание дня,Günlük meydan okuma
+T_DAILY_CHALLENGE,每日挑战,Challenge,每日挑戰,デイリーチャレンジ,일일 도전,Tagesaufgabe,Défi du jour,Reto diario,Desafio diário,Sfida del giorno,Испытание дня,Günlük meydan okuma
 TASK_LEVELS,通过关卡,Clear levels,通過關卡,ステージをクリア,레벨 클리어,Level schaffen,Finir des niveaux,Superar niveles,Passar fases,Supera livelli,Пройти уровни,Seviye geç
 TASK_STARS,赚取星星,Earn stars,賺取星星,スターを集める,별 모으기,Sterne sammeln,Gagner des étoiles,Ganar estrellas,Ganhar estrelas,Ottieni stelle,Собрать звёзды,Yıldız kazan
-TASK_FLOCKS,送鸟群回家,Send flocks home,送鳥群回家,群れを巣に帰す,새 무리 귀가,Schwärme heimbringen,Ramener des groupes,Llevar bandadas,Levar bandos,Riporta stormi,Отправить стаи,Sürüleri eve yolla
-TASK_COMBOS,打出连击,Make combos,打出連擊,コンボを出す,콤보 만들기,Combos schaffen,Faire des combos,Hacer combos,Fazer combos,Fai combo,Сделать комбо,Kombo yap
+TASK_FLOCKS,送鸟群回家,Flocks home,送鳥群回家,群れを巣に帰す,새 무리 귀가,Schwärme heimbringen,Ramener des groupes,Llevar bandadas,Levar bandos,Riporta stormi,Отправить стаи,Sürüleri eve yolla
+TASK_COMBOS,打出连击,Combos,打出連擊,コンボを出す,콤보 만들기,Combos schaffen,Faire des combos,Hacer combos,Fazer combos,Fai combo,Сделать комбо,Kombo yap
 TASK_TOOLS,使用道具,Use tools,使用道具,アイテムを使う,도구 사용,Hilfen nutzen,Utiliser des outils,Usar ayudas,Usar ajudas,Usa aiuti,Использовать помощь,Yardımcı kullan
-TASK_DRAW,幸运抽奖,Spin the draw,幸運抽獎,くじを引く,뽑기 하기,Los ziehen,Faire un tirage,Hacer un sorteo,Fazer um sorteio,Fai un’estrazione,Сыграть в лотерею,Çekiliş yap
+TASK_DRAW,幸运抽奖,Lucky draw,幸運抽獎,くじを引く,뽑기 하기,Los ziehen,Faire un tirage,Hacer un sorteo,Fazer um sorteio,Fai un’estrazione,Сыграть в лотерею,Çekiliş yap
 CHEST_LINE,赚取星星,Earn stars,賺取星星,スターを集めよう,별을 모아요,Sammle Sterne,Gagne des étoiles,Gana estrellas,Ganhe estrelas,Raccogli stelle,Собирай звёзды,Yıldız topla
 TOOL_FIREFLY,萤火灯,Firefly,螢火燈,ホタル,반딧불,Glühwürmchen,Luciole,Luciérnaga,Vaga-lume,Lucciola,Светлячок,Ateş böceği
 TOOL_SPROUT,新枝芽,Sprout,新枝芽,新芽,새싹,Spross,Pousse,Brote,Broto,Germoglio,Росток,Filiz
 TOOL_OWL_EYE,猫头鹰眼,Owl Eye,貓頭鷹眼,フクロウの目,부엉이 눈,Eulenauge,Œil de hibou,Ojo de búho,Olho de coruja,Occhio di gufo,Совиный глаз,Baykuş gözü
-TOOL_WAKE_BELL,唤醒铃,Wake Bell,喚醒鈴,目覚ましベル,깨우기 종,Weckglocke,Cloche réveil,Campana,Sino,Campanella,Колокольчик,Uyandırma zili
+TOOL_WAKE_BELL,唤醒铃,Bell,喚醒鈴,目覚ましベル,깨우기 종,Weckglocke,Cloche réveil,Campana,Sino,Campanella,Колокольчик,Uyandırma zili
 TOOL_SCARECROW,稻草人,Scarecrow,稻草人,かかし,허수아비,Vogelscheuche,Épouvantail,Espantapájaros,Espantalho,Spaventapasseri,Пугало,Korkuluk
-TOOL_SPRING_RAIN,春雨,Spring Rain,春雨,春の雨,봄비,Frühlingsregen,Pluie de printemps,Lluvia de primavera,Chuva de primavera,Pioggia di primavera,Весенний дождь,Bahar yağmuru
+TOOL_SPRING_RAIN,春雨,Rain,春雨,春の雨,봄비,Frühlingsregen,Pluie de printemps,Lluvia de primavera,Chuva de primavera,Pioggia di primavera,Весенний дождь,Bahar yağmuru
 TOOL_FIREFLY_DESC,照亮好走法,Lights a good move,照亮好走法,いい手を照らす,좋은 수를 비춰요,Zeigt einen guten Zug,Montre un bon coup,Muestra una buena jugada,Mostra uma boa jogada,Mostra una buona mossa,Подсветит хороший ход,İyi bir hamle gösterir
 TOOL_SPROUT_DESC,长出一根新树枝,Grows a new perch,長出一根新樹枝,新しい枝が生える,새 가지가 자라요,Lässt einen neuen Ast wachsen,Fait pousser une branche,Crece una rama nueva,Cresce um galho novo,Fa crescere un ramo,Вырастит новую ветку,Yeni bir dal büyütür
 TOOL_OWL_EYE_DESC,看清蛋里的鸟,See inside an egg,看清蛋裡的鳥,卵の中が見える,알 속을 봐요,Schau ins Ei,Voir dans un œuf,Mira dentro de un huevo,Veja dentro do ovo,Guarda dentro l’uovo,"Видно, кто в яйце",Yumurtanın içini gör
@@ -117,16 +117,16 @@ TUTORIAL_PICK,点一根树枝选鸟,Tap a branch to pick birds,點一根樹枝�
 TUTORIAL_MOVE,点有空位的树枝,Tap a branch with room,點有空位的樹枝,空きのある枝をタップ,빈자리가 있는 가지를 눌러요,Tippe einen Ast mit Platz,Touche une branche libre,Toca una rama con sitio,Toque num galho com espaço,Tocca un ramo libero,Нажми на ветку со свободным местом,Boş yeri olan dala dokun
 TUTORIAL_HOME,站满的树枝会飞回家,A full branch flies home,站滿的樹枝會飛回家,そろった枝は巣に帰る,가득 찬 가지는 집으로 날아가요,Ein voller Ast fliegt heim,Une branche pleine rentre,Una rama llena vuelve a casa,Um galho cheio volta para casa,Un ramo pieno torna a casa,Полная ветка летит домой,Dolu dal eve uçar
 TUTORIAL_WIN,全部回家，你赢了！,All home: you win!,全部回家，你贏了！,みんな帰ったら勝ち！,모두 돌아가면 승리!,Alle daheim: gewonnen!,Tous rentrés : gagné !,¡Todos en casa: ganas!,Todos em casa: venceu!,Tutti a casa: vinci!,Все дома — победа!,Hepsi evde: kazandın!
-WORLD_GREEN,青青森林,Green Forest,青青森林,みどりの森,초록 숲,Grüner Wald,Forêt verte,Bosque verde,Floresta verde,Bosco verde,Зелёный лес,Yeşil orman
-WORLD_BAMBOO,竹林,Bamboo Forest,竹林,竹林,대나무 숲,Bambuswald,Bambouseraie,Bosque de bambú,Bambuzal,Bosco di bambù,Бамбуковый лес,Bambu ormanı
-WORLD_AUTUMN,秋日森林,Autumn Forest,秋日森林,秋の森,가을 숲,Herbstwald,Forêt d’automne,Bosque otoñal,Floresta de outono,Bosco d’autunno,Осенний лес,Sonbahar ormanı
-WORLD_SNOW,雪林,Snow Forest,雪林,雪の森,눈 숲,Schneewald,Forêt enneigée,Bosque nevado,Floresta nevada,Bosco innevato,Снежный лес,Karlı orman
-WORLD_BLOSSOM,樱花林,Blossom Forest,櫻花林,桜の森,벚꽃 숲,Blütenwald,Forêt en fleurs,Bosque en flor,Floresta florida,Bosco in fiore,Цветущий лес,Çiçekli orman
-WORLD_MUSHROOM,蘑菇森林,Mushroom Forest,蘑菇森林,キノコの森,버섯 숲,Pilzwald,Forêt des champignons,Bosque de setas,Floresta de cogumelos,Bosco dei funghi,Грибной лес,Mantar ormanı
-WORLD_LAKESIDE,湖畔森林,Lakeside Forest,湖畔森林,湖の森,호숫가 숲,Seewald,Forêt du lac,Bosque del lago,Floresta do lago,Bosco del lago,Лес у озера,Göl kıyısı ormanı
+WORLD_GREEN,青青森林,Greenwood,青青森林,みどりの森,초록 숲,Grüner Wald,Forêt verte,Bosque verde,Floresta verde,Bosco verde,Зелёный лес,Yeşil orman
+WORLD_BAMBOO,竹林,Bamboo,竹林,竹林,대나무 숲,Bambuswald,Bambouseraie,Bosque de bambú,Bambuzal,Bosco di bambù,Бамбуковый лес,Bambu ormanı
+WORLD_AUTUMN,秋日森林,Autumn,秋日森林,秋の森,가을 숲,Herbstwald,Forêt d’automne,Bosque otoñal,Floresta de outono,Bosco d’autunno,Осенний лес,Sonbahar ormanı
+WORLD_SNOW,雪林,Snowy,雪林,雪の森,눈 숲,Schneewald,Forêt enneigée,Bosque nevado,Floresta nevada,Bosco innevato,Снежный лес,Karlı orman
+WORLD_BLOSSOM,樱花林,Blossom,櫻花林,桜の森,벚꽃 숲,Blütenwald,Forêt en fleurs,Bosque en flor,Floresta florida,Bosco in fiore,Цветущий лес,Çiçekli orman
+WORLD_MUSHROOM,蘑菇森林,Mushroom,蘑菇森林,キノコの森,버섯 숲,Pilzwald,Forêt des champignons,Bosque de setas,Floresta de cogumelos,Bosco dei funghi,Грибной лес,Mantar ormanı
+WORLD_LAKESIDE,湖畔森林,Lakeside,湖畔森林,湖の森,호숫가 숲,Seewald,Forêt du lac,Bosque del lago,Floresta do lago,Bosco del lago,Лес у озера,Göl kıyısı ormanı
 WORLD_PINE,雾松林,Misty Pines,霧松林,霧の松林,안개 소나무 숲,Nebelkiefern,Pins brumeux,Pinos de niebla,Pinheiros na névoa,Pini nella nebbia,Туманные сосны,Sisli çamlar
 WORLD_RAINFOREST,雨林,Rainforest,雨林,熱帯雨林,열대우림,Regenwald,Forêt tropicale,Selva,Floresta tropical,Foresta pluviale,Тропический лес,Yağmur ormanı
-WORLD_WISTERIA,紫藤林,Wisteria Forest,紫藤林,藤の森,등나무 숲,Glyzinienwald,Forêt de glycines,Bosque de glicinias,Floresta de glicínias,Bosco di glicini,Глициниевый лес,Morsalkım ormanı
+WORLD_WISTERIA,紫藤林,Wisteria,紫藤林,藤の森,등나무 숲,Glyzinienwald,Forêt de glycines,Bosque de glicinias,Floresta de glicínias,Bosco di glicini,Глициниевый лес,Morsalkım ormanı
 BIRD_SUNNY,阳阳,Sunny,陽陽,サニー,써니,Sunny,Soleil,Sunny,Sunny,Sunny,Санни,Güneş
 BIRD_SKY,天天,Skye,天天,スカイ,스카이,Skye,Skye,Skye,Skye,Skye,Скай,Gök
 BIRD_BERRY,莓莓,Berry,莓莓,ベリー,베리,Beere,Baie,Baya,Amora,Bacca,Ягодка,Dut
@@ -266,3 +266,12 @@ OUTFIT_HOOT_5,幽灵,Ghost,幽靈,おばけ,유령,Gespenst,Fantôme,Fantasma,Fa
 UI_NEXT_LEVEL,下一关,Next,下一關,次へ,다음,Weiter,Suivant,Siguiente,Próximo,Avanti,Дальше,Sonraki
 UI_CLAIM,领取,Claim,領取,受け取る,받기,Holen,Prendre,Recoger,Pegar,Prendi,Забрать,Al
 TASK_GO,前往,Go,前往,GO,가기,Los,Go,Ir,Ir,Vai,Вперёд,Git
+UI_COMBO_WORD,连击,COMBO,連擊,コンボ,콤보,COMBO,COMBO,COMBO,COMBO,COMBO,КОМБО,KOMBO
+UI_PRAISE_1,不错！,Good!,不錯！,いいね！,좋아요!,Gut!,Bien !,¡Bien!,Boa!,Bene!,Неплохо!,İyi!
+UI_PRAISE_2,真棒！,Great!,真棒！,すてき！,훌륭해요!,Toll!,Bravo !,¡Genial!,Mandou bem!,Bravo!,Здорово!,Süper!
+UI_PRAISE_3,太强了！,Awesome!,太強了！,すごい！,대단해요!,Super!,Génial !,¡Increíble!,Incrível!,Fantastico!,Супер!,Muhteşem!
+UI_REPLAY_NO_REWARD,今日重玩奖励已领完,No rewards left today,今日重玩獎勵已領完,今日の再挑戦ボーナスは終了,오늘 재도전 보상은 끝났어요,Heute keine Belohnung mehr,Plus de récompense aujourd’hui,Hoy ya no hay premios,Sem prêmios por hoje,Niente premi per oggi,Награды на сегодня кончились,Bugünlük ödül kalmadı
+WIN_TITLE,通关成功,Level Clear!,通關成功,クリア！,클리어!,Geschafft!,Réussi !,¡Superado!,Passou!,Superato!,Пройдено!,Başardın!
+WIN_DOUBLE,领双倍,Get x2,領雙倍,2倍GET,2배 받기,x2 holen,Prendre x2,Cobrar x2,Pegar x2,Prendi x2,Взять x2,2 kat al
+LV_CURRENT,当前,Now,目前,いまここ,현재,Jetzt,Ici,Aquí,Aqui,Qui,Сейчас,Şimdi
+MAP_RANGE,第 %d–%d 关,Levels %d–%d,第 %d–%d 關,ステージ %d–%d,레벨 %d–%d,Level %d–%d,Niveaux %d–%d,Niveles %d–%d,Fases %d–%d,Livelli %d–%d,Уровни %d–%d,Seviye %d–%d
