@@ -31,7 +31,7 @@ def run(script, *args):
 
 def limit_wait(species, slot):
     """Seconds until the Codex usage limit resets, read from the newest logs of this key, or 0."""
-    logs = sorted(glob.glob("%s/out/%s_%s_*_worn.log" % (HERE, species, slot)), key=os.path.getmtime)[-6:]
+    logs = sorted(glob.glob("%s/out/%s_%s_*.log" % (HERE, species, slot)), key=os.path.getmtime)[-6:]
     seconds = [int(m) for path in logs for m in re.findall(r'resets_in_seconds\D{0,6}(\d+)', open(path, errors="ignore").read())]
     return max(seconds) if seconds else 0
 
@@ -58,7 +58,7 @@ for key in args:
             wait = limit_wait(species, slot) if missing(frames, species, slot) else 0
             if wait:
                 log("usage limit reached: sleeping %d s" % (wait + 120))
-                for old in glob.glob("%s/out/%s_%s_*_worn.log" % (HERE, species, slot)):
+                for old in glob.glob("%s/out/%s_%s_*.log" % (HERE, species, slot)):
                     os.remove(old)
                 time.sleep(wait + 120)
             else:

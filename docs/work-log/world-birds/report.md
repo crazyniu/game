@@ -49,3 +49,15 @@ layered costume, but it is the same limit: no two paintings are identical.
   grebe 水葫芦, potoo 林夜鹰.
 - `Worlds.READY` is 10: every world meets its birds and the aviary offers all ten worlds.
 - Not run in Creator or a browser; the owner checks the aviary world switch and the boards of worlds 3-10.
+
+## World-bird skins
+- All 243 skins (3 per world bird, worlds 2-10) painted on 2026-11-21 and packed into one sheet each (15 frames: front, blink x2, flight
+  flap x6, mirrored left flap x6).
+- Method: `paint_skin.py` paints the nine frames of a skin in one Codex picture (the nine plain frames as a 3x3 sheet with an empty border
+  round each, about 418 pixels per cell) and cuts the cells; a reference picture is optional (worlds 2-3 used one, worlds 4-10 the costume
+  text alone). One painting per skin plus about one repaint in seven, instead of ten paintings per skin.
+- Every skin's front and one flight frame reviewed per world sheet; poses follow the plain frames.
+- Not in the game yet: the aviary shows skin tiles for world-1 birds only and the shop's skin tab lists world-1 birds; world-bird skins need a
+  clickable shell approved first.
+- Seen while reviewing (painting of the plain bird, not of the skins): some plain flight frames of world birds are cut at the frame edge
+  (for example `mallard_flight_flap_03`).

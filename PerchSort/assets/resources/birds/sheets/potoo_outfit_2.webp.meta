@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "b05f5a32-ceb9-5865-b3ca-96064d678b0e",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "b05f5a32-ceb9-5865-b3ca-96064d678b0e@6c48a",
+      "displayName": "potoo_outfit_2",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b05f5a32-ceb9-5865-b3ca-96064d678b0e",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "b05f5a32-ceb9-5865-b3ca-96064d678b0e@f9941",
+      "displayName": "potoo_outfit_2",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1899,
+        "height": 820,
+        "rawWidth": 1899,
+        "rawHeight": 820,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b05f5a32-ceb9-5865-b3ca-96064d678b0e@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -949.5,
+            -410,
+            0,
+            949.5,
+            -410,
+            0,
+            -949.5,
+            410,
+            0,
+            949.5,
+            410,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            820,
+            1899,
+            820,
+            0,
+            0,
+            1899,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -949.5,
+            -410,
+            0
+          ],
+          "maxPos": [
+            949.5,
+            410,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "b05f5a32-ceb9-5865-b3ca-96064d678b0e@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}
