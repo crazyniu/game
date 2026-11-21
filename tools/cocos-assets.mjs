@@ -9,11 +9,19 @@ let paths=await files(root);
 for(const p of paths.filter(p=>p.endsWith('.svg'))) await sharp(p,{density:192}).png().toFile(p.replace(/\.svg$/,'.png'));
 paths=await files(root);
 const images={}, data={}, sounds={};
+// Bird frames packed by tools/birds/pack_sheets.py: one entry per frame, drawn from its piece of the bird's sheet.
+const table=JSON.parse(await fs.readFile(new URL('birds/sheets.json', import.meta.url),'utf8'));
 let pixels=0;
 for(const p of paths){
  const relative=path.relative(root,p).replaceAll(path.sep,'/'), key=relative.replace(/\.[^.]+$/,'');
  if(/\.(png|webp)$/.test(p)){
   const {data:raw,info}=await sharp(p).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+  const group=key.startsWith('birds/sheets/')&&table[key.slice(13)];
+  if(group)for(const [name,[x,y,left,top,w,h,fw,fh]] of Object.entries(group.frames)){
+   let l=w,t=h,r=-1,b=-1;
+   for(let j=0;j<h;j++)for(let i=0;i<w;i++)if(raw[((y+j)*info.width+x+i)*4+3]>0){l=Math.min(l,i);r=Math.max(r,i);t=Math.min(t,j);b=Math.max(b,j);}
+   images['birds/'+name]={path:key,size:[fw,fh],ink:r<0?[0,0,fw,fh]:[left+l,top+t,r-l+1,b-t+1],piece:[x,y,left,top,w,h],tex:group.tex};
+  }
   let left=info.width,top=info.height,right=-1,bottom=-1;
   for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++)if(raw[(y*info.width+x)*4+3]>0){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}
   images[key]={path:key,size:[info.width,info.height],ink:right<0?[0,0,info.width,info.height]:[left,top,right-left+1,bottom-top+1]};pixels+=info.width*info.height;

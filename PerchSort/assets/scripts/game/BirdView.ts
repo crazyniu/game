@@ -121,7 +121,7 @@ export class BirdView {
     part.rotors.forEach((rotor,i)=>{rotor.angle=part.spin-(2-i)*26;});
   }
   private restFrame():string {if(this.code&1)return 'egg_idle';return this.asleep?(this.sequences.front_blink?.at(-1)??this.rest):this.rest;}
-  private cached(name:string):ReturnType<typeof Art.cache.get> {return Art.cache.get(Art.entry(name).path);}
+  private cached(name:string):ReturnType<typeof Art.cache.get> {return Art.cache.get(Art.key(name));}
   private show(name:string,next='',amount=0):void {
     this.frame=name;this.nextFrame=next;this.blendAmount=next?amount:0;
     const frame=this.cached(name);if(frame)this.sprite.spriteFrame=frame;
