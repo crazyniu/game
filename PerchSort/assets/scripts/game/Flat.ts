@@ -85,10 +85,11 @@ export class Flat {
     return n;
   }
   /** A square key with a white glyph (close, settings, plus). */
-  static key(parent: Node, name: string, rect: Rect, tone: 'blue' | 'green' | 'red', glyph: string, action: () => void, glyphScale = .56): Node {
+  static key(parent: Node, name: string, rect: Rect, tone: 'blue' | 'green' | 'red', glyph: string, action: () => void, glyphScale = .56, mirror = false): Node {
     const n = UI.hit_area(parent, name, rect, action), g = rect[2] * glyphScale;
     UI.image(n, ART + 'f_key_' + tone, [0, 0, rect[2], rect[3]]);
-    UI.image(n, ART + glyph, [(rect[2] - g) / 2, rect[3] * .445 - g / 2, g, g]);
+    const icon = UI.image(n, ART + glyph, [(rect[2] - g) / 2, rect[3] * .445 - g / 2, g, g]);
+    if (mirror) { icon.getComponent(UITransform)!.setAnchorPoint(.5, .5); icon.setPosition(rect[2] / 2, -rect[3] * .445, 0); icon.setScale(-1, 1, 1); }
     return n;
   }
   /** The plate of a group laid over its whole rect. */

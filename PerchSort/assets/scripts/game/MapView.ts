@@ -90,8 +90,7 @@ export class MapView {
     for (let i = 0; i < Levels.PER_WORLD; i++) this.levelNode((world - 1) * Levels.PER_WORLD + i + 1, panel[0] + cellW * (i % 3 + .5), panel[1] + 20 + rowH * (Math.floor(i / 3) + .5), i);
     const navY = 1790;
     const prev = Flat.key(this.body, 'WorldPrevious', [540 - 330, navY - 60, 120, 120], 'blue', 'f_g_back', () => this.open_world(world - 1));
-    const next = Flat.key(this.body, 'WorldNext', [540 + 210, navY - 60, 120, 120], 'blue', 'f_g_back', () => this.open_world(world + 1));
-    next.getChildByName('art/flat/f_g_back')?.setScale(-1, 1, 1);
+    const next = Flat.key(this.body, 'WorldNext', [540 + 210, navY - 60, 120, 120], 'blue', 'f_g_back', () => this.open_world(world + 1), .56, true);
     UI.enabled(prev, world > 1); UI.enabled(next, world < Levels.WORLDS && Progress.is_world_unlocked(this.profile, world + 1));
     const range = UI.group(this.body, 'Range', [540 - 170, navY - 46, 340, 92]);
     Flat.plateIn(range, 'f_dock', [0, 0, 340, 92]);
