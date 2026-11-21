@@ -58,7 +58,7 @@ export class Kit {
   static glyph(c: string): string { return 'digit_ui_' + (({'/':'slash','+':'plus','×':'x','x':'x'} as Record<string,string>)[c] || c); }
   /** A number in the game font, white with a navy outline. */
   static number(parent: Node, value: string | number, rect: Rect, align = 0): Node { return Flat.text(parent, String(value).replace(/x/g, '×'), rect, Math.round(rect[3] * .92), ON_DARK, align).node.parent!; }
-  static lettering(parent:Node,key:string,rect:Rect):Node { return Flat.text(parent,word(key),rect,Math.round(Math.min(rect[3]*.8,72)),ON_DARK).node.parent!; }
+  static lettering(parent:Node,key:string,rect:Rect):Node { return Flat.text(parent,word(key),rect,Math.round(Math.min(rect[3]*.8,72)),ON_LIGHT).node.parent!; }
   static readonly BUTTON_H=176;
   /** The play buttons (home, map, level card) share one larger height. */
   static readonly PLAY_H=200;
@@ -115,11 +115,11 @@ export class Kit {
   static warmFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
   static toyFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
   static jungle(host:Node,title:string,heights:number[],options:{width?:number; actionHeight?:number; close?:boolean; compact?:boolean; birdsAbove?:boolean; footer?:number; onClose?:()=>void}={}):Dialog {
-    const width=options.width??960, head=options.compact?96:120, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
+    const width=options.width??960, head=options.compact?96:options.birdsAbove?210:120, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
     const inner=heights.reduce((a,b)=>a+b,0)+Math.max(0,heights.length-1)*24, above=options.birdsAbove?180:0;
     const height=head+inner+foot, top=Math.max(32,(1920-above-height-48-actionHeight)/2)+above;
     const d=Kit.layer(host,'Popup',options.onClose); d.rect=[(1080-width)/2,top,width,height]; d.actionY=top+height+48;
-    Kit.warmFrame(d.content,d.rect); if(title) Flat.title(d.content,word(title),540,top+12);
+    Kit.warmFrame(d.content,d.rect); if(title) Flat.title(d.content,word(title),540,top+(options.birdsAbove?110:12));
     let y=top+head; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;});
     if(options.close) Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
     Kit.pop(d.content); return d;
@@ -203,8 +203,7 @@ export class Popups {
     const mechanicArt:Record<string,string>={sleep:'hoot_sleep',egg:'egg_idle',crow:'crow_front',twig:'icon_sapling',growing:'icon_sapling',swivel:'btn_swivel_green',mama:'mama_bow'};
     const listed=Array.from(mechanics).filter(k=>mechanicArt[k]);const heights=[224,100];if(rows)heights.push(rows*tile+(rows-1)*20);if(listed.length)heights.push(96);if(tools.length)heights.push(188);
     const d=Kit.jungle(this.host,'',heights,{actionHeight:200,close:true,compact:true});
-    const titleHeight=223*.56,digitHeight=titleHeight*.92,text=String(level),digitWidths=Array.from(text).map(c=>Art.size('digit_title_'+c)[0]*digitHeight/Art.size('digit_title_'+c)[1]),digitsWidth=digitWidths.reduce((a,b)=>a+b,0)-Math.max(0,text.length-1)*digitHeight*.06;
-    const word=Kit.lettering(d.content,'popup_level_title',[316,d.rect[1]+79.66,448-digitsWidth-16,titleHeight]);const wr=UI.rect(word),visibleWidth=wr[2],left=540-(visibleWidth+16+digitsWidth)/2;UI.move(word,left,wr[1]);let dx=left+visibleWidth+16;Array.from(text).forEach((c,i)=>{UI.image(d.content,'digit_title_'+c,[dx,d.rect[1]+84.6552,digitWidths[i],digitHeight]);dx+=digitWidths[i]-digitHeight*.06;});
+    Flat.title(d.content,tr('UI_LEVEL',level),540,d.rect[1]+12);
     for(let i=0;i<3;i++)UI.art(d.content,i<this.profile.best_stars(level)?'island_star_full':'island_star_empty',[450+(i-1)*216,d.ys[0]+22,180,180]);UI.art(d.content,'icon_star_budget_steps',[420,d.ys[1]+14,72,72],[317,217,652,801]);Kit.number(d.content,def.par,[508,d.ys[1]+18,150,64]);
     let g=2;species.forEach((s:string,i:number)=>{const row=Math.floor(i/perRow),n=Math.min(perRow,species.length-row*perRow),x=540+(i%perRow-(n-1)/2)*(tile+20)-tile/2,y=d.ys[g]+row*(tile+20);UI.art(d.content,'hud_tool_slot',[x,y,tile,tile]);const inner=tile*.82;Kit.liveBird(d.content,Worlds.look(Levels.world_of(def),s),[x+(tile-inner)/2,y+(tile-inner)/2-6,inner,inner]);const effect=({sunny:'wake',sky:'reveal',berry:'encore',mint:'grow',cocoa:'scare',snow:'undo',ember:'hatch',ink:'encore',hoot:'wake'} as Record<string,string>)[s];if(effect){const badge=tile*.42;UI.art(d.content,'gift_coin_'+effect,[x+tile-badge*.85,y+tile-badge*.85,badge,badge]);}UI.hit_area(d.content,'Bird_'+s,[x,y,tile,tile],()=>this.goal_info(s,Levels.world_of(def)));});if(rows)g++;
     if(listed.length){const y=d.ys[g++];listed.forEach((key,i)=>UI.art(d.content,mechanicArt[key],[540+(i-(listed.length-1)/2)*132-44,y+4,88,88]));}
