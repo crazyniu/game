@@ -759,7 +759,7 @@ export class BoardView {
     if(!this.rescueDeclined&&this.state.world===1&&!this.session.free_rescue_used){
       this.rescueDeclined=true;this.point_at_tool(-1,true);this.suspend_input();this.callbacks.rescue_offer();return;
     }
-    const shouldOffer=!this.rescueDeclined&&this.state.world>1;this.rescueDeclined=true;
+    // The one offer is spent only when it is shown; a search dropped because the board moved on keeps it.
     const kinds=Array.from(this.toolSlots.keys()).filter(k=>k!==Booster.FIREFLY).sort((a,b)=>
       (a<0?(this.session.undos_left>0?0:Progress.UNDO_PRICE):Progress.booster_price(a))-(b<0?(this.session.undos_left>0?0:Progress.UNDO_PRICE):Progress.booster_price(b)));
     let chosen=-1;
@@ -773,7 +773,7 @@ export class BoardView {
     }
     if(stale()||this.busy||this.suspended)return;
     this.rescue_tool=chosen;this.point_at_tool(chosen,true);
-    if(shouldOffer){this.suspend_input();this.callbacks.restart_offer(chosen<0?'island_icon_undo':BoardView.TOOL_PICTURES[chosen]);}
+    if(!this.rescueDeclined&&this.state.world>1){this.rescueDeclined=true;this.suspend_input();this.callbacks.restart_offer(chosen<0?'island_icon_undo':BoardView.TOOL_PICTURES[chosen]);}
   }
   async rescue():Promise<void> {
     if(this.busy||!this.session.history_size())return;
