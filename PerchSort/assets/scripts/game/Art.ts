@@ -13,6 +13,12 @@ export class Art {
   /** Loaded frames by manifest key. */
   static cache = new Map<string,SpriteFrame>();
   private static sheets = new Map<string,Promise<SpriteFrame>>();
+  /** Downloaded bird sheets, and the page generation that last asked for a frame of each. */
+  private static sheetFrames = new Map<string,SpriteFrame>();
+  private static sheetUse = new Map<string,number>();
+  private static generation = 0;
+  /** Sheets the current page does not use that stay loaded, most recent first, so returning to a recent page does not download them again. */
+  static readonly SPARE_SHEETS = 16;
   static errors:string[]=[];
   static async init():Promise<void> {
     this.manifest=await new Promise((resolve,reject)=>resources.load('manifest',JsonAsset,(e,a)=>e?reject(e):resolve(a.json as Manifest)));
@@ -32,6 +38,7 @@ export class Art {
   static pack():any{return this.data(`art/locale/${this.locale}/manifest`);}
   static load(name:string,background=false):Promise<SpriteFrame> {
     const key=this.key(name),e=this.entry(name);
+    if(e.piece)this.sheetUse.set(e.path,this.generation);
     if(this.cache.has(key))return Promise.resolve(this.cache.get(key)!);
     if(!background)this.needed.add(key);
     if(this.pending.has(key))return this.pending.get(key)!;
@@ -46,7 +53,7 @@ export class Art {
   }
   /** A bird's sheet is downloaded once; every frame of the bird is a piece of it. */
   private static sheet(path:string):Promise<SpriteFrame> {
-    if(!this.sheets.has(path))this.sheets.set(path,this.fetch(path).catch(error=>{this.sheets.delete(path);throw error;}));
+    if(!this.sheets.has(path))this.sheets.set(path,this.fetch(path).then(frame=>{this.sheetFrames.set(path,frame);return frame;}).catch(error=>{this.sheets.delete(path);throw error;}));
     return this.sheets.get(path)!;
   }
   /** The frame at its full size: the piece is placed where it sits in the frame, the rest is transparent (sprites draw untrimmed). */
@@ -71,6 +78,18 @@ export class Art {
       if(!batch.length){this.draining=false;return;}
       void Promise.allSettled(batch.map(name=>this.load(name,true))).then(()=>this.drain());
     },30);
+  }
+  /** A page is about to be built: frames it asks for from now on mark their sheets as in use, and the previous page's background loads stop. */
+  static nextPage():void{this.generation++;this.deferred.length=0;}
+  /** Releases the bird sheets the current page has not asked for, beyond the most recent spare ones; their frames leave the cache and load again on demand. */
+  static releaseSpareSheets():void{
+    const pending=new Set(Array.from(this.pending.keys(),key=>this.manifest.images[key].path));
+    const spare=Array.from(this.sheetFrames.keys()).filter(path=>this.sheetUse.get(path)!==this.generation&&!pending.has(path))
+      .sort((a,b)=>this.sheetUse.get(b)!-this.sheetUse.get(a)!);
+    for(const path of spare.slice(this.SPARE_SHEETS)){
+      for(const key of Array.from(this.cache.keys()))if(this.manifest.images[key].piece&&this.manifest.images[key].path===path)this.cache.delete(key);
+      const frame=this.sheetFrames.get(path)!;this.sheetFrames.delete(path);this.sheets.delete(path);this.sheetUse.delete(path);frame.decRef();
+    }
   }
   static region(source:SpriteFrame, region:Rect):SpriteFrame {
     const sf=new SpriteFrame();sf.texture=source.texture;sf.rect=new CocosRect(...region);sf.originalSize=new Size(region[2],region[3]);sf.offset=new Vec2(0,0);sf.packable=false;return sf;
