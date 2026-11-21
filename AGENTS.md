@@ -40,6 +40,7 @@ Perch Sort is one Cocos Creator **3.8.8** game written in TypeScript: portrait 1
 | Surface | Location |
 | --- | --- |
 | Project and entry | `PerchSort/package.json`, `assets/scenes/main.scene`, `assets/scripts/Boot.ts` |
+| Identity, platform layer, native bridges | `game.json`, `tools/native/apply.mjs`, `PerchSort/assets/scripts/platform`, `PerchSort/native/engine`, `package.sh` |
 | Launcher and development tools | `run.sh`, `tools/cocos/{creator.sh,cdp.mjs,meta.mjs}`, `tools/web/serve.mjs`, `tools/art/compress.mjs` |
 | Pure rules and solver | `PerchSort/assets/scripts/core` (`Board`, `Levels`, `Rules`, `Solver`, `GameSession`) |
 | Profile, progression, shop, aviary | `PerchSort/assets/scripts/meta` |
@@ -53,7 +54,7 @@ Keep `core/` and `meta/` independent of Cocos and presentation. Inspect actual r
 
 Preserve JSON field names in `assets/scripts/meta/Profile.ts`, profile schema migrations, and numeric enum order in `assets/scripts/core/Board.ts`. Never reset or silently top up user data. Browser storage uses `perch-sort.profile`; the localhost launcher may import an existing Godot profile once when that browser key is absent, without modifying the original file. Self-tests use isolated profiles.
 
-Payment and rewarded-ad providers are not connected. The local game must not falsely grant currency or rewards as though payment or an ad had completed. Keep provider callbacks explicit; test providers belong only in authorized tests.
+Ads go through `assets/scripts/platform` (AdMob rewarded and interstitial with UMP/ATT on iOS and Android, WeChat's own ads on WeChat; rules in `meta/Ads.ts`). A reward is granted only after the platform reports the ad watched to the end; without an available ad the entry is hidden. Store packages alone use the real ad units from `game.json`. Payment providers are not connected: the game must not grant currency as though a payment had completed. Mock ads exist only in debug builds.
 
 ## Documentation and language
 

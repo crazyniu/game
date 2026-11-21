@@ -13,6 +13,9 @@ The single runtime is Cocos Creator 3.8.8 with TypeScript. Start at [CURRENT_GAM
 | `assets/scripts/core/GameSession.ts` | `GameSession` | Selection, undo, restart, counted moves, boosters, replayable attempt state |
 | `assets/scripts/meta/Profile.ts` | `Profile` | Original JSON fields and migrations, records, inventory, cosmetics, met species; injected storage |
 | `assets/scripts/meta/Progress.ts` | `Progress` | Sequential unlocks, rewards, world completion, stars/chests, daily calendar, lucky draw, starter tools |
+| `assets/scripts/meta/Ads.ts` | `Ads` | Ad placements, daily caps, interstitial pacing |
+| `assets/scripts/platform/` | `Platform`, `DebugPlatform`, `NativePlatform`, `WechatPlatform` | Ads, vibration and privacy entries per platform; chosen at startup, asked through `hasCapability()` |
+| `native/engine/` | `GameBridge`, `GameAds` | iOS/Android templates and the script bridge: AdMob, UMP, ATT |
 | `assets/scripts/meta/Shop.ts`, `Aviary.ts` | `Shop`, `Aviary` | Catalog and transactions, equip state, species roster, first meetings, flocks home |
 | `assets/scripts/game/HomeView.ts`, `MapView.ts` | `HomeView`, `MapView` | Forest home, world navigation, level tiles, counters and entries |
 | `assets/scripts/game/BoardView.ts` | `BoardView` | Measured world/perch layout, goal houses, HUD, tools, entrance, input, event playback |
@@ -28,6 +31,7 @@ The single runtime is Cocos Creator 3.8.8 with TypeScript. Start at [CURRENT_GAM
 | `tests/core.test.ts` | Node/tsx tests | Pure rules and meta behavior, profile migrations, all stored level solutions |
 | `build-config/web-mobile.json` | Creator build configuration | Actual web-mobile output at `build/web-mobile` |
 | Repository `run.sh`, `tools/cocos/creator.sh`, `tools/web/serve.mjs` | Launcher, Creator build, local server | Pull, build from an empty cache, play/serve/lan with level, autoplay and page options, check; prior-profile import answered to loopback only |
+| Repository `game.json`, `tools/native/apply.mjs`, `package.sh` | Identity and packaging | Names, versions, IDs and ad units applied to every platform; iOS, Android, WeChat and web packages |
 | Repository `tools/cocos/cdp.mjs` | Player window debugging | Console, evaluation, captures, timed frames, stall call stacks |
 | Repository `tools/cocos-assets.mjs`, `tools/cocos/meta.mjs`, `tools/art/compress.mjs` | Resource tooling | Manifest, Creator metadata (`--check`), lossless PNG compression (`--check`) |
 

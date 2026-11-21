@@ -81,9 +81,19 @@ def pack(sizes):
     return spots, (width, height)
 
 
+def unpack(group, entry):
+    """The frames of a group's current sheet as full-size pictures (entry: the group's table entry, read once by the caller)."""
+    sheet = Image.open(os.path.join(SHEETS, group + ".webp")).convert("RGBA")
+    frames = {}
+    for name, (x, y, left, top, w, h, fw, fh) in entry.get("frames", {}).items():
+        frames[name] = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+        frames[name].paste(sheet.crop((x, y, x + w, y + h)), (left, top))
+    return frames
+
+
 def build(group, files, old):
-    """Packs one group; returns its table entry. Runs in a worker process."""
-    frames = {name: frame_image(name) for name in old}
+    """Packs one group; returns its table entry. Runs in a worker process and never reads the table, which the caller rewrites."""
+    frames = unpack(group, old) if old else {}
     for f in files:
         frames[os.path.splitext(f)[0]] = Image.open(os.path.join(BIRDS, f)).convert("RGBA")
     names = sorted(frames)
@@ -116,7 +126,7 @@ def main():
                 singles.setdefault(group, []).append(f)
     os.makedirs(SHEETS, exist_ok=True)
     with ProcessPoolExecutor() as pool:
-        jobs = {g: pool.submit(build, g, files, sheets.get(g, {}).get("frames", {})) for g, files in sorted(singles.items())}
+        jobs = {g: pool.submit(build, g, files, sheets.get(g)) for g, files in sorted(singles.items())}
         for group, job in jobs.items():
             sheets[group] = job.result()
             json.dump(sheets, open(TABLE, "w"), separators=(",", ":"), sort_keys=True)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""install_names.py <world>: cut the painted name sheets of one world into labels and register them.
+"""install_names.py <world|skins1..skins5>: cut the painted name sheets of one world (or of nine skin designs) into labels and register them.
 
 Reads out/names/job_<lang>_gold_world<world>/words.png + texts.json (paint_names.py), cuts one label per line with tools/island/cut_rows.py, scales all
 labels of a sheet by one factor so the letters have the stored cap height (the same rule as tools/island/install_painted_words.py), writes
@@ -25,21 +25,29 @@ def body_height(piece):
 
 
 world = sys.argv[1]
-birds = [l.split("\t")[1] for l in open(HERE + "/names.tsv") if l.split("\t")[0] == world]
+if world.startswith("skins"):
+    k = int(world[5:])
+    rows = [l.split("\t") for l in open(HERE + "/skin_names.tsv")][(k - 1) * 9:k * 9]
+    keys = ["outfit_%s_%s" % (r[0], r[1]) for r in rows]   # a skin design's title, shared by every bird that wears the design
+    job_set = world
+else:
+    keys = ["bird_" + l.split("\t")[1] for l in open(HERE + "/names.tsv") if l.split("\t")[0] == world]
+    job_set = "world" + world
 for lang in ("en", "zh"):
-    job = "%s/out/names/job_%s_gold_world%s" % (HERE, lang, world)
+    job = "%s/out/names/job_%s_gold_%s" % (HERE, lang, job_set)
     texts = json.load(open(job + "/texts.json"))
-    assert len(texts) == len(birds)
+    assert len(texts) == len(keys)
     pieces = cut_rows.cut(job + "/words.png", len(texts))
     scale = CAP[lang] / sorted(body_height(p) for p in pieces)[len(pieces) // 2]
     folder = "%s/PerchSort/assets/resources/art/locale/%s" % (ROOT, lang)
     manifest = json.load(open(folder + "/manifest.json"))
-    for bird, piece in zip(birds, pieces):
+    for key, piece in zip(keys, pieces):
         image = Image.fromarray(piece, "RGBA")
         image = image.resize((max(1, round(image.width * scale)), max(1, round(image.height * scale))), Image.LANCZOS)
-        rel = "island_words/lettering_bird_%s.png" % bird
+        rel = "island_words/lettering_%s.png" % key
         image.save("%s/%s" % (folder, rel))
-        manifest["painted"]["lettering_bird_%s" % bird] = {"file": rel}
-        manifest["words"]["bird.%s.name" % bird] = {"gold": {"file": rel, "cap": CAP[lang]}}
+        manifest["painted"]["lettering_" + key] = {"file": rel}
+        if key.startswith("bird_"):
+            manifest["words"]["bird.%s.name" % key[5:]] = {"gold": {"file": rel, "cap": CAP[lang]}}
     json.dump(manifest, open(folder + "/manifest.json", "w"), ensure_ascii=False, indent=2)
-    print(lang, "installed", len(birds), "labels")
+    print(lang, "installed", len(keys), "labels")

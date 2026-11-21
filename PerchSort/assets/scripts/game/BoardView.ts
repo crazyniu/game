@@ -135,7 +135,8 @@ export class BoardView {
   private timers = new Map<ReturnType<typeof setTimeout>, () => void>();
   private animations = new Map<Tween<any>, () => void>();
   private ambient: AmbientPiece[] = [];
-  private spotlightEffect!: EffectAsset;
+  /** Absent when its download failed; hints and guides then show without the dimmed surround. */
+  private spotlightEffect?: EffectAsset;
   private spotlightReady: Promise<void>;
   private holdId = 0;
   private held = false;
@@ -148,8 +149,8 @@ export class BoardView {
     this.instant = options.instant ?? false;
     this.session = new GameSession(this.level, profile.inventory);
     this.node = UI.group(host, 'Board');
-    this.spotlightReady = new Promise((resolve, reject) => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
-      if (error) { reject(error); return; } this.spotlightEffect = asset; resolve();
+    this.spotlightReady = new Promise(resolve => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
+      if (error) console.error('Hint spotlight failed to load', error); else this.spotlightEffect = asset; resolve();
     }));
     const ticker = this.node.addComponent(BoardTicker); ticker.owner = this;
     this.slots = Art.data(`world/scene/board_w${this.session.state.world}_slots`).slots;
@@ -355,8 +356,9 @@ export class BoardView {
     return selected;
   }
   private bird_id(code: number): string { return Worlds.look(this.state.world, Board.SPECIES[Board.species_of(code)]); }
-  private look(code: number): string {
-    const outfit = this.profile.equipped[this.bird_id(code)];
+  private look(code: number): string { return this.outfitOf(this.bird_id(code)); }
+  private outfitOf(bird: string): string {
+    const outfit = this.profile.equipped[bird];
     return outfit ? outfit.replace('outfit.','').replace('.','_outfit_') : '';
   }
   private makeBird(code: number, feet: Point): BirdEntry {
@@ -416,8 +418,8 @@ export class BoardView {
     if(species===this.residentSpecies) return;
     this.residentSpecies=species; this.resident?.destroy(); this.resident=null;
     if(species<0) return;
-    const rect=UI.rect(this.doorway), side=170*.58;
-    this.resident=BirdView.create(this.doorway,Worlds.look(this.state.world,Board.SPECIES[species]),this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant});
+    const rect=UI.rect(this.doorway), side=170*.58, bird=Worlds.look(this.state.world,Board.SPECIES[species]);
+    this.resident=BirdView.create(this.doorway,bird,this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant,outfit:this.outfitOf(bird)});
   }
   private doorPoint(): Point { return [this.doorRect[0]+this.doorRect[2]/2,this.doorRect[1]+this.doorRect[3]/2]; }
   private glyph(character: string): string { return `digit_ui_${({'+':'plus','/':'slash','×':'x'} as Record<string,string>)[character] || character}`; }
@@ -453,7 +455,7 @@ export class BoardView {
     UI.place(this.skillRow,[540-width/2,house[1]+house[3]+14,width,side]);
     names.forEach((species,i)=>{
       const key=UI.group(this.skillRow,`Key_${species}`,[i*(side+14),0,side,side]);
-      UI.art(key,'hud_tool_slot',[0,0,side,side]); UI.art(key,`${species}_face`,[side*.11,side*.11-2,side*.78,side*.78]);
+      UI.art(key,'hud_tool_slot',[0,0,side,side]); UI.art(key,`${Worlds.look(this.state.world,species)}_face`,[side*.11,side*.11-2,side*.78,side*.78]);
       const gift=BoardView.GIFT_COIN[species]; if(gift)UI.art(key,`gift_coin_${gift}`,[side*.648,side*.648,side*.44,side*.44]);
       if(fresh.goal_mask)UI.art(key,'pic_check_ring',[-side*.12,-side*.12,side*.42,side*.42]);
       const mark=UI.art(key,'pic_check',[-side*.12,-side*.12,side*.42,side*.42]);mark.name='Home';mark.active=false;
@@ -642,6 +644,7 @@ export class BoardView {
     return [x,y-BoardView.HINT_HOLE_HEAD,width,BoardView.HINT_HOLE_HEAD+BoardView.HINT_HOLE_FOOT];
   }
   private spotlight(parent:Node,holes:Rect[]):void {
+    if(!this.spotlightEffect)return;
     const size=Art.size('glow_soft');
     const node=UI.image_region(parent,'glow_soft',[0,0,size[0],size[1]],[0,0,1080,1920]);
     node.name='Spotlight';
@@ -747,14 +750,16 @@ export class BoardView {
 
   private async watchStuck():Promise<void> {
     if(this.instant||this.busy||this.suspended||this.state.is_won()||!this.session.can_undo())return;
-    const snapshot=this.state,key=this.key();
+    const snapshot=this.state,key=this.key(),history=this.session.history_size();
     if(Rules.has_legal_move(snapshot)&&this.failures.get(key)!==Solver.Status.UNSOLVABLE)return;
-    const generation=this.generation;await this.wait(.8);
-    if(!this.valid(generation)||this.state!==snapshot||this.busy||this.suspended)return;
+    // Moves change the board in place, so the position is compared as well as the board object.
+    const generation=this.generation,stale=()=>!this.valid(generation)||this.state!==snapshot||this.key()!==key||this.session.history_size()!==history;
+    await this.wait(.8);
+    if(stale()||this.busy||this.suspended)return;
     if(!this.rescueDeclined&&this.state.world===1&&!this.session.free_rescue_used){
       this.rescueDeclined=true;this.point_at_tool(-1,true);this.suspend_input();this.callbacks.rescue_offer();return;
     }
-    const shouldOffer=!this.rescueDeclined&&this.state.world>1;this.rescueDeclined=true;
+    // The one offer is spent only when it is shown; a search dropped because the board moved on keeps it.
     const kinds=Array.from(this.toolSlots.keys()).filter(k=>k!==Booster.FIREFLY).sort((a,b)=>
       (a<0?(this.session.undos_left>0?0:Progress.UNDO_PRICE):Progress.booster_price(a))-(b<0?(this.session.undos_left>0?0:Progress.UNDO_PRICE):Progress.booster_price(b)));
     let chosen=-1;
@@ -762,20 +767,23 @@ export class BoardView {
       let candidate:Board;
       if(kind<0){if(!this.session.can_undo())continue;candidate=this.session.history_state(1).clone();}
       else{if(!Rules.booster_has_effect(snapshot,kind))continue;candidate=snapshot.clone();new Rules().booster(candidate,kind,false);}
-      if(this.winnable.has(candidate.search_key().join(','))||(await Solver.hint_async(candidate,[],20000,600)).status===Solver.Status.SOLVED){chosen=kind;break;}
-      if(!this.valid(generation)||this.state!==snapshot)return;
+      const solved=this.winnable.has(candidate.search_key().join(','))||(await Solver.hint_async(candidate,[],20000,600)).status===Solver.Status.SOLVED;
+      if(stale())return;
+      if(solved){chosen=kind;break;}
     }
-    if(!this.valid(generation)||this.state!==snapshot||this.busy||this.suspended)return;
+    if(stale()||this.busy||this.suspended)return;
     this.rescue_tool=chosen;this.point_at_tool(chosen,true);
-    if(shouldOffer){this.suspend_input();this.callbacks.restart_offer(chosen<0?'island_icon_undo':BoardView.TOOL_PICTURES[chosen]);}
+    if(!this.rescueDeclined&&this.state.world>1){this.rescueDeclined=true;this.suspend_input();this.callbacks.restart_offer(chosen<0?'island_icon_undo':BoardView.TOOL_PICTURES[chosen]);}
   }
   async rescue():Promise<void> {
     if(this.busy||!this.session.history_size())return;
     this.suspended=false;this.busy=true;this.hideGuide();const generation=this.generation;
-    let steps=this.session.history_size();
+    // The whole search shares one time budget; past it the rescue returns to the start, which is always solvable.
+    let steps=this.session.history_size();const deadline=sys.now()+4000;
     for(let back=1;back<this.session.history_size();back++){
-      const snapshot=this.session.history_state(back);
-      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,1500)).status===Solver.Status.SOLVED){steps=back;break;}
+      const snapshot=this.session.history_state(back),left=deadline-sys.now();
+      if(left<=0)break;
+      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,Math.min(1500,left))).status===Solver.Status.SOLVED){steps=back;break;}
       if(!this.valid(generation))return;
     }
     if(!this.valid(generation))return;
@@ -969,7 +977,7 @@ export class BoardView {
     for(let i=0;i<count;i++){
       const picture=fall[i%fall.length],native=Art.size(picture),scale=world===4?.06+(i%5)*.015:.28+(i%5)*.045;
       const x=(i*367+43)%1180-50,y=(i*433+111)%2000-80,node=UI.image(holder,picture,[x,y,native[0]*scale,native[1]*scale]);
-      if(world===10)UI.tint(node,'#d1b2ff');if(world===3&&i%3===0)UI.tint(node,'#ff765c');
+      if(world===10)UI.tint(node,'#d1b2ff');if(world===3&&i%3===0)UI.tint(node,'#ff765c');UI.opacity(node,world===4?.65:.8);
       this.ambient.push({node,x,y,speed:(world===4?40:80)+(i%5)*9,sway:world===4?24:44,phase:i*.7,opacity:world===4?.65:.8,kind:world===4?'snow':'leaf'});
     }
     for(let i=0;i<motes;i++){
@@ -992,7 +1000,7 @@ export class BoardView {
       if(piece.kind==='mist'){UI.move(piece.node,((piece.x+t*piece.speed+1800)%2700)-1300,piece.y+Math.sin(t*.1+p)*18);UI.opacity(piece.node,piece.opacity*(.8+.2*Math.sin(t*.2+p)));continue;}
       if(piece.kind==='mote'){UI.move(piece.node,piece.x+Math.sin(t*.45+p)*piece.sway,piece.y-Math.sin(t*.2+p)*100);UI.opacity(piece.node,piece.opacity*(.5+.5*Math.sin(t*.8+p)));continue;}
       const y=((piece.y+t*piece.speed+80)%2080)-80,x=piece.x+Math.sin(t*.8+p)*piece.sway+(this.state.variant==='windy'?t*35%220:0);
-      UI.move(piece.node,x,y);UI.opacity(piece.node,piece.opacity);
+      UI.move(piece.node,x,y);
       if(piece.kind==='leaf')piece.node.angle=Math.sin(t*.6+p)*35;
     }
     this.tickHand();

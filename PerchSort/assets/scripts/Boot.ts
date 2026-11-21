@@ -30,7 +30,7 @@ type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
 export class Boot extends Component{
  profile!:Profile;screen:Screen|null=null;popups!:Popups;sound!:Sound;root!:Node;screenHost!:Node;popupHost!:Node;overlayHost!:Node;page='home';ready=false;instant=false;testMode=false;autoplay=false;platform!:Platform;private pacing=Ads.pacing();overlay:ShopView|AviaryView|null=null;trial=0;
  private storage:ProfileStorage=sys.localStorage;private saveKey=Profile.SAVE_PATH;private args=new Map<string,string>();private loading!:Node;private nav=0;
- protected onLoad():void{view.setDesignResolutionSize(1080,1920,ResolutionPolicy.SHOW_ALL);profiler.hideStats();this.createCanvas();this.startGame().catch(e=>{console.error('Perch Sort startup failed',e);if(DEBUG)(globalThis as any).perchError=String(e);});}
+ protected onLoad():void{view.setDesignResolutionSize(1080,1920,ResolutionPolicy.SHOW_ALL);profiler.hideStats();this.createCanvas();this.startGame().catch(e=>{console.error('Perch Sort startup failed',e);if(DEBUG)(globalThis as any).perchError=String(e);this.startupFailed();});}
  private createCanvas():void{
   const canvasNode=new Node('Canvas');canvasNode.layer=Layers.Enum.UI_2D;canvasNode.addComponent(UITransform).setContentSize(1080,1920);this.node.scene.addChild(canvasNode);
   const cameraNode=new Node('UICamera');cameraNode.layer=Layers.Enum.UI_2D;canvasNode.addChild(cameraNode);cameraNode.setPosition(0,0,1000);const camera=cameraNode.addComponent(Camera);camera.projection=Camera.ProjectionType.ORTHO;camera.visibility=Layers.Enum.UI_2D;camera.clearFlags=Camera.ClearFlag.SOLID_COLOR;camera.clearColor=new Color(31,61,30,255);camera.near=1;camera.far=2000;const canvas=canvasNode.addComponent(Canvas);canvas.cameraComponent=camera;
@@ -280,12 +280,26 @@ export class Boot extends Component{
   if(await this.platform.showInterstitial(Ads.LEVEL_END)){this.pacing.lastShown=Date.now()/1000;this.pacing.levelsSince=0;}
  }
  save():void{this.profile.save(this.storage,this.saveKey);if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof BoardView)this.screen.refresh_hud();else if(this.screen instanceof ShopView||this.screen instanceof AviaryView)this.screen.refresh_balance();else if(this.screen instanceof MapView)this.screen.refresh();this.overlay?.refresh_balance();}
+ private restartGame():void{if(sys.isBrowser)location.reload();else void game.restart();}
+ /** Painted words of the save recovery page: 0 title, 1 message, 2 retry, 3 exit. */
+ private recoveryWord(parent:Node,index:number,r:[number,number,number,number]):void{
+  const regions: [number,number,number,number][] = Art.locale==='en'?[[121,559,1537,269],[52,500,924,413],[324,1127,377,158],[365,1353,292,137]]:[[264,67,1248,346],[47,445,930,518],[382,1128,264,129],[381,1365,263,130]];
+  UI.paint(parent,{name:index===0?'label_save_error':'label_save_recovery_'+Art.locale,region:regions[index]},r);
+ }
+ /** A failed startup covers everything; a tap restarts the game, and the painted retry button shows once the artwork list has loaded. */
+ private startupFailed():void{
+  const cover=UI.fill(this.root,'StartupFailed',[0,0,1080,1920],'#234c27');cover.addComponent(BlockInputEvents);
+  let restarting=false;const retry=()=>{if(!restarting){restarting=true;this.restartGame();}};
+  cover.on(Node.EventType.TOUCH_END,retry);
+  if(!Art.manifest)return;
+  if(!this.profile)Art.setLocale(sys.language);
+  const button=Kit.button(cover,'Retry',[330,885,420,Kit.BUTTON_H],'',retry);this.recoveryWord(button,2,[65,30,290,90]);
+ }
  private saveRecovery():void{
   this.page='save-recovery';UI.image(this.screenHost,'background_home_jungle',[0,0,1080,1920]);const d=Kit.jungle(this.popupHost,'',[400],{actionHeight:Kit.BUTTON_H});
-  const en=Art.locale==='en',regions: [number,number,number,number][] = en?[[121,559,1537,269],[52,500,924,413],[324,1127,377,158],[365,1353,292,137]]:[[264,67,1248,346],[47,445,930,518],[382,1128,264,129],[381,1365,263,130]];
-  const word=(parent:Node,index:number,r:[number,number,number,number])=>UI.paint(parent,{name:index===0?'label_save_error':'label_save_recovery_'+Art.locale,region:regions[index]},r);
+  const word=(parent:Node,index:number,r:[number,number,number,number])=>this.recoveryWord(parent,index,r);
   word(d.content,0,[284,d.rect[1]+80,512,125]);word(d.content,1,[150,d.ys[0]+30,780,340]);
-  const retry=Kit.button(d.content,'Retry',[96,d.actionY,420,Kit.BUTTON_H],'',()=>{if(sys.isBrowser)location.reload();else void game.restart();});word(retry,2,[65,30,290,90]);
+  const retry=Kit.button(d.content,'Retry',[96,d.actionY,420,Kit.BUTTON_H],'',()=>this.restartGame());word(retry,2,[65,30,290,90]);
   const leave=Kit.button(d.content,'Exit',[564,d.actionY,420,Kit.BUTTON_H],'',()=>{this.sound.pause();game.end();},'blue');word(leave,3,[65,30,290,90]);
  }
  private applySound():void{this.sound.set_muted(this.profile.muted);this.sound.set_music_muted(this.profile.music_muted);this.sound.vibration=this.profile.vibration;}

@@ -3,5 +3,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source tools/cocos/creator.sh
+out="$PROJECT/build/web-mobile"
+rm -rf "$out"
 cocos_build "$PROJECT/build-config/web-mobile.json" build/cocos-build.log
-echo "$PROJECT/build/web-mobile"
+[ -f "$out/index.html" ] || die "Creator did not generate $out/index.html. See build/cocos-build.log."
+echo "$out"

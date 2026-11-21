@@ -25,6 +25,16 @@ export class Worlds {
   static has(id: string): boolean { return this.BIRDS.some(row => row.includes(id)); }
   /** The birds of a world in slot order. */
   static birds(world: number): string[] { return this.BIRDS[world - 1]; }
+  /** Skins a bird can wear: five for the nine world-1 birds, three for a later world's bird, none for the crow. */
+  static skins(bird: string): number { return !this.has(bird) ? 0 : this.world_of(bird) === 1 ? 5 : 3; }
+  /** The skin design a bird's skin is painted from, as [slot species, design 1-5]: world-1 birds wear their own five; a later world's bird
+   *  wears three of its slot's designs in a cycle across the worlds (the propeller beanie, cocoa 4, stays with the owl). */
+  static design(bird: string, index: number): [string, number] {
+    const slot = this.slot_of(bird), world = this.world_of(bird);
+    if (world === 1) return [slot, index];
+    const pool = [1, 2, 3, 4, 5].filter(n => !(slot === 'cocoa' && n === 4));
+    return [slot, pool[((world - 2) * 3 + index - 1) % pool.length]];
+  }
   static slot_of(bird: string): string { for (const row of this.BIRDS) { const i = row.indexOf(bird); if (i >= 0) return this.SLOTS[i]; } return bird; }
   static world_of(bird: string): number { return this.BIRDS.findIndex(row => row.includes(bird)) + 1 || 1; }
 }

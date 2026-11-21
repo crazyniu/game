@@ -34,7 +34,7 @@ Normal play uses real saved progress. Starting the launcher does not grant coins
 
 The three partial-goal trials open with `--trial=1`, `--trial=2`, or `--trial=3` (Windows: `.\run.ps1 -Trial 1`). They use copied board profiles: no trial progress, rewards or consumed stock is saved. Explicitly buying a tool or extra undo still spends real feathers through the normal price confirmation. The trial tab therefore holds the normal save lock. Next advances through the trials; they never appear on the map. The [trial route report](docs/work-log/trial-route/report.md) records the remaining user-play decision.
 
-The local game has no connected payment or rewarded-ad provider. Store confirmations and ad rewards cannot grant items without a confirmed provider callback. This is not a store release.
+Ads go through the platform layer: browser builds show a mock ad (debug only; `?ads=0` hides ad entries), iOS and Android use AdMob with Google's test units except in store packages, WeChat uses its own ad units. Rewards are granted only after an ad is watched to the end. No payment provider is connected.
 
 ## Project structure
 
@@ -67,11 +67,11 @@ Run `./package.sh` from the repository root and enter a platform number. The iOS
 | Number | Platform | Output choices |
 | --- | --- | --- |
 | 1 | WeChat Mini Game | WeChat Developer Tools project |
-| 2 | iOS | Xcode project, simulator app, unsigned device app or signed IPA |
-| 3 | Android | Debug APK, release AAB or Gradle project |
+| 2 | iOS | Xcode project, simulator app, unsigned device app, IPA, install on a paired iPhone, upload the last IPA to App Store Connect |
+| 3 | Android | APK, AAB (upload key and 16 KB page check) or Gradle project |
 | 4 | Web | Web-mobile build |
 
-Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. Use `PERCH_ANDROID_PACKAGE` for the release application ID and configure release signing locally for distribution. Generated files stay in the build directories. None of these commands upload a build.
+The game's identity lives in `game.json`: names, version and build numbers, iOS bundle ID and team, Android package name, AdMob app IDs and ad units, WeChat app ID. `tools/native/apply.mjs` (run by `./package.sh`, or `./run.sh native-apply`) writes it into the build configurations, `Info.plist`, `AndroidManifest.xml`, Gradle and `assets/resources/config/platform.json`. Only the IPA and AAB use the real ad units; every other build uses Google's test units. The real bundle ID, team, package name and ad units still have to be filled in. iOS needs Xcode on macOS; the ad SDK is downloaded into `PerchSort/native/engine/ios/sdk/`. Android needs Android Studio's SDK and NDK (`ANDROID_HOME`, the default location or `/Volumes/*/Android/sdk`); the first AAB creates an upload key outside the repository. Option 6 uploads with the account signed in to Xcode; nothing else uploads.
 
 For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.
 

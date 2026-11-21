@@ -1,6 +1,6 @@
 # Development base report
 
-Scope and decisions are in [spec.md](spec.md). This report covers stage 1 (development tools). Stages 2–4 have not started.
+Scope and decisions are in [spec.md](spec.md). This report covers stage 1 (development tools) and stage 2 (platform layer, ads, buttons). Stages 3–4 have not started.
 
 ## Stage 1: development tools
 
@@ -33,3 +33,29 @@ Not checked: `cdp burst` and `watch`, Windows `run.ps1`, native and WeChat build
 ### PNG recompression
 
 47 PNGs (approved art included) were stored at the fastest zlib level. With the user's approval (2026-11-21, on condition that the experience is unaffected) they were recompressed losslessly: 52.1 MB to 44.0 MB. Each file was compared with its committed original as 16-bit raw pixels, colour profile and density: 47 identical, 0 different. An earlier 21.4 MB estimate came from sharp's `effort` option, which silently switches to palette output; the tool never sets it.
+
+## Stage 2: platform layer, ads and buttons
+
+| Change | Files |
+| --- | --- |
+| Identity applied to every platform | `game.json`, `tools/native/apply.mjs`, `assets/resources/config/platform.json`, `build-config/*.json` |
+| Platform layer | `assets/scripts/platform/{Platform,DebugPlatform,NativePlatform,WechatPlatform,index}.ts` |
+| Native templates and bridges (AdMob, UMP, ATT, vibration) | `PerchSort/native/engine/**` |
+| Packaging menu | `package.sh` (replaces `tools/native/build.sh`, `ios-*.py`, `ios-compat.cmake`), `tools/native/icons.mjs` (Sunny from its frame sheet) |
+| Placements, caps, pacing | `assets/scripts/meta/Ads.ts`, `meta/Profile.ts` (`adDate`, `adViews`), tests in `tests/core.test.ts` |
+| Ad entries, mock ad, interstitial | `game/Popups.ts`, `game/MockAd.ts`, `Boot.ts` |
+| Candy buttons and the win popup | `art/island/btn_candy_{green,orange,blue}.png`, `game/Popups.ts`, `HomeView.ts`, `MapView.ts`, `Boot.ts` |
+
+### Verification (2026-11-21)
+
+- `./run.sh check` passes (ad caps, day reset, save round trip, interstitial pacing). On the Mac the web build and the full Creator typecheck pass.
+- In the built game (debug platform, mock ad): level 9 won by autoplay showed claim ×2; after the mock ad closed past its countdown, feathers went 185 to 310 and `adViews` recorded `rv_double_coin`.
+- Screens captured with the new buttons: win, level card, home, map, daily reward, lucky draw, tool offer, coin shop, tool shop. No word leaves its button; same-role buttons share one height.
+
+Not checked: iOS and Android packages (no build run yet; Xcode and the Android SDK are on the Mac), WeChat ads, real AdMob fill and consent, the interstitial on device, the save-recovery and stuck popups with the new buttons.
+
+### Open items
+
+- Real bundle ID, Apple team, Android package, AdMob app IDs and ad units, privacy-policy URL, WeChat app ID.
+- The claim button reads "领取 ×2" from existing painted words; the mockup's "双倍领取" would need new painted words.
+- The coin shop's yuan price buttons keep their painted prices (no payment provider).

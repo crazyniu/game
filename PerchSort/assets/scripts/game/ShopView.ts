@@ -6,6 +6,7 @@ import { Aviary } from '../meta/Aviary';
 import { Progress } from '../meta/Progress';
 import { Levels } from '../core/Levels';
 import { AviaryView } from './AviaryView';
+import { Worlds } from '../meta/Worlds';
 import { BOOSTER_ART, BOOSTER_WORD, Kit, PageCallbacks, Popups } from './Popups';
 
 type CatalogItem=NonNullable<ReturnType<typeof Shop.item>>;
@@ -16,6 +17,8 @@ export class ShopView {
   readonly node:Node;
   private page!:Node;
   private outfitPage?:AviaryView;
+  /** The world whose birds the skin tab lists. */
+  private world=1;
   private scroll?:ReturnType<typeof UI.scroll>;
   constructor(host:Node,public profile:Profile,private callbacks:ShopCallbacks,public tab=0) {this.node=UI.group(host,'Shop');this.build();}
   destroy():void { Kit.destroy(this.node); }
@@ -26,17 +29,25 @@ export class ShopView {
     }
     return items;
   }
-  static outfit_species():string[] {return Aviary.SPECIES.filter(([id])=>id!=='crow').map(([id])=>id);}
+
   owned_outfits(species:string):number {return 1+Shop.catalog().filter(it=>it.kind===Shop.OUTFIT&&it.species===species&&this.profile.owns_outfit(it.id)).length;}
   private build():void {
     if(this.page)Kit.destroy(this.page);this.page=UI.group(this.node,'Page');UI.image(this.page,'background_home_jungle',[0,0,1080,1920]);
     Kit.close(this.page,[48,48],this.callbacks.close);Kit.lettering(this.page,'tab_'+['boosters','outfits','nests'][this.tab],[284,232,512,132]);UI.feather_bar(this.page,[736,48],this.profile.coins,this.callbacks.coins);
-    const count=this.tab===Shop.OUTFIT?ShopView.outfit_species().length:this.items().length;
-    const height=Math.max(1284,this.tab===Shop.BOOSTER?count*256-20+8:Math.ceil(count/2)*432-20+8);
-    this.scroll=UI.scroll(this.page,'Scroll',[48,384,984,1284],height);
-    if(this.tab===Shop.OUTFIT)ShopView.outfit_species().forEach((id,i)=>this.kindTile(id,[i%2*502,Math.floor(i/2)*432,482,412],i));
+    const outfits=this.tab===Shop.OUTFIT,count=outfits?Worlds.birds(this.world).length:this.items().length;
+    const top=outfits?504:384,view=1668-top,height=Math.max(view,this.tab===Shop.BOOSTER?count*256-20+8:Math.ceil(count/2)*432-20+8);
+    this.scroll=UI.scroll(this.page,'Scroll',[48,top,984,view],height);
+    if(outfits){Worlds.birds(this.world).forEach((id,i)=>this.kindTile(id,[i%2*502,Math.floor(i/2)*432,482,412],i));this.worldSwitch();}
     else this.items().forEach((it,i)=>this.itemTile(it,this.tab===Shop.BOOSTER?[0,i*256,984,236]:[i%2*502,Math.floor(i/2)*432,482,412],i));
     ['boosters','outfits','nests'].forEach((name,i)=>{const button=Kit.button(this.page,['Boosters','Outfits','Nests'][i],[198+i*244,1680,196,192],'',()=>{if(this.tab!==i){this.tab=i;this.build();}},i===this.tab?'key_green':'key_cream');UI.art(button,'island_tab_'+name,[32,26,132,132]);});
+  }
+  /** The skin tab lists one world's birds at a time, switched like the aviary. */
+  private worldSwitch():void {
+    const header=UI.group(this.page,'WorldSwitch',[60,380,960,120]),last=AviaryView.last_world();
+    const previous=UI.button(header,'WorldPrevious','btn_world_previous',[160,4,112,112],()=>{this.world=Math.max(1,this.world-1);this.build();});
+    const next=UI.button(header,'WorldNext','btn_world_next',[688,4,112,112],()=>{this.world=Math.min(last,this.world+1);this.build();});
+    Kit.lettering(header,'world_'+Worlds.NAMES[this.world-1],[284,22,392,76]);
+    UI.enabled(previous,this.world>1);UI.enabled(next,this.world<last);
   }
   refresh_balance():void {
     if (this.outfitPage) {
@@ -65,7 +76,7 @@ export class ShopView {
   }
   private kindTile(species:string,rect:Rect,index:number):void {
     const card=UI.group(this.scroll!.content,'Kind_'+species,rect);Kit.panel(card,[0,0,482,412]);const met=this.profile.has_met(species);
-    if(met){Kit.perch(card,[241,188],300.8);const current=this.profile.equipped[species];Kit.liveBird(card,species,[81,12,320,180],current?species+'_outfit_'+current.split('.')[2]:'');Kit.lettering(card,'bird_'+species,[41,210,400,66]);const plate=Kit.plate(card,[97,284,288,108]);Kit.number(plate,this.owned_outfits(species)+'/'+(Shop.OUTFIT_COUNT+1),[46,22.68,144,56.16]);const arrow=UI.art(plate,'island_chevron',[202.176,28.296,44.928,44.928]);const r=UI.rect(arrow);arrow.getComponent(UITransform)!.setAnchorPoint(.5,.5);arrow.setPosition(r[0]+r[2]/2,-r[1]-r[3]/2);arrow.angle=90;UI.effect(arrow,'white_ink');UI.hit_area(card,'Select',[0,0,482,412],()=>this.open_outfits(species));}
+    if(met){Kit.perch(card,[241,188],300.8);const current=this.profile.equipped[species];Kit.liveBird(card,species,[81,12,320,180],current?species+'_outfit_'+current.split('.')[2]:'');Kit.lettering(card,'bird_'+species,[41,210,400,66]);const plate=Kit.plate(card,[97,284,288,108]);Kit.number(plate,this.owned_outfits(species)+'/'+(Worlds.skins(species)+1),[46,22.68,144,56.16]);const arrow=UI.art(plate,'island_chevron',[202.176,28.296,44.928,44.928]);const r=UI.rect(arrow);arrow.getComponent(UITransform)!.setAnchorPoint(.5,.5);arrow.setPosition(r[0]+r[2]/2,-r[1]-r[3]/2);arrow.angle=90;UI.effect(arrow,'white_ink');UI.hit_area(card,'Select',[0,0,482,412],()=>this.open_outfits(species));}
     else UI.piece_fit(card,'island_unknown_bird',[241,102],[288,162]);Kit.pop(card,index*.04);
   }
   private tap(it:CatalogItem):void {

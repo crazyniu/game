@@ -132,20 +132,32 @@ export class Profile {
   save(storage: ProfileStorage, key = Profile.SAVE_PATH): void {
     if (key === this.blocked_save_key) throw new Error('Profile is damaged; automatic saving is blocked');
     const previous = storage.getItem(key);
-    if (previous !== null && Profile.parse(previous)) storage.setItem(key + '.bak', previous);
+    if (previous !== null && Profile.read(previous)) storage.setItem(key + '.bak', previous);
     storage.setItem(key, JSON.stringify(this.to_dict()));
   }
   static load_saved(storage: ProfileStorage, key = Profile.SAVE_PATH): Profile {
     const primary = storage.getItem(key), backup = storage.getItem(key + '.bak');
-    const data = this.parse(primary) ?? this.parse(backup);
-    if (data) return this.from_dict(data);
+    const saved = this.read(primary) ?? this.read(backup);
+    if (saved) return saved;
     const profile = new Profile();
     if (primary !== null || backup !== null) profile.blocked_save_key = key;
     return profile;
   }
-  private static parse(text: string | null): ProfileData | null {
+  /** A saved value counts only when it is complete for its schema and its fields restore a profile; anything else is damaged.
+   *  The current schema writes every field and one progress entry per level (a new field or a catalog change must raise the schema);
+   *  older schemas must still carry coins, the unlocked level and star records. */
+  private static complete(value: ProfileData): boolean {
+    const schema = value.schemaVersion;
+    if (!Number.isInteger(schema) || schema < 1 || typeof value.coins !== 'number' || typeof value.highestUnlockedLevel !== 'number' || !Array.isArray(value.bestStars) || !value.bestStars.length) return false;
+    if (schema < this.SCHEMA_VERSION) return true;
+    return Object.keys(new Profile().to_dict()).every(key => key in value)
+      && ['bestStars', 'clearCounts', 'bestMoves'].every(key => Array.isArray(value[key]) && value[key].length === Levels.COUNT + 1);
+  }
+  private static read(text: string | null): Profile | null {
     if (text === null) return null;
-    try { const value = JSON.parse(text); return value && typeof value === 'object' && !Array.isArray(value) ? value : null; }
-    catch { return null; }
+    try {
+      const value = JSON.parse(text);
+      return value && typeof value === 'object' && !Array.isArray(value) && this.complete(value) ? this.from_dict(value) : null;
+    } catch { return null; }
   }
 }

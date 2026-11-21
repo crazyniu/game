@@ -29,7 +29,7 @@ Keep one canonical implementation. Do not recreate retired engine trees, paralle
 
 The browser save key is `perch-sort.profile`. On localhost, when that key is absent, `Boot.ts` can read the prior Godot profile through `tools/web/serve.mjs` (loopback requests only) and migrate it once into browser storage. The original file is never modified. The launcher uses real progress: no automatic top-ups, fabricated clears, or level unlocks. Test profiles use separate storage.
 
-Payment and rewarded-ad providers are not connected. The UI cannot grant paid currency or ad rewards without a confirmed provider callback. This local playable migration does not constitute a store integration or release.
+Rewarded and interstitial ads run through the platform layer (`assets/scripts/platform`, rules in `meta/Ads.ts`, native bridges in `PerchSort/native/engine`); rewards are granted only on the SDK's completion report and ad entries are hidden when no ad is available. Test builds use Google's test ad units; store packages use `game.json`'s real units, which are still empty. Payment providers are not connected; the UI cannot grant paid currency. This local playable migration does not constitute a store integration or release.
 
 ## Historical gameplay decisions
 
