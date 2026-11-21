@@ -219,7 +219,7 @@ export class Boot extends Component{
   }
  }
  async open_board(level:number):Promise<void>{
-  this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),def.world,level===def.world*Levels.PER_WORLD);Progress.grant_starter_gifts(this.profile);this.save();
+  this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),Levels.world_of(def),level===Levels.world_of(def)*Levels.PER_WORLD);Progress.grant_starter_gifts(this.profile);this.save();
   await this.setScreen('board',()=>new BoardView(this.screenHost,this.profile,level,{settle:session=>this.settle(level,session),won:r=>this.onWon(level,r.session),settings:()=>this.settings(),buy:k=>this.buyTool(k),undo_more:()=>this.undoMore(),bird_info:s=>this.popups.goal_info(s,def.world),rescue_offer:()=>this.rescueOffer(),restart_offer:p=>this.restartOffer(p),profile_changed:()=>this.save(),sound:n=>this.sound.play(n)},{instant:this.instant,entrance:!this.instant}));
   const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode||this.autoplay)return;
   const queue:Array<(done:()=>void)=>void>=newSpecies.map(species=>done=>{this.popups.new_friend(species,Aviary.NEW_SPECIES_COINS,done);});
