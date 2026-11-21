@@ -139,12 +139,13 @@ export class Profile {
     if (primary !== null || backup !== null) profile.blocked_save_key = key;
     return profile;
   }
-  /** A saved value counts only when it carries a schema version and its fields restore a profile; anything else is damaged. */
+  /** A saved value counts only when it carries a schema version, the progress fields every schema has written, and its fields restore a profile; anything else is damaged. */
   private static read(text: string | null): Profile | null {
     if (text === null) return null;
     try {
       const value = JSON.parse(text);
-      return value && typeof value === 'object' && !Array.isArray(value) && Number.isInteger(value.schemaVersion) && value.schemaVersion >= 1 ? this.from_dict(value) : null;
+      return value && typeof value === 'object' && !Array.isArray(value) && Number.isInteger(value.schemaVersion) && value.schemaVersion >= 1
+        && typeof value.coins === 'number' && typeof value.highestUnlockedLevel === 'number' && Array.isArray(value.bestStars) ? this.from_dict(value) : null;
     } catch { return null; }
   }
 }

@@ -135,7 +135,8 @@ export class BoardView {
   private timers = new Map<ReturnType<typeof setTimeout>, () => void>();
   private animations = new Map<Tween<any>, () => void>();
   private ambient: AmbientPiece[] = [];
-  private spotlightEffect!: EffectAsset;
+  /** Absent when its download failed; hints and guides then show without the dimmed surround. */
+  private spotlightEffect?: EffectAsset;
   private spotlightReady: Promise<void>;
   private holdId = 0;
   private held = false;
@@ -148,8 +149,8 @@ export class BoardView {
     this.instant = options.instant ?? false;
     this.session = new GameSession(this.level, profile.inventory);
     this.node = UI.group(host, 'Board');
-    this.spotlightReady = new Promise((resolve, reject) => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
-      if (error) { reject(error); return; } this.spotlightEffect = asset; resolve();
+    this.spotlightReady = new Promise(resolve => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
+      if (error) console.error('Hint spotlight failed to load', error); else this.spotlightEffect = asset; resolve();
     }));
     const ticker = this.node.addComponent(BoardTicker); ticker.owner = this;
     this.slots = Art.data(`world/scene/board_w${this.session.state.world}_slots`).slots;
@@ -643,6 +644,7 @@ export class BoardView {
     return [x,y-BoardView.HINT_HOLE_HEAD,width,BoardView.HINT_HOLE_HEAD+BoardView.HINT_HOLE_FOOT];
   }
   private spotlight(parent:Node,holes:Rect[]):void {
+    if(!this.spotlightEffect)return;
     const size=Art.size('glow_soft');
     const node=UI.image_region(parent,'glow_soft',[0,0,size[0],size[1]],[0,0,1080,1920]);
     node.name='Spotlight';
