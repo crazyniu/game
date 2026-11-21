@@ -52,9 +52,9 @@ export class HomeView {
   }
   /** One branch between the entry columns with three birds of the world being played (with their skins); a tap makes one perform. */
   private birds(world: number): void {
-    Kit.perch(this.node, [540, 1110], 680);
+    Kit.perch(this.node, [540, 1290], 720);
     (['sky', 'sunny', 'berry'] as const).forEach((slot, i) => {
-      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], r: Rect = [240 + i * 200, 870, 200, 240];
+      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], r: Rect = [222 + i * 212, 1010, 212, 280];
       const bird = Kit.liveBird(this.node, species, r, worn ? `${species}_outfit_${worn.split('.')[2]}` : '');
       UI.hit_area(this.node, 'Bird_' + slot, r, () => bird.showcase());
     });
