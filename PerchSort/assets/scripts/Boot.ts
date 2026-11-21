@@ -264,5 +264,6 @@ export class Boot extends Component{
  }
  private applySound():void{this.sound.set_muted(this.profile.muted);this.sound.set_music_muted(this.profile.music_muted);this.sound.vibration=this.profile.vibration;}
  private refreshLanguage():void{if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof MapView){const world=this.screen.world,page=this.screen.page;this.screen.destroy();this.screen=new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant);if(page)this.screen.open_world(world);}else if(this.screen instanceof BoardView)this.screen.refresh_hud();}
- private until(predicate:()=>boolean):Promise<void>{return new Promise(resolve=>{const check=()=>{if(predicate())resolve();else this.scheduleOnce(check,.05);};check();});}
+ // A fresh callback per poll: Cocos drops a scheduleOnce of the callback that is currently firing, which left this waiting forever.
+ private until(predicate:()=>boolean):Promise<void>{return new Promise(resolve=>{const check=()=>{if(predicate())resolve();else this.scheduleOnce(()=>check(),.05);};check();});}
 }
