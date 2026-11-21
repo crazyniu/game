@@ -115,7 +115,8 @@ export class Progress {
     const day = this.checkin_day(p, today); if (!day) return {};
     p.last_daily_gift = today; p.checkin_streak = day;
     const prize = this.DAILY_REWARDS[day - 1]; p.coins += prize[0];
-    return { day, coins: prize[0], boosters: this.random_boosters(p, prize[1], rng) };
+    // The seventh day also gives a common skin (Tasks.give_skin).
+    return { day, coins: prize[0], boosters: this.random_boosters(p, prize[1], rng), outfit: day === 7 ? Tasks.give_skin(p) : '' };
   }
   static checkin_day(p: Profile, today: string): number {
     if (this.unlimited && today <= p.last_daily_gift) return p.checkin_streak % 7 + 1;
@@ -137,6 +138,7 @@ export class Progress {
     const cell = Math.floor(rng() * this.DRAW_PRIZES.length), prize = this.DRAW_PRIZES[cell];
     p.coins += prize[0]; let kind = -1;
     if (prize[1] > 0) { const pool = this.unlocked_boosters(p); kind = pool[Math.floor(rng() * pool.length)]; p.inventory[kind] += prize[1]; }
+    Tasks.count(p, 'draw', 1, today);
     return { cell, coins: prize[0], booster: kind, count: prize[1] };
   }
   static today(): string {

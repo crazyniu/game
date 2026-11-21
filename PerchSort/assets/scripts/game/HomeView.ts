@@ -6,14 +6,15 @@ import { tr } from './I18n';
 import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
 import { Worlds } from '../meta/Worlds';
+import { Tasks } from '../meta/Tasks';
 import { Levels } from '../core/Levels';
 
 export interface HomeCallbacks { play: (level: number) => void; map: () => void; shop: () => void; aviary: () => void; settings: () => void; daily: () => void; draw: () => void; tasks: () => void; chest: () => void; coins: () => void; freeCoins: () => boolean }
 
 /**
- * Home in fishsort's flat style: the feather capsule on top, the Bird Sort sign, one branch with four birds of the world being played,
- * two rows of entries (daily things: check-in, lucky draw, star chest; standing systems: shop, album, tasks), each a glass tile with a
- * blue label plate; Settings, Play (with the level) and Levels along the bottom. Entries pop in one after another.
+ * Home in fishsort's flat style: the feather capsule on top, the Bird Sort sign, daily things down the left (check-in, lucky draw, star
+ * chest) and standing systems down the right (shop, album, tasks), each a glass tile with a blue label plate, one branch with three birds
+ * of the world being played between the columns; Settings, Play (with the level) and Levels along the bottom. Entries pop in one after another.
  */
 export class HomeView {
   node: Node;
@@ -29,13 +30,13 @@ export class HomeView {
     const right: typeof left = [
       ['Shop', 'pic_shop', [18, 17, 196, 221], 'UI_TAB_SHOP', this.callbacks.shop, false],
       ['Aviary', 'pic_aviary', [21, 49, 200, 164], 'H_ALBUM', this.callbacks.aviary, false],
-      ['Tasks', 'pic_tasks', undefined, 'UI_TAB_TASKS', this.callbacks.tasks, true],
+      ['Tasks', 'pic_tasks', undefined, 'UI_TAB_TASKS', this.callbacks.tasks, Tasks.ready(this.profile, today) > 0],
     ];
-    UI.image(p, 'panel_home_title_sign', [162, 40, 758, 563]);
+    UI.image(p, 'panel_home_title_sign', [220, 120, 640, 476]);
     this.capsule();
     this.birds(world);
-    left.forEach((e, i) => this.entry(e, 225 + i * 315, 1010, i * .06));
-    right.forEach((e, i) => this.entry(e, 225 + i * 315, 1255, .18 + i * .06));
+    left.forEach((e, i) => this.entry(e, 122, 380 + i * 270, i * .08));
+    right.forEach((e, i) => this.entry(e, 958, 380 + i * 270, .04 + i * .08));
     this.bottom(level);
   }
   private capsule(): void { Flat.capsule(this.node, [32, 64, 320, 88], this.profile.coins, this.callbacks.freeCoins() ? this.callbacks.coins : undefined); }
@@ -49,11 +50,11 @@ export class HomeView {
     if (dot) Flat.dot(n, 164, 8);
     Kit.pop(n, delay);
   }
-  /** One branch from the left edge with four birds of the world being played standing on it (with their skins); a tap makes one perform. */
+  /** One branch between the entry columns with three birds of the world being played (with their skins); a tap makes one perform. */
   private birds(world: number): void {
-    UI.image(this.node, 'panel_home_perch_branch', [-74, 760, 1229, 422]);
-    (['sunny', 'sky', 'berry', 'mint'] as const).forEach((slot, i) => {
-      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], x = 330 + i * 167, r: Rect = [x - 105, 742, 210, 216];
+    Kit.perch(this.node, [540, 1110], 680);
+    (['sky', 'sunny', 'berry'] as const).forEach((slot, i) => {
+      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], r: Rect = [240 + i * 200, 870, 200, 240];
       const bird = Kit.liveBird(this.node, species, r, worn ? `${species}_outfit_${worn.split('.')[2]}` : '');
       UI.hit_area(this.node, 'Bird_' + slot, r, () => bird.showcase());
     });

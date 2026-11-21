@@ -43,6 +43,8 @@ export class GameSession {
     this.push(); this.rules.swivel(this.state, branch, this.events); this.pay_undo_gifts(); this.last_move = [branch, -1]; return true;
   }
   try_action(move: number[]): boolean { return move[1] < 0 ? this.swivel(move[0]) : this.try_move(move[0], move[1]); }
+  /** Tools used in this level (the task center counts them). */
+  tools_used = 0;
   use_booster(kind: number, max_states = 100000, max_ms = 3000): { applied: boolean; hint?: SolveResult } {
     this.clear(); if (this.state.is_won() || !this.state.inventory[kind]) return { applied: false };
     let hint: SolveResult | undefined;
@@ -50,12 +52,12 @@ export class GameSession {
       hint = Solver.solve(this.state, this.last_move, max_states, max_ms);
       if (hint.status !== Solver.Status.SOLVED || !hint.moves.length) return { applied: false, hint };
     } else if (!Rules.booster_has_effect(this.state, kind)) return { applied: false };
-    this.push(); this.rules.booster(this.state, kind, true, this.events); this.pay_undo_gifts(); return { applied: true, hint };
+    this.push(); this.rules.booster(this.state, kind, true, this.events); this.pay_undo_gifts(); this.tools_used++; return { applied: true, hint };
   }
   try_use_firefly(move: number[]): boolean {
     this.clear(); if (this.state.is_won() || !this.state.inventory[Booster.FIREFLY]) return false;
     if (!(move[1] < 0 ? Rules.can_swivel(this.state, move[0]) : Rules.can_transfer(this.state, move[0], move[1]))) return false;
-    this.push(); this.rules.booster(this.state, Booster.FIREFLY, true, this.events); this.pay_undo_gifts(); return true;
+    this.push(); this.rules.booster(this.state, Booster.FIREFLY, true, this.events); this.pay_undo_gifts(); this.tools_used++; return true;
   }
   grant_undos(count: number): void { this.undos_left += count; }
   grant_booster(kind: number, count: number): void {

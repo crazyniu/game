@@ -1,5 +1,6 @@
 import { Levels } from '../core/Levels';
 import { Shop } from './Shop';
+import type { TaskState } from './Tasks';
 import { Aviary } from './Aviary';
 import { Progress } from './Progress';
 export interface ProfileStorage { getItem(key: string): string | null; setItem(key: string, value: string): void }
@@ -8,7 +9,7 @@ const clamp = (value: number, min: number, max: number): number => Math.min(max,
 const int = (value: unknown): number => Math.trunc(Number(value) || 0);
 
 export class Profile {
-  static readonly SCHEMA_VERSION = 6;
+  static readonly SCHEMA_VERSION = 7;
   static readonly OLD_BOOSTER_LEVELS = [2, 4, 11, 5, 15, 17];
   static readonly SAVE_PATH = 'perch-sort.profile';
   static readonly BOOSTER_IDS = ['firefly', 'sapling', 'owlEye', 'morningBell', 'scarecrow', 'springRain'];
@@ -46,6 +47,8 @@ export class Profile {
   challenge_date = '';
   vibration = true;
   language = '';
+  /** Today's and this week's task center progress (meta/Tasks.ts); schema 7. */
+  tasks: TaskState = { day: '', done: {}, claimed: [], points: 0, chests: [], week: '', weekPoints: 0, weekChests: [] };
   last_level = 0;
   private blocked_save_key = '';
   needs_recovery(): boolean { return !!this.blocked_save_key; }
@@ -75,6 +78,7 @@ export class Profile {
       levelGifts: Object.keys(this.level_gifts).map(Number).sort((a, b) => a - b), chestsOpened: this.chests_opened,
       checkinStreak: this.checkin_streak, drawDate: this.draws_date, drawsLeft: this.draws_left, adDate: this.ad_date, adViews: { ...this.ad_views },
       challengeDate: this.challenge_date, vibration: this.vibration, language: this.language, lastLevel: this.last_level,
+      tasks: { ...this.tasks, done: { ...this.tasks.done }, claimed: this.tasks.claimed.slice(), chests: this.tasks.chests.slice(), weekChests: this.tasks.weekChests.slice() },
     };
   }
   static from_dict(data: ProfileData): Profile {
@@ -115,6 +119,11 @@ export class Profile {
     p.draws_date = String(data.drawDate ?? ''); p.draws_left = clamp(int(data.drawsLeft), 0, 99);
     p.ad_date = String(data.adDate ?? ''); for (const [placement, count] of Object.entries(data.adViews ?? {})) p.ad_views[placement] = Math.max(0, int(count));
     p.challenge_date = String(data.challengeDate ?? ''); p.last_level = clamp(last, 0, Levels.COUNT);
+    const t = data.tasks ?? {}, date = (v: unknown) => /^\d{4}-\d{2}-\d{2}$/.test(String(v ?? '')) ? String(v) : '';
+    const picks = (v: unknown, n: number) => Array.isArray(v) ? Array.from(new Set(v.map(int).filter(i => i >= 0 && i < n))) : [];
+    p.tasks = { day: date(t.day), done: {}, claimed: Array.isArray(t.claimed) ? t.claimed.map(String) : [], points: Math.max(0, int(t.points)), chests: picks(t.chests, 4),
+      week: date(t.week), weekPoints: Math.max(0, int(t.weekPoints)), weekChests: picks(t.weekChests, 3) };
+    for (const [id, n] of Object.entries(t.done ?? {})) if (int(n) > 0) p.tasks.done[id] = int(n);
     for (const world of data.worldRewardsGranted ?? []) if (world >= 1 && world <= Levels.WORLDS) p.rewarded_worlds[world] = true;
     const earned = Array.isArray(data.earnedBoosters) ? data.earnedBoosters : [];
     this.BOOSTER_IDS.forEach((id, kind) => {

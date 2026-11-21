@@ -25,6 +25,7 @@ import {DebugPlatform} from './platform/DebugPlatform';
 import {createPlatform} from './platform/index';
 import {MockAd} from './game/MockAd';
 import {TaskView} from './game/TaskView';
+import {Tasks} from './meta/Tasks';
 import {I18n} from './game/I18n';
 import {Flat} from './game/Flat';
 const {ccclass}=_decorator;
@@ -162,7 +163,7 @@ export class Boot extends Component{
   });
   return {node,slide};
  }
- async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>TaskView.preview(this.popups),chest:()=>this.popups.chest(),coins:()=>this.coinShop(),freeCoins:()=>this.adEntry(Ads.FREE_COINS)!=='hidden'},this.instant));}
+ async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>this.openTasks(),chest:()=>this.popups.chest(),coins:()=>this.coinShop(),freeCoins:()=>this.adEntry(Ads.FREE_COINS)!=='hidden'},this.instant));}
  async open_map(world=0):Promise<void>{await this.setScreen('map',()=>new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant));if(world>=1&&world<=Levels.WORLDS&&Progress.is_world_unlocked(this.profile,world))(this.screen as MapView).open_world(world);}
  async open_trial(number:number):Promise<void>{
   const def=Number.isInteger(number)?Levels.trial(number):undefined;
@@ -229,6 +230,18 @@ export class Boot extends Component{
  async open_aviary():Promise<void>{await this.setScreen('aviary',()=>new AviaryView(this.screenHost,this.profile,{close:()=>this.open_home(),changed:()=>this.save(),coins:()=>this.coinShop(),sound:n=>this.sound.play(n)}));}
  closeOverlay():void{this.overlay?.destroy();this.overlay=null;if(this.screen instanceof BoardView){this.screen.refresh_hud();this.screen.resume_input();}}
  settings():void{const board=this.screen instanceof BoardView?this.screen:null;board?.suspend_input();const dialog=this.popups.settings(!!board);dialog.node.on(Node.EventType.NODE_DESTROYED,()=>board?.node.isValid&&board.resume_input());}
+ /** The task center on the real save (meta/Tasks.ts). */
+ private openTasks():void{
+  const p=this.profile,today=()=>Progress.today();
+  TaskView.open(this.popups,{
+   board:()=>{const t=Tasks.roll(p,today()),skin=Tasks.next_skin(p);return {points:t.points,week:t.weekPoints,
+    chests:Tasks.DAY_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.chests.includes(i)})),
+    weekChests:Tasks.WEEK_CHESTS.map((c,i)=>({at:c.at,coins:c.coins,boosters:c.boosters,opened:t.weekChests.includes(i),outfit:c.skin&&skin?skin:undefined})),
+    tasks:Tasks.DAILY.map(d=>({id:d.id,done:t.done[d.id]??0,target:d.target,points:d.points,claimed:t.claimed.includes(d.id)}))};},
+   claim:id=>{Tasks.claim(p,id,today());this.save();},
+   open:(weekly,i)=>{const prize=Tasks.open(p,weekly,i,today())!;this.save();return {at:0,coins:prize.coins,boosters:prize.boosters,outfit:prize.outfit||undefined,opened:true};},
+  },p.coins,()=>{if(this.screen instanceof HomeView)this.screen.refresh();},()=>this.coinShop());
+ }
  /** Free feathers for an ad; without ads there is nowhere to get more, so nothing opens. */
  coinShop():void{if(this.adEntry(Ads.FREE_COINS)!=='hidden')this.popups.coin_shop();}
  private buyTool(kind:number):void{const board=this.screen as BoardView,before=this.profile.inventory[kind];this.popups.offer_tool(kind,()=>{board.granted(kind,this.profile.inventory[kind]-before);board.sync_inventory();board.refresh_hud();});}
@@ -237,7 +250,7 @@ export class Boot extends Component{
  }
  private rescueOffer():void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});Kit.perch(d.content,[540,d.ys[0]+135],320);Kit.liveBird(d.content,'sunny',[418,d.ys[0]+5,112,130]);Kit.liveBird(d.content,'sky',[550,d.ys[0]+5,112,130]);Kit.button(d.content,'Rescue',[270,d.actionY,540,Kit.BUTTON_H],'white_free_rewind',()=>d.invoke(()=>board.rescue()),'wide');}
  private restartOffer(picture:string):void{const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'stuck',[180],{width:760,compact:true,close:true});UI.art(d.content,picture,[450,d.ys[0],180,180]);Kit.button(d.content,'Restart',[270,d.actionY,540,Kit.BUTTON_H],'white_action_replay',()=>d.invoke(()=>board.restart()),'wide');}
- private settlements = new WeakMap<GameSession, { payout: ReturnType<typeof Progress.on_win>; unlockedWorld: number }>();
+ private settlements = new WeakMap<GameSession, { payout: ReturnType<typeof Progress.on_win>; unlockedWorld: number; outfit: string }>();
  private settle(level:number,session:GameSession):void{
   const nextWorld=Progress.world_of_level(level)+1;
   const locked=nextWorld<=Levels.WORLDS && !Progress.is_world_unlocked(this.profile,nextWorld);
@@ -246,15 +259,19 @@ export class Boot extends Component{
   const next=level<Levels.COUNT ? Levels.get_level(level+1) : {};
   const payout=Progress.on_win(this.profile,level,session.move_count(),session.par,session.state.chorus_coins,next);
   const unlockedWorld=locked && Progress.is_world_unlocked(this.profile,nextWorld) ? nextWorld : 0;
-  this.settlements.set(session,{payout,unlockedWorld});
+  // Task center counters; the first clear of a world also gives a common skin of that world's birds.
+  const today=Progress.today(),homed=session.state.homed.filter(species=>Board.SPECIES[species]!=='crow').length;
+  for(const [id,n] of [['levels',1],['stars',payout.stars],['flocks',homed],['combos',Math.round(session.state.chorus_coins/5)],['tools',session.tools_used]] as [string,number][])Tasks.count(this.profile,id,n,today);
+  const outfit=payout.world>0?Tasks.give_skin(this.profile,Progress.world_of_level(level)):'';
+  this.settlements.set(session,{payout,unlockedWorld,outfit});
   this.save();
  }
  private onWon(level:number,session:GameSession):void{
-  const {payout,unlockedWorld}=this.settlements.get(session)!;
+  const {payout,unlockedWorld,outfit}=this.settlements.get(session)!;
   this.settlements.delete(session);
   const hasNext=level<Levels.COUNT;
   const after=(action:()=>void)=>{
-   if(payout.world>0)this.popups.world_complete(Progress.world_of_level(level),payout.world,action);
+   if(payout.world>0)this.popups.world_complete(Progress.world_of_level(level),payout.world,outfit?()=>this.popups.outfit_gift(outfit,action):action);
    else action();
   };
   const next=()=>{
