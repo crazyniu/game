@@ -355,8 +355,9 @@ export class BoardView {
     return selected;
   }
   private bird_id(code: number): string { return Worlds.look(this.state.world, Board.SPECIES[Board.species_of(code)]); }
-  private look(code: number): string {
-    const outfit = this.profile.equipped[this.bird_id(code)];
+  private look(code: number): string { return this.outfitOf(this.bird_id(code)); }
+  private outfitOf(bird: string): string {
+    const outfit = this.profile.equipped[bird];
     return outfit ? outfit.replace('outfit.','').replace('.','_outfit_') : '';
   }
   private makeBird(code: number, feet: Point): BirdEntry {
@@ -416,8 +417,8 @@ export class BoardView {
     if(species===this.residentSpecies) return;
     this.residentSpecies=species; this.resident?.destroy(); this.resident=null;
     if(species<0) return;
-    const rect=UI.rect(this.doorway), side=170*.58;
-    this.resident=BirdView.create(this.doorway,Worlds.look(this.state.world,Board.SPECIES[species]),this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant});
+    const rect=UI.rect(this.doorway), side=170*.58, bird=Worlds.look(this.state.world,Board.SPECIES[species]);
+    this.resident=BirdView.create(this.doorway,bird,this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant,outfit:this.outfitOf(bird)});
   }
   private doorPoint(): Point { return [this.doorRect[0]+this.doorRect[2]/2,this.doorRect[1]+this.doorRect[3]/2]; }
   private glyph(character: string): string { return `digit_ui_${({'+':'plus','/':'slash','×':'x'} as Record<string,string>)[character] || character}`; }
@@ -775,10 +776,12 @@ export class BoardView {
   async rescue():Promise<void> {
     if(this.busy||!this.session.history_size())return;
     this.suspended=false;this.busy=true;this.hideGuide();const generation=this.generation;
-    let steps=this.session.history_size();
+    // The whole search shares one time budget; past it the rescue returns to the start, which is always solvable.
+    let steps=this.session.history_size();const deadline=sys.now()+4000;
     for(let back=1;back<this.session.history_size();back++){
-      const snapshot=this.session.history_state(back);
-      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,1500)).status===Solver.Status.SOLVED){steps=back;break;}
+      const snapshot=this.session.history_state(back),left=deadline-sys.now();
+      if(left<=0)break;
+      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,Math.min(1500,left))).status===Solver.Status.SOLVED){steps=back;break;}
       if(!this.valid(generation))return;
     }
     if(!this.valid(generation))return;

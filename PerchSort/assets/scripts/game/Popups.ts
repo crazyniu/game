@@ -304,9 +304,12 @@ export class Popups {
     const lock=UI.group(source,'Lock',[0,0,1254,1254]);lock.addComponent(Mask).type=Mask.Type.GRAPHICS_STENCIL;const stencil=lock.getComponent(Graphics)!;stencil.clear();
     const points=[[561,550],[620,640],[720,650],[755,700],[681,750],[690,860],[640,903],[560,850],[475,906],[423,870],[435,760],[370,714],[380,665],[491,643]];
     points.forEach(([x,y],i)=>i?stencil.lineTo(x,-y):stencil.moveTo(x,-y));stencil.close();stencil.fill();UI.image(lock,'chest_star_open',[0,0,1254,1254]);
-    const paint=(degrees:number)=>{UI.clear(lid);const face=Math.sin(degrees*Math.PI/180)/Math.sin(70*Math.PI/180),extent=Math.abs(face),bottom=515+(face<0?125*extent:0),height=Math.max(14,(face<0?420:429)*extent),width=959+(face<0?32*extent:0),left=658.5-width/2,inset=24*(1-extent);
-      const mask=UI.group(lid,'Projection',[0,0,1254,1254]);mask.addComponent(Mask).type=Mask.Type.GRAPHICS_STENCIL;const g=mask.getComponent(Graphics)!;g.clear();g.moveTo(left+inset,-bottom+height);g.lineTo(left+width-inset,-bottom+height);g.lineTo(left+width,-bottom);g.lineTo(left,-bottom);g.close();g.fill();
-      UI.image_region(mask,face<0?'chest_lid_outer':'chest_star_open',face<0?[28,84,1714,691]:[179,86,959,429],[left,bottom-height,width,height]);
+    // The lid's mask and both faces are built once; each frame redraws the mask and moves the visible face.
+    const mask=UI.group(lid,'Projection',[0,0,1254,1254]);mask.addComponent(Mask).type=Mask.Type.GRAPHICS_STENCIL;const g=mask.getComponent(Graphics)!;
+    const outer=UI.image_region(mask,'chest_lid_outer',[28,84,1714,691],[0,0,0,0]),inner=UI.image_region(mask,'chest_star_open',[179,86,959,429],[0,0,0,0]);
+    const paint=(degrees:number)=>{const face=Math.sin(degrees*Math.PI/180)/Math.sin(70*Math.PI/180),extent=Math.abs(face),bottom=515+(face<0?125*extent:0),height=Math.max(14,(face<0?420:429)*extent),width=959+(face<0?32*extent:0),left=658.5-width/2,inset=24*(1-extent);
+      g.clear();g.moveTo(left+inset,-bottom+height);g.lineTo(left+width-inset,-bottom+height);g.lineTo(left+width,-bottom);g.lineTo(left,-bottom);g.close();g.fill();
+      outer.active=face<0;inner.active=face>=0;UI.place(face<0?outer:inner,[left,bottom-height,width,height]);
     };paint(angle);return {node:hero,paint};
   }
   private animateChest(d:Dialog,done:()=>void):void {

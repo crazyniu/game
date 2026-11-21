@@ -89,6 +89,8 @@ export class Rules {
     s.kinds = s.kinds.map(kind => kind !== Kind.TWIG ? Kind.NORMAL : kind);
     out?.push({ type: 'flock_home', branch: first, species: Board.SPECIES[species], ids });
     s.homed.push(species);
+    // The last flock gives its gift like any flock; on the emptied board only a move refund has an effect.
+    this.apply_gift(s, first, species, out);
     return true;
   }
   private resolve(s: Board, landingBranch: number, landingBird: number, out: Events): void {
