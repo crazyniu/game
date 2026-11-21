@@ -22,6 +22,11 @@ for (const target of platform ? [platform] : ['ios', 'android']) {
     options.packageName = process.env.PERCH_ANDROID_PACKAGE || options.packageName;
     options.appBundle = process.argv[3] === 'aab';
     options.useDebugKeystore = !options.appBundle;
+    // A release bundle is signed with the release key named in the environment; the generated config stays under build/.
+    if (options.appBundle) for (const [key, name] of [['keystorePath', 'PERCH_ANDROID_KEYSTORE'], ['keystorePassword', 'PERCH_ANDROID_KEYSTORE_PASSWORD'], ['keystoreAlias', 'PERCH_ANDROID_KEY_ALIAS'], ['keystoreAliasPassword', 'PERCH_ANDROID_KEY_PASSWORD']]) {
+      if (!process.env[name]) throw new Error(`Set ${name} for a release bundle`);
+      options[key] = process.env[name];
+    }
   }
   const path = resolve(dir, target + '.json');
   writeFileSync(path, JSON.stringify(config, null, 2) + '\n');

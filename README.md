@@ -63,7 +63,7 @@ Run `./package.sh` from the repository root and enter a platform number. The iOS
 | 3 | Android | Debug APK, release AAB or Gradle project |
 | 4 | Web | Web-mobile build |
 
-Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. Use `PERCH_ANDROID_PACKAGE` for the release application ID and configure release signing locally for distribution. Generated files stay in the build directories. None of these commands upload a build.
+Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. A release AAB needs `PERCH_ANDROID_PACKAGE` (application ID) and the release key in `PERCH_ANDROID_KEYSTORE`, `PERCH_ANDROID_KEYSTORE_PASSWORD`, `PERCH_ANDROID_KEY_ALIAS` and `PERCH_ANDROID_KEY_PASSWORD`; the build fails unless the new bundle is signed with that key. Generated files stay in the build directories. None of these commands upload a build.
 
 For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.
 

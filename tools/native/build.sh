@@ -11,7 +11,13 @@ case "$platform:$mode" in
     : "${PERCH_IOS_BUNDLE_ID:?Set the actual iOS bundle ID for an IPA}"
     : "${PERCH_IOS_TEAM:?Set the Apple developer team for an IPA}"
     ;;
-  android:aab) : "${PERCH_ANDROID_PACKAGE:?Set the actual application ID for a release bundle}";;
+  android:aab)
+    : "${PERCH_ANDROID_PACKAGE:?Set the actual application ID for a release bundle}"
+    : "${PERCH_ANDROID_KEYSTORE:?Set the release keystore for a release bundle}"
+    : "${PERCH_ANDROID_KEYSTORE_PASSWORD:?Set the release keystore password}"
+    : "${PERCH_ANDROID_KEY_ALIAS:?Set the release key alias}"
+    : "${PERCH_ANDROID_KEY_PASSWORD:?Set the release key password}"
+    ;;
   *) echo "Expected ios [project|sim|dev|ipa] or android [project|apk|aab]" >&2; exit 2;;
 esac
 if [[ "$platform" == android && -z "${2:-}" ]]; then mode=apk; fi
@@ -37,8 +43,19 @@ if [[ "$platform" == android ]]; then
   [[ "$mode" != project ]] || { echo "$out/proj"; exit 0; }
   [[ -f "$out/proj/gradlew" ]] || { echo "No Gradle wrapper in $out/proj." >&2; exit 1; }
   if [[ "$mode" == apk ]]; then task=assembleDebug; else task=bundleRelease; fi
+  # Earlier outputs are removed first, so the one found afterwards is this build's.
+  find "$out/proj" -type f -path '*/outputs/*' -name "*.$mode" -delete
   (cd "$out/proj" && bash ./gradlew "$task")
-  find "$out/proj" -type f -path '*/outputs/*' -name "*.$mode"
+  artifacts=()
+  while IFS= read -r file; do artifacts+=("$file"); done < <(find "$out/proj" -type f -path '*/outputs/*' -name "*.$mode")
+  [[ ${#artifacts[@]} -eq 1 ]] || { echo "Expected one new .$mode in $out/proj, found ${#artifacts[@]}." >&2; exit 1; }
+  artifact="${artifacts[0]}"
+  if [[ "$mode" == aab ]]; then
+    release="$(keytool -list -v -keystore "$PERCH_ANDROID_KEYSTORE" -storepass "$PERCH_ANDROID_KEYSTORE_PASSWORD" -alias "$PERCH_ANDROID_KEY_ALIAS" | awk '/SHA256:/{print $2; exit}')"
+    signer="$(keytool -printcert -jarfile "$artifact" | awk '/SHA256:/{print $2; exit}')"
+    [[ -n "$release" && "$release" == "$signer" ]] || { echo "$artifact is not signed with the release key ${PERCH_ANDROID_KEY_ALIAS}." >&2; exit 1; }
+  fi
+  echo "$artifact"
   exit 0
 fi
 shopt -s nullglob
