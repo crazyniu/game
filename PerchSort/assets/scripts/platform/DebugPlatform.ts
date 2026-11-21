@@ -16,7 +16,7 @@ export class DebugPlatform extends Platform {
   override async init(): Promise<void> {
     const cfg = await loadPlatformConfig();
     const q = new URLSearchParams(globalThis.location?.search ?? '').get('ads');
-    this.hasAds = q === '1' ? true : q === '0' ? false : cfg.adsEnabled;
+    this.hasAds = this.isDevBuild() && (q === '1' ? true : q === '0' ? false : cfg.adsEnabled);
     this.adsOn = this.hasAds;
     this.privacyUrl = cfg.privacyPolicy;
   }

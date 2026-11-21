@@ -81,7 +81,7 @@ export class Boot extends Component{
   const temporary=preview||(this.testMode&&this.args.has('fresh'));
   if(this.testMode)this.saveKey='perch-sort.test.'+(this.args.get('test')||'session');
   if(DEBUG)(globalThis as any).perchBoot=this;
-  this.platform=createPlatform();await this.platform.init();if(this.platform instanceof DebugPlatform)this.platform.view=new MockAd(this.popupHost.parent!);
+  this.platform=createPlatform();await this.platform.init();if(DEBUG&&this.platform instanceof DebugPlatform)this.platform.view=new MockAd(this.popupHost.parent!);
   await Art.init();Levels.configure(Art.data('levels/levels'),Art.data('levels/trial'));
   if(!temporary)await this.holdSaveLock();
   if(temporary){
