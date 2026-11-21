@@ -7,12 +7,14 @@ const { ccclass } = _decorator;
 const clamp = (v:number,a=0,b=1):number => Math.max(a,Math.min(b,v));
 const smooth = (a:number,b:number,v:number):number => { const t=clamp((v-a)/(b-a));return t*t*(3-2*t); };
 const lerp = (a:number,b:number,t:number):number => a+(b-a)*t;
+const idleEase = (u:number):number => lerp(clamp(u),smooth(0,1,u),.6);
+const DEFAULT_ANCHOR = [168,51,120,165,0];
 const POSES = ['fluff','stretch','yawn','tilt_left','tilt_right','look_up','look_down','quirk1','quirk2'];
 const FAMILY:Record<string,Record<string,number[]>> = {
   sunny:{idle:[104,140,165,244,0],tilt_left:[94,164,165,244,-20],tilt_right:[121,124,165,244,20]},
   sky:{idle:[215,123,163,243,0],tilt_left:[193,112,163,243,-20],tilt_right:[232,142,163,243,20],quirk2:[224,136,163,243,15],look_down:[215,140,163,243,0],preen:[198,132,179,255,8]},
 };
-interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean; }
+interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean;frames:string[]; }
 interface Part { group:Node;rotors:Node[];hubs:Record<string,number[]>;turns:number;spin:number; }
 export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean;lazy?:boolean; }
 
@@ -81,7 +83,7 @@ export class BirdView {
     this.rest=Art.has(this.prefix+'_front')?this.prefix+'_front':this.prefix+'_idle';
     const pictureRect:Rect=[-160*this.kx,-Art.feet(species)*this.ky,320*this.kx,320*this.ky];
     this.picture=UI.image(this.body,this.code&1?'egg_idle':this.rest,pictureRect);this.sprite=this.picture.getComponent(Sprite)!;
-    this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);
+    this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);this.blend.active=false;
     this.loadFrames();this.buildPart();
     this.bow=UI.image(this.body,'mama_bow',[0,0,72*this.kx,72*this.ky]);
     this.fluff=UI.image(this.body,'chick_fluff',[0,0,88*this.kx,88*this.ky]);
@@ -123,23 +125,29 @@ export class BirdView {
   private restFrame():string {if(this.code&1)return 'egg_idle';return this.asleep?(this.sequences.front_blink?.at(-1)??this.rest):this.rest;}
   private cached(name:string):ReturnType<typeof Art.cache.get> {return Art.cache.get(Art.key(name));}
   private show(name:string,next='',amount=0):void {
-    this.frame=name;this.nextFrame=next;this.blendAmount=next?amount:0;
-    const frame=this.cached(name);if(frame)this.sprite.spriteFrame=frame;
-    if(next){const blend=this.cached(next);if(blend)this.blendSprite.spriteFrame=blend;}
-    UI.opacity(this.blend,this.blendAmount);this.syncOverlays();
+    this.frame=name;this.nextFrame=next;
+    const frame=this.cached(name);if(frame&&this.sprite.spriteFrame!==frame)this.sprite.spriteFrame=frame;
+    const blendAmount=next?amount:0;
+    if(next){const blend=this.cached(next);if(blend&&this.blendSprite.spriteFrame!==blend)this.blendSprite.spriteFrame=blend;}
+    if(this.blendAmount!==blendAmount){this.blendAmount=blendAmount;UI.opacity(this.blend,blendAmount);this.blend.active=blendAmount>0;}
+    this.syncOverlays();
   }
   private play(frames:string[],position:number):void {
     if(!frames.length){this.show(this.restFrame());return;}
     const index=Math.min(frames.length-1,Math.floor(position)),fraction=position-index;
     this.show(frames[index],frames[Math.min(index+1,frames.length-1)],smooth(.65,1,fraction));
   }
-  private poseAnchor(name:string):number[] {const table=FAMILY[this.species];return table?.[this.frameNames.get(name)??'idle']??table?.idle??[168,51,120,165,0];}
+  private poseAnchor(name:string):number[] {const table=FAMILY[this.species];return table?.[this.frameNames.get(name)??'idle']??table?.idle??DEFAULT_ANCHOR;}
   private syncOverlays():void {
     if(!this.bow)return;
     const egg=!!(this.code&1);this.bow.active=!!(this.code&4)&&!egg;this.fluff.active=!!(this.code&8)&&!egg;
-    const from=this.poseAnchor(this.frame),to=this.poseAnchor(this.nextFrame||this.frame),p=from.map((n,i)=>lerp(n,to[i],this.blendAmount));
-    UI.move(this.bow,(p[0]-160-36)*this.kx,(p[1]-300-36)*this.ky);this.bow.angle=-p[4];
-    UI.move(this.fluff,(p[2]-160-44)*this.kx,(p[3]-300-44)*this.ky);
+    if(!this.bow.active&&!this.fluff.active)return;
+    const from=this.poseAnchor(this.frame),to=this.poseAnchor(this.nextFrame||this.frame),a=this.blendAmount;
+    if(this.bow.active){
+      UI.move(this.bow,(lerp(from[0],to[0],a)-160-36)*this.kx,(lerp(from[1],to[1],a)-300-36)*this.ky);
+      this.bow.angle=-lerp(from[4],to[4],a);
+    }
+    if(this.fluff.active)UI.move(this.fluff,(lerp(from[2],to[2],a)-160-44)*this.kx,(lerp(from[3],to[3],a)-300-44)*this.ky);
   }
   private run(seconds:number,step:(t:number)=>void):Promise<void> {
     if(this.instant){step(1);return Promise.resolve();}
@@ -180,25 +188,30 @@ export class BirdView {
   private startIdle(key:string):void {
     const hold=.6+(this.seed+this.clock)%.6,twice=key==='front_blink'&&Math.random()<.2;
     const duration=key==='front_blink'?(twice?.84:.32):key.startsWith('turn')?.84+hold:key==='preen'?1.05:key==='flap'?1:key==='hop'?.82:hold+.5;
-    this.lastAction=key;this.idle={key,time:0,duration,hold,twice};
+    const seq=this.sequences[key]??[];
+    const frames=key==='front_blink'?[this.rest,seq[0],seq[1],seq[0],this.rest]:
+      key.startsWith('turn')?[this.rest,...seq]:
+      key==='flap'?[this.rest,...seq,...seq,this.rest]:
+      key==='hop'||key==='preen'||seq.length?[this.rest,...seq,this.rest]:[];
+    this.lastAction=key;this.idle={key,time:0,duration,hold,twice,frames};
   }
   private idleFrame(idle:Idle):number {
-    const {key,time,duration,hold,twice}=idle,seq=this.sequences[key]??[],ease=(u:number)=>lerp(clamp(u),smooth(0,1,u),.6);
+    const {key,time,duration,hold,twice,frames}=idle;
     if(key==='front_blink'){
       let t=time;if(twice&&t>=.52)t-=.52;else if(t>=.32){this.show(this.rest);return 0;}
-      this.play([this.rest,seq[0],seq[1],seq[0],this.rest],4*t/.32);return 0;
+      this.play(frames,4*t/.32);return 0;
     }
     if(key.startsWith('turn')){
-      const frames=[this.rest,...seq],span=frames.length-1;
-      if(time<.42)this.play(frames,span*ease(time/.42));else if(time<.42+hold)this.show(frames[span]);else this.play(frames,span*(1-ease((time-.42-hold)/.42)));return 0;
+      const span=frames.length-1;
+      if(time<.42)this.play(frames,span*idleEase(time/.42));else if(time<.42+hold)this.show(frames[span]);else this.play(frames,span*(1-idleEase((time-.42-hold)/.42)));return 0;
     }
     if(key==='hop'){
-      this.play([this.rest,...seq,this.rest],(seq.length+1)*ease(time/duration));return 16*this.ky*Math.sin(clamp((time-.14)/.42)*Math.PI);
+      this.play(frames,(frames.length-1)*idleEase(time/duration));return 16*this.ky*Math.sin(clamp((time-.14)/.42)*Math.PI);
     }
     if(key==='preen'||key==='flap'){
-      const frames=key==='flap'?[this.rest,...seq,...seq,this.rest]:[this.rest,...seq,this.rest];this.play(frames,(frames.length-1)*ease(time/duration));return key==='flap'?5*this.ky*Math.sin(time/duration*Math.PI)**2:0;
+      this.play(frames,(frames.length-1)*idleEase(time/duration));return key==='flap'?5*this.ky*Math.sin(time/duration*Math.PI)**2:0;
     }
-    if(seq.length){this.play([this.rest,...seq,this.rest],(seq.length+1)*time/duration);return 0;}
+    if(frames.length){this.play(frames,(frames.length-1)*time/duration);return 0;}
     this.show(this.rest,this.prefix+'_'+key,smooth(0,1,Math.min(time,duration-time)/.25));return 2*this.ky;
   }
   update(dt:number):void {
@@ -209,7 +222,7 @@ export class BirdView {
     if(this.acting)return;
     let rise=0;
     if(this.selected){
-      const left=UI.rect(this.node)[0]+UI.rect(this.node)[2]/2>540,elapsed=this.clock-this.selectedAt,flap=this.sequences[left?'flight_flap_l':'flight_flap'];
+      const rect=UI.rect(this.node),left=rect[0]+rect[2]/2>540,elapsed=this.clock-this.selectedAt,flap=this.sequences[left?'flight_flap_l':'flight_flap'];
       if(flap?.length)this.show(flap[Math.floor(elapsed*18)%flap.length]);
     }else if(this.idle){
       this.idle.time+=dt;
@@ -237,7 +250,7 @@ export class BirdView {
     UI.move(this.body,this.bodyBase[0],this.bodyBase[1]);this.zzz.active=false;
     const left=point[0]<start[0];this.flightLeft=left;
     const takeoff=this.sequences[left?'flight_takeoff_l':'flight_takeoff']??[],flap=this.sequences[left?'flight_flap_l':'flight_flap']??[],land=this.sequences[left?'flight_land_l':'flight_land']??[];
-    const from=this.frame||this.restFrame();
+    const from=this.frame||this.restFrame(),launch=takeoff.length&&flap.length?[...takeoff,flap[0]]:[];
     await this.run(.06,t=>{this.body.setScale(1+.08*t,1-.08*t,1);if(takeoff.length)this.show(from,takeoff[0],smooth(0,1,t));});
     if(!this.current(generation))return;
     let target:Point=[...point],entryScale=.4;
@@ -250,7 +263,7 @@ export class BirdView {
       UI.move(this.node,lerp(start[0],target[0],t),lerp(start[1],target[1],t)-4*t*(1-t)*height);
       const elapsed=t*approach;
       if(flap.length){
-        if(elapsed<.08&&takeoff.length)this.play([...takeoff,flap[0]],elapsed/.08*takeoff.length);
+        if(elapsed<.08&&launch.length)this.play(launch,elapsed/.08*takeoff.length);
         else if(t>.82&&!options.doorway&&land.length)this.play(land,(t-.82)/.18*(land.length-1));
         else this.show(flap[Math.floor(elapsed*18)%flap.length]);
       }else this.play(takeoff,t*(takeoff.length-1));
@@ -290,7 +303,8 @@ export class BirdView {
     const frames=this.sequences.cheer??this.sequences.flight_flap;if(!frames?.length)return;
     await Art.preload(frames);if(!this.node.isValid)return;
     this.stop();this.acting=true;const generation=this.generation;
-    await this.run((frames.length+1)/10,t=>this.play([this.rest,...frames,this.rest],(frames.length+1)*lerp(t,smooth(0,1,t),.6)));
+    const motion=[this.rest,...frames,this.rest];
+    await this.run((frames.length+1)/10,t=>this.play(motion,(frames.length+1)*lerp(t,smooth(0,1,t),.6)));
     if(this.current(generation)){this.acting=false;this.show(this.restFrame());this.due=this.clock+1;}
   }
   async hatch():Promise<void> {

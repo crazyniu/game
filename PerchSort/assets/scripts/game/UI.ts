@@ -88,12 +88,12 @@ export class UI {
     const n=this.group(parent,name),dim=this.fill(n,'Dim',[0,0,1080,1920],'#000000B8');dim.addComponent(BlockInputEvents);const content=this.group(n,'Content');this.nine(content,'kit/panel',r,[60,60,60,60]);if(title)this.word(content,title,[r[0]+100,r[1]+30,r[2]-200,100],'gold');const close=()=>{n.destroy();onClose?.();};this.disc(content,'Close',[r[0]+r[2]-100,r[1]-35,112,112],'close',close);return {node:n,content,close};
   }
   static effect(n:Node,name:string,properties:Record<string,any>={}):void{
-    resources.load('effects/'+name,EffectAsset,(error,effect)=>{if(error)throw error;if(!n.isValid)return;const material=new Material();material.initialize({effectAsset:effect,defines:{USE_TEXTURE:true}});for(const [key,value] of Object.entries(properties))material.setProperty(key,value);n.getComponent(Sprite)!.customMaterial=material;});
+    resources.load('effects/'+name,EffectAsset,(error,effect)=>{if(error){console.warn('UI effect unavailable: '+name,error);return;}if(!n.isValid)return;const material=new Material();material.initialize({effectAsset:effect,defines:{USE_TEXTURE:true}});for(const [key,value] of Object.entries(properties))material.setProperty(key,value);n.getComponent(Sprite)!.customMaterial=material;});
   }
   static warm(n:Node):void{this.effect(n,'warm_ink');}
   static outline(n:Node):void{const r=this.rect(n);this.effect(n,'home_icon_outline',{drawSize:new Vec4(r[2],r[3],0,0)});this.place(n,[r[0]-12,r[1]-12,r[2]+24,r[3]+24]);}
   static calm_backdrop(n:Node):void {
-    resources.load('effects/calm',EffectAsset,(error,effect)=>{if(error)throw error;if(!n.isValid)return;
+    resources.load('effects/calm',EffectAsset,(error,effect)=>{if(error){console.warn('UI effect unavailable: calm',error);return;}if(!n.isValid)return;
       const material=new Material();material.initialize({effectAsset:effect,defines:{USE_TEXTURE:true}});
       const size=Art.size(n.name);material.setProperty('calmParams',new Vec4(1/size[0],1/size[1],3,.38));n.getComponent(Sprite)!.customMaterial=material;
     });
