@@ -6,7 +6,7 @@
   "build": 1,
   "privacyPolicy": "",
   "ios": {
-    "bundleId": "local.perchsort.preview",
+    "bundleId": "dabudian.top.birdsort",
     "team": "",
     "minVersion": "15.0",
     "admobAppId": "ca-app-pub-3940256099942544~1458002511",
@@ -16,7 +16,7 @@
     }
   },
   "android": {
-    "packageName": "local.perchsort.preview",
+    "packageName": "dabudian.top.birdsort",
     "minSdk": 24,
     "targetSdk": 36,
     "admobAppId": "ca-app-pub-3940256099942544~3347511713"

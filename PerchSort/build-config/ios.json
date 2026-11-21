@@ -14,7 +14,7 @@
   "outputName": "ios",
   "packages": {
     "ios": {
-      "packageName": "local.perchsort.preview",
+      "packageName": "dabudian.top.birdsort",
       "orientation": {
         "portrait": true,
         "upsideDown": false,
