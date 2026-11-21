@@ -33,6 +33,7 @@ parser.add_argument('--outfit', help='own and equip a skin in the isolated test 
 parser.add_argument('--frames', type=int, default=1, help='Number of framebuffer captures (1..120); names end in -NNN when more than one')
 parser.add_argument('--step', type=float, default=.25, help='Seconds between captures')
 parser.add_argument('--preview', help='Supported legacy state alias; unsupported states fail explicitly')
+parser.add_argument('--eval', help='JavaScript run once the game is ready (for example perch.app.screen.show_detail("oriole")); the capture waits for the art it loads')
 parser.add_argument('--url', default='http://127.0.0.1:' + os.environ.get('WEB_PORT', '8765') + '/')
 args = parser.parse_args(sys.argv[2:])
 if not 1 <= args.frames <= 120:
@@ -132,6 +133,11 @@ try:
         if state['startupError'] or state['errors']:
             raise RuntimeError('Cocos runtime failed: ' + json.dumps(state))
         if state['ready'] and state['pending'] == 0:
+            if args.eval:
+                evaluate(args.eval + ';0')
+                args.eval = None
+                time.sleep(.5)
+                continue
             break
         if time.monotonic() >= deadline:
             raise RuntimeError('Cocos did not become ready. Start the local server and use a debug build with the perch test API.')
