@@ -81,7 +81,7 @@ export class Profile {
     const p = new Profile();
     p.coins = Math.max(0, int(data.coins)); p.highest_unlocked = clamp(int(data.highestUnlockedLevel ?? 1), 1, Levels.COUNT);
     p.muted = !!data.muted; p.music_muted = !!(data.musicMuted ?? p.muted); p.vibration = data.vibration ?? true;
-    const language = String(data.language ?? ''); p.language = /^[a-z-]{2,8}$/.test(language) ? language : '';
+    const language = String(data.language ?? ''); p.language = /^[A-Za-z_-]{2,8}$/.test(language) ? language : '';
     p.inventory = this.BOOSTER_IDS.map(id => Math.max(0, int(data.boosters?.[id])));
     let stars: number[] = data.bestStars ?? [], clears: number[] = data.clearCounts ?? [], moves: number[] = data.bestMoves ?? [], gifts: number[] = data.levelGifts ?? [];
     const schema = int(data.schemaVersion ?? 1);

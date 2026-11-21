@@ -1,6 +1,6 @@
 {
   "codeName": "perchsort",
-  "name": { "en": "Perch Sort", "zh_CN": "小鸟归巢" },
+  "name": { "en": "Bird Sort", "zh_CN": "小鸟归巢" },
   "languages": { "app": ["en", "zh_CN"], "wechat": ["zh_CN", "en"] },
   "version": "1.0.0",
   "build": 1,

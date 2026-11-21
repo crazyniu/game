@@ -1,0 +1,25 @@
+keys,zh_CN,en,zh_TW,ja,ko,de,fr,es,pt,it,ru,tr
+UI_PLAY,开始,Play,開始,スタート,시작,Spielen,Jouer,Jugar,Jogar,Gioca,Играть,Oyna
+UI_LEVEL,第 %d 关,Level %d,第 %d 關,ステージ %d,레벨 %d,Level %d,Niveau %d,Nivel %d,Nível %d,Livello %d,Уровень %d,Seviye %d
+UI_SETTINGS,设置,Settings,設定,設定,설정,Optionen,Réglages,Ajustes,Ajustes,Impostazioni,Настройки,Ayarlar
+H_MUSIC,音乐,Music,音樂,BGM,음악,Musik,Musique,Música,Música,Musica,Музыка,Müzik
+H_SOUND,音效,Sound,音效,効果音,효과음,Sound,Sons,Sonido,Sons,Suoni,Звуки,Ses
+H_VIBRATION,震动,Vibration,震動,バイブ,진동,Vibration,Vibrations,Vibración,Vibração,Vibrazione,Вибрация,Titreşim
+H_LANGUAGE,语言,Language,語言,言語,언어,Sprache,Langue,Idioma,Idioma,Lingua,Язык,Dil
+H_FEAT_SIGNIN,签到,Check-in,簽到,ログボ,출석,Bonus,Cadeau,Regalo,Presente,Regalo,Подарок,Hediye
+UI_TAB_SHOP,商店,Shop,商店,ショップ,상점,Shop,Boutique,Tienda,Loja,Negozio,Магазин,Mağaza
+UI_TAB_TASKS,任务,Tasks,任務,クエスト,미션,Aufgaben,Missions,Misiones,Missões,Missioni,Задания,Görevler
+H_FEAT_LEVELS,选关,Levels,選關,ステージ,레벨,Level,Niveaux,Niveles,Fases,Livelli,Уровни,Seviyeler
+H_TO_HOME,主页,Home,首頁,ホーム,홈,Start,Accueil,Inicio,Início,Home,Меню,Ana sayfa
+H_RETRY,重试,Retry,重試,もう一度,다시 하기,Nochmal,Rejouer,Reintentar,De novo,Riprova,Ещё раз,Tekrar
+PAUSE_TITLE,暂停,Paused,暫停,ポーズ,일시 정지,Pause,Pause,Pausa,Pausa,Pausa,Пауза,Duraklat
+UI_PRIVACY_POLICY,隐私政策,Privacy Policy,隱私權政策,プライバシーポリシー,개인정보 처리방침,Datenschutzerklärung,Politique de confidentialité,Política de privacidad,Política de privacidade,Informativa privacy,Политика конфиденциальности,Gizlilik politikası
+H_UNLOCKS_AT,第 %d 关解锁,Level %d,第 %d 關解鎖,Lv.%dで解放,레벨 %d,Level %d,Niveau %d,Nivel %d,Nível %d,Livello %d,Уровень %d,Seviye %d
+H_DRAW,抽奖,Lucky Draw,抽獎,くじ引き,뽑기,Verlosung,Tirage,Sorteo,Sorteio,Estrazione,Лотерея,Çekiliş
+H_CHEST,宝箱,Chest,寶箱,宝箱,상자,Truhe,Coffre,Cofre,Baú,Forziere,Сундук,Sandık
+H_ALBUM,图鉴,Album,圖鑑,図鑑,도감,Album,Album,Álbum,Álbum,Album,Альбом,Albüm
+H_HELP,玩法,How to Play,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
+FREE_FEATHERS,免费羽毛,Free Feathers,免費羽毛,無料の羽,무료 깃털,Gratis-Federn,Plumes gratuites,Plumas gratis,Penas grátis,Piume gratis,Перья даром,Bedava tüy
+H_WATCH_AD,看广告,Watch,看廣告,広告を見る,광고 보기,Ansehen,Regarder,Ver,Assistir,Guarda,Смотреть,İzle
+SHOP_AD_LEFT,今日 %d/%d,Today %d/%d,今日 %d/%d,今日 %d/%d,오늘 %d/%d,Heute %d/%d,Auj. %d/%d,Hoy %d/%d,Hoje %d/%d,Oggi %d/%d,Сегодня %d/%d,Bugün %d/%d
+SHOP_AD_DONE,今日已领完,Come back tomorrow,今日已領完,また明日,내일 또 와요,Morgen wieder,Reviens demain,Vuelve mañana,Volte amanhã,Torna domani,Приходи завтра,Yarın gel

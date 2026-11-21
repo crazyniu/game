@@ -25,6 +25,8 @@ import {DebugPlatform} from './platform/DebugPlatform';
 import {createPlatform} from './platform/index';
 import {MockAd} from './game/MockAd';
 import {TaskView} from './game/TaskView';
+import {I18n} from './game/I18n';
+import {Flat} from './game/Flat';
 const {ccclass}=_decorator;
 type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
 @ccclass('Boot')
@@ -58,7 +60,7 @@ export class Boot extends Component{
    UI.cover(waiting,'background_home_jungle',[0,0,1080,1920]);
    UI.art(waiting,'island_padlock',[420,840,240,240]);
    const title=document.title;
-   document.title=sys.language.startsWith('zh')?'请关闭另一个游戏标签页 · Perch Sort':'Close the other game tab · Perch Sort';
+   document.title=sys.language.startsWith('zh')?'请关闭另一个游戏标签页 · Bird Sort':'Close the other game tab · Bird Sort';
    await navigator.locks.request(lockName,async()=>{
     document.title=title;
     waiting.destroy();
@@ -101,9 +103,9 @@ export class Boot extends Component{
   this.profile=Profile.load_saved(this.storage,this.saveKey);
   if(this.testMode&&this.args.has('unlock')){this.profile.highest_unlocked=210;this.profile.coins=50000;this.profile.inventory=[10,10,10,10,10,10];for(const [species] of Aviary.SPECIES)this.profile.met[species]=true;for(let world=2;world<=Worlds.COUNT;world++)for(const bird of Worlds.birds(world))this.profile.met[bird]=true;}
   if(this.testMode&&this.args.has('outfit'))for(const id of this.args.get('outfit')!.split(',')){this.profile.outfits['outfit.'+id]=true;this.profile.equipped[id.split('.')[0]]='outfit.'+id;}
-  Art.setLocale(this.args.get('lang')??(this.profile.language||sys.language));
+  I18n.set(this.args.get('lang')??(this.profile.language||sys.language));await Flat.loadFont(I18n.lang);
   this.sound=new Sound(this.node);this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
-  this.popups=new Popups(this.popupHost,this.profile,{ad:p=>this.adEntry(p),rewarded:(p,done)=>void this.watchAd(p,done),save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
+  this.popups=new Popups(this.popupHost,this.profile,{ad:p=>this.adEntry(p),rewarded:(p,done)=>void this.watchAd(p,done),save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant),changed:()=>{if(this.screen instanceof HomeView)this.screen.refresh();}});
   if(this.profile.needs_recovery()){this.saveRecovery();await Art.waitPending();this.loading.destroy();return;}
   if(DEBUG)(globalThis as any).perch={app:this,platform:this.platform,UI,Art,Levels,Progress,Profile,Board,Kit,get state(){const app=this.app;return {page:app.page,ready:app.ready,profile:app.profile.to_dict(),audio:app.sound.debug,errors:Art.errors,board:app.screen instanceof BoardView?{busy:app.screen.busy,level:app.screen.level.id,moves:app.screen.session.move_count(),won:app.screen.session.state.is_won(),branches:app.screen.session.state.items}:null};}};
   if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel||this.autoplay)await this.open_board(validLevel?level:Math.min(Math.max(this.profile.highest_unlocked,1),Levels.COUNT));else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
@@ -160,7 +162,7 @@ export class Boot extends Component{
   });
   return {node,slide};
  }
- async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>TaskView.preview(this.popups),chest:()=>this.popups.chest(),coins:()=>this.coinShop()},this.instant));}
+ async open_home():Promise<void>{await this.setScreen('home',()=>new HomeView(this.screenHost,this.profile,{play:n=>this.open_board(n),map:()=>this.open_map(),shop:()=>this.open_shop(),aviary:()=>this.open_aviary(),settings:()=>this.settings(),daily:()=>this.popups.daily_reward(),draw:()=>this.popups.lucky_draw(),tasks:()=>TaskView.preview(this.popups),chest:()=>this.popups.chest(),coins:()=>this.coinShop(),freeCoins:()=>this.adEntry(Ads.FREE_COINS)!=='hidden'},this.instant));}
  async open_map(world=0):Promise<void>{await this.setScreen('map',()=>new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant));if(world>=1&&world<=Levels.WORLDS&&Progress.is_world_unlocked(this.profile,world))(this.screen as MapView).open_world(world);}
  async open_trial(number:number):Promise<void>{
   const def=Number.isInteger(number)?Levels.trial(number):undefined;
@@ -227,7 +229,8 @@ export class Boot extends Component{
  async open_aviary():Promise<void>{await this.setScreen('aviary',()=>new AviaryView(this.screenHost,this.profile,{close:()=>this.open_home(),changed:()=>this.save(),coins:()=>this.coinShop(),sound:n=>this.sound.play(n)}));}
  closeOverlay():void{this.overlay?.destroy();this.overlay=null;if(this.screen instanceof BoardView){this.screen.refresh_hud();this.screen.resume_input();}}
  settings():void{const board=this.screen instanceof BoardView?this.screen:null;board?.suspend_input();const dialog=this.popups.settings(!!board);dialog.node.on(Node.EventType.NODE_DESTROYED,()=>board?.node.isValid&&board.resume_input());}
- coinShop():void{this.popups.coin_shop();}
+ /** Free feathers for an ad; without ads there is nowhere to get more, so nothing opens. */
+ coinShop():void{if(this.adEntry(Ads.FREE_COINS)!=='hidden')this.popups.coin_shop();}
  private buyTool(kind:number):void{const board=this.screen as BoardView,before=this.profile.inventory[kind];this.popups.offer_tool(kind,()=>{board.granted(kind,this.profile.inventory[kind]-before);board.sync_inventory();board.refresh_hud();});}
  private undoMore():void{
   const board=this.screen as BoardView,d=Kit.jungle(this.popupHost,'undo_more',[280,88],{close:true});UI.art(d.content,'pic_undo',[400,d.ys[0],280,280]);Kit.number(d.content,'+1',[340,d.ys[1],400,88]);const entry=this.popups.adEntry(Ads.UNDO),buy=Kit.button(d.content,'Buy',[entry==='hidden'?325:94,d.actionY,430,Kit.BUTTON_H],'',()=>{if(this.profile.coins<Progress.UNDO_PRICE){this.coinShop();return;}this.profile.coins-=Progress.UNDO_PRICE;board.session.grant_undos(1);this.save();d.close();board.refresh_hud();});Kit.price(buy,[430,Kit.BUTTON_H],Progress.UNDO_PRICE);if(entry!=='hidden')this.popups.adButton(d.content,[556,d.actionY,430,Kit.BUTTON_H],entry,()=>this.popups.watch(Ads.UNDO,()=>{board.session.grant_undos(1);this.save();d.close();board.refresh_hud();}));

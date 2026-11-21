@@ -7,7 +7,7 @@
 //        node tools/cocos/meta.mjs uuid <relative path>   print the UUID for a path under assets/
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { extname, join, relative } from 'node:path';
+import { basename, extname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ASSETS = fileURLToPath(new URL('../../PerchSort/assets/', import.meta.url));
@@ -31,6 +31,7 @@ const FORMATS = {
   '.effect': { ver: '1.7.1', importer: 'effect', files: ['.json'] },
   '.scene': { ver: '1.1.50', importer: 'scene', files: ['.json'] },
   text: { ver: '1.0.1', importer: 'text', files: ['.json'] },
+  '.ttf': { ver: '1.0.1', importer: 'ttf-font', files: ['.json'] },
 };
 const IMAGES = ['.png', '.webp'];
 // Creator writes these on the built-in resources bundle; written up front so a build leaves the meta unchanged.
@@ -55,7 +56,8 @@ function metaFor(abs, rel, isDir) {
   const uuid = uuidFor(rel);
   if (!IMAGES.includes(ext)) {
     const format = isDir ? FORMATS.directory : FORMATS[ext] ?? FORMATS.text;
-    return { ver: format.ver, importer: format.importer, imported: true, uuid, files: format.files, subMetas: {}, userData: (isDir && FOLDER_DATA[rel]) || format.userData || {} };
+    const files = ext === '.ttf' ? [...format.files, basename(abs)] : format.files;   // a font keeps its file next to the import
+    return { ver: format.ver, importer: format.importer, imported: true, uuid, files, subMetas: {}, userData: (isDir && FOLDER_DATA[rel]) || format.userData || {} };
   }
   const data = { ver: '1.0.27', importer: 'image', imported: true, uuid, files: [], subMetas: {}, userData: {} };
   const [w, h] = imageSize(rel, ext);

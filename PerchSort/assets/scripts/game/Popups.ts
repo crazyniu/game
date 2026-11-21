@@ -9,6 +9,8 @@ import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
 import { Shop } from '../meta/Shop';
 import { Ads } from '../meta/Ads';
+import { Flat, ON_LIGHT, onTone } from './Flat';
+import { I18n, tr } from './I18n';
 
 export interface PageCallbacks {
   close: () => void;
@@ -32,6 +34,8 @@ export interface PopupCallbacks {
   /** Show a rewarded ad; done runs only after the platform reports it watched to the end. */
   rewarded?: (placement: string, done: () => void) => void;
   close?: () => void;
+  /** Feathers changed outside a page (free feathers): the screen redraws its balance. */
+  changed?: () => void;
 }
 export type AdEntry = 'hidden' | 'used' | 'ready';
 export interface Dialog {
@@ -174,30 +178,41 @@ export class Popups {
   constructor(public host:Node,public profile:Profile,public callbacks:PopupCallbacks) {}
   private save():void { this.callbacks.save(); }
   private sound(name:string):void { this.callbacks.sound?.(name); }
-  settings(showRestart=false):Dialog {
-    const h=24+128+132*4+40+(showRestart?256:116)+48, top=Math.round(960-h/2);
-    const d=Kit.layer(this.host,'Settings');const shade=d.node.getChildByName('Dim')!.getComponent(Graphics)!;shade.clear();shade.fillColor=new Color(20,23,61,173);shade.rect(0,-1920,1080,1920);shade.fill();
-    const paint=()=>{
-      UI.clear(d.content); UI.fill(d.content,'Rim',[120,top,840,h],'#d6a870',48);UI.fill(d.content,'Card',[128,top+8,824,h-16],'#fff7e8',40);
-      Kit.simpleWord(d.content,'settings','ink',[540,top+88],76);
-      const close=UI.hit_area(d.content,'Close',[812,top+48,92,92],d.close);UI.fill(close,'Shadow',[-3,3,98,98],'#40230d28',49);UI.fill(close,'Lip',[0,0,92,92],'#ba8852',46);UI.fill(close,'Rim',[0,0,92,86],'#d6a870',46);UI.fill(close,'Face',[3,3,86,80],'#fff7e8',43);UI.line(close,[[28,25],[64,61]],'#965c2c',10);UI.line(close,[[64,25],[28,61]],'#965c2c',10);
-      const rows=[['pic_music','music',!this.profile.music_muted],['pic_sound_on','sound',!this.profile.muted],['pic_vibration','vibration',this.profile.vibration],['pic_globe','language',false]] as const;
-      rows.forEach(([icon,id,on],i)=>{
-        const mid=top+152+132*(i+.5); if(i>0)UI.fill(d.content,'Divider',[168,mid-67.5,744,3],'#ead6b6',1.5);
-        UI.art(d.content,icon,[168,mid-36,72,72]);Kit.simpleWord(d.content,id,'ink',[268,mid],54,-1);
-        if(id==='language'){
-          UI.fill(d.content,'LanguageRim',[572,mid-42,340,84],'#d6a870',42);UI.fill(d.content,'LanguageTrack',[575,mid-39,334,78],'#f1e2c8',39);
-          ['en','zh'].forEach((code,k)=>{const selected=Art.locale===code; if(selected){UI.fill(d.content,'ChosenLip',[576+k*166,mid-38,162,76],'#3c8822',38);UI.fill(d.content,'Chosen',[576+k*166,mid-38,162,70],'#5cb83a',38);}Kit.simpleWord(d.content,'lang_'+code,selected?'white':'ink',[657+k*170,mid-2],40);UI.hit_area(d.content,'Language_'+code,[572+k*170,mid-42,170,84],()=>{this.profile.language=code;Art.setLocale(code);this.callbacks.language?.(code);this.save();paint();});});
-        }else{
-          const toggle=UI.hit_area(d.content,'Switch_'+id,[756,mid-42,156,84],()=>{if(id==='music')this.profile.music_muted=!this.profile.music_muted;else if(id==='sound')this.profile.muted=!this.profile.muted;else this.profile.vibration=!this.profile.vibration;this.callbacks.mute?.();this.save();paint();});
-          UI.fill(toggle,'Lip',[0,0,156,84],on?'#3c8822':'#b8a892',42);UI.fill(toggle,'Track',[0,0,156,76],on?'#5cb83a':'#d6cab8',42);UI.fill(toggle,'Knob',[on?86:6,6,64,64],'#fffdf7',32);
-        }
-      });
-      const y=top+152+528+40;
-      const action=(id:string,x:number,at:number,fn:()=>void,green=true)=>{const b=UI.hit_area(d.content,id,[x,at,340,116],()=>d.invoke(fn));UI.fill(b,'Lip',[0,0,340,116],green?'#3c8822':'#d6a870',58);UI.fill(b,'Face',green?[0,0,340,108]:[3,3,334,102],green?'#5cb83a':'#fff7e8',58);Kit.simpleWord(b,id,green?'white':'ink',[170,54],52);};
-      if(showRestart){action('restart',188,y,()=>this.callbacks.replay?.(),false);action('home',552,y,()=>this.callbacks.home?.());}
-      action('help',370,y+(showRestart?140:0),()=>this.help());
-    }; paint(); return d;
+  /** Settings (fishsort's settings popup): music, sound and vibration switches, the language, how to play; in a level also home and retry. */
+  settings(inGame=false):Dialog {
+    const w=893,rowH=138,step=161,pad=46,h=pad+(inGame?3:4)*step+127+(inGame?23+161:0)+pad;
+    const p=Flat.popup(this.host,'Settings',w,h,tr(inGame?'PAUSE_TITLE':'UI_SETTINGS')),b=p.body;
+    const d:Dialog={node:p.node,content:b,rect:p.rect,ys:[],actionY:0,close:p.close,invoke(action){p.close();action();}};
+    const rows:[string,string,()=>boolean,()=>void][]=[
+      ['f_g_music','H_MUSIC',()=>!this.profile.music_muted,()=>{this.profile.music_muted=!this.profile.music_muted;}],
+      ['f_g_sound','H_SOUND',()=>!this.profile.muted,()=>{this.profile.muted=!this.profile.muted;}],
+      ['f_g_vibrate','H_VIBRATION',()=>this.profile.vibration,()=>{this.profile.vibration=!this.profile.vibration;}],
+    ];
+    const row=(name:string,y:number,icon:string,word:string,action:()=>void):Node=>{const n=UI.hit_area(b,name,[pad,y,w-2*pad,rowH],action);Flat.card(n,'f_inset',[0,0,w-2*pad,rowH],180,88);UI.tint(Flat.image(n,icon,[35,35,69,69]),'#3F8DFF');Flat.text(n,tr(word),[132,0,420,rowH],46,ON_LIGHT,-1);return n;};
+    let y=pad;
+    rows.forEach(([icon,word,on,flip])=>{let toggle:Node;const n=row('Switch_'+word,y,icon,word,()=>{flip();this.callbacks.mute?.();this.save();Kit.destroy(toggle);toggle=Flat.image(n,on()?'f_toggle_on':'f_toggle_off',[w-2*pad-40-167,29.5,167,79]);});toggle=Flat.image(n,on()?'f_toggle_on':'f_toggle_off',[w-2*pad-40-167,29.5,167,79]);y+=step;});
+    if(!inGame){
+      const langs=I18n.languages();
+      if(langs.length===2){
+        const n=row('Language',y,'f_g_globe','H_LANGUAGE',()=>this.setLanguage(langs[I18n.lang===langs[0]?1:0],p.close)),seg=UI.group(n,'Switch',[w-2*pad-24-369,23,369,92]);
+        Flat.plateIn(seg,'f_bar_track_light',[0,0,369,92]);const k=langs.indexOf(I18n.lang);Flat.plate(seg,'j_btn_blue',[k*184.5,0,184.5,92]);
+        langs.forEach((code,i)=>Flat.text(seg,I18n.SHORT[code],[i*184.5,0,184.5,86],37,i===k?onTone('blue'):{color:'#7E9CCB'}));
+      }else{const n=row('Language',y,'f_g_globe','H_LANGUAGE',()=>this.languages(p.close));Flat.text(n,I18n.NAMES[I18n.lang]+'  ›',[w-2*pad-40-360,0,360,rowH],43,ON_LIGHT,1);}
+      y+=step;
+    }
+    Flat.button(b,'Help',[pad,y,w-2*pad,127],'blue',tr('H_HELP'),()=>this.help(),46);y+=127+23;
+    if(inGame){Flat.button(b,'Home',[pad,y,389,161],'blue',tr('H_TO_HOME'),()=>d.invoke(()=>this.callbacks.home?.()),58);Flat.button(b,'Retry',[w-pad-389,y,389,161],'green',tr('H_RETRY'),()=>d.invoke(()=>this.callbacks.replay?.()),58);}
+    return d;
+  }
+  /** Every language the build carries, each in its own words; the current one is green. */
+  private languages(closeSettings:()=>void):void {
+    const langs=I18n.languages(),rows=Math.ceil(langs.length/2),h=46+rows*134-24+46,p=Flat.popup(this.host,'Languages',893,h,tr('H_LANGUAGE'));
+    langs.forEach((code,i)=>Flat.button(p.body,'Language_'+code,[46+(i%2)*(380+41),46+Math.floor(i/2)*134,380,110],code===I18n.lang?'green':'blue',I18n.NAMES[code],()=>{p.close();this.setLanguage(code,closeSettings);},40));
+  }
+  private setLanguage(code:string,closeSettings:()=>void):void {
+    if(code===I18n.lang)return;
+    this.profile.language=code;this.save();
+    void Flat.loadFont(code).then(()=>{I18n.set(code);closeSettings();this.callbacks.language?.(code);this.settings(false);});
   }
   help():void { this.callbacks.help?.(); }
   level_card(level:number,onPlay?:()=>void):Dialog {
@@ -418,12 +433,16 @@ export class Popups {
   coin_flight(parent:Node,from:Point,to:Point,onLand:()=>void):void {
     if(Kit.instant){onLand();return;}for(let i=0;i<9;i++){const c=UI.art(parent,'coin',[from[0]-24,from[1]-24,48,48]);const start=c.position.clone();tween(c).delay(.2+i*.05).to(.26,{position:new Vec3(start.x+Math.cos(i*2.4)*90,start.y+Math.sin(i*2.4)*90,0)},{easing:'quadOut'}).to(.42,{position:new Vec3(to[0],-to[1],0)},{easing:'quadIn'}).call(()=>{Kit.destroy(c);if(i===8)onLand();}).start();}
   }
+  /** Free feathers for a rewarded ad (Ads.FREE_COINS, a few a day); there is no paid pack. */
   coin_shop():Dialog {
-    const d=Kit.layer(this.host,'CoinShop',this.callbacks.close,true,'background_shop_forest'),scale=1920/1717,canvas=UI.group(d.content,'ApprovedLayout',[(1080-916*scale)/2,0,916,1717]);canvas.setScale(scale,scale,1);UI.button(canvas,'Close','btn_purchase_close',[23,50,116,119],d.close);UI.art(canvas,'panel_purchase_balance',[619,48,270,92]);Kit.drawNumber(UI.group(canvas,'Balance',[707,73,157,44]),String(Math.min(99999,this.profile.coins)),[0,0,157,44]);Kit.sign(canvas,'coin_shop_title',[118,64,680,250]);
-    const packs:CoinPack[]=[{id:'stack',coins:600,yuan:6},{id:'cluster',coins:2000,yuan:18},{id:'pouch',coins:3600,yuan:30},{id:'basket',coins:9000,yuan:68},{id:'chest',coins:20000,yuan:128},{id:'hoard',coins:33000,yuan:198}];const rects:Rect[]=[[138,328,239,165],[511,323,286,175],[122,668,271,237],[513,669,286,231],[119,1088,266,247],[496,1073,325,265]],prices=['six','eighteen','thirty','sixty_eight','one_twenty_eight','one_ninety_eight'];
-    packs.forEach((pack,i)=>{UI.image(canvas,'icon_purchase_'+pack.id,rects[i]);Kit.drawNumber(canvas,String(pack.coins),[137+i%2*401,[506,915,1346][Math.floor(i/2)],236,50]);UI.button(canvas,'Buy_'+pack.id,'btn_purchase_'+prices[i],[117+i%2*401,[560,961,1395][Math.floor(i/2)],276,108],()=>{const p=Kit.purchase(d.node,'coins_buy',[300,88],136);UI.art(p.content,'icon_purchase_'+pack.id,[280,p.ys[0],520,300]);Kit.number(p.content,'+'+pack.coins,[280,p.ys[1],520,88]);const button=Kit.button(p.content,'Confirm',[264,p.actionY,552,Kit.BUTTON_H],'',()=>{if(!this.callbacks.purchase)return;UI.enabled(button,false);this.callbacks.purchase(pack,()=>{this.profile.coins+=pack.coins;this.save();p.close();this.coin_flight(d.content,[540,960],[792,96],()=>{d.close();this.coin_shop();});});},'wide');Kit.drawNumber(button,'¥'+pack.yuan,[80,35,392,66]);UI.enabled(button,!!this.callbacks.purchase);});});// Free feathers for an ad, Ads.DAILY_CAP times a day; the balance redraws after the reward.
-    const entry=this.adEntry(Ads.FREE_COINS);if(entry!=='hidden'){const ad=this.adButton(canvas,[266,1548,384,145],entry,()=>this.watch(Ads.FREE_COINS,()=>{this.profile.coins+=Ads.FREE_COIN_AMOUNT;this.save();this.sound('collect');UI.enabled(ad,this.adEntry(Ads.FREE_COINS)==='ready');const balance=canvas.getChildByName('Balance');if(balance){UI.clear(balance);Kit.drawNumber(balance,String(Math.min(99999,this.profile.coins)),[0,0,157,44]);}}),'+'+Ads.FREE_COIN_AMOUNT);}
-    return d;
+    const w=893,h=700,p=Flat.popup(this.host,'CoinShop',w,h,tr('FREE_FEATHERS'),this.callbacks.close),b=p.body,cap=Ads.DAILY_CAP[Ads.FREE_COINS];
+    const d:Dialog={node:p.node,content:b,rect:p.rect,ys:[],actionY:0,close:p.close,invoke(action){p.close();action();}};
+    Kit.glow(b,[w/2-150,30,300,300]);Kit.breathe(UI.art(b,'icon_purchase_feather',[w/2-130,40,260,260]));
+    Flat.text(b,'+'+Ads.FREE_COIN_AMOUNT,[0,310,w,110],90,ON_LIGHT);
+    const paint=()=>{UI.clear(state);const left=Ads.left(this.profile,Ads.FREE_COINS,Progress.today()),entry=this.adEntry(Ads.FREE_COINS);
+      Flat.text(state,left>0?tr('SHOP_AD_LEFT',cap-left,cap):tr('SHOP_AD_DONE'),[0,0,w,60],40,{color:'#5E86C0'});
+      const button=Flat.iconButton(state,'WatchAd',[w/2-260,80,520,161],entry==='ready'?'amber':'gray','f_g_video',tr('H_WATCH_AD'),()=>{if(entry==='ready')this.watch(Ads.FREE_COINS,()=>{this.profile.coins+=Ads.FREE_COIN_AMOUNT;this.save();this.sound('collect');this.callbacks.changed?.();paint();});});UI.enabled(button,entry==='ready');};
+    const state=UI.group(b,'State',[0,430,w,250]);paint();return d;
   }
   static preview(host:Node,state:string,callbacks:PopupCallbacks):Dialog {
     const profile=new Profile();profile.coins=1280;profile.highest_unlocked=Levels.COUNT;profile.inventory=[3,2,1,1,0,2];const p=new Popups(host,profile,callbacks);
