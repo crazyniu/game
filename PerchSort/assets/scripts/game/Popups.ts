@@ -401,7 +401,7 @@ export class Popups {
   /** A skin given as a prize (`<bird>_outfit_<n>`): the bird wearing it under the skin's name. */
   outfit_gift(outfit:string,onOK:()=>void=()=>{}):Dialog {
     const [bird,n]=outfit.split('_outfit_'),d=Kit.jungle(this.host,'outfit_'+Worlds.design(bird,Number(n)).join('_'),[440],{footer:72,width:880});
-    Kit.glow(d.content,[320,d.ys[0],440,440]);Kit.liveBird(d.content,bird,[350,d.ys[0]+20,380,400],outfit).showcase();
+    Kit.glow(d.content,[320,d.ys[0],440,440]);Kit.liveBird(d.content,bird,[390,d.ys[0]+50,300,330],outfit).showcase();
     Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));this.sound('collect');return d;
   }
   unlock(booster:number,onOK:()=>void=()=>{}):Dialog {
