@@ -9,6 +9,8 @@ import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
 import { Shop } from '../meta/Shop';
 import { Ads } from '../meta/Ads';
+import { Flat, ON_DARK, ON_LIGHT, onTone } from './Flat';
+import { I18n, tr, word } from './I18n';
 
 export interface PageCallbacks {
   close: () => void;
@@ -32,6 +34,8 @@ export interface PopupCallbacks {
   /** Show a rewarded ad; done runs only after the platform reports it watched to the end. */
   rewarded?: (placement: string, done: () => void) => void;
   close?: () => void;
+  /** Feathers changed outside a page (free feathers): the screen redraws its balance. */
+  changed?: () => void;
 }
 export type AdEntry = 'hidden' | 'used' | 'ready';
 export interface Dialog {
@@ -49,19 +53,12 @@ const DRAW_PICTURES: Rect[] = [[41,21,176,137],[32,15,203,142],[29,15,195,149],[
 /** The existing painted ButtonKit, with native Cocos nodes and unchanged design geometry. */
 export class Kit {
   static instant = false;
-  static numberWidth(value: string, height: number): number {
-    return Array.from(value).reduce((width, c) => { const size = Art.size(Kit.glyph(c)); return width + size[0] * height / size[1] + height * .02; }, 0) - height * .02;
-  }
+  /** Width of a number in the game font (digits are about 0.6 of the size). */
+  static numberWidth(value: string, height: number): number { return String(value).length * height * .6; }
   static glyph(c: string): string { return 'digit_ui_' + (({'/':'slash','+':'plus','×':'x','x':'x'} as Record<string,string>)[c] || c); }
-  static number(parent: Node, value: string | number, rect: Rect, align = 0): Node {
-    const text = String(value), box = UI.group(parent, 'Digits', rect);
-    const h = Math.min(rect[3], rect[3] * rect[2] / Math.max(1, Kit.numberWidth(text, rect[3])));
-    let x = (rect[2] - Kit.numberWidth(text,h)) * (.5 + align * .5);
-    for (const c of text) { const key = Kit.glyph(c), size = Art.size(key), w = size[0] * h / size[1]; UI.image(box,key,[x,(rect[3]-h)/2,w,h]); x += w+h*.02; }
-    return box;
-  }
-  static lettering(parent:Node,key:string,rect:Rect):Node { return UI.painted(parent,'lettering_'+key,rect); }
-  /** Every worded button: one candy plate per role (green primary, orange watch-ad, blue secondary), one height. */
+  /** A number in the game font, white with a navy outline. */
+  static number(parent: Node, value: string | number, rect: Rect, align = 0): Node { return Flat.text(parent, String(value).replace(/x/g, '×'), rect, Math.round(rect[3] * .92), ON_DARK, align).node.parent!; }
+  static lettering(parent:Node,key:string,rect:Rect):Node { return Flat.text(parent,word(key),rect,Math.round(Math.min(rect[3]*.8,72)),ON_LIGHT).node.parent!; }
   static readonly BUTTON_H=176;
   /** The play buttons (home, map, level card) share one larger height. */
   static readonly PLAY_H=200;
@@ -71,41 +68,37 @@ export class Kit {
   /** Vertical centre of the candy face (above the darker bottom edge), as a share of the plate height. */
   static readonly FACE_CENTRE=.435;
   static face(parent:Node, rect:Rect, kind='green'): Node {
-    const candy = ({green:'btn_candy_green',wide:'btn_candy_green',orange:'btn_candy_orange',blue:'btn_candy_blue'} as Record<string,string>)[kind];
-    if (candy) { const size = Art.size(candy); return UI.nine(parent,candy,rect,[size[1]*.75,0,size[1]*.75,0],rect[3]/size[1]); }
-    if (kind === 'plate') { const size = Art.size('btn_plate_green'); return UI.nine(parent,'btn_plate_green',rect,[size[1]*.6,0,size[1]*.6,0],rect[3]/size[1]); }
+    const flat = ({green:'j_btn_green',wide:'j_btn_green',plate:'j_btn_green',orange:'j_btn_amber',blue:'j_btn_blue'} as Record<string,string>)[kind];
+    if (flat) return Flat.plate(parent, flat, rect);
     const asset = ({key_green:'btn_key_green',key_cream:'btn_key_cream',field:'field_quantity'} as Record<string,string>)[kind];
     return UI.image(parent,asset,rect,true);
   }
   static plate(parent:Node,rect:Rect,kind='green'):Node { const box=UI.group(parent,'Plate',rect); Kit.face(box,[0,0,rect[2],rect[3]],kind); return box; }
   /** A white painted word at a fixed height, centred on the candy face. */
-  static word(parent:Node,id:string,size:Point,x=0,width=size[0]):Node { const cap=size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP; const rect:Rect=[x+width*.08,size[1]*Kit.FACE_CENTRE-cap*.625,width*.84,cap*1.25]; const node=Art.pack().painted[id]?UI.painted(parent,id,rect):UI.word(parent,id,rect,'white');UI.effect(node,'white_ink');return node; }
-  static wordWidth(id:string,size:Point):number { const cap=(size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP)*1.25,e=Art.pack().painted[id]?Art.painted(id):Art.word(id,'white'),c=e.region??Art.ink(e.name);return c[2]*cap/c[3]; }
+  /** A button's words in the game font, centred on the face; tone picks the solid line under the words. */
+  static word(parent:Node,id:string,size:Point,x=0,width=size[0],tone='green'):Node { const fs=Math.round(size[1]*(size[1]>=140?.38:.4)); return Flat.text(parent,word(id),[x+width*.06,Flat.face(size[1])-fs*.7,width*.88,fs*1.4],fs,onTone(Kit.tone(tone))).node.parent!; }
+  static tone(kind:string):string { return ({orange:'amber',blue:'blue',key_green:'green',key_cream:'blue'} as Record<string,string>)[kind] ?? 'green'; }
+  static wordWidth(id:string,size:Point):number { const n=new Node(),fs=Math.round(size[1]*(size[1]>=140?.38:.4)),w=Flat.width(Flat.text(n,word(id),[0,0,4000,fs*1.4],fs));n.destroy();return w; }
   static button(parent:Node,name:string,rect:Rect,word:string,action:()=>void,kind='green'):Node {
-    const hit=UI.hit_area(parent,name,rect,action); Kit.face(hit,[0,0,rect[2],rect[3]],kind); if(word) Kit.word(hit,word,[rect[2],rect[3]]); return hit;
+    const hit=UI.hit_area(parent,name,rect,action); Kit.face(hit,[0,0,rect[2],rect[3]],kind); if(word) Kit.word(hit,word,[rect[2],rect[3]],0,rect[2],kind); return hit;
   }
+  /** A feather and a price on a button face. */
   static price(parent:Node,size:Point,value:number):Node {
-    const h=size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP, feather=h*1.15, gap=h*.2;
-    const width=Math.min(Kit.numberWidth(String(value),h),size[0]*.72-feather-gap), x=(size[0]-feather-gap-width)/2;
+    const fs=Math.round(size[1]*(size[1]>=140?.38:.4)), feather=fs*1.15, gap=fs*.2, width=Math.min(Kit.numberWidth(String(value),fs),size[0]*.72-feather-gap), x=(size[0]-feather-gap-width)/2;
     const box=UI.group(parent,'FeatherPrice',[0,0,...size]);
-    UI.image(box,'icon_purchase_feather',[x,size[1]*Kit.FACE_CENTRE-feather/2,feather,feather],true);
-    Kit.number(box,value,[x+feather+gap,size[1]*Kit.FACE_CENTRE-h/2,width,h],-1); return box;
+    UI.image(box,'icon_purchase_feather',[x,Flat.face(size[1])-feather/2,feather,feather],true);
+    Flat.text(box,String(value),[x+feather+gap,Flat.face(size[1])-fs*.7,width+fs,fs*1.4],fs,onTone('green'),-1); return box;
   }
-  static panel(parent:Node,rect:Rect):Node { return UI.nine(parent,'panel_card_cream',rect,[120,120,120,120],.42); }
-  static close(parent:Node,at:Point,action:()=>void,back=false):Node { return UI.button(parent,back?'Back':'Close',back?'btn_forest_back':'btn_purchase_close',[...at,129.72,133.07],action); }
-  static sign(parent:Node,key:string,rect:Rect):Node { return Kit.lettering(parent,key,[rect[0]+rect[2]*.1,rect[1]+rect[3]*.42,rect[2]*.8,rect[3]*.56]); }
+  static panel(parent:Node,rect:Rect):Node { return Flat.card(parent,'f_card',rect,240,116); }
+  static close(parent:Node,at:Point|Rect,action:()=>void,back=false):Node { return Flat.key(parent,back?'Back':'Close',[at[0],at[1],at[2]??120,at[3]??120],back?'blue':'red',back?'f_g_back':'f_g_x',action,.5); }
+  /** A title on a blue plate, centred where the painted sign used to be. */
+  static sign(parent:Node,key:string,rect:Rect):Node { return Flat.title(parent,word(key),rect[0]+rect[2]/2,rect[1]+rect[3]*.6); }
   static simpleWord(parent:Node,id:string,style:string,anchor:Point,cap:number,align=0):Node {
     const name=`label_${id}_${style}_${Art.locale}`,meta=Art.data('art/labels/labels'),asset='art/labels/'+name,size=Art.size(asset),k=cap/meta.cap;
     const node=UI.image(parent,asset,[anchor[0]-size[0]*k*(.5+.5*align),anchor[1]-meta[name]*k,size[0]*k,size[1]*k]);if(style==='ink'||style==='soft')UI.warm(node);return node;
   }
-  static drawNumber(parent:Node,value:string,rect:Rect):Node {
-    const names:Record<string,string>={'0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine','+':'plus','×':'multiply','¥':'yuan','/':'slash','-':'minus'},metadata=Art.data('art/island/draw_purchase_ink');
-    const keys=Array.from(value).map(c=>'label_draw_purchase_'+names[c]),ink=keys.map(k=>metadata[k] as Rect),width=ink.reduce((a,r)=>a+r[2]/r[3]*rect[3]+rect[3]*.04,0)-rect[3]*.04,k=Math.min(1,rect[2]/width),box=UI.group(parent,'Number',rect);let x=(rect[2]-width*k)/2;
-    keys.forEach((key,i)=>{const w=ink[i][2]/ink[i][3]*rect[3]*k;UI.art(box,key,[x,(rect[3]-rect[3]*k)/2,w,rect[3]*k],ink[i]);x+=w+rect[3]*.04*k;});return box;
-  }
-  static chestNumber(parent:Node,value:string,rect:Rect):Node {
-    const keys=Array.from(value).map(c=>c==='/'?'label_chest_slash':'icon_home_island_digit_'+c),ink=keys.map(k=>k==='label_chest_slash'?[294,294,458,912] as Rect:Art.ink(k)),width=ink.reduce((a,r)=>a+r[2]/r[3]*rect[3]+rect[3]*.06,0)-rect[3]*.06,k=Math.min(1,rect[2]/width),box=UI.group(parent,'Number',rect);let x=(rect[2]-width*k)/2;keys.forEach((key,i)=>{const w=ink[i][2]/ink[i][3]*rect[3]*k;UI.art(box,key,[x,(rect[3]-rect[3]*k)/2,w,rect[3]*k],ink[i]);x+=w+rect[3]*.06*k;});return box;
-  }
+  static drawNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
+  static chestNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
   static centerPivot(node:Node):void { const r=UI.rect(node);node.getComponent(UITransform)!.setAnchorPoint(.5,.5);node.setPosition(r[0]+r[2]/2,-r[1]-r[3]/2); }
   static stop(node:Node):void { Tween.stopAllByTarget(node); const opacity=node.getComponent(UIOpacity); if(opacity) Tween.stopAllByTarget(opacity); node.children.forEach(Kit.stop); }
   static destroy(node:Node):void { if(!isValid(node,true))return;Kit.stop(node); node.removeFromParent(); node.destroy(); }
@@ -119,36 +112,29 @@ export class Kit {
     const close=()=>{ if(closed)return; closed=true; Kit.destroy(node); onClose?.(); };
     return {node,content,rect:[0,0,1080,1920],ys:[],actionY:0,close,invoke(action){close();action();}};
   }
-  static warmFrame(parent:Node,rect:Rect):void {
-    UI.fill(parent,'OpaqueFace',[rect[0]+14,rect[1]+14,rect[2]-28,rect[3]-28],'#fff0c2',70*rect[2]/960);
-    UI.nine_region(parent,'panel_warm_wood_rim',[28,28,1222,1174],rect,[100,100,100,100],rect[2]/1222);
-    UI.fill(parent,'CleanFace',[rect[0]+26,rect[1]+26,rect[2]-52,rect[3]-52],'#fff0c2',70*rect[2]/960);
-  }
-  static toyFrame(parent:Node,rect:Rect):void {
-    const k=rect[2]/1136;
-    UI.fill(parent,'OpaqueFace',[rect[0]+24*k,rect[1]+24*k,rect[2]-48*k,rect[3]-48*k],'#fff0c2',90*k);
-    UI.nine_region(parent,'panel_shop_toy_rim',[60,80,1136,1100],rect,[150,150,150,150],rect[2]/1136);
-  }
+  static warmFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
+  static toyFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
   static jungle(host:Node,title:string,heights:number[],options:{width?:number; actionHeight?:number; close?:boolean; compact?:boolean; birdsAbove?:boolean; footer?:number; onClose?:()=>void}={}):Dialog {
-    const width=options.width??960, head=options.compact?208:236, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
+    const width=options.width??960, head=options.compact?96:options.birdsAbove?210:120, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
     const inner=heights.reduce((a,b)=>a+b,0)+Math.max(0,heights.length-1)*24, above=options.birdsAbove?180:0;
     const height=head+inner+foot, top=Math.max(32,(1920-above-height-48-actionHeight)/2)+above;
     const d=Kit.layer(host,'Popup',options.onClose); d.rect=[(1080-width)/2,top,width,height]; d.actionY=top+height+48;
-    Kit.warmFrame(d.content,d.rect); if(title) Kit.sign(d.content,title,[220,top-14,640,223]);
+    Kit.warmFrame(d.content,d.rect); if(title) Flat.title(d.content,word(title),540,top+(options.birdsAbove?110:12));
     let y=top+head; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;});
-    if(options.close) Kit.close(d.content,[d.rect[0]+width-185,top+(options.compact?48:156)],d.close);
+    if(options.close) Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
     Kit.pop(d.content); return d;
   }
   static purchase(host:Node,title:string,heights:number[],actionHeight=Kit.BUTTON_H):Dialog {
     const width=heights.length>=3?880:840, inner=heights.reduce((a,b)=>a+b,0)+(heights.length-1)*24;
-    const height=220+inner+(heights.length>=3?88:72), top=(1920-height-32-actionHeight)/2;
+    const height=120+inner+(heights.length>=3?88:72), top=(1920-height-32-actionHeight)/2;
     const d=Kit.layer(host,'Purchase'); d.rect=[(1080-width)/2,top,width,height]; d.actionY=top+height+32;
-    Kit.toyFrame(d.content,d.rect); Kit.sign(d.content,title,[270,top-14,540,223]); Kit.close(d.content,[d.rect[0]+width-185,top+48],d.close);
-    let y=top+220; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;}); Kit.pop(d.content); return d;
+    Kit.toyFrame(d.content,d.rect); Flat.title(d.content,word(title),540,top+12); Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
+    let y=top+120; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;}); Kit.pop(d.content); return d;
   }
-  static page(host:Node,name:string,title:string,balance?:number,onClose?:()=>void,coins?:()=>void):Dialog {
-    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Kit.sign(d.content,title,[240,96,600,209]); Kit.close(d.content,[48,48],d.close);
-    if(balance!==undefined) UI.feather_bar(d.content,[736,48],balance,coins); return d;
+  /** A sub-page (fishsort): back key top left and the title plate; no balance bar. */
+  static page(host:Node,name:string,title:string,_balance?:number,onClose?:()=>void,_coins?:()=>void):Dialog {
+    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Flat.title(d.content,word(title),540,Flat.HEAD_Y,115,640); Kit.close(d.content,[32,Flat.HEAD_Y-64,128,128],d.close,true);
+    return d;
   }
   static glow(parent:Node,rect:Rect):void { const glow=UI.image(parent,'glow_soft',[rect[0]-rect[2]*.22,rect[1]-rect[3]*.22,rect[2]*1.44,rect[3]*1.44]); UI.opacity(glow,.65); }
   static stars(parent:Node,y:number,filled:number,animate=false):void {
@@ -174,30 +160,41 @@ export class Popups {
   constructor(public host:Node,public profile:Profile,public callbacks:PopupCallbacks) {}
   private save():void { this.callbacks.save(); }
   private sound(name:string):void { this.callbacks.sound?.(name); }
-  settings(showRestart=false):Dialog {
-    const h=24+128+132*4+40+(showRestart?256:116)+48, top=Math.round(960-h/2);
-    const d=Kit.layer(this.host,'Settings');const shade=d.node.getChildByName('Dim')!.getComponent(Graphics)!;shade.clear();shade.fillColor=new Color(20,23,61,173);shade.rect(0,-1920,1080,1920);shade.fill();
-    const paint=()=>{
-      UI.clear(d.content); UI.fill(d.content,'Rim',[120,top,840,h],'#d6a870',48);UI.fill(d.content,'Card',[128,top+8,824,h-16],'#fff7e8',40);
-      Kit.simpleWord(d.content,'settings','ink',[540,top+88],76);
-      const close=UI.hit_area(d.content,'Close',[812,top+48,92,92],d.close);UI.fill(close,'Shadow',[-3,3,98,98],'#40230d28',49);UI.fill(close,'Lip',[0,0,92,92],'#ba8852',46);UI.fill(close,'Rim',[0,0,92,86],'#d6a870',46);UI.fill(close,'Face',[3,3,86,80],'#fff7e8',43);UI.line(close,[[28,25],[64,61]],'#965c2c',10);UI.line(close,[[64,25],[28,61]],'#965c2c',10);
-      const rows=[['pic_music','music',!this.profile.music_muted],['pic_sound_on','sound',!this.profile.muted],['pic_vibration','vibration',this.profile.vibration],['pic_globe','language',false]] as const;
-      rows.forEach(([icon,id,on],i)=>{
-        const mid=top+152+132*(i+.5); if(i>0)UI.fill(d.content,'Divider',[168,mid-67.5,744,3],'#ead6b6',1.5);
-        UI.art(d.content,icon,[168,mid-36,72,72]);Kit.simpleWord(d.content,id,'ink',[268,mid],54,-1);
-        if(id==='language'){
-          UI.fill(d.content,'LanguageRim',[572,mid-42,340,84],'#d6a870',42);UI.fill(d.content,'LanguageTrack',[575,mid-39,334,78],'#f1e2c8',39);
-          ['en','zh'].forEach((code,k)=>{const selected=Art.locale===code; if(selected){UI.fill(d.content,'ChosenLip',[576+k*166,mid-38,162,76],'#3c8822',38);UI.fill(d.content,'Chosen',[576+k*166,mid-38,162,70],'#5cb83a',38);}Kit.simpleWord(d.content,'lang_'+code,selected?'white':'ink',[657+k*170,mid-2],40);UI.hit_area(d.content,'Language_'+code,[572+k*170,mid-42,170,84],()=>{this.profile.language=code;Art.setLocale(code);this.callbacks.language?.(code);this.save();paint();});});
-        }else{
-          const toggle=UI.hit_area(d.content,'Switch_'+id,[756,mid-42,156,84],()=>{if(id==='music')this.profile.music_muted=!this.profile.music_muted;else if(id==='sound')this.profile.muted=!this.profile.muted;else this.profile.vibration=!this.profile.vibration;this.callbacks.mute?.();this.save();paint();});
-          UI.fill(toggle,'Lip',[0,0,156,84],on?'#3c8822':'#b8a892',42);UI.fill(toggle,'Track',[0,0,156,76],on?'#5cb83a':'#d6cab8',42);UI.fill(toggle,'Knob',[on?86:6,6,64,64],'#fffdf7',32);
-        }
-      });
-      const y=top+152+528+40;
-      const action=(id:string,x:number,at:number,fn:()=>void,green=true)=>{const b=UI.hit_area(d.content,id,[x,at,340,116],()=>d.invoke(fn));UI.fill(b,'Lip',[0,0,340,116],green?'#3c8822':'#d6a870',58);UI.fill(b,'Face',green?[0,0,340,108]:[3,3,334,102],green?'#5cb83a':'#fff7e8',58);Kit.simpleWord(b,id,green?'white':'ink',[170,54],52);};
-      if(showRestart){action('restart',188,y,()=>this.callbacks.replay?.(),false);action('home',552,y,()=>this.callbacks.home?.());}
-      action('help',370,y+(showRestart?140:0),()=>this.help());
-    }; paint(); return d;
+  /** Settings (fishsort's settings popup): music, sound and vibration switches, the language, how to play; in a level also home and retry. */
+  settings(inGame=false):Dialog {
+    const w=893,rowH=138,step=161,pad=46,h=pad+(inGame?3:4)*step+127+(inGame?23+161:0)+pad;
+    const p=Flat.popup(this.host,'Settings',w,h,tr(inGame?'PAUSE_TITLE':'UI_SETTINGS')),b=p.body;
+    const d:Dialog={node:p.node,content:b,rect:p.rect,ys:[],actionY:0,close:p.close,invoke(action){p.close();action();}};
+    const rows:[string,string,()=>boolean,()=>void][]=[
+      ['f_g_music','H_MUSIC',()=>!this.profile.music_muted,()=>{this.profile.music_muted=!this.profile.music_muted;}],
+      ['f_g_sound','H_SOUND',()=>!this.profile.muted,()=>{this.profile.muted=!this.profile.muted;}],
+      ['f_g_vibrate','H_VIBRATION',()=>this.profile.vibration,()=>{this.profile.vibration=!this.profile.vibration;}],
+    ];
+    const row=(name:string,y:number,icon:string,word:string,action:()=>void):Node=>{const n=UI.hit_area(b,name,[pad,y,w-2*pad,rowH],action);Flat.card(n,'f_inset',[0,0,w-2*pad,rowH],180,88);UI.tint(Flat.image(n,icon,[35,35,69,69]),'#3F8DFF');Flat.text(n,tr(word),[132,0,420,rowH],46,ON_LIGHT,-1);return n;};
+    let y=pad;
+    rows.forEach(([icon,word,on,flip])=>{let toggle:Node;const n=row('Switch_'+word,y,icon,word,()=>{flip();this.callbacks.mute?.();this.save();Kit.destroy(toggle);toggle=Flat.image(n,on()?'f_toggle_on':'f_toggle_off',[w-2*pad-40-167,29.5,167,79]);});toggle=Flat.image(n,on()?'f_toggle_on':'f_toggle_off',[w-2*pad-40-167,29.5,167,79]);y+=step;});
+    if(!inGame){
+      const langs=I18n.languages();
+      if(langs.length===2){
+        const n=row('Language',y,'f_g_globe','H_LANGUAGE',()=>this.setLanguage(langs[I18n.lang===langs[0]?1:0],p.close)),seg=UI.group(n,'Switch',[w-2*pad-24-369,23,369,92]);
+        Flat.plateIn(seg,'f_bar_track_light',[0,0,369,92]);const k=langs.indexOf(I18n.lang);Flat.plate(seg,'j_btn_blue',[k*184.5,0,184.5,92]);
+        langs.forEach((code,i)=>Flat.text(seg,I18n.SHORT[code],[i*184.5,0,184.5,86],37,i===k?onTone('blue'):{color:'#7E9CCB'}));
+      }else{const n=row('Language',y,'f_g_globe','H_LANGUAGE',()=>this.languages(p.close));Flat.text(n,I18n.NAMES[I18n.lang]+'  ›',[w-2*pad-40-360,0,360,rowH],43,ON_LIGHT,1);}
+      y+=step;
+    }
+    Flat.button(b,'Help',[pad,y,w-2*pad,127],'blue',tr('H_HELP'),()=>this.help(),46);y+=127+23;
+    if(inGame){Flat.button(b,'Home',[pad,y,389,161],'blue',tr('H_TO_HOME'),()=>d.invoke(()=>this.callbacks.home?.()),58);Flat.button(b,'Retry',[w-pad-389,y,389,161],'green',tr('H_RETRY'),()=>d.invoke(()=>this.callbacks.replay?.()),58);}
+    return d;
+  }
+  /** Every language the build carries, each in its own words; the current one is green. */
+  private languages(closeSettings:()=>void):void {
+    const langs=I18n.languages(),rows=Math.ceil(langs.length/2),h=46+rows*134-24+46,p=Flat.popup(this.host,'Languages',893,h,tr('H_LANGUAGE'));
+    langs.forEach((code,i)=>Flat.button(p.body,'Language_'+code,[46+(i%2)*(380+41),46+Math.floor(i/2)*134,380,110],code===I18n.lang?'green':'blue',I18n.NAMES[code],()=>{p.close();this.setLanguage(code,closeSettings);},40));
+  }
+  private setLanguage(code:string,closeSettings:()=>void):void {
+    if(code===I18n.lang)return;
+    this.profile.language=code;this.save();
+    void Flat.loadFont(code).then(()=>{I18n.set(code);closeSettings();this.callbacks.language?.(code);this.settings(false);});
   }
   help():void { this.callbacks.help?.(); }
   level_card(level:number,onPlay?:()=>void):Dialog {
@@ -207,8 +204,7 @@ export class Popups {
     const mechanicArt:Record<string,string>={sleep:'hoot_sleep',egg:'egg_idle',crow:'crow_front',twig:'icon_sapling',growing:'icon_sapling',swivel:'btn_swivel_green',mama:'mama_bow'};
     const listed=Array.from(mechanics).filter(k=>mechanicArt[k]);const heights=[224,100];if(rows)heights.push(rows*tile+(rows-1)*20);if(listed.length)heights.push(96);if(tools.length)heights.push(188);
     const d=Kit.jungle(this.host,'',heights,{actionHeight:200,close:true,compact:true});
-    const titleHeight=223*.56,digitHeight=titleHeight*.92,text=String(level),digitWidths=Array.from(text).map(c=>Art.size('digit_title_'+c)[0]*digitHeight/Art.size('digit_title_'+c)[1]),digitsWidth=digitWidths.reduce((a,b)=>a+b,0)-Math.max(0,text.length-1)*digitHeight*.06;
-    const word=Kit.lettering(d.content,'popup_level_title',[316,d.rect[1]+79.66,448-digitsWidth-16,titleHeight]);const wr=UI.rect(word),visibleWidth=wr[2],left=540-(visibleWidth+16+digitsWidth)/2;UI.move(word,left,wr[1]);let dx=left+visibleWidth+16;Array.from(text).forEach((c,i)=>{UI.image(d.content,'digit_title_'+c,[dx,d.rect[1]+84.6552,digitWidths[i],digitHeight]);dx+=digitWidths[i]-digitHeight*.06;});
+    Flat.title(d.content,tr('UI_LEVEL',level),540,d.rect[1]+12);
     for(let i=0;i<3;i++)UI.art(d.content,i<this.profile.best_stars(level)?'island_star_full':'island_star_empty',[450+(i-1)*216,d.ys[0]+22,180,180]);UI.art(d.content,'icon_star_budget_steps',[420,d.ys[1]+14,72,72],[317,217,652,801]);Kit.number(d.content,def.par,[508,d.ys[1]+18,150,64]);
     let g=2;species.forEach((s:string,i:number)=>{const row=Math.floor(i/perRow),n=Math.min(perRow,species.length-row*perRow),x=540+(i%perRow-(n-1)/2)*(tile+20)-tile/2,y=d.ys[g]+row*(tile+20);UI.art(d.content,'hud_tool_slot',[x,y,tile,tile]);const inner=tile*.82;Kit.liveBird(d.content,Worlds.look(Levels.world_of(def),s),[x+(tile-inner)/2,y+(tile-inner)/2-6,inner,inner]);const effect=({sunny:'wake',sky:'reveal',berry:'encore',mint:'grow',cocoa:'scare',snow:'undo',ember:'hatch',ink:'encore',hoot:'wake'} as Record<string,string>)[s];if(effect){const badge=tile*.42;UI.art(d.content,'gift_coin_'+effect,[x+tile-badge*.85,y+tile-badge*.85,badge,badge]);}UI.hit_area(d.content,'Bird_'+s,[x,y,tile,tile],()=>this.goal_info(s,Levels.world_of(def)));});if(rows)g++;
     if(listed.length){const y=d.ys[g++];listed.forEach((key,i)=>UI.art(d.content,mechanicArt[key],[540+(i-(listed.length-1)/2)*132-44,y+4,88,88]));}
@@ -250,14 +246,14 @@ export class Popups {
     editorNode.on('text-changed',(edit:EditBox)=>{const number=parseInt(edit.string.replace(/[^0-9]/g,''),10);quantity=Number.isNaN(number)?1:Math.max(1,Math.min(max,number));refresh();});
     input.enabled=this.profile.coins>=it.price;editorNode.active=true;return d;
   }
-  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[]},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
+  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[];world?:number},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
     const entry=result.reward>0?this.adEntry(Ads.DOUBLE_COINS):'hidden';let doubled=false;
     const counts=new Map<number,number>();result.boosters.forEach(kind=>counts.set(kind,(counts.get(kind)||0)+1));
     const items:Array<[string,number]>=[];if(result.reward>0)items.push(['icon_purchase_feather',result.reward]);counts.forEach((count,kind)=>items.push(['island_icon_'+BOOSTER_ART[kind],count]));
     const heights=[280,60];if(items.length)heights.push(170);
     const d=Kit.jungle(this.host,'win_title',heights,{footer:72,width:880,actionHeight:Kit.BUTTON_H*2+24,birdsAbove:true});
     const bg=UI.image(d.node,'background_home_jungle',[0,0,1080,1920]);bg.setSiblingIndex(0);
-    this.celebration(d);Kit.stars(d.content,d.ys[0],result.stars,true);for(let i=0;i<result.stars;i++)Kit.after(d.node,.4+i*.18,()=>this.sound('star_'+(i+1)));
+    this.celebration(d,result.world??1);Kit.stars(d.content,d.ys[0],result.stars,true);for(let i=0;i<result.stars;i++)Kit.after(d.node,.4+i*.18,()=>this.sound('star_'+(i+1)));
     // Moves: a quiet line under the stars.
     const small=48,si=56,mw=si+10+Kit.numberWidth(String(result.moves),small),mx=540-mw/2;
     UI.art(d.content,'icon_star_budget_steps',[mx,d.ys[1]+30-si/2,si,si],[317,217,652,801]);this.count(d.content,result.moves,[mx+si+10,d.ys[1]+30-small/2,mw-si-10,small],.5);
@@ -289,7 +285,8 @@ export class Popups {
     const holder=UI.group(parent,'Counter',rect);let shown=-1;const state={n:Kit.instant?value:0};const update=()=>{const n=Math.round(state.n);if(n===shown)return;shown=n;UI.clear(holder);Kit.number(holder,prefix+n,[0,0,rect[2],rect[3]]);};update();
     if(!Kit.instant)tween(holder).delay(delay).to(.65,{}, {onUpdate:(_target,ratio)=>{state.n=value*ratio!;update();}}).start();
   }
-  private celebration(d:Dialog):void { [['sunny',432,216],['sky',208,184],['berry',688,184]].forEach(([s,x,side],i)=>{const size=Number(side),b=Kit.liveBird(d.content,String(s),[Number(x),d.rect[1]+28-size,size,size]);if(!Kit.instant){const p=b.node.position.clone();b.node.setPosition(p.x+(i===1?-420:420),p.y+200,p.z);tween(b.node).delay(.45+i*.15).to(.9,{position:p},{easing:'quadOut'}).call(()=>b.showcase()).start();}}); }
+  /** Three birds of the world just played cheer above the popup. */
+  private celebration(d:Dialog,world:number):void { [['sunny',432,216],['sky',208,184],['berry',688,184]].forEach(([s,x,side],i)=>{const size=Number(side),b=Kit.liveBird(d.content,Worlds.look(world,String(s)),[Number(x),d.rect[1]+28-size,size,size]);if(!Kit.instant){const p=b.node.position.clone();b.node.setPosition(p.x+(i===1?-420:420),p.y+200,p.z);tween(b.node).delay(.45+i*.15).to(.9,{position:p},{easing:'quadOut'}).call(()=>b.showcase()).start();}}); }
   private confetti(parent:Node):void { if(Kit.instant)return;['#f5b53c','#71d850','#5bd7db','#ed82aa'].forEach((color,k)=>{for(let i=0;i<10;i++){const x=80+(i*97+k*43)%940,p=UI.fill(parent,'Confetti',[x,-50-k*40,12,22],color,3),pos=p.position.clone();tween(p).delay(.3+k*.1+i*.04).to(2.7,{position:new Vec3(pos.x+Math.sin(i)*160,pos.y-2050,0),angle:360+i*25}).call(()=>Kit.destroy(p)).start();}}); }
   goal_info(species:string,world=1):Dialog {
     const effects:Record<string,string>={sunny:'wake',sky:'reveal',berry:'encore',mint:'grow',cocoa:'scare',snow:'undo',ember:'hatch',ink:'encore',hoot:'wake'},effect=effects[species];
@@ -319,7 +316,7 @@ export class Popups {
     });
     // Watching an ad doubles today's feathers (tools are not doubled).
     const entry=available?this.adEntry(Ads.DAILY_DOUBLE):'hidden';let busy=false;
-    const take=(double:boolean)=>{if(busy)return;const got=Progress.claim_daily_reward(this.profile,Progress.today());if(!got.day)return;if(double){this.profile.coins+=got.coins;got.coins*=2;}busy=true;this.save();UI.enabled(claim,false);if(ad)UI.enabled(ad,false);const tile=tiles[got.day-1];Kit.stop(tile);UI.opacity(tile.getChildByName('Body')!,.45);UI.check_badge(tile,[UI.rect(tile)[2]-44,44]);this.coin_flight(d.content,[540,UI.rect(tile)[1]+h/2],[792,96],()=>{const counter=d.content.getChildByName('Coins');if(counter)Kit.destroy(counter);UI.feather_bar(d.content,[736,48],this.profile.coins,this.callbacks.coins);this.sound('collect');Kit.after(d.node,.3,()=>this.rewards('daily_reward.title',got.coins,got.boosters,()=>d.close(),'pic_calendar'));});};
+    const take=(double:boolean)=>{if(busy)return;const got=Progress.claim_daily_reward(this.profile,Progress.today());if(!got.day)return;if(double){this.profile.coins+=got.coins;got.coins*=2;}busy=true;this.save();UI.enabled(claim,false);if(ad)UI.enabled(ad,false);const tile=tiles[got.day-1];Kit.stop(tile);UI.opacity(tile.getChildByName('Body')!,.45);UI.check_badge(tile,[UI.rect(tile)[2]-44,44]);this.coin_flight(d.content,[540,UI.rect(tile)[1]+h/2],[792,96],()=>{this.sound('collect');Kit.after(d.node,.3,()=>this.rewards('daily_reward.title',got.coins,got.boosters,()=>{d.close();if(got.outfit)this.outfit_gift(got.outfit);},'pic_calendar'));});};
     const claim=Kit.button(d.content,'Claim',[entry==='hidden'?325:94,1613,430,Kit.BUTTON_H],'white_claim',()=>take(false));UI.enabled(claim,available);
     const ad=entry==='hidden'?null:this.adButton(d.content,[556,1613,430,Kit.BUTTON_H],entry,()=>this.watch(Ads.DAILY_DOUBLE,()=>take(true)),'×2');return d;
   }
@@ -397,11 +394,17 @@ export class Popups {
   new_friend(species:string,reward:number,onOK:()=>void=()=>{}):Dialog {
     const d=Kit.jungle(this.host,'popup_new_friend_title',[440,124.8,128,120],{footer:72,width:880});Kit.liveBird(d.content,species,[350,d.ys[0]+20,380,400]);Kit.lettering(d.content,'bird_'+species,[220,d.ys[1],640,124.8]);UI.word(d.content,'bird.'+Worlds.slot_of(species)+'.ability',[172,d.ys[2],736,128]);UI.price_pill(d.content,[350,d.ys[3],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
+  /** A skin given as a prize (`<bird>_outfit_<n>`): the bird wearing it under the skin's name. */
+  outfit_gift(outfit:string,onOK:()=>void=()=>{}):Dialog {
+    const [bird,n]=outfit.split('_outfit_'),d=Kit.jungle(this.host,'outfit_'+Worlds.design(bird,Number(n)).join('_'),[440],{footer:72,width:880});
+    Kit.glow(d.content,[320,d.ys[0],440,440]);Kit.liveBird(d.content,bird,[390,d.ys[0]+50,300,330],outfit).showcase();
+    Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));this.sound('collect');return d;
+  }
   unlock(booster:number,onOK:()=>void=()=>{}):Dialog {
     const d=Kit.jungle(this.host,'item_'+BOOSTER_WORD[booster],[440,100],{footer:72,width:900});Kit.breathe(UI.art(d.content,'island_icon_'+BOOSTER_ART[booster],[360,d.ys[0]+40,360,360]));Kit.lettering(d.content,'cap_'+BOOSTER_WORD[booster],[132,d.ys[1]+18,816,64]);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
   world_complete(world:number,reward:number,onOK:()=>void=()=>{}):Dialog {
-    const d=Kit.jungle(this.host,'popup_world_complete_title',[280,120],{footer:72,width:880,birdsAbove:true});this.celebration(d);Kit.stars(d.content,d.ys[0],3,true);UI.price_pill(d.content,[350,d.ys[1],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
+    const d=Kit.jungle(this.host,'popup_world_complete_title',[280,120],{footer:72,width:880,birdsAbove:true});this.celebration(d,world);Kit.stars(d.content,d.ys[0],3,true);UI.price_pill(d.content,[350,d.ys[1],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
   }
   world_unlock(world:number,onPlay:()=>void):Dialog {
     const h=720*777/855,d=Kit.jungle(this.host,'popup_world_unlock_title',[h,124.8],{footer:72});const k=720/855,stage=UI.group(d.content,'Gate',[540-509.5*k,d.ys[0]-100*k,1024,1024]);stage.setScale(k,k,1);UI.image(stage,'gate_backdrop_w'+world,[0,0,1024,1024]);UI.image(stage,'gate_arch',[0,0,1024,1024]);
@@ -411,12 +414,16 @@ export class Popups {
   coin_flight(parent:Node,from:Point,to:Point,onLand:()=>void):void {
     if(Kit.instant){onLand();return;}for(let i=0;i<9;i++){const c=UI.art(parent,'coin',[from[0]-24,from[1]-24,48,48]);const start=c.position.clone();tween(c).delay(.2+i*.05).to(.26,{position:new Vec3(start.x+Math.cos(i*2.4)*90,start.y+Math.sin(i*2.4)*90,0)},{easing:'quadOut'}).to(.42,{position:new Vec3(to[0],-to[1],0)},{easing:'quadIn'}).call(()=>{Kit.destroy(c);if(i===8)onLand();}).start();}
   }
+  /** Free feathers for a rewarded ad (Ads.FREE_COINS, a few a day); there is no paid pack. */
   coin_shop():Dialog {
-    const d=Kit.layer(this.host,'CoinShop',this.callbacks.close,true,'background_shop_forest'),scale=1920/1717,canvas=UI.group(d.content,'ApprovedLayout',[(1080-916*scale)/2,0,916,1717]);canvas.setScale(scale,scale,1);UI.button(canvas,'Close','btn_purchase_close',[23,50,116,119],d.close);UI.art(canvas,'panel_purchase_balance',[619,48,270,92]);Kit.drawNumber(UI.group(canvas,'Balance',[707,73,157,44]),String(Math.min(99999,this.profile.coins)),[0,0,157,44]);Kit.sign(canvas,'coin_shop_title',[118,64,680,250]);
-    const packs:CoinPack[]=[{id:'stack',coins:600,yuan:6},{id:'cluster',coins:2000,yuan:18},{id:'pouch',coins:3600,yuan:30},{id:'basket',coins:9000,yuan:68},{id:'chest',coins:20000,yuan:128},{id:'hoard',coins:33000,yuan:198}];const rects:Rect[]=[[138,328,239,165],[511,323,286,175],[122,668,271,237],[513,669,286,231],[119,1088,266,247],[496,1073,325,265]],prices=['six','eighteen','thirty','sixty_eight','one_twenty_eight','one_ninety_eight'];
-    packs.forEach((pack,i)=>{UI.image(canvas,'icon_purchase_'+pack.id,rects[i]);Kit.drawNumber(canvas,String(pack.coins),[137+i%2*401,[506,915,1346][Math.floor(i/2)],236,50]);UI.button(canvas,'Buy_'+pack.id,'btn_purchase_'+prices[i],[117+i%2*401,[560,961,1395][Math.floor(i/2)],276,108],()=>{const p=Kit.purchase(d.node,'coins_buy',[300,88],136);UI.art(p.content,'icon_purchase_'+pack.id,[280,p.ys[0],520,300]);Kit.number(p.content,'+'+pack.coins,[280,p.ys[1],520,88]);const button=Kit.button(p.content,'Confirm',[264,p.actionY,552,Kit.BUTTON_H],'',()=>{if(!this.callbacks.purchase)return;UI.enabled(button,false);this.callbacks.purchase(pack,()=>{this.profile.coins+=pack.coins;this.save();p.close();this.coin_flight(d.content,[540,960],[792,96],()=>{d.close();this.coin_shop();});});},'wide');Kit.drawNumber(button,'¥'+pack.yuan,[80,35,392,66]);UI.enabled(button,!!this.callbacks.purchase);});});// Free feathers for an ad, Ads.DAILY_CAP times a day; the balance redraws after the reward.
-    const entry=this.adEntry(Ads.FREE_COINS);if(entry!=='hidden'){const ad=this.adButton(canvas,[266,1548,384,145],entry,()=>this.watch(Ads.FREE_COINS,()=>{this.profile.coins+=Ads.FREE_COIN_AMOUNT;this.save();this.sound('collect');UI.enabled(ad,this.adEntry(Ads.FREE_COINS)==='ready');const balance=canvas.getChildByName('Balance');if(balance){UI.clear(balance);Kit.drawNumber(balance,String(Math.min(99999,this.profile.coins)),[0,0,157,44]);}}),'+'+Ads.FREE_COIN_AMOUNT);}
-    return d;
+    const w=893,h=700,p=Flat.popup(this.host,'CoinShop',w,h,tr('FREE_FEATHERS'),this.callbacks.close),b=p.body,cap=Ads.DAILY_CAP[Ads.FREE_COINS];
+    const d:Dialog={node:p.node,content:b,rect:p.rect,ys:[],actionY:0,close:p.close,invoke(action){p.close();action();}};
+    Kit.glow(b,[w/2-150,30,300,300]);Kit.breathe(UI.art(b,'icon_purchase_feather',[w/2-130,40,260,260]));
+    Flat.text(b,'+'+Ads.FREE_COIN_AMOUNT,[0,310,w,110],90,ON_LIGHT);
+    const paint=()=>{UI.clear(state);const left=Ads.left(this.profile,Ads.FREE_COINS,Progress.today()),entry=this.adEntry(Ads.FREE_COINS);
+      Flat.text(state,left>0?tr('SHOP_AD_LEFT',cap-left,cap):tr('SHOP_AD_DONE'),[0,0,w,60],40,{color:'#5E86C0'});
+      const button=Flat.iconButton(state,'WatchAd',[w/2-260,80,520,161],entry==='ready'?'amber':'gray','f_g_video',tr('H_WATCH_AD'),()=>{if(entry==='ready')this.watch(Ads.FREE_COINS,()=>{this.profile.coins+=Ads.FREE_COIN_AMOUNT;this.save();this.sound('collect');this.callbacks.changed?.();paint();});});UI.enabled(button,entry==='ready');};
+    const state=UI.group(b,'State',[0,430,w,250]);paint();return d;
   }
   static preview(host:Node,state:string,callbacks:PopupCallbacks):Dialog {
     const profile=new Profile();profile.coins=1280;profile.highest_unlocked=Levels.COUNT;profile.inventory=[3,2,1,1,0,2];const p=new Popups(host,profile,callbacks);

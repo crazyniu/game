@@ -1,0 +1,12 @@
+{
+  "ver": "1.0.1",
+  "importer": "ttf-font",
+  "imported": true,
+  "uuid": "219b30d6-3eb6-5a46-894b-88c496a6b956",
+  "files": [
+    ".json",
+    "game_ko.ttf"
+  ],
+  "subMetas": {},
+  "userData": {}
+}

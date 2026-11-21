@@ -1,0 +1,268 @@
+keys,zh_CN,en,zh_TW,ja,ko,de,fr,es,pt,it,ru,tr
+UI_PLAY,开始,Play,開始,スタート,시작,Spielen,Jouer,Jugar,Jogar,Gioca,Играть,Oyna
+UI_LEVEL,第 %d 关,Level %d,第 %d 關,ステージ %d,레벨 %d,Level %d,Niveau %d,Nivel %d,Nível %d,Livello %d,Уровень %d,Seviye %d
+UI_SETTINGS,设置,Settings,設定,設定,설정,Optionen,Réglages,Ajustes,Ajustes,Impostazioni,Настройки,Ayarlar
+H_MUSIC,音乐,Music,音樂,BGM,음악,Musik,Musique,Música,Música,Musica,Музыка,Müzik
+H_SOUND,音效,Sound,音效,効果音,효과음,Sound,Sons,Sonido,Sons,Suoni,Звуки,Ses
+H_VIBRATION,震动,Vibration,震動,バイブ,진동,Vibration,Vibrations,Vibración,Vibração,Vibrazione,Вибрация,Titreşim
+H_LANGUAGE,语言,Language,語言,言語,언어,Sprache,Langue,Idioma,Idioma,Lingua,Язык,Dil
+H_FEAT_SIGNIN,签到,Check-in,簽到,ログボ,출석,Bonus,Cadeau,Regalo,Presente,Regalo,Подарок,Hediye
+UI_TAB_SHOP,商店,Shop,商店,ショップ,상점,Shop,Boutique,Tienda,Loja,Negozio,Магазин,Mağaza
+UI_TAB_TASKS,任务,Tasks,任務,クエスト,미션,Aufgaben,Missions,Misiones,Missões,Missioni,Задания,Görevler
+H_FEAT_LEVELS,选关,Levels,選關,ステージ,레벨,Level,Niveaux,Niveles,Fases,Livelli,Уровни,Seviyeler
+H_TO_HOME,主页,Home,首頁,ホーム,홈,Start,Accueil,Inicio,Início,Home,Меню,Ana sayfa
+H_RETRY,重试,Retry,重試,もう一度,다시 하기,Nochmal,Rejouer,Reintentar,De novo,Riprova,Ещё раз,Tekrar
+PAUSE_TITLE,暂停,Paused,暫停,ポーズ,일시 정지,Pause,Pause,Pausa,Pausa,Pausa,Пауза,Duraklat
+UI_PRIVACY_POLICY,隐私政策,Privacy Policy,隱私權政策,プライバシーポリシー,개인정보 처리방침,Datenschutzerklärung,Politique de confidentialité,Política de privacidad,Política de privacidade,Informativa privacy,Политика конфиденциальности,Gizlilik politikası
+H_UNLOCKS_AT,第 %d 关解锁,Level %d,第 %d 關解鎖,Lv.%dで解放,레벨 %d,Level %d,Niveau %d,Nivel %d,Nível %d,Livello %d,Уровень %d,Seviye %d
+H_DRAW,抽奖,Lucky Draw,抽獎,くじ引き,뽑기,Verlosung,Tirage,Sorteo,Sorteio,Estrazione,Лотерея,Çekiliş
+H_CHEST,宝箱,Chest,寶箱,宝箱,상자,Truhe,Coffre,Cofre,Baú,Forziere,Сундук,Sandık
+H_ALBUM,图鉴,Album,圖鑑,図鑑,도감,Album,Album,Álbum,Álbum,Album,Альбом,Albüm
+H_HELP,玩法,How to Play,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
+FREE_FEATHERS,免费羽毛,Free Feathers,免費羽毛,無料の羽,무료 깃털,Gratis-Federn,Plumes gratuites,Plumas gratis,Penas grátis,Piume gratis,Перья даром,Bedava tüy
+H_WATCH_AD,看广告,Watch,看廣告,広告を見る,광고 보기,Ansehen,Regarder,Ver,Assistir,Guarda,Смотреть,İzle
+SHOP_AD_LEFT,今日 %d/%d,Today %d/%d,今日 %d/%d,今日 %d/%d,오늘 %d/%d,Heute %d/%d,Auj. %d/%d,Hoy %d/%d,Hoje %d/%d,Oggi %d/%d,Сегодня %d/%d,Bugün %d/%d
+SHOP_AD_DONE,今日已领完,Come back tomorrow,今日已領完,また明日,내일 또 와요,Morgen wieder,Reviens demain,Vuelve mañana,Volte amanhã,Torna domani,Приходи завтра,Yarın gel
+UI_OK,好的,OK,好的,OK,확인,OK,OK,OK,OK,OK,ОК,Tamam
+UI_BUY,购买,Buy,購買,購入,구매,Kaufen,Acheter,Comprar,Comprar,Compra,Купить,Satın al
+UI_EQUIP,装备,Equip,裝備,装備,장착,Anlegen,Équiper,Equipar,Equipar,Indossa,Надеть,Giy
+UI_EQUIPPED,已装备,Equipped,已裝備,装備中,장착 중,Angelegt,Équipé,Equipado,Equipado,Indossato,Надето,Giyildi
+UI_OPEN,打开,Open,打開,開ける,열기,Öffnen,Ouvrir,Abrir,Abrir,Apri,Открыть,Aç
+UI_SPIN,抽奖,Draw,抽獎,引く,뽑기,Ziehen,Tirer,Sortear,Sortear,Estrai,Тянуть,Çek
+UI_REPLAY,重玩,Replay,重玩,もう一度,다시 하기,Nochmal,Rejouer,Repetir,Repetir,Rigioca,Заново,Tekrar
+UI_NEXT,下一步,Next,下一步,次へ,다음,Weiter,Suivant,Siguiente,Próximo,Avanti,Далее,İleri
+UI_GOT_IT,知道了,Got it,知道了,OK,알겠어요,Verstanden,Compris,Entendido,Entendi,Capito,Понятно,Anladım
+UI_CONTINUE,继续,Continue,繼續,つづける,계속,Weiter,Continuer,Continuar,Continuar,Continua,Дальше,Devam
+UI_FREE_REWIND,免费回退,Free Rewind,免費回退,無料で戻す,무료 되돌리기,Gratis zurück,Retour gratuit,Retroceso gratis,Voltar grátis,Indietro gratis,Откат даром,Bedava geri al
+UI_UNDO,撤销,Undo,撤銷,戻す,되돌리기,Zurück,Annuler,Deshacer,Desfazer,Annulla,Отмена,Geri al
+UI_TODAY,今日,Today,今日,今日,오늘,Heute,Aujourd’hui,Hoy,Hoje,Oggi,Сегодня,Bugün
+UI_WEEK,本周,This Week,本週,今週,이번 주,Diese Woche,Cette semaine,Esta semana,Esta semana,Settimana,Неделя,Bu hafta
+UI_HARD,困难,Hard,困難,むずかしい,어려움,Schwer,Difficile,Difícil,Difícil,Difficile,Сложно,Zor
+UI_LOCKED,未解锁,Locked,未解鎖,ロック中,잠김,Gesperrt,Verrouillé,Bloqueado,Bloqueado,Bloccato,Закрыто,Kilitli
+T_WIN,太棒了！,Well Done!,太棒了！,やったね！,잘했어요!,Super!,Bravo !,¡Genial!,Muito bem!,Bravo!,Отлично!,Harika!
+T_LEVEL,关卡,Level,關卡,ステージ,레벨,Level,Niveau,Nivel,Nível,Livello,Уровень,Seviye
+T_NEW_FRIEND,新朋友,New Bird,新朋友,新しい鳥,새 친구,Neuer Vogel,Nouvel oiseau,Nueva ave,Nova ave,Nuovo uccello,Новая птица,Yeni kuş
+T_WORLD_COMPLETE,通关！,Cleared!,通關！,クリア！,클리어!,Geschafft!,Terminé !,¡Superado!,Concluído!,Completato!,Пройдено!,Tamamlandı!
+T_WORLD_UNLOCK,新世界,New World,新世界,新しい世界,새 세계,Neue Welt,Nouveau monde,Nuevo mundo,Novo mundo,Nuovo mondo,Новый мир,Yeni dünya
+T_GIFT,礼物,Gift,禮物,プレゼント,선물,Geschenk,Cadeau,Regalo,Presente,Regalo,Подарок,Hediye
+T_STUCK,卡住了,Stuck!,卡住了,つまった！,막혔어요!,Festgefahren!,Bloqué !,¡Atascado!,Travou!,Bloccato!,Тупик!,Sıkıştın!
+T_UNDO_MORE,更多撤销,More Undos,更多撤銷,戻すを追加,되돌리기 추가,Mehr Zurück,Plus d’annulations,Más deshacer,Mais desfazer,Altri annulla,Ещё отмены,Daha fazla geri al
+T_DAILY_REWARD,每日奖励,Daily Reward,每日獎勵,デイリーボーナス,매일 보상,Tagesbonus,Cadeau du jour,Premio diario,Prêmio diário,Premio del giorno,Награда дня,Günlük ödül
+T_DRAW,幸运抽奖,Lucky Draw,幸運抽獎,ラッキーくじ,행운 뽑기,Glückslos,Tirage chanceux,Sorteo de la suerte,Sorteio da sorte,Estrazione fortunata,Удачная лотерея,Şans çekilişi
+T_STAR_CHEST,星星宝箱,Star Chest,星星寶箱,スター宝箱,별 상자,Sternentruhe,Coffre étoilé,Cofre estelar,Baú de estrelas,Forziere stellato,Звёздный сундук,Yıldız sandığı
+T_AVIARY,鸟类图鉴,Bird Album,鳥類圖鑑,鳥図鑑,새 도감,Vogelalbum,Album d’oiseaux,Álbum de aves,Álbum de aves,Album uccelli,Альбом птиц,Kuş albümü
+T_OUTFITS,装扮,Outfits,裝扮,着せかえ,의상,Outfits,Tenues,Atuendos,Roupas,Costumi,Наряды,Kıyafetler
+T_TOOLS,道具,Tools,道具,アイテム,도구,Hilfen,Outils,Ayudas,Ajudas,Aiuti,Помощники,Yardımcılar
+T_HOUSES,鸟屋,Birdhouses,鳥屋,巣箱,새집,Vogelhäuser,Nichoirs,Casitas,Casinhas,Casette,Домики,Kuş evleri
+T_TERMS,条款,Terms,條款,規約,약관,Bedingungen,Conditions,Términos,Termos,Termini,Условия,Şartlar
+T_CREDITS,制作,Credits,製作,クレジット,제작,Credits,Crédits,Créditos,Créditos,Crediti,Авторы,Emeği geçenler
+T_CONTACT,联系,Contact,聯繫,お問い合わせ,문의,Kontakt,Contact,Contacto,Contato,Contatti,Связь,İletişim
+T_WORLDS,世界,Worlds,世界,ワールド,세계,Welten,Mondes,Mundos,Mundos,Mondi,Миры,Dünyalar
+T_TUTORIAL,玩法,How to Play,玩法,遊び方,게임 방법,Anleitung,Règles,Cómo jugar,Como jogar,Come giocare,Как играть,Nasıl oynanır
+T_NEW_TOOL,新道具,New Tool,新道具,新しいアイテム,새 도구,Neue Hilfe,Nouvel outil,Nueva ayuda,Nova ajuda,Nuovo aiuto,Новый помощник,Yeni yardımcı
+T_DAILY_CHALLENGE,每日挑战,Daily Challenge,每日挑戰,デイリーチャレンジ,일일 도전,Tagesaufgabe,Défi du jour,Reto diario,Desafio diário,Sfida del giorno,Испытание дня,Günlük meydan okuma
+TASK_LEVELS,通过关卡,Clear levels,通過關卡,ステージをクリア,레벨 클리어,Level schaffen,Finir des niveaux,Superar niveles,Passar fases,Supera livelli,Пройти уровни,Seviye geç
+TASK_STARS,赚取星星,Earn stars,賺取星星,スターを集める,별 모으기,Sterne sammeln,Gagner des étoiles,Ganar estrellas,Ganhar estrelas,Ottieni stelle,Собрать звёзды,Yıldız kazan
+TASK_FLOCKS,送鸟群回家,Send flocks home,送鳥群回家,群れを巣に帰す,새 무리 귀가,Schwärme heimbringen,Ramener des groupes,Llevar bandadas,Levar bandos,Riporta stormi,Отправить стаи,Sürüleri eve yolla
+TASK_COMBOS,打出连击,Make combos,打出連擊,コンボを出す,콤보 만들기,Combos schaffen,Faire des combos,Hacer combos,Fazer combos,Fai combo,Сделать комбо,Kombo yap
+TASK_TOOLS,使用道具,Use tools,使用道具,アイテムを使う,도구 사용,Hilfen nutzen,Utiliser des outils,Usar ayudas,Usar ajudas,Usa aiuti,Использовать помощь,Yardımcı kullan
+TASK_DRAW,幸运抽奖,Spin the draw,幸運抽獎,くじを引く,뽑기 하기,Los ziehen,Faire un tirage,Hacer un sorteo,Fazer um sorteio,Fai un’estrazione,Сыграть в лотерею,Çekiliş yap
+CHEST_LINE,赚取星星,Earn stars,賺取星星,スターを集めよう,별을 모아요,Sammle Sterne,Gagne des étoiles,Gana estrellas,Ganhe estrelas,Raccogli stelle,Собирай звёзды,Yıldız topla
+TOOL_FIREFLY,萤火灯,Firefly,螢火燈,ホタル,반딧불,Glühwürmchen,Luciole,Luciérnaga,Vaga-lume,Lucciola,Светлячок,Ateş böceği
+TOOL_SPROUT,新枝芽,Sprout,新枝芽,新芽,새싹,Spross,Pousse,Brote,Broto,Germoglio,Росток,Filiz
+TOOL_OWL_EYE,猫头鹰眼,Owl Eye,貓頭鷹眼,フクロウの目,부엉이 눈,Eulenauge,Œil de hibou,Ojo de búho,Olho de coruja,Occhio di gufo,Совиный глаз,Baykuş gözü
+TOOL_WAKE_BELL,唤醒铃,Wake Bell,喚醒鈴,目覚ましベル,깨우기 종,Weckglocke,Cloche réveil,Campana,Sino,Campanella,Колокольчик,Uyandırma zili
+TOOL_SCARECROW,稻草人,Scarecrow,稻草人,かかし,허수아비,Vogelscheuche,Épouvantail,Espantapájaros,Espantalho,Spaventapasseri,Пугало,Korkuluk
+TOOL_SPRING_RAIN,春雨,Spring Rain,春雨,春の雨,봄비,Frühlingsregen,Pluie de printemps,Lluvia de primavera,Chuva de primavera,Pioggia di primavera,Весенний дождь,Bahar yağmuru
+TOOL_FIREFLY_DESC,照亮好走法,Lights a good move,照亮好走法,いい手を照らす,좋은 수를 비춰요,Zeigt einen guten Zug,Montre un bon coup,Muestra una buena jugada,Mostra uma boa jogada,Mostra una buona mossa,Подсветит хороший ход,İyi bir hamle gösterir
+TOOL_SPROUT_DESC,长出一根新树枝,Grows a new perch,長出一根新樹枝,新しい枝が生える,새 가지가 자라요,Lässt einen neuen Ast wachsen,Fait pousser une branche,Crece una rama nueva,Cresce um galho novo,Fa crescere un ramo,Вырастит новую ветку,Yeni bir dal büyütür
+TOOL_OWL_EYE_DESC,看清蛋里的鸟,See inside an egg,看清蛋裡的鳥,卵の中が見える,알 속을 봐요,Schau ins Ei,Voir dans un œuf,Mira dentro de un huevo,Veja dentro do ovo,Guarda dentro l’uovo,"Видно, кто в яйце",Yumurtanın içini gör
+TOOL_WAKE_BELL_DESC,叫醒睡着的鸟,Wakes sleeping birds,叫醒睡著的鳥,眠った鳥を起こす,자는 새를 깨워요,Weckt schlafende Vögel,Réveille les oiseaux,Despierta a las aves,Acorda as aves,Sveglia gli uccelli,Будит спящих птиц,Uyuyan kuşları uyandırır
+TOOL_SCARECROW_DESC,赶走乌鸦,Shoos crows away,趕走烏鴉,カラスを追い払う,까마귀를 쫓아요,Verscheucht Krähen,Chasse les corbeaux,Espanta a los cuervos,Espanta os corvos,Scaccia i corvi,Прогонит ворон,Kargaları kovar
+TOOL_SPRING_RAIN_DESC,让树枝长大,Grows your branches,讓樹枝長大,枝がのびる,가지가 길어져요,Lässt Äste wachsen,Agrandit les branches,Alarga las ramas,Aumenta os galhos,Allunga i rami,Удлинит ветки,Dalları uzatır
+ABILITY_SUNNY,唤醒睡着的鸟,Wakes sleepers,喚醒睡著的鳥,眠った鳥を起こす,자는 새를 깨워요,Weckt Schläfer,Réveille les dormeurs,Despierta dormidos,Acorda quem dorme,Sveglia chi dorme,Будит спящих,Uyuyanları uyandırır
+ABILITY_SKY,揭开鸟蛋,Reveals eggs,揭開鳥蛋,卵を見せる,알을 보여줘요,Zeigt Eier,Révèle les œufs,Revela huevos,Revela ovos,Svela le uova,Открывает яйца,Yumurtaları açar
+ABILITY_BERRY,步数减一,Refunds a move,步數減一,1手もどる,한 수 돌려받기,Gibt einen Zug zurück,Rend un coup,Devuelve un movimiento,Devolve uma jogada,Rende una mossa,Возвращает ход,Bir hamle iade
+ABILITY_MINT,让树枝长大,Grows branches,讓樹枝長大,枝をのばす,가지를 키워요,Lässt Äste wachsen,Agrandit les branches,Alarga ramas,Aumenta galhos,Allunga i rami,Удлиняет ветки,Dalları uzatır
+ABILITY_COCOA,赶走附近乌鸦,Scares nearby crows,趕走附近烏鴉,近くのカラスを追う,근처 까마귀를 쫓아요,Verscheucht Krähen,Effraie les corbeaux,Asusta cuervos cerca,Assusta corvos perto,Spaventa i corvi,Пугает ворон рядом,Yakın kargaları korkutur
+ABILITY_SNOW,送一次撤销,Gives an undo,送一次撤銷,戻すを1回くれる,되돌리기 1회,Schenkt ein Zurück,Offre une annulation,Da un deshacer,Dá um desfazer,Regala un annulla,Дарит отмену,Bir geri alma verir
+ABILITY_EMBER,孵化所有鸟蛋,Hatches every egg,孵化所有鳥蛋,卵を全部かえす,모든 알을 부화해요,Brütet alle Eier aus,Fait éclore les œufs,Eclosiona los huevos,Choca todos os ovos,Schiude tutte le uova,Высиживает все яйца,Tüm yumurtaları çatlatır
+ABILITY_INK,步数减一,Refunds a move,步數減一,1手もどる,한 수 돌려받기,Gibt einen Zug zurück,Rend un coup,Devuelve un movimiento,Devolve uma jogada,Rende una mossa,Возвращает ход,Bir hamle iade
+ABILITY_HOOT,唤醒睡着的鸟,Wakes sleepers,喚醒睡著的鳥,眠った鳥を起こす,자는 새를 깨워요,Weckt Schläfer,Réveille les dormeurs,Despierta dormidos,Acorda quem dorme,Sveglia chi dorme,Будит спящих,Uyuyanları uyandırır
+ABILITY_CROW,从不回巢,Never goes home,從不回巢,巣に帰らない,집에 안 가요,Fliegt nie heim,Ne rentre jamais,Nunca vuelve,Nunca volta,Non torna mai,Не летит домой,Eve hiç dönmez
+HOUSE_MUSHROOM,蘑菇,Mushroom,蘑菇,キノコ,버섯,Pilz,Champignon,Seta,Cogumelo,Fungo,Гриб,Mantar
+HOUSE_TEAPOT,茶壶,Teapot,茶壺,ティーポット,찻주전자,Teekanne,Théière,Tetera,Bule,Teiera,Чайник,Çaydanlık
+HOUSE_LANTERN,灯笼,Lantern,燈籠,ちょうちん,등불,Laterne,Lanterne,Farol,Lanterna,Lanterna,Фонарь,Fener
+HOUSE_ACORN,橡果,Acorn,橡果,どんぐり,도토리,Eichel,Gland,Bellota,Bolota,Ghianda,Жёлудь,Meşe palamudu
+HOUSE_PUMPKIN,南瓜,Pumpkin,南瓜,かぼちゃ,호박,Kürbis,Citrouille,Calabaza,Abóbora,Zucca,Тыква,Balkabağı
+HOUSE_BEEHIVE,蜂巢,Beehive,蜂巢,ミツバチの巣,벌집,Bienenstock,Ruche,Colmena,Colmeia,Alveare,Улей,Arı kovanı
+HOUSE_TEACUP,茶杯,Teacup,茶杯,ティーカップ,찻잔,Teetasse,Tasse,Taza,Xícara,Tazza,Чашка,Fincan
+HOUSE_PINECONE,松果,Pinecone,松果,松ぼっくり,솔방울,Tannenzapfen,Pomme de pin,Piña,Pinha,Pigna,Шишка,Çam kozalağı
+HOUSE_CAGE,鸟笼,Cage,鳥籠,鳥かご,새장,Käfig,Cage,Jaula,Gaiola,Gabbia,Клетка,Kafes
+LESSON_SLEEP,瞌睡鸟,Sleepy,瞌睡鳥,ねむり鳥,졸린 새,Schläfrig,Endormi,Dormilón,Sonolento,Dormiglione,Соня,Uykucu
+LESSON_MAMA,鸟妈妈,Mama,鳥媽媽,ママ鳥,엄마 새,Mama,Maman,Mamá,Mamãe,Mamma,Мама,Anne
+LESSON_EGG,鸟蛋,Eggs,鳥蛋,卵,알,Eier,Œufs,Huevos,Ovos,Uova,Яйца,Yumurtalar
+LESSON_CROW,乌鸦,Crows,烏鴉,カラス,까마귀,Krähen,Corbeaux,Cuervos,Corvos,Corvi,Вороны,Kargalar
+LESSON_TWIG,小细枝,Twigs,小細枝,小枝,잔가지,Zweige,Brindilles,Ramitas,Gravetos,Rametti,Веточки,İnce dallar
+LESSON_SWIVEL,转转枝,Swivel,轉轉枝,くるくる枝,회전 가지,Drehast,Branche pivot,Rama giratoria,Galho giratório,Ramo girevole,Поворотная ветка,Dönen dal
+LESSON_GROWING,长大枝,Growing,長大枝,のびる枝,자라는 가지,Wachsender Ast,Branche qui pousse,Rama creciente,Galho que cresce,Ramo che cresce,Растущая ветка,Büyüyen dal
+LESSON_SLEEP_LINE,落上同类就能叫醒它,Land a match to wake it,落上同類就能叫醒它,同じ鳥を乗せると起きる,같은 새가 앉으면 깨어나요,Ein gleicher Vogel weckt ihn,Pose un oiseau pareil pour le réveiller,Posa uno igual para despertarlo,Pouse um igual para acordá-lo,Posa uno uguale per svegliarlo,"Посади такую же птицу, чтобы разбудить",Uyandırmak için aynı kuşu kondur
+LESSON_MAMA_LINE,小鸟会跟着妈妈,Chicks follow their mama,小鳥會跟著媽媽,ヒナはママについていく,아기 새는 엄마를 따라가요,Küken folgen ihrer Mama,Les poussins suivent maman,Los polluelos siguen a mamá,Filhotes seguem a mamãe,I pulcini seguono la mamma,Птенцы идут за мамой,Yavrular annelerini izler
+LESSON_EGG_LINE,揭开鸟蛋就会孵化,Uncover an egg to hatch it,揭開鳥蛋就會孵化,卵の上をあけるとかえる,알 위를 비우면 부화해요,Frei gelegte Eier schlüpfen,Libère un œuf pour qu’il éclose,Destapa un huevo y eclosiona,Descubra o ovo para chocar,Scopri un uovo per farlo schiudere,Освободи яйцо — птенец вылупится,"Yumurtayı aç, çatlasın"
+LESSON_CROW_LINE,乌鸦从不回家,Crows never go home,烏鴉從不回家,カラスは巣に帰らない,까마귀는 집에 안 가요,Krähen fliegen nie heim,Les corbeaux ne rentrent jamais,Los cuervos nunca vuelven,Corvos nunca voltam,I corvi non tornano mai,Вороны домой не летят,Kargalar eve hiç dönmez
+LESSON_TWIG_LINE,细枝只能站两只,A twig holds only two,細枝只能站兩隻,小枝には2羽だけ,잔가지엔 두 마리만,Ein Zweig trägt nur zwei,Une brindille porte deux oiseaux,Una ramita solo aguanta dos,Um graveto só aguenta dois,Un rametto regge solo due,На веточке только двое,İnce dalda sadece iki kuş
+LESSON_SWIVEL_LINE,点圆结让它转向,Tap the knot to turn it,點圓結讓它轉向,結び目をタップで回る,매듭을 눌러 돌려요,Tippe den Knoten zum Drehen,Touche le nœud pour la tourner,Toca el nudo para girarla,Toque no nó para girar,Tocca il nodo per girarlo,"Нажми на узел, чтобы повернуть",Çevirmek için düğüme dokun
+LESSON_GROWING_LINE,每回家一群就多一个位置,Each flock home adds a seat,每回家一群就多一個位置,群れが帰るたび席がふえる,무리가 돌아갈 때마다 자리가 늘어요,Jeder heimgekehrte Schwarm gibt einen Platz,Chaque groupe rentré ajoute une place,Cada bandada en casa da un sitio,Cada bando em casa dá um lugar,Ogni stormo a casa aggiunge un posto,Каждая стая дома даёт место,Eve dönen her sürü bir yer ekler
+TUTORIAL_PICK,点一根树枝选鸟,Tap a branch to pick birds,點一根樹枝選鳥,枝をタップして鳥を選ぶ,가지를 눌러 새를 골라요,Tippe einen Ast an,Touche une branche,Toca una rama,Toque num galho,Tocca un ramo,Нажми на ветку,Bir dala dokun
+TUTORIAL_MOVE,点有空位的树枝,Tap a branch with room,點有空位的樹枝,空きのある枝をタップ,빈자리가 있는 가지를 눌러요,Tippe einen Ast mit Platz,Touche une branche libre,Toca una rama con sitio,Toque num galho com espaço,Tocca un ramo libero,Нажми на ветку со свободным местом,Boş yeri olan dala dokun
+TUTORIAL_HOME,站满的树枝会飞回家,A full branch flies home,站滿的樹枝會飛回家,そろった枝は巣に帰る,가득 찬 가지는 집으로 날아가요,Ein voller Ast fliegt heim,Une branche pleine rentre,Una rama llena vuelve a casa,Um galho cheio volta para casa,Un ramo pieno torna a casa,Полная ветка летит домой,Dolu dal eve uçar
+TUTORIAL_WIN,全部回家，你赢了！,All home: you win!,全部回家，你贏了！,みんな帰ったら勝ち！,모두 돌아가면 승리!,Alle daheim: gewonnen!,Tous rentrés : gagné !,¡Todos en casa: ganas!,Todos em casa: venceu!,Tutti a casa: vinci!,Все дома — победа!,Hepsi evde: kazandın!
+WORLD_GREEN,青青森林,Green Forest,青青森林,みどりの森,초록 숲,Grüner Wald,Forêt verte,Bosque verde,Floresta verde,Bosco verde,Зелёный лес,Yeşil orman
+WORLD_BAMBOO,竹林,Bamboo Forest,竹林,竹林,대나무 숲,Bambuswald,Bambouseraie,Bosque de bambú,Bambuzal,Bosco di bambù,Бамбуковый лес,Bambu ormanı
+WORLD_AUTUMN,秋日森林,Autumn Forest,秋日森林,秋の森,가을 숲,Herbstwald,Forêt d’automne,Bosque otoñal,Floresta de outono,Bosco d’autunno,Осенний лес,Sonbahar ormanı
+WORLD_SNOW,雪林,Snow Forest,雪林,雪の森,눈 숲,Schneewald,Forêt enneigée,Bosque nevado,Floresta nevada,Bosco innevato,Снежный лес,Karlı orman
+WORLD_BLOSSOM,樱花林,Blossom Forest,櫻花林,桜の森,벚꽃 숲,Blütenwald,Forêt en fleurs,Bosque en flor,Floresta florida,Bosco in fiore,Цветущий лес,Çiçekli orman
+WORLD_MUSHROOM,蘑菇森林,Mushroom Forest,蘑菇森林,キノコの森,버섯 숲,Pilzwald,Forêt des champignons,Bosque de setas,Floresta de cogumelos,Bosco dei funghi,Грибной лес,Mantar ormanı
+WORLD_LAKESIDE,湖畔森林,Lakeside Forest,湖畔森林,湖の森,호숫가 숲,Seewald,Forêt du lac,Bosque del lago,Floresta do lago,Bosco del lago,Лес у озера,Göl kıyısı ormanı
+WORLD_PINE,雾松林,Misty Pines,霧松林,霧の松林,안개 소나무 숲,Nebelkiefern,Pins brumeux,Pinos de niebla,Pinheiros na névoa,Pini nella nebbia,Туманные сосны,Sisli çamlar
+WORLD_RAINFOREST,雨林,Rainforest,雨林,熱帯雨林,열대우림,Regenwald,Forêt tropicale,Selva,Floresta tropical,Foresta pluviale,Тропический лес,Yağmur ormanı
+WORLD_WISTERIA,紫藤林,Wisteria Forest,紫藤林,藤の森,등나무 숲,Glyzinienwald,Forêt de glycines,Bosque de glicinias,Floresta de glicínias,Bosco di glicini,Глициниевый лес,Morsalkım ormanı
+BIRD_SUNNY,阳阳,Sunny,陽陽,サニー,써니,Sunny,Soleil,Sunny,Sunny,Sunny,Санни,Güneş
+BIRD_SKY,天天,Skye,天天,スカイ,스카이,Skye,Skye,Skye,Skye,Skye,Скай,Gök
+BIRD_BERRY,莓莓,Berry,莓莓,ベリー,베리,Beere,Baie,Baya,Amora,Bacca,Ягодка,Dut
+BIRD_MINT,薄荷,Minty,薄荷,ミント,민트,Minzi,Menthe,Menta,Menta,Menta,Мятка,Nane
+BIRD_COCOA,可可,Cocoa,可可,ココア,코코아,Kakao,Cacao,Cacao,Cacau,Cacao,Какао,Kakao
+BIRD_SNOW,雪球,Flurry,雪球,ゆきだま,눈송이,Flocke,Flocon,Copito,Floquinho,Fiocco,Снежок,Kartopu
+BIRD_EMBER,火火,Ember,火火,ほのお,불꽃,Funke,Braise,Brasa,Brasa,Brace,Уголёк,Kor
+BIRD_CROW,乌乌,Rook,烏烏,カーくん,까마,Krah,Croa,Cuervito,Corvinho,Corvetto,Карка,Karga
+BIRD_INK,墨墨,Inky,墨墨,スミ,먹물,Tinte,Encre,Tinta,Tinta,Inchiostro,Чернилка,Mürekkep
+BIRD_HOOT,咕咕,Hoot,咕咕,ホーホー,부엉,Huhu,Hou,Huu,Uhu,Uh-uh,Уху,Hu
+BIRD_ORIOLE,黄鹂,Oriole,黃鸝,コウライウグイス,꾀꼬리,Pirol,Loriot,Oropéndola,Papa-figo,Rigogolo,Иволга,Sarıasma
+BIRD_MAGPIE,蓝鹊,Magpie,藍鵲,サンジャク,물까치,Elster,Pie,Urraca,Pega,Gazza,Сорока,Saksağan
+BIRD_HOOPOE,戴胜,Hoopoe,戴勝,ヤツガシラ,후투티,Wiedehopf,Huppe,Abubilla,Poupa,Upupa,Удод,İbibik
+BIRD_WHITEEYE,绣眼,White-eye,繡眼,メジロ,동박새,Brillenvogel,Zostérops,Anteojitos,Olho-branco,Occhialino,Белоглазка,Akgöz
+BIRD_LAUGHINGTHRUSH,画眉,Hwamei,畫眉,ガビチョウ,화미조,Augenbrauenhäherling,Garrulaxe,Hwamei,Sabiá-chinês,Garrulo,Хвамей,Hvamey
+BIRD_LONGTAILEDTIT,长尾,Longtail,長尾,エナガ,오목눈이,Schwanzmeise,Mésange à longue queue,Mito,Chapim-rabilongo,Codibugnolo,Ополовник,Uzun kuyruk
+BIRD_PHEASANT,锦鸡,Pheasant,錦雞,キンケイ,금계,Goldfasan,Faisan,Faisán,Faisão,Fagiano,Фазан,Sülün
+BIRD_SCOPSOWL,角鸮,Scops Owl,角鴞,コノハズク,소쩍새,Zwergohreule,Petit-duc,Autillo,Mocho,Assiolo,Сплюшка,İshak kuşu
+BIRD_WOODOWL,林鸮,Wood Owl,林鴞,モリフクロウ,올빼미,Waldkauz,Chouette hulotte,Cárabo,Coruja-do-mato,Allocco,Неясыть,Alaca baykuş
+BIRD_GREATTIT,大山雀,Great Tit,大山雀,シジュウカラ,박새,Kohlmeise,Mésange,Carbonero,Chapim,Cinciallegra,Синица,Büyük baştankara
+BIRD_BLUETIT,蓝山雀,Blue Tit,藍山雀,アオガラ,푸른박새,Blaumeise,Mésange bleue,Herrerillo,Chapim-azul,Cinciarella,Лазоревка,Mavi baştankara
+BIRD_BULLFINCH,灰雀,Bullfinch,灰雀,ウソ,멋쟁이새,Gimpel,Bouvreuil,Camachuelo,Dom-fafe,Ciuffolotto,Снегирь,Şakrak
+BIRD_GREENWOODPECKER,啄木鸟,Woodpecker,啄木鳥,キツツキ,딱따구리,Specht,Pic,Pájaro carpintero,Pica-pau,Picchio,Дятел,Ağaçkakan
+BIRD_WREN,鹪鹩,Wren,鷦鷯,ミソサザイ,굴뚝새,Zaunkönig,Troglodyte,Chochín,Carriça,Scricciolo,Крапивник,Çitkuşu
+BIRD_WAGTAIL,鹡鸰,Wagtail,鶺鴒,セキレイ,할미새,Bachstelze,Bergeronnette,Lavandera,Alvéola,Ballerina,Трясогузка,Kuyruksallayan
+BIRD_ROBIN,知更,Robin,知更,コマドリ,울새,Rotkehlchen,Rouge-gorge,Petirrojo,Pisco,Pettirosso,Зарянка,Kızılgerdan
+BIRD_NIGHTJAR,夜鹰,Nightjar,夜鷹,ヨタカ,쏙독새,Ziegenmelker,Engoulevent,Chotacabras,Noitibó,Succiacapre,Козодой,Çobanaldatan
+BIRD_BARNOWL,仓鸮,Barn Owl,倉鴞,メンフクロウ,원숭이올빼미,Schleiereule,Effraie,Lechuza,Suindara,Barbagianni,Сипуха,Peçeli baykuş
+BIRD_EMPERORPENGUIN,帝企鹅,Emperor,帝企鵝,コウテイペンギン,황제펭귄,Kaiserpinguin,Manchot empereur,Pingüino emperador,Pinguim-imperador,Pinguino imperatore,Императорский,İmparator
+BIRD_BLUEPENGUIN,小企鹅,Penguin,小企鵝,コガタペンギン,쇠푸른펭귄,Zwergpinguin,Petit manchot,Pingüino azul,Pinguim-azul,Pinguino minore,Пингвинёнок,Penguen
+BIRD_GULL,海鸥,Gull,海鷗,カモメ,갈매기,Möwe,Mouette,Gaviota,Gaivota,Gabbiano,Чайка,Martı
+BIRD_PUFFIN,海鹦,Puffin,海鸚,ツノメドリ,퍼핀,Papageitaucher,Macareux,Frailecillo,Papagaio-do-mar,Pulcinella,Тупик,Deniz papağanı
+BIRD_WAXWING,太平鸟,Waxwing,太平鳥,レンジャク,황여새,Seidenschwanz,Jaseur,Ampelis,Tagarela,Beccofrusone,Свиристель,İpekkuyruk
+BIRD_SNOWBUNTING,雪雀,Bunting,雪雀,ユキホオジロ,흰멧새,Schneeammer,Plectrophane,Escribano,Escrevedeira,Zigolo,Пуночка,Kar kirazkuşu
+BIRD_PTARMIGAN,雷鸟,Ptarmigan,雷鳥,ライチョウ,뇌조,Schneehuhn,Lagopède,Perdiz nival,Lagópode,Pernice bianca,Куропатка,Dağ tavuğu
+BIRD_SNOWYOWL,雪鸮,Snowy Owl,雪鴞,シロフクロウ,흰올빼미,Schnee-Eule,Harfang,Búho nival,Coruja-das-neves,Civetta delle nevi,Полярная сова,Kar baykuşu
+BIRD_SHORTEAREDOWL,短耳鸮,Short-ear,短耳鴞,コミミズク,쇠부엉이,Sumpfohreule,Hibou des marais,Búho campestre,Coruja-do-nabal,Gufo di palude,Болотная сова,Kır baykuşu
+BIRD_CANARY,金丝雀,Canary,金絲雀,カナリア,카나리아,Kanarienvogel,Canari,Canario,Canário,Canarino,Канарейка,Kanarya
+BIRD_BLUEBIRD,蓝鸲,Bluebird,藍鴝,ルリツグミ,파랑새,Hüttensänger,Merle bleu,Azulejo,Azulão,Uccello azzurro,Сиалия,Mavi ardıç
+BIRD_GALAH,粉鹦鹉,Galah,粉鸚鵡,モモイロインコ,분홍앵무,Rosakakadu,Cacatoès rosalbin,Cacatúa galah,Cacatua-galah,Cacatua rosa,Какаду гала,Pembe kakadu
+BIRD_HUMMINGBIRD,蜂鸟,Hummingbird,蜂鳥,ハチドリ,벌새,Kolibri,Colibri,Colibrí,Beija-flor,Colibrì,Колибри,Sinekkuşu
+BIRD_SPARROW,麻雀,Sparrow,麻雀,スズメ,참새,Spatz,Moineau,Gorrión,Pardal,Passero,Воробей,Serçe
+BIRD_JAVASPARROW,文鸟,Java Finch,文鳥,ブンチョウ,문조,Reisfink,Padda,Gorrión de Java,Pardal-de-java,Padda,Рисовка,Pirinç kuşu
+BIRD_CARDINAL,红雀,Cardinal,紅雀,ショウジョウコウカンチョウ,홍관조,Kardinal,Cardinal,Cardenal,Cardeal,Cardinale,Кардинал,Kardinal
+BIRD_NIGHTINGALE,夜莺,Nightingale,夜鶯,ナイチンゲール,나이팅게일,Nachtigall,Rossignol,Ruiseñor,Rouxinol,Usignolo,Соловей,Bülbül
+BIRD_SCREECHOWL,美角鸮,Screech Owl,美角鴞,アメリカオオコノハズク,동부큰소쩍새,Kreischeule,Petit-duc maculé,Autillo chillón,Corujinha,Assiolo urlatore,Ушастая совка,Çığlık baykuşu
+BIRD_GOLDCREST,戴菊,Goldcrest,戴菊,キクイタダキ,상모솔새,Wintergoldhähnchen,Roitelet,Reyezuelo,Estrelinha,Regolo,Королёк,Çalıkuşu
+BIRD_FLYCATCHER,铜蓝鹟,Flycatcher,銅藍鶲,ロクショウヒタキ,검푸른파리잡이새,Schnäpper,Gobemouche,Papamoscas,Papa-moscas,Pigliamosche,Мухоловка,Sinekkapan
+BIRD_JAY,松鸦,Jay,松鴉,カケス,어치,Eichelhäher,Geai,Arrendajo,Gaio,Ghiandaia,Сойка,Alakarga
+BIRD_GREENMAGPIE,绿鹊,Green Magpie,綠鵲,ヘキサン,녹색까치,Jagdelster,Pirolle verte,Urraca verde,Pega-verde,Gazza verde,Зелёная сорока,Yeşil saksağan
+BIRD_TREECREEPER,旋木雀,Creeper,旋木雀,キバシリ,나무발발이,Baumläufer,Grimpereau,Agateador,Trepadeira,Rampichino,Пищуха,Ağaç tırmaşıkkuşu
+BIRD_WHITECRESTED,白冠鸟,Crested,白冠鳥,シロガシラ,흰머리새,Haubenvogel,Huppé,Copetón,Topetudo,Ciuffato,Хохлатик,Tepeli
+BIRD_SCARLETFINCH,朱雀,Scarlet,朱雀,ベニマシコ,양진이,Karmingimpel,Roselin,Camachuelo carminoso,Pintarroxo,Ciuffolotto scarlatto,Чечевица,Kırmızı ispinoz
+BIRD_FROGMOUTH,蛙嘴鸟,Frogmouth,蛙嘴鳥,ガマグチヨタカ,개구리입쏙독새,Froschmaul,Podarge,Podargo,Boca-de-sapo,Podargo,Лягушкорот,Kurbağa ağız
+BIRD_ORIENTALSCOPS,红角鸮,Red Scops,紅角鴞,リュウキュウコノハズク,붉은소쩍새,Rote Zwergohreule,Petit-duc roux,Autillo rojo,Mocho-vermelho,Assiolo rosso,Рыжая совка,Kızıl ishak
+BIRD_WAGTAILYELLOW,黄鹡鸰,Yellow Wag,黃鶺鴒,キセキレイ,노랑할미새,Gebirgsstelze,Bergeronnette jaune,Lavandera amarilla,Alvéola-amarela,Ballerina gialla,Жёлтая трясогузка,Sarı kuyruksallayan
+BIRD_KINGFISHER,翠鸟,Kingfisher,翠鳥,カワセミ,물총새,Eisvogel,Martin-pêcheur,Martín pescador,Guarda-rios,Martin pescatore,Зимородок,Yalıçapkını
+BIRD_FLAMINGO,火烈鸟,Flamingo,火烈鳥,フラミンゴ,플라밍고,Flamingo,Flamant,Flamenco,Flamingo,Fenicottero,Фламинго,Flamingo
+BIRD_MALLARD,绿头鸭,Mallard,綠頭鴨,マガモ,청둥오리,Stockente,Colvert,Ánade real,Pato-real,Germano,Кряква,Yeşilbaş
+BIRD_GREBE,水葫芦,Grebe,水葫蘆,カイツブリ,논병아리,Taucher,Grèbe,Zampullín,Mergulhão,Tuffetto,Поганка,Batağan
+BIRD_EGRET,白鹭,Egret,白鷺,シラサギ,백로,Seidenreiher,Aigrette,Garceta,Garça,Garzetta,Цапля,Ak balıkçıl
+BIRD_MANDARIN,鸳鸯,Mandarin,鴛鴦,オシドリ,원앙,Mandarinente,Canard mandarin,Pato mandarín,Pato-mandarim,Anatra mandarina,Мандаринка,Mandarin ördeği
+BIRD_NIGHTHERON,夜鹭,Night Heron,夜鷺,ゴイサギ,해오라기,Nachtreiher,Bihoreau,Martinete,Goraz,Nitticora,Кваква,Gece balıkçılı
+BIRD_FISHOWL,渔鸮,Fish Owl,漁鴞,シマフクロウ,물고기잡이부엉이,Fischuhu,Kétoupa,Búho pescador,Corujão-pescador,Gufo pescatore,Рыбный филин,Balık baykuşu
+BIRD_SISKIN,黄雀,Siskin,黃雀,マヒワ,검은머리방울새,Zeisig,Tarin,Lúgano,Lugre,Lucherino,Чиж,Karabaşlı iskete
+BIRD_BLUEJAY,蓝鸦,Blue Jay,藍鴉,アオカケス,큰어치,Blauhäher,Geai bleu,Arrendajo azul,Gaio-azul,Ghiandaia blu,Голубая сойка,Mavi alakarga
+BIRD_GROSBEAK,松雀,Grosbeak,松雀,ギンザンマシコ,솔양진이,Hakengimpel,Durbec,Picogrueso,Pintarroxo-grande,Ciuffolotto delle pinete,Щур,Çam ispinozu
+BIRD_GREENTIT,绿山雀,Green Tit,綠山雀,ミドリシジュウカラ,녹색박새,Grünmeise,Mésange verte,Carbonero verde,Chapim-verde,Cincia verde,Зелёная синица,Yeşil baştankara
+BIRD_NUTCRACKER,星鸦,Nutcracker,星鴉,ホシガラス,잣까마귀,Tannenhäher,Cassenoix,Cascanueces,Quebra-nozes,Nocciolaia,Кедровка,Fındıkkıran
+BIRD_SPOTTEDWOODPECKER,斑啄木,Spotted,斑啄木,アカゲラ,오색딱따구리,Buntspecht,Pic épeiche,Pico picapinos,Pica-pau-malhado,Picchio rosso,Пёстрый дятел,Alaca ağaçkakan
+BIRD_CROSSBILL,交嘴雀,Crossbill,交嘴雀,イスカ,솔잣새,Kreuzschnabel,Bec-croisé,Piquituerto,Cruza-bico,Crociere,Клёст,Çaprazgaga
+BIRD_LONGEAREDOWL,长耳鸮,Long-ear,長耳鴞,トラフズク,칡부엉이,Waldohreule,Hibou moyen-duc,Búho chico,Bufo-pequeno,Gufo comune,Ушастая сова,Kulaklı orman baykuşu
+BIRD_BOREALOWL,鬼鸮,Boreal Owl,鬼鴞,キンメフクロウ,북방올빼미,Raufußkauz,Nyctale,Mochuelo boreal,Mocho-boreal,Civetta capogrosso,Мохноногий сыч,Paçalı baykuş
+BIRD_CONURE,锥尾鹦,Conure,錐尾鸚,コニュア,코뉴어,Sittich,Conure,Cotorra,Jandaia,Conuro,Аратинга,Konur
+BIRD_BLUEGOLDMACAW,金刚鹦鹉,Macaw,金剛鸚鵡,ルリコンゴウインコ,금강앵무,Ara,Ara,Guacamayo,Arara,Ara,Ара,Ara papağanı
+BIRD_SPOONBILL,琵鹭,Spoonbill,琵鷺,ヘラサギ,저어새,Löffler,Spatule,Espátula,Colhereiro,Spatola,Колпица,Kaşıkçı
+BIRD_LOVEBIRD,牡丹鹦鹉,Lovebird,牡丹鸚鵡,ボタンインコ,모란앵무,Unzertrennlicher,Inséparable,Inseparable,Agapórnis,Inseparabile,Неразлучник,Cennet papağanı
+BIRD_TOUCAN,巨嘴鸟,Toucan,巨嘴鳥,オオハシ,큰부리새,Tukan,Toucan,Tucán,Tucano,Tucano,Тукан,Tukan
+BIRD_COCKATOO,凤头鹦鹉,Cockatoo,鳳頭鸚鵡,オウム,코카투,Kakadu,Cacatoès,Cacatúa,Cacatua,Cacatua,Какаду,Kakadu
+BIRD_SCARLETMACAW,绯红鹦鹉,Scarlet Macaw,緋紅鸚鵡,コンゴウインコ,홍금강앵무,Hellroter Ara,Ara rouge,Guacamayo rojo,Araracanga,Ara macao,Красный ара,Kırmızı ara
+BIRD_POTOO,林夜鹰,Potoo,林夜鷹,タチヨタカ,포투,Tagschläfer,Ibijau,Urutaú,Urutau,Potoo,Исполинский козодой,Potu
+BIRD_SPECTACLEDOWL,眼镜鸮,Spectacled,眼鏡鴞,メガネフクロウ,안경올빼미,Brillenkauz,Chouette à lunettes,Lechuzón de anteojos,Murucututu,Gufo dagli occhiali,Очковая сова,Gözlüklü baykuş
+BIRD_NARCISSUS,姬鹟,Narcissus,姬鶲,キビタキ,황금새,Narzissenschnäpper,Gobemouche narcisse,Papamoscas narciso,Papa-moscas-narciso,Pigliamosche narciso,Нарциссовая мухоловка,Nergis sinekkapanı
+BIRD_BLUEFLYCATCHER,蓝白鹟,Blue Catcher,藍白鶲,オオルリ,큰유리새,Blauschnäpper,Gobemouche bleu,Papamoscas azul,Papa-moscas-azul,Pigliamosche blu,Синяя мухоловка,Mavi sinekkapan
+BIRD_IBIS,朱鹮,Ibis,朱鷺,トキ,따오기,Ibis,Ibis,Ibis,Íbis,Ibis,Ибис,Aynak
+BIRD_GREENPHEASANT,绿雉,Greenfowl,綠雉,キジ,녹색꿩,Buntfasan,Faisan vert,Faisán verde,Faisão-verde,Fagiano verde,Зелёный фазан,Yeşil sülün
+BIRD_WARBLER,树莺,Warbler,樹鶯,ウグイス,휘파람새,Grasmücke,Fauvette,Curruca,Toutinegra,Usignolo del Giappone,Камышовка,Ötleğen
+BIRD_CRANECHICK,鹤宝宝,Crane Chick,鶴寶寶,ツルのヒナ,아기 두루미,Kranichküken,Bébé grue,Grullita,Filhote de grou,Pulcino di gru,Журавлёнок,Turna yavrusu
+BIRD_REDSTART,红尾鸲,Redstart,紅尾鴝,ジョウビタキ,딱새,Rotschwanz,Rougequeue,Colirrojo,Rabirruivo,Codirosso,Горихвостка,Kızılkuyruk
+BIRD_HAWKOWL,鹰鸮,Hawk Owl,鷹鴞,アオバズク,솔부엉이,Sperbereule,Chouette épervière,Cárabo gavilán,Coruja-gavião,Civetta falco,Ястребиная сова,Atmaca baykuşu
+BIRD_EAGLEOWL,雕鸮,Eagle Owl,鵰鴞,ワシミミズク,수리부엉이,Uhu,Grand-duc,Búho real,Bufo-real,Gufo reale,Филин,Puhu
+OUTFIT_SUNNY_1,农夫,Farmer,農夫,のうふ,농부,Bauer,Fermier,Granjero,Fazendeiro,Contadino,Фермер,Çiftçi
+OUTFIT_SUNNY_2,飞行员,Pilot,飛行員,パイロット,조종사,Pilot,Pilote,Piloto,Piloto,Pilota,Пилот,Pilot
+OUTFIT_SUNNY_3,蛋壳,Eggshell,蛋殼,たまごのから,달걀껍데기,Eierschale,Coquille,Cascarón,Casca de ovo,Guscio,Скорлупка,Yumurta kabuğu
+OUTFIT_SUNNY_4,蜜蜂,Bee,蜜蜂,ミツバチ,꿀벌,Biene,Abeille,Abeja,Abelha,Ape,Пчёлка,Arı
+OUTFIT_SUNNY_5,向日葵,Sunflower,向日葵,ひまわり,해바라기,Sonnenblume,Tournesol,Girasol,Girassol,Girasole,Подсолнух,Ayçiçeği
+OUTFIT_SKY_1,水手,Sailor,水手,セーラー,선원,Matrose,Marin,Marinero,Marinheiro,Marinaio,Моряк,Denizci
+OUTFIT_SKY_2,宇航员,Astronaut,太空人,うちゅうひこうし,우주비행사,Astronaut,Astronaute,Astronauta,Astronauta,Astronauta,Космонавт,Astronot
+OUTFIT_SKY_3,雨衣,Raincoat,雨衣,レインコート,비옷,Regenmantel,Ciré,Impermeable,Capa de chuva,Impermeabile,Дождевик,Yağmurluk
+OUTFIT_SKY_4,鲸鱼,Whale,鯨魚,クジラ,고래,Wal,Baleine,Ballena,Baleia,Balena,Кит,Balina
+OUTFIT_SKY_5,云朵仙子,Cloud Fairy,雲朵仙子,くものようせい,구름 요정,Wolkenfee,Fée des nuages,Hada de nube,Fada da nuvem,Fata delle nuvole,Облачная фея,Bulut perisi
+OUTFIT_BERRY_1,纸杯蛋糕,Cupcake,紙杯蛋糕,カップケーキ,컵케이크,Cupcake,Cupcake,Magdalena,Cupcake,Cupcake,Капкейк,Kek
+OUTFIT_BERRY_2,画家,Painter,畫家,がか,화가,Maler,Peintre,Pintora,Pintora,Pittrice,Художник,Ressam
+OUTFIT_BERRY_3,芭蕾舞者,Ballerina,芭蕾舞者,バレリーナ,발레리나,Ballerina,Ballerine,Bailarina,Bailarina,Ballerina,Балерина,Balerin
+OUTFIT_BERRY_4,草莓,Strawberry,草莓,いちご,딸기,Erdbeere,Fraise,Fresa,Morango,Fragola,Клубничка,Çilek
+OUTFIT_BERRY_5,樱花,Sakura,櫻花,さくら,벚꽃,Kirschblüte,Sakura,Sakura,Sakura,Sakura,Сакура,Sakura
+OUTFIT_MINT_1,蘑菇,Mushroom,蘑菇,キノコ,버섯,Pilz,Champignon,Seta,Cogumelo,Fungo,Грибок,Mantar
+OUTFIT_MINT_2,童子军,Scout,童子軍,スカウト,스카우트,Pfadfinder,Scout,Explorador,Escoteiro,Scout,Скаут,İzci
+OUTFIT_MINT_3,南瓜,Pumpkin,南瓜,かぼちゃ,호박,Kürbis,Citrouille,Calabaza,Abóbora,Zucca,Тыква,Balkabağı
+OUTFIT_MINT_4,青蛙,Frog,青蛙,カエル,개구리,Frosch,Grenouille,Rana,Sapo,Rana,Лягушка,Kurbağa
+OUTFIT_MINT_5,法老,Pharaoh,法老,ファラオ,파라오,Pharao,Pharaon,Faraón,Faraó,Faraone,Фараон,Firavun
+OUTFIT_COCOA_1,学者,Scholar,學者,がくしゃ,학자,Gelehrter,Savant,Erudito,Sábio,Studioso,Учёный,Bilgin
+OUTFIT_COCOA_2,面包师,Baker,麵包師,パンや,제빵사,Bäcker,Boulanger,Panadero,Padeiro,Fornaio,Пекарь,Fırıncı
+OUTFIT_COCOA_3,睡衣,Pyjamas,睡衣,パジャマ,잠옷,Schlafanzug,Pyjama,Pijama,Pijama,Pigiama,Пижама,Pijama
+OUTFIT_COCOA_4,螺旋桨,Propeller,螺旋槳,プロペラ,프로펠러,Propeller,Hélice,Hélice,Hélice,Elica,Пропеллер,Pervane
+OUTFIT_COCOA_5,姜饼人,Gingerbread,薑餅人,ジンジャーブレッド,진저브레드,Lebkuchen,Pain d’épice,Jengibre,Biscoito,Pan di zenzero,Пряник,Zencefilli kurabiye
+OUTFIT_SNOW_1,滑雪,Skier,滑雪,スキーヤー,스키어,Skifahrer,Skieur,Esquiador,Esquiador,Sciatore,Лыжник,Kayakçı
+OUTFIT_SNOW_2,雪人,Snowman,雪人,ゆきだるま,눈사람,Schneemann,Bonhomme de neige,Muñeco de nieve,Boneco de neve,Pupazzo di neve,Снеговик,Kardan adam
+OUTFIT_SNOW_3,企鹅,Penguin,企鵝,ペンギン,펭귄,Pinguin,Pingouin,Pingüino,Pinguim,Pinguino,Пингвин,Penguen
+OUTFIT_SNOW_4,兔兔,Bunny,兔兔,うさぎ,토끼,Häschen,Lapinou,Conejito,Coelhinho,Coniglietto,Зайка,Tavşan
+OUTFIT_SNOW_5,冰雪女王,Ice Queen,冰雪女王,こおりのじょおう,얼음 여왕,Eiskönigin,Reine des glaces,Reina del hielo,Rainha do gelo,Regina dei ghiacci,Снежная королева,Buz kraliçesi
+OUTFIT_EMBER_1,消防员,Firefighter,消防員,しょうぼうし,소방관,Feuerwehr,Pompier,Bombero,Bombeiro,Pompiere,Пожарный,İtfaiyeci
+OUTFIT_EMBER_2,武士,Samurai,武士,さむらい,사무라이,Samurai,Samouraï,Samurái,Samurai,Samurai,Самурай,Samuray
+OUTFIT_EMBER_3,火焰厨师,Fire Chef,火焰廚師,ほのおのシェフ,불꽃 셰프,Feuerkoch,Chef flambeur,Chef de fuego,Chef de fogo,Chef di fuoco,Огненный повар,Ateş aşçısı
+OUTFIT_EMBER_4,狐狸,Fox,狐狸,キツネ,여우,Fuchs,Renard,Zorro,Raposa,Volpe,Лисичка,Tilki
+OUTFIT_EMBER_5,小龙,Dragon,小龍,ドラゴン,용,Drache,Dragon,Dragón,Dragão,Drago,Дракон,Ejderha
+OUTFIT_INK_1,侦探,Detective,偵探,たんてい,탐정,Detektiv,Détective,Detective,Detetive,Detective,Сыщик,Dedektif
+OUTFIT_INK_2,牛仔,Cowboy,牛仔,カウボーイ,카우보이,Cowboy,Cow-boy,Vaquero,Caubói,Cowboy,Ковбой,Kovboy
+OUTFIT_INK_3,摇滚,Rock Star,搖滾,ロックスター,록스타,Rockstar,Rock star,Estrella de rock,Astro do rock,Rockstar,Рок-звезда,Rock yıldızı
+OUTFIT_INK_4,海盗,Pirate,海盜,かいぞく,해적,Pirat,Pirate,Pirata,Pirata,Pirata,Пират,Korsan
+OUTFIT_INK_5,忍者,Ninja,忍者,にんじゃ,닌자,Ninja,Ninja,Ninja,Ninja,Ninja,Ниндзя,Ninja
+OUTFIT_HOOT_1,巫师,Wizard,巫師,まほうつかい,마법사,Zauberer,Sorcier,Mago,Mago,Mago,Волшебник,Büyücü
+OUTFIT_HOOT_2,教授,Professor,教授,きょうじゅ,교수,Professor,Professeur,Profesor,Professor,Professore,Профессор,Profesör
+OUTFIT_HOOT_3,骑士,Knight,騎士,きし,기사,Ritter,Chevalier,Caballero,Cavaleiro,Cavaliere,Рыцарь,Şövalye
+OUTFIT_HOOT_4,熊猫,Panda,熊貓,パンダ,판다,Panda,Panda,Panda,Panda,Panda,Панда,Panda
+OUTFIT_HOOT_5,幽灵,Ghost,幽靈,おばけ,유령,Gespenst,Fantôme,Fantasma,Fantasma,Fantasma,Привидение,Hayalet
+UI_NEXT_LEVEL,下一关,Next,下一關,次へ,다음,Weiter,Suivant,Siguiente,Próximo,Avanti,Дальше,Sonraki
+UI_CLAIM,领取,Claim,領取,受け取る,받기,Holen,Prendre,Recoger,Pegar,Prendi,Забрать,Al
+TASK_GO,前往,Go,前往,GO,가기,Los,Go,Ir,Ir,Vai,Вперёд,Git

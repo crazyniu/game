@@ -7,9 +7,11 @@ export class Aviary {
   static display_name(id: string): string { return this.SPECIES.find(card => card[0] === id)?.[1] ?? id; }
   /** A bird of any world that is known and can be listed. */
   static has_bird(id: string): boolean { return this.has_species(id) || Worlds.has(id); }
-  static on_level_started(p: Profile, species: string[], world = 1): string[] {
+  /** Birds are met when their slot species is on the board. A world's finale also meets the rest of that world's birds,
+   *  because some worlds never place every slot species on a board (world 2 has no ember, ink or hoot). */
+  static on_level_started(p: Profile, species: string[], world = 1, finale = false): string[] {
     const met = this.SPECIES.filter(card => species.includes(card[0]) && !p.has_met(card[0])).map(card => card[0]);
-    if (world > 1 && world <= Worlds.READY) for (const slot of species) if (Worlds.SLOTS.includes(slot) && !p.has_met(Worlds.bird(world, slot))) met.push(Worlds.bird(world, slot));
+    if (world > 1 && world <= Worlds.READY) for (const slot of Worlds.SLOTS) if ((finale || species.includes(slot)) && !p.has_met(Worlds.bird(world, slot))) met.push(Worlds.bird(world, slot));
     for (const id of met) p.met[id] = true;
     p.coins += met.length * this.NEW_SPECIES_COINS;
     return met;

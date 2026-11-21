@@ -107,12 +107,7 @@ export class Tutorial {
     if (this.instant) this.pose_still();
     else { UI.opacity(this.layer,0); tween(this.layer.getComponent(UIOpacity)!).to(.2,{opacity:255}).start(); void this.loop(this.run); }
   }
-  private caption(id:string,top:number):void {
-    const entry=Art.pack().words[id].caption, name=`art/locale/${Art.locale}/${entry.file.replace(/\.png$/,'')}`;
-    const [width,height]=Art.size(name), cap=Math.min(44,720*entry.cap/width), lineHeight=71.5*cap/44;
-    const scale=Math.min(cap/entry.cap,720/width,lineHeight/height),w=width*scale,h=height*scale;
-    UI.image(this.layer,name,[540-w/2,top+(72-h)/2,w,h]);
-  }
+  private caption(id:string,top:number):void { UI.word(this.layer,id,[160,top,760,72],'caption'); }
   private build_stage(rect: Rect): void {
     const stage = UI.group(this.layer,'Stage',rect); stage.addComponent(Mask).type=Mask.Type.GRAPHICS_RECT;
     this.worldNode = UI.group(stage,'Scene',[0,0,1080,660/SCALE]); this.worldNode.setScale(SCALE,SCALE,1);
