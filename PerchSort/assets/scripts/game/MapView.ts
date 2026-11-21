@@ -1,159 +1,116 @@
-import { Node, Mask, EventTouch, EventMouse, Graphics, Color, UITransform, UIOpacity, tween, Vec3, Tween } from 'cc';
-import { UI, Rect, Point } from './UI';
-import { Art } from './Art';
-import { BirdView } from './BirdView';
-import { Flat, ON_DARK } from './Flat';
-import { tr, word } from './I18n';
+import { Mask, Node, Sprite, Color, Vec2 } from 'cc';
+import { UI, Rect } from './UI';
 import { Kit } from './Popups';
+import { Flat, ON_DARK, ON_LIGHT, onTone } from './Flat';
+import { tr, word } from './I18n';
 import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
 import { Levels } from '../core/Levels';
+
 interface MapCallbacks { home: () => void; level: (level: number) => void; gate: (world: number) => void; coins: () => void }
 const WORLD = ['green','bamboo','autumn','snow','blossom','mushroom','lakeside','pine','rainforest','wisteria'];
-const CARD_WIDTH = 626, STRIDE = 666, CARD_TOP = 140, CARD_HEIGHT = 900, SIDE_MARGIN = 227;
+/** fishsort's sea cards (pages/map.ts) x 1.44: two columns of upright cards. */
+const CARD_W = 475, CARD_H = 676, GAP_X = 35, GAP_Y = 37;
 
+/**
+ * The map (fishsort's sea map and level grid): every world as an upright card in two columns (its board picture, the name on a
+ * plate, "Levels a–b" and a progress bar, or a lock with the level that opens it; the current world wears "Now" and breathes).
+ * A card opens its world: 21 level tiles in a white panel (cleared blue with stars, current green, locked grey), with arrows to the
+ * neighbouring worlds.
+ */
 export class MapView {
   node: Node;
-  world = 1;
   page = false;
-  private content!: Node;
-  private cards: Node[] = [];
-  private pageNode: Node | null = null;
-  private strip!: Node;
-  private play!: Node;
-  private bar!: Node;
-  private current: number;
-  private scroll = 0;
-  private travel = 0;
-  private start = 0;
-  private pressed = false;
-  private scrollTween: Tween<{ x: number }> | null = null;
-
-  constructor(host: Node, private profile: Profile, private callbacks: MapCallbacks, world = 0, private instant = false) {
-    this.node = UI.group(host,'Map'); this.current = Progress.resume_level(profile);
-    this.world = world || Progress.world_of_level(this.current); this.build();
+  private body!: Node;
+  constructor(host: Node, private profile: Profile, private callbacks: MapCallbacks, public world = 0, private instant = false) {
+    this.node = UI.group(host, 'Map');
+    if (!this.world) this.world = Progress.world_of_level(Progress.resume_level(profile));
+    this.showWorlds();
   }
-  private build(): void {
-    UI.cover(this.node,'background_map_forest',[0,0,1080,1920]);
-    this.strip = UI.group(this.node,'WorldStrip',[0,300,1080,1096]); this.strip.addComponent(Mask).type = Mask.Type.GRAPHICS_RECT;
-    this.content = UI.group(this.strip,'Cards',[0,0,SIDE_MARGIN*2+Levels.WORLDS*STRIDE-40,1096]);
-    for (let world=1; world<=Levels.WORLDS; world++) this.cards.push(this.card(world));
-    this.strip.on(Node.EventType.TOUCH_START,(event:EventTouch)=>{
-      this.pressed=true; this.start=this.localPoint(event)[0]; this.travel=0; this.stopScroll();
-    });
-    this.strip.on(Node.EventType.TOUCH_MOVE,(event:EventTouch)=>{
-      if (!this.pressed) return;
-      const x=this.localPoint(event)[0],delta=x-this.start; this.start=x; this.travel+=Math.abs(delta);
-      if (this.travel>=18) { this.setScroll(this.scroll-delta); this.world=Math.max(1,Math.min(Levels.WORLDS,Math.round(this.scroll/STRIDE)+1)); this.selection(); }
-    });
-    this.strip.on(Node.EventType.TOUCH_END,(event:EventTouch)=>{
-      if (!this.pressed) return; this.pressed=false;
-      if (this.travel<18) {
-        const [localX,y]=this.localPoint(event),x=localX+this.scroll;
-        const index=Math.floor((x-SIDE_MARGIN)/STRIDE),left=SIDE_MARGIN+index*STRIDE;
-        if (index>=0 && index<Levels.WORLDS && x>=left && x<=left+CARD_WIDTH && y>=CARD_TOP && y<=CARD_TOP+CARD_HEIGHT) {
-          const world=index+1,enter=world===this.world||Progress.is_world_unlocked(this.profile,world);
-          UI.onTap(); this.showWorld(world); if (enter) this.enter(world);
-        }
-      } else this.showWorld(this.world);
-    });
-    this.strip.on(Node.EventType.TOUCH_CANCEL,()=>{ this.pressed=false; this.showWorld(this.world); });
-    this.strip.on(Node.EventType.MOUSE_WHEEL,(event:EventMouse)=>this.showWorld(this.world+(event.getScrollY()>0?-1:1)));
-    this.play=Kit.button(this.node,'Play',[220,1432,640,Kit.PLAY_H],'white_play',()=>this.enter(this.world));
-    this.bar=UI.group(this.node,'Bar'); this.buildBar(); this.showWorld(this.world,true);
+  private reset(background: string): void {
+    UI.clear(this.node);
+    UI.image(this.node, background, [0, 0, 1080, 1920]);
+    this.body = UI.group(this.node, 'Body');
   }
-  private localPoint(event:EventTouch):Point {
-    const location=event.getUILocation(),point=this.strip.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(location.x,location.y,0));
-    return [point.x,-point.y];
-  }
-  private stopScroll():void { this.scrollTween?.stop(); this.scrollTween=null; }
-  private buildBar():void {
-    UI.clear(this.bar);
-    Kit.close(this.bar,[32,Flat.HEAD_Y-64,128,128],()=>this.page?this.closeWorld():this.callbacks.home(),true);
-    if(!this.page)Flat.title(this.bar,tr('T_WORLDS'),540,Flat.HEAD_Y);
-  }
-  private card(world:number):Node {
-    const card=UI.group(this.content,`World_${world}`,[SIDE_MARGIN+(world-1)*STRIDE,CARD_TOP,CARD_WIDTH,CARD_HEIGHT]);
-    UI.nine(card,'island_grid_card',[0,0,CARD_WIDTH,CARD_HEIGHT],[60,60,60,60]);
-    UI.nine(card,'island_grid_card_selected',[0,0,CARD_WIDTH,CARD_HEIGHT],[60,60,60,60]).name='Chosen';
-    const window=UI.group(card,'Window',[24,24,578,852]),mask=window.addComponent(Mask); mask.type=Mask.Type.GRAPHICS_STENCIL;
-    const shape=mask.subComp as Graphics; shape.clear(); shape.roundRect(0,-852,578,852,30); shape.fill();
-    const size=Art.size(`card_scene_w${world}`),height=578*size[1]/size[0];
-    UI.image(window,`card_scene_w${world}`,[0,-(height-852)/2,578,height]);
-    const shade=UI.group(window,'NameShade',[0,852*.55,578,852*.45]).addComponent(Graphics),step=852*.45/128;
-    for(let i=0;i<128;i++) { shade.fillColor=new Color(61,31,8,Math.round(255*.55*(i+.5)/128)); shade.rect(0,-step*(i+1),578,step); shade.fill(); }
-    this.starProgress(card,world,[93,620,440,96]);
-    Flat.text(card,word(`world_${WORLD[world-1]}`),[106,754,414,104],62,ON_DARK);
-    const badge=UI.image(card,'world_medallion',[217,-84,192,192]); badge.name='WorldNumber'; Kit.number(badge,world,[51.84,53.76,88.32,80.64]);
-    if(!Progress.is_world_unlocked(this.profile,world)) { UI.tint(window,'#9e9ea8'); shade.color=new Color('#9e9ea8'); UI.piece_fit(card,'island_padlock',[313,390],[220,220]); }
-    else if(Progress.is_world_complete(this.profile,world)) UI.check_badge(card,[576,50]);
-    return card;
-  }
-  private worldStars(world:number):number {
-    let stars=0; for(let level=(world-1)*Levels.PER_WORLD+1;level<=world*Levels.PER_WORLD;level++) stars+=this.profile.best_stars(level); return stars;
-  }
-  private starProgress(parent:Node,world:number,bounds:Rect):void {
-    const stars=this.worldStars(world),total=Levels.PER_WORLD*3,fit=bounds[3]/140;
-    const holder=UI.group(parent,'Stars',[bounds[0]+14*fit,bounds[1]+14*fit,bounds[2]/fit-14,112]); holder.setScale(fit,fit,1);
-    const width=bounds[2]/fit-14,track:Rect=[63,13.44,width-63,85.12];
-    UI.nine(holder,'island_progress_track',track,[44,40,44,40]);
-    if(stars>0) {
-      const inset=track[3]*.18,inner:Rect=[track[0]+inset,track[1]+inset,track[2]-inset*2,track[3]-inset*2];
-      const clip=UI.group(holder,'ProgressFill',[inner[0],inner[1],inner[2]*stars/total,inner[3]]); clip.addComponent(Mask).type=Mask.Type.GRAPHICS_RECT;
-      UI.image_region(clip,'island_pill_green',[26,24,362,70],[0,0,inner[2],inner[3]]);
+  private picture(world: number): string { return `board_w${world}${world === 1 || world === Levels.WORLDS ? '_open' : ''}_bg`; }
+  private showWorlds(): void {
+    this.page = false;
+    this.reset('background_home_jungle');
+    const top = 210, view = 1920 - top - 40, rowH = CARD_H + GAP_Y, rows = Math.ceil(Levels.WORLDS / 2);
+    const scroll = UI.scroll(this.body, 'Scroll', [0, top, 1080, view], rows * rowH + 20);
+    const current = Progress.world_of_level(Progress.resume_level(this.profile));
+    for (let w = 1; w <= Levels.WORLDS; w++) {
+      const i = w - 1, card = this.card(scroll.content, w, w === current, [540 + (i % 2 === 0 ? -1 : 1) * (CARD_W + GAP_X) / 2 - CARD_W / 2, 10 + Math.floor(i / 2) * rowH, CARD_W, CARD_H]);
+      Kit.pop(card, Math.abs(Math.floor(i / 2) - Math.floor((current - 1) / 2)) * .05);
     }
-    UI.art(holder,'island_star_full',[-14,-14,140,140]);
-    Kit.number(holder,`${stars}/${total}`,[track[0]+56,12.32,track[2]-84,87.36]);
+    scroll.scroll.scrollToOffset(new Vec2(0, Math.max(0, Math.floor((current - 1) / 2) * rowH - CARD_H * .25)), 0);
+    Kit.close(this.body, [32, Flat.HEAD_Y - 64, 128, 128], this.callbacks.home, true);
+    Flat.title(this.body, tr('T_WORLDS'), 540, Flat.HEAD_Y);
   }
-  private selection():void {
-    this.cards.forEach((card,i)=>{card.getChildByName('Chosen')!.active=i+1===this.world;UI.tint(card.getChildByName('WorldNumber')!,i+1===this.world?'#ffffff':'#d9d9d9');});
-    if(this.play) UI.enabled(this.play,Progress.is_world_unlocked(this.profile,this.world));
-  }
-  private setScroll(value:number):void { this.scroll=Math.max(0,Math.min((Levels.WORLDS-1)*STRIDE,value)); UI.move(this.content,-this.scroll,0); }
-  showWorld(world:number,instant=false):void {
-    this.world=Math.max(1,Math.min(Levels.WORLDS,world)); this.selection(); this.stopScroll(); const target=(this.world-1)*STRIDE;
-    if(instant||this.instant) this.setScroll(target);
-    else { const state={x:this.scroll}; this.scrollTween=tween(state).to(.3,{x:target},{easing:'cubicOut',onUpdate:()=>this.setScroll(state.x)}).call(()=>{this.scrollTween=null;}).start(); }
-  }
-  private enter(world:number):void { if(Progress.is_world_unlocked(this.profile,world))this.open_world(world);else this.callbacks.gate(world); }
-  open_world(world:number):void {
-    this.stopScroll(); if(this.pageNode)Kit.destroy(this.pageNode); this.world=world; this.page=true; this.pressed=false;
-    this.strip.active=false; this.play.active=false; this.pageNode=UI.group(this.node,'WorldPage'); this.pageNode.setSiblingIndex(this.bar.getSiblingIndex()); const page=this.pageNode;
-    UI.image(page,world===1||world===Levels.WORLDS?`board_w${world}_open_bg`:`board_w${world}_bg`,[0,0,1080,1920]);
-    Flat.title(page,word(`world_${WORLD[world-1]}`),540,Flat.HEAD_Y,115,640);
-    const value=`${this.worldStars(world)}/${Levels.PER_WORLD*3}`,numberWidth=value.length*44*.6;
-    this.starProgress(page,world,[540-(numberWidth+140)/2,300,numberWidth+140,72]);
-    const previous=UI.button(page,'WorldPrevious','btn_world_previous',[24,934,112,112],()=>this.enter(world-1));
-    const next=UI.button(page,'WorldNext','btn_world_next',[944,934,112,112],()=>this.enter(world+1));
-    UI.enabled(previous,world>1); UI.enabled(next,world<Levels.WORLDS);
-    for(let i=0;i<Levels.PER_WORLD;i++) this.levelNode(page,(world-1)*Levels.PER_WORLD+i+1);
-    page.getChildByName(`Level_${this.current}`)?.setSiblingIndex(page.children.length-1);
-    this.buildBar();
-    if(!this.instant){UI.opacity(page,0);tween(page.getComponent(UIOpacity)!).to(.2,{opacity:255}).start();}
-  }
-  private levelNode(parent:Node,level:number):void {
-    const ordinal=(level-1)%Levels.PER_WORLD,x=[230,540,850][ordinal%3],y=470+Math.floor(ordinal/3)*208,state=Progress.node_state(this.profile,level);
-    const layer=UI.group(parent,`Level_${level}`);
-    UI.image(layer,state==='locked'?'level_tile_locked':'level_tile_open',[x-62,y-62,124,124]);
-    const rect:Rect=state==='locked'?[x-39.68,y-24.8,79.36,49.6]:[x-42.16,y-31,84.32,57.04];
-    const number=Kit.number(layer,ordinal+1,rect);
-    if(state==='locked'){UI.opacity(number,.55);UI.art(layer,'island_padlock',[x+27.28,y-76.88,46,46]);}
-    else for(let i=0;i<3;i++){const picture=i<this.profile.best_stars(level)?'island_star_full':'island_star_empty',ink=Art.ink(picture),height=38*ink[3]/ink[2];UI.art(layer,picture,[x-61+i*42,y+106-height,38,height],ink);}
-    if(state==='current'&&level===this.current){
-      const species=Levels.species_ids(Levels.create_board(Levels.get_level(level)))[0],side=x>540?-1:1;
-      const geometry=Art.data('layout/map_bird_geometry').species[species],animation:Rect=geometry.animation,front:Rect=geometry.front;
-      const fit=Math.min(128/animation[2],128/animation[3]),canvas=320*fit;
-      const feet:Point=[x+side*140-(front[0]+front[2]/2-160)*fit,y+57.04-(front[1]+front[3]-300)*fit];
-      BirdView.create(layer,species,[feet[0]-canvas/2,feet[1]-300*fit,canvas,canvas],{instant:this.instant});
+  private card(parent: Node, world: number, current: boolean, r: Rect): Node {
+    const open = Progress.is_world_unlocked(this.profile, world), n = UI.hit_area(parent, 'World_' + world, r, () => open ? this.open_world(world) : this.callbacks.gate(world));
+    Flat.card(n, 'f_block', [0, 0, r[2], r[3]], 240, 110);
+    const pw = r[2] - 32, ph = r[3] - 44, pic = UI.group(n, 'Picture', [16, 14, pw, ph]);
+    pic.addComponent(Mask).type = Mask.Type.GRAPHICS_RECT;
+    const image = UI.image(pic, this.picture(world), [0, (ph - pw * 1.5) / 2 - 20, pw, pw * 1.5]);
+    if (!open) { const sprite = image.getComponent(Sprite); if (sprite) { sprite.grayscale = true; sprite.color = new Color(185, 192, 210, 255); } }
+    const name = UI.group(n, 'Name', [r[2] / 2 - 194, 30, 388, 90]);
+    Flat.plateIn(name, 'f_plate_blue', [0, 0, 388, 90]);
+    Flat.text(name, word(`world_${WORLD[world - 1]}`), [24, Flat.face(90) - 32, 340, 64], 46, onTone('plate'));
+    const from = (world - 1) * Levels.PER_WORLD + 1, to = world * Levels.PER_WORLD, lowH = 144, low = UI.group(n, 'Low', [16, 14 + ph - lowH, pw, lowH]);
+    UI.fill(low, 'Shade', [0, 0, pw, lowH], '#0A1E46A0');
+    Flat.text(low, tr('MAP_RANGE', from, to), [0, 8, pw, 64], 40, ON_DARK);
+    if (open) {
+      let done = 0; for (let level = from; level <= to; level++) if (this.profile.best_stars(level) > 0) done++;
+      const bar = UI.group(low, 'Bar', [36, 82, pw - 72, 44]);
+      Flat.plateIn(bar, 'f_bar_track', [0, 0, pw - 72, 44]);
+      if (done) Flat.plate(bar, done >= Levels.PER_WORLD ? 'f_bar_green' : 'f_bar_blue', [0, 0, Math.max(44, (pw - 72) * done / Levels.PER_WORLD), 44]);
+      Flat.text(bar, `${done}/${Levels.PER_WORLD}`, [0, 0, pw - 72, 44], 32, ON_DARK);
+    } else {
+      Flat.text(low, tr('H_UNLOCKS_AT', from), [60, 76, pw - 60, 56], 38, ON_DARK);
+      UI.image(low, 'art/flat/ic_lock', [44, 80, 46, 46]);
+      UI.image(n, 'art/flat/ic_lock', [r[2] / 2 - 60, r[3] / 2 - 90, 120, 120]);
     }
-    const hit=UI.hit_area(layer,'Open',[x-82,y-76,164,190],()=>this.callbacks.level(level)); UI.enabled(hit,state!=='locked');
+    if (current) {
+      const tag = UI.group(n, 'Now', [r[2] / 2 - 86, 14 + ph - lowH - 84, 172, 72]);
+      Flat.plateIn(tag, 'j_btn_amber', [0, 0, 172, 72]);
+      Flat.text(tag, tr('LV_CURRENT'), [10, Flat.face(72) - 28, 152, 56], 38, onTone('amber'));
+    }
+    return n;
   }
-  closeWorld():void { if(this.pageNode)Kit.destroy(this.pageNode);this.pageNode=null;this.page=false;this.strip.active=true;this.play.active=true;this.showWorld(this.world,true);this.buildBar(); }
-  refresh():void { this.buildBar(); }
-  destroy():void { this.stopScroll();Kit.destroy(this.node); }
-  static preview(host:Node,profile:Profile,callbacks:MapCallbacks,state='cards'):MapView {
-    const sample=profile.duplicate_profile();sample.coins=1240;sample.highest_unlocked=8;
-    for(let level=1;level<8;level++)sample.stars[level]=level%3===0?2:3;
-    const view=new MapView(host,sample,callbacks,1,true);if(state.includes('world'))view.open_world(1);return view;
+  /** One world's 21 levels: three columns in a white panel, arrows to the neighbouring worlds. */
+  open_world(world: number): void {
+    if (!Progress.is_world_unlocked(this.profile, world)) { this.callbacks.gate(world); return; }
+    this.world = world; this.page = true;
+    this.reset(this.picture(world));
+    Kit.close(this.body, [32, Flat.HEAD_Y - 64, 128, 128], () => this.closeWorld(), true);
+    Flat.title(this.body, word(`world_${WORLD[world - 1]}`), 540, Flat.HEAD_Y, 115, 640);
+    const panel: Rect = [64, 220, 952, 1480], cellW = panel[2] / 3, rowH = (panel[3] - 40) / 7;
+    Flat.card(this.body, 'f_card', panel, 240, 116);
+    for (let i = 0; i < Levels.PER_WORLD; i++) this.levelNode((world - 1) * Levels.PER_WORLD + i + 1, panel[0] + cellW * (i % 3 + .5), panel[1] + 20 + rowH * (Math.floor(i / 3) + .5), i);
+    const navY = 1790;
+    const prev = Flat.key(this.body, 'WorldPrevious', [540 - 330, navY - 60, 120, 120], 'blue', 'f_g_back', () => this.open_world(world - 1));
+    const next = Flat.key(this.body, 'WorldNext', [540 + 210, navY - 60, 120, 120], 'blue', 'f_g_back', () => this.open_world(world + 1), .56, true);
+    UI.enabled(prev, world > 1); UI.enabled(next, world < Levels.WORLDS && Progress.is_world_unlocked(this.profile, world + 1));
+    const range = UI.group(this.body, 'Range', [540 - 170, navY - 46, 340, 92]);
+    Flat.plateIn(range, 'f_dock', [0, 0, 340, 92]);
+    Flat.text(range, `${(world - 1) * Levels.PER_WORLD + 1} - ${world * Levels.PER_WORLD}`, [0, 0, 340, 92], 46, ON_LIGHT);
+  }
+  private levelNode(level: number, x: number, y: number, index: number): void {
+    const state = Progress.node_state(this.profile, level), side = 176, n = UI.hit_area(this.body, 'Level_' + level, [x - side / 2, y - side / 2 - 14, side, side + 20], () => state === 'locked' ? this.callbacks.gate(this.world) : this.callbacks.level(level));
+    Flat.image(n, state === 'cleared' ? 'f_node_blue' : state === 'current' ? 'f_node_green' : 'f_node_gray', [0, 0, side, side * 310 / 300]);
+    Flat.text(n, String(level), [0, side * .16, side, side * .56], 64, state === 'cleared' ? onTone('blue') : state === 'current' ? onTone('green') : onTone('gray'));
+    if (state === 'locked') UI.image(n, 'art/flat/ic_lock', [side - 56, -6, 52, 52]);
+    else if (state === 'cleared') for (let s = 0; s < 3; s++) UI.art(n, s < this.profile.best_stars(level) ? 'island_star_full' : 'island_star_empty', [side / 2 - 66 + s * 44, side - 22, 44, 44]);
+    if (state === 'current' && !this.instant) Kit.breathe(n);
+    Kit.pop(n, index * .02);
+  }
+  closeWorld(): void { this.showWorlds(); }
+  refresh(): void { if (this.page) this.open_world(this.world); else this.showWorlds(); }
+  destroy(): void { Kit.destroy(this.node); }
+  static preview(host: Node, profile: Profile, callbacks: MapCallbacks, state = 'cards'): MapView {
+    const sample = profile.duplicate_profile(); sample.coins = 1240; sample.highest_unlocked = 8;
+    for (let level = 1; level < 8; level++) sample.stars[level] = level % 3 === 0 ? 2 : 3;
+    const view = new MapView(host, sample, callbacks, 1, true); if (state.includes('world')) view.open_world(1); return view;
   }
 }

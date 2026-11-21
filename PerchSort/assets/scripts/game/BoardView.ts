@@ -11,7 +11,9 @@ import { Progress } from '../meta/Progress';
 import { UI, Point, Rect } from './UI';
 import { Art } from './Art';
 import { BirdView } from './BirdView';
-import { Flat, ON_DARK } from './Flat';
+import { Flat, ON_DARK, onTone } from './Flat';
+import { Fx } from './Fx';
+import { tr } from './I18n';
 
 export interface BoardCallbacks {
   settle(session: GameSession): void;
@@ -45,7 +47,8 @@ export class BoardView {
   static readonly BIRD_SIDE = 170 * BoardView.BIRD_SCALE;
   static readonly PERCH_TOP = 600;
   static readonly PERCH_BOTTOM = 1640;
-  static readonly TOOL_SIZE = 136;
+  static readonly TOOL_SIZE = 150;
+  static readonly TOOL_KEYS = ['TOOL_FIREFLY', 'TOOL_SPROUT', 'TOOL_OWL_EYE', 'TOOL_WAKE_BELL', 'TOOL_SCARECROW', 'TOOL_SPRING_RAIN'];
   static readonly TOOL_Y = 1736;
   static readonly HINT_HAND_SCALE = .75;
   static readonly HINT_HOLE_HEAD = 165;
@@ -168,7 +171,7 @@ export class BoardView {
     this.buildHouse();
     this.status = UI.group(this.hud, 'Status', [28,48, this.statusWidth(),92]);
     const gear = UI.hit_area(this.hud, 'Settings', [928,36,128,128], () => { if(!this.state.is_won()){this.suspend_input(); callbacks.settings();} });
-    UI.art(gear, 'hud_gear_button', [8,8,112,112]);
+    UI.image(gear, 'art/flat/f_key_blue', [12,12,104,104]); UI.image(gear, 'art/flat/f_g_gear', [35,30,58,58]);
     this.skillRow = UI.group(this.hud, 'SkillRow');
     this.buildSkillRow();
     this.tools = UI.group(this.hud, 'Tools');
@@ -435,8 +438,7 @@ export class BoardView {
   }
   private buildStatus():void {
     UI.clear(this.status); const width=this.statusWidth(),keep=GameSession.moves_left_for_star(this.session.move_count(),this.session.par);
-    const shadow=UI.group(this.status,'Shadow',[0,6,width,92]);this.hudPill(shadow,width,92);UI.tint(shadow,'#2e1f0d');UI.opacity(shadow,.38);
-    this.hudPill(this.status,width,92);
+    Flat.plateIn(this.status,'f_hud',[0,0,width,92]);
     const stars=this.session.stars();
     for(let i=0;i<3;i++) UI.image(this.status,i<stars?'island_star_full':'island_star_empty',[30+i*48,23,46,46],true);
     if(keep>=0){ UI.art(this.status,'icon_star_budget_steps',[186,23,46,46],[317,217,652,801]);this.number(this.status,String(keep),[238,24,width-268,44],-1); }
@@ -468,10 +470,15 @@ export class BoardView {
     const width=tools.length*side+(tools.length-1)*gap;
     tools.forEach((kind,i)=>{
       const center:Point=[540-width/2+side/2+i*(side+gap),BoardView.TOOL_Y];this.toolSlots.set(kind,center);
-      const button=UI.button(this.tools,kind<0?'Undo':`Tool_${kind}`,'hud_tool_slot',[center[0]-side/2,center[1]-side/2,side,side],()=>{if(kind<0)void this.undo();else void this.use_tool(kind);});
+      // fishsort's skill key: a translucent square, the picture, its name below, the count on a red tag (a green plus when none is left)
+      const button=UI.hit_area(this.tools,kind<0?'Undo':`Tool_${kind}`,[center[0]-side/2,center[1]-side/2,side,side],()=>{if(kind<0)void this.undo();else void this.use_tool(kind);});
+      UI.image(button,'art/flat/f_skill',[0,0,side,side]);
       const content:Rect[]=[[19,11,304,371],[16,17,333,289],[17,12,366,359],[16,17,368,335],[16,16,387,395],[16,17,319,386]];
-      UI.art(button,kind<0?'island_icon_undo':BoardView.TOOL_PICTURES[kind],[18,18,100,100],kind<0?undefined:content[kind]);
-      const stock=kind<0?this.session.undos_left:this.state.inventory[kind];this.number(button,stock>0?String(stock):'+',[0,142,136,46]);
+      UI.art(button,kind<0?'island_icon_undo':BoardView.TOOL_PICTURES[kind],[side*.2,side*.08,side*.6,side*.6],kind<0?undefined:content[kind]);
+      Flat.text(button,tr(kind<0?'UI_UNDO':BoardView.TOOL_KEYS[kind]),[4,side*.7,side-8,side*.26],Math.round(side*.17),ON_DARK);
+      const stock=kind<0?this.session.undos_left:this.state.inventory[kind];
+      if(stock>0){const tag=UI.group(button,'Count',[side-58,-14,72,50]);Flat.plateIn(tag,'j_btn_red',[0,0,72,50]);Flat.text(tag,String(Math.min(99,stock)),[4,Flat.face(50)-20,64,40],32,onTone('red'));}
+      else UI.image(button,'art/flat/f_key_green',[side-48,-14,60,60]),UI.image(button,'art/flat/f_g_plus',[side-37,-6,38,38]);
       UI.enabled(button,kind<0||stock===0||this.session.booster_has_effect(kind));
       if(kind===Booster.FIREFLY&&this.hintWaiting)UI.opacity(button,.6);
     });
@@ -876,17 +883,34 @@ export class BoardView {
     void this.animate(.35,t=>{this.house.setScale(1+Math.sin(t*Math.PI*2)*.1,1-Math.sin(t*Math.PI*2)*.1,1);});
     void this.animate(.8,t=>UI.opacity(this.glow,Math.sin(t*Math.PI)*.9));
   }
-  /** The chorus combo beside the house: x2, x3 ... and the 5 feathers it pays, popping in and floating up. */
+  /**
+   * fishsort's combo (game/gameView.ts): "COMBO xN" beside the house with sparks; at x3, x5 and x8 a praise word slams down in the
+   * middle of the screen on a tier-coloured glow and a turning burst star, with a flash, two shock rings and sparks.
+   */
   private combo(chain:number):void {
     if(this.instant)return;
-    const generation=this.generation,house=UI.rect(this.house),w=250,h=200,x=house[0]+house[2]+12,y=house[1]+house[3]*.2;
-    const box=UI.group(this.effects,'Combo',[x,y,w,h]);
-    UI.number(box,'x'+chain,[0,0,w,120],'gold',-1);UI.art(box,'icon_purchase_feather',[4,130,64,64]);UI.number(box,'+5',[76,134,150,56],'gold',-1);
+    const generation=this.generation,house=UI.rect(this.house),cx=house[0]+house[2]+170,cy=house[1]+house[3]*.45,w=340,h=130;
+    const holder=UI.group(this.effects,'Combo',[cx-w/2,cy-h/2,w,h]);
+    Flat.text(holder,tr('UI_COMBO_WORD'),[0,0,150,h],44,ON_DARK,1);
+    Flat.text(holder,'×'+chain,[158,0,182,h],92,{color:'#FFD640',outline:'#C47400'},-1);
+    Fx.sparkle(this.effects,cx+40,cy,10,140,'#FFD640',44);
     this.callbacks.sound('star_'+Math.min(3,chain-1));
     void this.animate(1.3,t=>{
-      const s=t<.15?.5+.65*t/.15:t<.25?1.15-.15*(t-.15)/.1:1;
-      box.setScale(s,s,1);UI.move(box,x+w*(1-s)/2,y-90*t+h*(1-s)/2);UI.opacity(box,t<.7?1:1-(t-.7)/.3);
-    },'linear').then(()=>{if(this.valid(generation)&&box.isValid){box.removeFromParent();box.destroy();}});
+      const s=t<.12?.4+.8*t/.12:t<.22?1.2-.2*(t-.12)/.1:1;
+      holder.setScale(s,s,1);UI.move(holder,cx-w/2+w*(1-s)/2,cy-h/2-40*t+h*(1-s)/2);UI.opacity(holder,t<.75?1:1-(t-.75)/.25);
+    },'linear').then(()=>{if(this.valid(generation)&&holder.isValid){holder.removeFromParent();holder.destroy();}});
+    const tier=[3,5,8].indexOf(chain);
+    if(tier>=0)this.praise(tier);
+  }
+  private praise(tier:number):void {
+    const fill=['#96F0FF','#FFDE46','#FF9678'][tier],glow=['#5BD7FF','#FFC322','#FF6A4A'][tier],x=540,y=760;
+    Fx.glowPop(this.effects,x,y,640,glow,1.1);
+    const star=Fx.piece(this.effects,'j_burst',x,y,320,344);star.setScale(.2,.2,1);
+    tween(star).to(.2,{scale:new Vec3(1.1,1.1,1)},{easing:'quadOut'}).to(.12,{scale:new Vec3(1,1,1)}).start();tween(star).by(1.3,{angle:-50}).start();
+    const holder=UI.group(this.effects,'Praise',[0,y-90,1080,180]),label=Flat.text(holder,tr('UI_PRAISE_'+(tier+1)),[0,0,1080,180],120,{color:fill,outline:'#0B2A73'});
+    const word=label.node;word.setScale(2.4,2.4,1);word.angle=-8;
+    tween(word).to(.15,{scale:new Vec3(.9,.9,1),angle:0},{easing:'quadIn'}).call(()=>{Fx.flash(this.effects,glow,110);Fx.ring(this.effects,x,y,80,620,glow);Fx.ring(this.effects,x,y,40,360,'#FFFFFF');Fx.sparkle(this.effects,x,y,24,380,glow,64);})
+      .to(.14,{scale:new Vec3(1.06,1.06,1)},{easing:'quadOut'}).to(.1,{scale:new Vec3(1,1,1)}).delay(.8).call(()=>{if(holder.isValid)holder.destroy();if(star.isValid)star.destroy();}).start();
   }
   private birdCenter(bird:BirdView):Point{const rect=UI.rect(bird.node);return [rect[0]+rect[2]/2,rect[1]+rect[3]*.45];}
   private giftTargets(events:GameEvent[],index:number):Point[] {
