@@ -166,9 +166,11 @@ PLIST
   echo "✓ 已上传到 App Store Connect，处理完（15–30 分钟）在 App 的「构建版本」里能选到"
 }
 
-# Google Play upload key: signing settings live in ~/.gradle/gradle.properties (not in Git). Created here on the first AAB:
-# the user types the password, the key file stays outside the repository, and must be backed up (Google resets lost keys).
-GRADLE_PROPS="$HOME/.gradle/gradle.properties"
+# Google Play upload key: this game's signing settings live in their own file outside Git, never in the shared
+# ~/.gradle/gradle.properties, which another game's key can occupy. Created here on the first AAB: the user types the
+# password, the key file stays outside the repository, and must be backed up (Google resets lost keys).
+KEY_PROPS="$HOME/keys/perchsort-upload.properties"
+key_prop() { grep -E "^$1=" "$KEY_PROPS" 2>/dev/null | tail -1 | cut -d= -f2-; }
 find_keytool() {
   local k
   for k in "$(command -v keytool 2>/dev/null)" "${JAVA_HOME:-}/bin/keytool" \
@@ -179,9 +181,9 @@ find_keytool() {
 }
 android_upload_key() {
   local store pw pw2 kt
-  store="$(grep -E '^RELEASE_STORE_FILE=' "$GRADLE_PROPS" 2>/dev/null | tail -1 | cut -d= -f2-)"
+  store="$(key_prop RELEASE_STORE_FILE)"
   if [ -n "$store" ]; then
-    [ -f "$store" ] || die "~/.gradle/gradle.properties 里的上传密钥 ${store} 不存在（换了电脑？从备份拷回来）"
+    [ -f "$store" ] || die "${KEY_PROPS} 里的上传密钥 ${store} 不存在（换了电脑？从备份拷回来）"
     echo "· 上传密钥：${store}"
     return 0
   fi
@@ -192,7 +194,7 @@ android_upload_key() {
   printf '密钥文件放哪（回车 = %s）：' "$HOME/keys/perchsort-upload.jks"
   IFS= read -r store || exit 1
   store="${store:-$HOME/keys/perchsort-upload.jks}"
-  [ ! -e "$store" ] || die "${store} 已经存在：要用它就手动把四个 RELEASE_ 变量写进 ~/.gradle/gradle.properties（docs/10 第 4 节）"
+  [ ! -e "$store" ] || die "${store} 已经存在：要用它就把四个 RELEASE_ 变量写进 ${KEY_PROPS}"
   while :; do
     printf '设一个密码（至少 6 位，输入时不显示）：'; IFS= read -rs pw || exit 1; echo
     printf '再输一遍：'; IFS= read -rs pw2 || exit 1; echo
@@ -203,17 +205,16 @@ android_upload_key() {
   "$kt" -genkeypair -keystore "$store" -alias upload -keyalg RSA -keysize 2048 -validity 10000 \
     -storepass "$pw" -keypass "$pw" -dname "CN=$(node -p 'require("./game.json").name.en || "Game"' 2>/dev/null)" >/dev/null 2>&1 \
     || die "生成上传密钥失败"
-  mkdir -p "$(dirname "$GRADLE_PROPS")"
+  mkdir -p "$(dirname "$KEY_PROPS")"
   {
-    echo ""
     echo "# Google Play 上传密钥（./package.sh 生成于 $(date +%F)）"
     echo "RELEASE_STORE_FILE=$store"
     echo "RELEASE_STORE_PASSWORD=$pw"
     echo "RELEASE_KEY_ALIAS=upload"
     echo "RELEASE_KEY_PASSWORD=$pw"
-  } >> "$GRADLE_PROPS"
-  chmod 600 "$GRADLE_PROPS" "$store"
-  echo "✓ 上传密钥：${store}（签名配置写进了 ~/.gradle/gradle.properties）——现在就把这个文件和密码备份到别处"
+  } > "$KEY_PROPS"
+  chmod 600 "$KEY_PROPS" "$store"
+  echo "✓ 上传密钥：${store}（签名配置在 ${KEY_PROPS}）——现在就把这两个文件和密码备份到别处"
 }
 
 # 16 KB memory pages (Google Play, targetSdk 35+): every .so LOAD segment in the AAB must be 16 KB (0x4000) aligned.
@@ -290,14 +291,21 @@ android_build() {
     project) echo "Gradle 工程：$proj" ;;
     apk) (cd "$proj" && ./gradlew assembleDebug) && echo "✓ apk：$(find "$proj" -name '*.apk' -path '*debug*' | head -1)" ;;
     aab)
-      # Signing: the four RELEASE_ variables in ~/.gradle/gradle.properties (not in Git).
-      local aab
-      (cd "$proj" && ./gradlew bundleRelease) || die "AAB 编译失败"
+      # Signing: this game's key passed on the command line, which overrides any RELEASE_ value in gradle.properties.
+      local aab kt release signer
+      find "$proj" -path '*/outputs/bundle/*' -name '*.aab' -delete
+      (cd "$proj" && ./gradlew bundleRelease -PRELEASE_STORE_FILE="$(key_prop RELEASE_STORE_FILE)" \
+        -PRELEASE_STORE_PASSWORD="$(key_prop RELEASE_STORE_PASSWORD)" -PRELEASE_KEY_ALIAS="$(key_prop RELEASE_KEY_ALIAS)" \
+        -PRELEASE_KEY_PASSWORD="$(key_prop RELEASE_KEY_PASSWORD)") || die "AAB 编译失败"
       aab="$(find "$proj" -path '*/outputs/bundle/release/*.aab' | head -1)"
       [ -n "$aab" ] || die "没找到打好的 AAB"
-      "$(find_keytool)" -printcert -rfc -jarfile "$aab" 2>/dev/null | grep -q -- '-----BEGIN CERTIFICATE-----' || die "${aab} 没有签名（检查 ~/.gradle/gradle.properties 的 RELEASE_ 变量）"
+      kt="$(find_keytool)"
+      release="$("$kt" -list -v -keystore "$(key_prop RELEASE_STORE_FILE)" -storepass "$(key_prop RELEASE_STORE_PASSWORD)" \
+        -alias "$(key_prop RELEASE_KEY_ALIAS)" 2>/dev/null | awk '/SHA256:/{print $2; exit}')"
+      signer="$("$kt" -printcert -jarfile "$aab" 2>/dev/null | awk '/SHA256:/{print $2; exit}')"
+      [ -n "$release" ] && [ "$release" = "$signer" ] || die "${aab} 不是用本游戏的上传密钥签的（${KEY_PROPS}）"
       android_check_16k "$aab" "$ndk" || die "16 KB 内存页检查没过，这个 AAB 不要传（${aab}）"
-      echo "✓ aab：${aab}（已用上传密钥签名、真实广告位；传到 Google Play Console）" ;;
+      echo "✓ aab：${aab}（已用本游戏的上传密钥签名、真实广告位；传到 Google Play Console）" ;;
     *) die "未知的 Android 产物" ;;
   esac
 }
