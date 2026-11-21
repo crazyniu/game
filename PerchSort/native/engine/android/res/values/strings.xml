@@ -1,0 +1,4 @@
+<resources>
+    <!-- App name (tools/native/apply.mjs, game.json). Not app_name: Creator generates that from the build name. -->
+    <string name="game_app_name">Perch Sort</string>
+</resources>

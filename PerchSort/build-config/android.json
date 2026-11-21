@@ -21,7 +21,7 @@
         "landscapeRight": false,
         "landscapeLeft": false
       },
-      "apiLevel": 35,
+      "apiLevel": 36,
       "appABIs": [
         "arm64-v8a",
         "armeabi-v7a"

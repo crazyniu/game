@@ -1,0 +1,23 @@
+{
+  "name": {
+    "en": "Perch Sort",
+    "zh_CN": "小鸟归巢"
+  },
+  "version": "1.0.0",
+  "adsEnabled": true,
+  "privacyPolicy": "",
+  "ads": {
+    "ios": {
+      "rewarded": "ca-app-pub-3940256099942544/1712485313",
+      "interstitial": "ca-app-pub-3940256099942544/4411468910"
+    },
+    "android": {
+      "rewarded": "ca-app-pub-3940256099942544/5224354917",
+      "interstitial": "ca-app-pub-3940256099942544/1033173712"
+    },
+    "wechat": {
+      "rewarded": "",
+      "interstitial": ""
+    }
+  }
+}
