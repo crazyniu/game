@@ -35,7 +35,6 @@ export class Art {
   static data(path:string):any { return this.manifest.data[path.replace(/^res:\/\//,'').replace(/\.json$/,'')]; }
   static frames(prefix:string):string[] {const out:string[]=[];for(let i=1;this.has(`${prefix}_${String(i).padStart(2,'0')}`);i++)out.push(`${prefix}_${String(i).padStart(2,'0')}`);return out;}
   static setLocale(code:string):void {this.locale=code.startsWith('zh')?'zh':'en';}
-  static pack():any{return this.data(`art/locale/${this.locale}/manifest`);}
   static load(name:string,background=false):Promise<SpriteFrame> {
     const key=this.key(name),e=this.entry(name);
     if(e.piece)this.sheetUse.set(e.path,this.generation);
@@ -93,12 +92,5 @@ export class Art {
   }
   static region(source:SpriteFrame, region:Rect):SpriteFrame {
     const sf=new SpriteFrame();sf.texture=source.texture;sf.rect=new CocosRect(...region);sf.originalSize=new Size(region[2],region[3]);sf.offset=new Vec2(0,0);sf.packable=false;return sf;
-  }
-  static painted(id:string):{name:string;region?:Rect}{const e=this.pack().painted[id];if(!e)throw new Error(`Missing painted word ${this.locale}:${id}`);return {name:`art/locale/${this.locale}/${e.file.replace(/\.png$/,'')}`,region:e.region};}
-  static word(id:string,style='brown'):{name:string;region?:Rect}{
-    const variants=this.pack().words[id];
-    if(!variants)throw new Error(`Missing word ${this.locale}:${id}`);
-    const e=variants[style]??variants.caption??variants.brown??variants.white??variants.gold;
-    return e.painted_id?this.painted(e.painted_id):{name:`art/locale/${this.locale}/${e.file.replace(/\.png$/,'')}`};
   }
 }

@@ -61,8 +61,6 @@ export class Kit {
   static instant = false;
   /** Width of a number in the game font (digits are about 0.6 of the size). */
   static numberWidth(value: string, height: number): number { return String(value).length * height * .6; }
-  static glyph(c: string): string { return 'digit_ui_' + (({'/':'slash','+':'plus','×':'x','x':'x'} as Record<string,string>)[c] || c); }
-  /** A number in the game font, white with a navy outline. */
   static number(parent: Node, value: string | number, rect: Rect, align = 0): Node { return Flat.text(parent, String(value).replace(/x/g, '×'), rect, Math.round(rect[3] * .92), ON_DARK, align).node.parent!; }
   static lettering(parent:Node,key:string,rect:Rect):Node { return Flat.text(parent,word(key),rect,Math.round(Math.min(rect[3]*.8,72)),ON_LIGHT).node.parent!; }
   static readonly BUTTON_H=176;
@@ -99,12 +97,6 @@ export class Kit {
   static close(parent:Node,at:Point|Rect,action:()=>void,back=false):Node { return Flat.key(parent,back?'Back':'Close',[at[0],at[1],at[2]??120,at[3]??120],back?'blue':'red',back?'f_g_back':'f_g_x',action,.5); }
   /** A title on a blue plate, centred where the painted sign used to be. */
   static sign(parent:Node,key:string,rect:Rect):Node { return Flat.title(parent,word(key),rect[0]+rect[2]/2,rect[1]+rect[3]*.6); }
-  static simpleWord(parent:Node,id:string,style:string,anchor:Point,cap:number,align=0):Node {
-    const name=`label_${id}_${style}_${Art.locale}`,meta=Art.data('art/labels/labels'),asset='art/labels/'+name,size=Art.size(asset),k=cap/meta.cap;
-    const node=UI.image(parent,asset,[anchor[0]-size[0]*k*(.5+.5*align),anchor[1]-meta[name]*k,size[0]*k,size[1]*k]);if(style==='ink'||style==='soft')UI.warm(node);return node;
-  }
-  static drawNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
-  static chestNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
   static centerPivot(node:Node):void { const r=UI.rect(node);node.getComponent(UITransform)!.setAnchorPoint(.5,.5);node.setPosition(r[0]+r[2]/2,-r[1]-r[3]/2); }
   static stop(node:Node):void { Tween.stopAllByTarget(node); const opacity=node.getComponent(UIOpacity); if(opacity) Tween.stopAllByTarget(opacity); node.children.forEach(Kit.stop); }
   static destroy(node:Node):void { if(!isValid(node,true))return;Kit.stop(node); node.removeFromParent(); node.destroy(); }
@@ -367,9 +359,9 @@ export class Popups {
   }
   chest():Dialog {
     const ready=Progress.chests_ready(this.profile),collected=Math.max(0,Math.min(Progress.CHEST_STARS,Progress.chest_progress(this.profile)));
-    const d=Kit.page(this.host,'StarChest','star_chest_title',this.profile.coins,this.callbacks.close,this.callbacks.coins);this.chestHero(d,false);Kit.chestNumber(d.content,String(ready),[400,432,280,104]).name='ReadyCount';
+    const d=Kit.page(this.host,'StarChest','star_chest_title',this.profile.coins,this.callbacks.close,this.callbacks.coins);this.chestHero(d,false);Kit.number(d.content,String(ready),[400,432,280,104]).name='ReadyCount';
     const progress=UI.group(d.content,'Progress',[168,1180,744,112]);UI.nine_region(progress,'panel_chest_progress',[112,285,1946,157],[63,13.44,681,85.12],[87,0,87,0],85.12/157);
-    if(collected)UI.nine_region(progress,'fill_chest_progress',[160,273,1846,177],[72,22.44,Math.max(67,663*collected/Progress.CHEST_STARS),67.12],[98,0,98,0],67.12/177);UI.art(progress,'island_star_full',[-14,-14,140,140]);Kit.chestNumber(progress,`${collected}/${Progress.CHEST_STARS}`,[0,24,744,62]);
+    if(collected)UI.nine_region(progress,'fill_chest_progress',[160,273,1846,177],[72,22.44,Math.max(67,663*collected/Progress.CHEST_STARS),67.12],[98,0,98,0],67.12/177);UI.art(progress,'island_star_full',[-14,-14,140,140]);Kit.number(progress,`${collected}/${Progress.CHEST_STARS}`,[0,24,744,62]);
     let busy=false;const open=Kit.button(d.content,'OpenChest',[325,1343,430,Kit.BUTTON_H],'white_open',()=>{if(busy)return;busy=true;UI.enabled(open,false);UI.enabled(play,false);const got=Progress.open_chest(this.profile);if(got.coins===undefined)return;this.save();this.animateChest(d,()=>{d.close();this.chest_rewards(got.coins,got.boosters);});});UI.enabled(open,ready>0);
     const play=Kit.button(d.content,'Play',[325,1575,430,Kit.BUTTON_H],'white_play',()=>d.invoke(()=>this.callbacks.play(Progress.resume_level(this.profile))));return d;
   }
