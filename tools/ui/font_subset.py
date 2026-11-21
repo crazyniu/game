@@ -19,18 +19,18 @@ ROOT = Path(__file__).resolve().parents[2]
 CLIENT = ROOT / "PerchSort"
 FONT = CLIENT / "assets/resources/font/game.ttf"
 RAW = next((d for d in (ROOT / "art/raw/fonts", Path.home() / "orca/projects/fishsort/art/raw/fonts", Path.home() / "Documents/projects/fishsort/art/raw/fonts") if d.exists()), ROOT / "art/raw/fonts")
-# 未裁剪的完整原字体（8 MB，不进仓库）
+# The full source font (8 MB, not in the repository)
 FULL_FONT = RAW / "KNMaiyuan-Regular.ttf"
 FULL_FONT_URL = "https://github.com/maoken-fonts/KNMaiyuan/releases"
-# 游戏字体要的字：ASCII 以外的全部字符（中日文、拉丁字母的附加符号、西里尔字母），韩文除外——荆南麦圆体没有韩文，
-# 韩文另裁一份资源圆体韩文版（见 KO_*）。2026-11-19 加日韩、欧洲语言和繁体（docs/10 第 8 节）
+# Characters the game font keeps: every non-ASCII character (CJK, kana, Latin accents, Cyrillic) except Hangul; KN Maiyuan has no
+# Korean, so Korean gets its own cut of Resource Han Rounded KR (KO_*).
 NON_ASCII = re.compile(r"[^\x00-\x7e]")
 HANGUL = re.compile(r"[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]")
-# 字符串字面量；行尾 // 注释（前面不是 : 免得切掉 https://）和整行 * 注释先去掉
+# String literals; trailing // comments (not after ':' so https:// survives) and whole-line * comments are dropped first
 LITERAL = re.compile(r"'[^']*'|\"[^\"]*\"|`[^`]*`")
 COMMENT = re.compile(r"(?<!:)//.*$|^\s*/?\*.*$")
 PUNCT = "，。！？、；：“”‘’（）《》〈〉【】「」『』—…·～￥％＋－＝×÷℃°•★☆♥♡→←↑↓✓✕−∞«»„‚–’¡¿"
-# 土耳其语的 ğ ş İ Ş Ğ 荆南麦圆体没有：用字体里有的字母和附加符号拼成组合字形（add_composites）。拼用的符号也要留下
+# KN Maiyuan lacks Turkish ğ ş İ Ş Ğ: they are composed from a letter and a mark it has (add_composites); the marks are kept too
 COMPOSITES = {
     "ğ": ("g", "\u0306", "above"),
     "Ğ": ("G", "\u0306", "above"),
@@ -45,7 +45,7 @@ KO_SAMPLE = "레벨코인설정상점도감출석시작"
 
 
 def csv_columns() -> dict[str, str]:
-    """strings.csv 每一列（语言）的全部文字"""
+    """All text of each language column of strings.csv."""
     import csv
 
     cols: dict[str, list[str]] = {}
@@ -58,7 +58,7 @@ def csv_columns() -> dict[str, str]:
 
 
 def used_chars() -> str:
-    """游戏字体：除韩文那一列以外的文案、配置、代码字面量里的非 ASCII 字符（韩文字母不要）"""
+    """Non-ASCII characters of the strings (all columns but Korean), config JSON and script literals, without Hangul."""
     chars: set[str] = set()
     for lang, text in csv_columns().items():
         if lang != "ko":
@@ -79,7 +79,7 @@ def used_chars() -> str:
 
 
 def add_composites(path: Path) -> None:
-    """原字体缺的字母用「字母 + 附加符号」拼成组合字形（不画新轮廓）：符号横向居中对准字母，上方的放在字母顶上，下方的贴着基线"""
+    """Compose letters the font lacks from letter + mark (no new outlines): the mark centred on the letter, above its top or at the baseline."""
     from fontTools.ttLib import TTFont
     from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
 
@@ -123,27 +123,27 @@ def add_composites(path: Path) -> None:
         glyf.glyphOrder = order
         for gname in order[-len(added):]:
             glyf[gname].recalcBounds(glyf)
-        print(f"拼出组合字形：{''.join(added)}")
+        print(f"composed glyphs: {''.join(added)}")
         f.save(str(path))
 
 
-# 字体内部的名字换成不带空格的：原名（「Resource Han Rounded CN」「KN Maiyuan」）带空格，微信的 wx.loadFont 读出的 family
-# 拼进 canvas 的 font 串里认不出来，界面退回系统字体（2026-11-18；Cocos 论坛 topic/145453 同样的问题，去掉空格解决）
+# The font's internal family name has no spaces: WeChat's wx.loadFont family with spaces is not recognised in the canvas font
+# string and the UI falls back to a system font (Cocos forum topic/145453).
 FAMILY = "BirdGame"
 
 
-# Cocos 把基线放在节点中心往下 0.37 个字号处（docs/04 第 9 节量过）；汉字的字形中心要落在节点中心
+# Cocos puts the baseline 0.37 of the font size below the node centre; CJK glyph centres must sit on the node centre
 CENTER = 0.37
-# 汉字（取样平均）的字形高占几个字号：原来的资源圆体是 0.93，界面的字号、留白都是按它定的
+# Height of a CJK glyph (sample average) as a share of the font size; UI sizes assume 0.93
 CJK_HEIGHT = 0.93
 SAMPLE = "签到商店图鉴宝箱开始关音乐设置选关第"
 
 
 def normalize(path: Path, sample: str = SAMPLE) -> None:
     """
-    字形大小、上下位置对齐到原来的资源圆体，界面代码里的字号和居中都不用改：
-    1. 改 unitsPerEm 让字整体按比例放大缩小（字宽、字距跟着一起变）；
-    2. 全部字形整体上下挪，让汉字的字形中心对准节点中心。
+    Match glyph size and vertical position to the sizes the UI assumes:
+    1. change unitsPerEm so every glyph scales (widths and spacing too);
+    2. move every glyph up or down so CJK glyph centres sit on the node centre.
     """
     from fontTools.ttLib import TTFont
 
@@ -155,7 +155,7 @@ def normalize(path: Path, sample: str = SAMPLE) -> None:
     h = sum(g.yMax - g.yMin for g in boxes) / len(boxes)
     upm = round(h / CJK_HEIGHT)
     if abs(upm - f["head"].unitsPerEm) > 2:
-        print(f"字号单位 {f['head'].unitsPerEm} → {upm}（字放大 {f['head'].unitsPerEm / upm:.3f} 倍）")
+        print(f"unitsPerEm {f['head'].unitsPerEm} -> {upm} (glyphs x{f['head'].unitsPerEm / upm:.3f})")
         f["head"].unitsPerEm = upm
     dy = round(CENTER * upm - sum((g.yMin + g.yMax) / 2 for g in boxes) / len(boxes))
     if abs(dy) < upm * 0.01:
@@ -171,7 +171,7 @@ def normalize(path: Path, sample: str = SAMPLE) -> None:
         g = glyf[name]
         if g.isComposite():
             g.recalcBounds(glyf)
-    print(f"字形整体上移 {dy}/{upm} 个字号")
+    print(f"glyphs moved up {dy}/{upm} of the size")
     f.save(str(path))
 
 
@@ -215,7 +215,7 @@ def main() -> int:
     args = ap.parse_args()
     if not args.src:
         if not FULL_FONT.exists():
-            print(f"缺原字体 {FULL_FONT}：从 {FULL_FONT_URL} 下载 {FULL_FONT.name} 放到这个位置", file=sys.stderr)
+            print(f"missing {FULL_FONT}: download {FULL_FONT.name} from {FULL_FONT_URL}", file=sys.stderr)
             return 1
         args.src = str(FULL_FONT)
     text = used_chars()
@@ -223,18 +223,18 @@ def main() -> int:
     add_composites(Path(args.out))
     normalize(Path(args.out))
     rename(Path(args.out))
-    print(f"游戏用字 {len(text)}，输出 {Path(args.out).stat().st_size} 字节")
-    # 韩文：只给 App 用，放 resources（ui/res.ts 的 LANG_FONT）
+    print(f"game font: {len(text)} characters, {Path(args.out).stat().st_size} bytes")
+    # Korean: its own font in resources (Flat.loadFont)
     ko = csv_columns().get("ko", "")
     if ko:
         if not KO_FULL_FONT.exists():
-            print(f"缺韩文原字体 {KO_FULL_FONT}（资源圆体韩文版 Resource Han Rounded KR Bold，OFL）", file=sys.stderr)
+            print(f"missing {KO_FULL_FONT} (Resource Han Rounded KR Bold, OFL)", file=sys.stderr)
             return 1
         ko_text = "".join(sorted(set(NON_ASCII.findall(ko))))
         subset(str(KO_FULL_FONT), str(KO_FONT), ko_text)
         normalize(KO_FONT, KO_SAMPLE)
         rename(KO_FONT, KO_FAMILY)
-        print(f"韩文用字 {len(ko_text)}，输出 {KO_FONT.stat().st_size} 字节")
+        print(f"Korean font: {len(ko_text)} characters, {KO_FONT.stat().st_size} bytes")
     return 0
 
 
