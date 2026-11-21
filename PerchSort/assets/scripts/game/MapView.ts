@@ -3,7 +3,7 @@ import { UI, Rect, Point } from './UI';
 import { Art } from './Art';
 import { BirdView } from './BirdView';
 import { Flat, ON_DARK } from './Flat';
-import { word } from './I18n';
+import { tr, word } from './I18n';
 import { Kit } from './Popups';
 import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
@@ -68,8 +68,9 @@ export class MapView {
   }
   private stopScroll():void { this.scrollTween?.stop(); this.scrollTween=null; }
   private buildBar():void {
-    UI.clear(this.bar); UI.feather_bar(this.bar,[1080-48-320*2008/2172,48],this.profile.coins,this.callbacks.coins);
-    Kit.close(this.bar,[48,48],()=>this.page?this.closeWorld():this.callbacks.home(),!this.page);
+    UI.clear(this.bar);
+    Kit.close(this.bar,[32,Flat.HEAD_Y-64,128,128],()=>this.page?this.closeWorld():this.callbacks.home(),true);
+    if(!this.page)Flat.title(this.bar,tr('T_WORLDS'),540,Flat.HEAD_Y);
   }
   private card(world:number):Node {
     const card=UI.group(this.content,`World_${world}`,[SIDE_MARGIN+(world-1)*STRIDE,CARD_TOP,CARD_WIDTH,CARD_HEIGHT]);
