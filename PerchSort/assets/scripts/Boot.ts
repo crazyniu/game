@@ -98,14 +98,15 @@ export class Boot extends Component{
    }
    this.storage=memory;
   }
-  if(!preview&&!this.testMode&&this.storage.getItem(this.saveKey)===null&&sys.isBrowser&&['localhost','127.0.0.1'].includes(location.hostname)){
+  if(!preview&&!this.testMode&&sys.isBrowser&&['localhost','127.0.0.1'].includes(location.hostname)&&
+    this.storage.getItem(this.saveKey)===null&&this.storage.getItem(this.saveKey+'.bak')===null){
     const response=await fetch('/__profile');if(response.ok){const legacy=await response.json();if(legacy){const p=Profile.from_dict(legacy);p.save(this.storage,this.saveKey);}}
   }
   this.profile=Profile.load_saved(this.storage,this.saveKey);
   if(this.testMode&&this.args.has('unlock')){this.profile.highest_unlocked=210;this.profile.coins=50000;this.profile.inventory=[10,10,10,10,10,10];for(const [species] of Aviary.SPECIES)this.profile.met[species]=true;for(let world=2;world<=Worlds.COUNT;world++)for(const bird of Worlds.birds(world))this.profile.met[bird]=true;}
   if(this.testMode&&this.args.has('outfit'))for(const id of this.args.get('outfit')!.split(',')){this.profile.outfits['outfit.'+id]=true;this.profile.equipped[id.split('.')[0]]='outfit.'+id;}
   I18n.set(this.args.get('lang')??(this.profile.language||sys.language));await Flat.loadFont(I18n.lang);
-  this.sound=new Sound(this.node);this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
+  this.sound=new Sound(this.node,kind=>this.platform.vibrate(kind));this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
   this.popups=new Popups(this.popupHost,this.profile,{ad:p=>this.adEntry(p),rewarded:(p,done)=>void this.watchAd(p,done),save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant),changed:()=>{if(this.screen instanceof HomeView)this.screen.refresh();}});
   if(this.profile.needs_recovery()){this.saveRecovery();await Art.waitPending();this.loading.destroy();return;}
   if(DEBUG)(globalThis as any).perch={app:this,platform:this.platform,UI,Art,Levels,Progress,Profile,Board,Kit,get state(){const app=this.app;return {page:app.page,ready:app.ready,profile:app.profile.to_dict(),audio:app.sound.debug,errors:Art.errors,board:app.screen instanceof BoardView?{busy:app.screen.busy,level:app.screen.level.id,moves:app.screen.session.move_count(),won:app.screen.session.state.is_won(),branches:app.screen.session.state.items}:null};}};
@@ -130,10 +131,12 @@ export class Boot extends Component{
    previous?.destroy();
    this.page=page;
    this.trial=trial;
+   Art.nextPage();
    this.screen=build();
    UI.opacity(this.screen.node,0);
    await Art.waitPending();
    if(token!==this.nav)return;
+   Art.releaseSpareSheets();
    UI.opacity(this.screen.node,1);
    if(this.loading.isValid)this.loading.active=false;
    this.sound.music(page==='board'?'bgm_game':'bgm_menu');
@@ -216,7 +219,7 @@ export class Boot extends Component{
   }
  }
  async open_board(level:number):Promise<void>{
-  this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),def.world);Progress.grant_starter_gifts(this.profile);this.save();
+  this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),def.world,level===def.world*Levels.PER_WORLD);Progress.grant_starter_gifts(this.profile);this.save();
   await this.setScreen('board',()=>new BoardView(this.screenHost,this.profile,level,{settle:session=>this.settle(level,session),won:r=>this.onWon(level,r.session),settings:()=>this.settings(),buy:k=>this.buyTool(k),undo_more:()=>this.undoMore(),bird_info:s=>this.popups.goal_info(s,def.world),rescue_offer:()=>this.rescueOffer(),restart_offer:p=>this.restartOffer(p),profile_changed:()=>this.save(),sound:n=>this.sound.play(n)},{instant:this.instant,entrance:!this.instant}));
   const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode||this.autoplay)return;
   const queue:Array<(done:()=>void)=>void>=newSpecies.map(species=>done=>{this.popups.new_friend(species,Aviary.NEW_SPECIES_COINS,done);});
@@ -290,7 +293,8 @@ export class Boot extends Component{
  /** The reward runs only after the platform reports the ad watched to the end. */
  private async watchAd(placement:string,reward:()=>void):Promise<void>{
   if(this.adEntry(placement)!=='ready')return;
-  this.sound.pause();const result=await this.platform.showRewarded(placement);this.sound.resume();
+  this.sound.pause();
+  const result=await this.platform.showRewarded(placement).catch(error=>{console.warn('Rewarded ad failed',error);}).finally(()=>this.sound.resume());
   if(result!=='done')return;
   Ads.record(this.profile,placement,Progress.today());this.pacing.lastRewarded=Date.now()/1000;this.save();reward();
  }
@@ -298,7 +302,7 @@ export class Boot extends Component{
  private async levelEnd(level:number):Promise<void>{
   this.pacing.levelsSince++;const now=Date.now()/1000;
   if(!this.platform.hasCapability('ads')||!Ads.interstitial_due(this.pacing,level,now))return;
-  if(await this.platform.showInterstitial(Ads.LEVEL_END)){this.pacing.lastShown=Date.now()/1000;this.pacing.levelsSince=0;}
+  if(await this.platform.showInterstitial(Ads.LEVEL_END).catch(error=>{console.warn('Interstitial ad failed',error);})){this.pacing.lastShown=Date.now()/1000;this.pacing.levelsSince=0;}
  }
  save():void{this.profile.save(this.storage,this.saveKey);if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof BoardView)this.screen.refresh_hud();else if(this.screen instanceof ShopView||this.screen instanceof AviaryView)this.screen.refresh_balance();else if(this.screen instanceof MapView)this.screen.refresh();this.overlay?.refresh_balance();}
  private restartGame():void{if(sys.isBrowser)location.reload();else void game.restart();}

@@ -5,6 +5,10 @@ import { AdResult, Capability, Platform, VibrateKind, adUnits, loadPlatformConfi
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const wx: any;
 
+const SHOW_TIMEOUT_MS = 10_000;
+const REWARDED_CLOSE_TIMEOUT_MS = 120_000;
+const INTERSTITIAL_CLOSE_TIMEOUT_MS = 30_000;
+
 export function inWechat(): boolean { return typeof wx !== 'undefined' && typeof wx.getSystemInfoSync === 'function'; }
 
 export class WechatPlatform extends Platform {
@@ -35,36 +39,44 @@ export class WechatPlatform extends Platform {
     if (was !== on) this.onAdsChange();
   }
   override adsAvailable(): boolean { return this.rewarded !== null && this.loaded && !this.playing; }
-  override showRewarded(_placement: string): Promise<AdResult> {
+  override async showRewarded(_placement: string): Promise<AdResult> {
     const ad = this.rewarded;
-    if (!this.adsAvailable()) return Promise.resolve('unavailable');
+    if (!this.adsAvailable()) return 'unavailable';
     this.playing = true;
     this.setLoaded(false);
-    return new Promise((resolve) => {
-      let settled = false;
-      const finish = (result: AdResult) => {
-        if (settled) return;
-        settled = true;
-        ad.offClose(onClose);
-        ad.offError(onError);
-        this.playing = false;
-        ad.load().catch(() => this.setLoaded(false));
-        resolve(result);
-      };
-      const onError = () => finish('unavailable');
-      const onClose = (res?: { isEnded?: boolean }) => finish(res?.isEnded === true ? 'done' : 'skipped');
-      ad.onClose(onClose);
-      ad.onError(onError);
-      ad.show().catch(onError);
-    });
+    try {
+      return await this.play<AdResult>(ad, res => res?.isEnded === true ? 'done' : 'skipped', 'unavailable', REWARDED_CLOSE_TIMEOUT_MS);
+    } finally {
+      this.playing = false;
+      void Promise.resolve().then(() => ad.load()).catch(() => this.setLoaded(false));
+    }
   }
   override async showInterstitial(_placement: string): Promise<boolean> {
-    const ad = this.interstitial;
-    if (!ad) return false;
-    return new Promise((resolve) => {
-      const onClose = () => { ad.offClose(onClose); resolve(true); };
+    if (!this.interstitial) return false;
+    return this.play<boolean>(this.interstitial, () => true, false, INTERSTITIAL_CLOSE_TIMEOUT_MS);
+  }
+  /** A missing callback or SDK error is not a completed ad. Start the close timeout only once show succeeds. */
+  private play<T>(ad: any, resultOnClose: (res?: { isEnded?: boolean }) => T, unavailable: T, closeTimeout: number): Promise<T> {
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = (result: T) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        ad.offClose(onClose);
+        ad.offError(onError);
+        resolve(result);
+      };
+      const onClose = (res?: { isEnded?: boolean }) => finish(resultOnClose(res));
+      const onError = () => finish(unavailable);
+      let timer = setTimeout(onError, SHOW_TIMEOUT_MS);
       ad.onClose(onClose);
-      ad.show().catch(() => { ad.offClose(onClose); resolve(false); });
+      ad.onError(onError);
+      void Promise.resolve().then(() => ad.show()).then(() => {
+        if (settled) return;
+        clearTimeout(timer);
+        timer = setTimeout(onError, closeTimeout);
+      }, onError);
     });
   }
   override vibrate(kind: VibrateKind): void {
