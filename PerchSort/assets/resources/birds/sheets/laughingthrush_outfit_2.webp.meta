@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c@6c48a",
+      "displayName": "laughingthrush_outfit_2",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c@f9941",
+      "displayName": "laughingthrush_outfit_2",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1940,
+        "height": 840,
+        "rawWidth": 1940,
+        "rawHeight": 840,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -970,
+            -420,
+            0,
+            970,
+            -420,
+            0,
+            -970,
+            420,
+            0,
+            970,
+            420,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            840,
+            1940,
+            840,
+            0,
+            0,
+            1940,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -970,
+            -420,
+            0
+          ],
+          "maxPos": [
+            970,
+            420,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "fe0d9d55-2839-5475-a0b8-4e42d1c4a52c@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}

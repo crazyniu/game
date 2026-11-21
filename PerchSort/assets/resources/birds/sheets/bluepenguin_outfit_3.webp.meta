@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "192902a8-f7dc-519a-82aa-1d66d9b50937",
+  "files": [
+    ".json",
+    ".webp"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "ver": "1.0.22",
+      "importer": "texture",
+      "imported": true,
+      "uuid": "192902a8-f7dc-519a-82aa-1d66d9b50937@6c48a",
+      "displayName": "bluepenguin_outfit_3",
+      "id": "6c48a",
+      "name": "texture",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "192902a8-f7dc-519a-82aa-1d66d9b50937",
+        "visible": false
+      }
+    },
+    "f9941": {
+      "ver": "1.0.12",
+      "importer": "sprite-frame",
+      "imported": true,
+      "uuid": "192902a8-f7dc-519a-82aa-1d66d9b50937@f9941",
+      "displayName": "bluepenguin_outfit_3",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "none",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 1949,
+        "height": 785,
+        "rawWidth": 1949,
+        "rawHeight": 785,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "192902a8-f7dc-519a-82aa-1d66d9b50937@6c48a",
+        "atlasUuid": "",
+        "vertices": {
+          "rawPosition": [
+            -974.5,
+            -392.5,
+            0,
+            974.5,
+            -392.5,
+            0,
+            -974.5,
+            392.5,
+            0,
+            974.5,
+            392.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            785,
+            1949,
+            785,
+            0,
+            0,
+            1949,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -974.5,
+            -392.5,
+            0
+          ],
+          "maxPos": [
+            974.5,
+            392.5,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "192902a8-f7dc-519a-82aa-1d66d9b50937@6c48a",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true
+  }
+}
