@@ -9,7 +9,7 @@ import { Profile } from '../meta/Profile';
 import { Progress } from '../meta/Progress';
 import { Shop } from '../meta/Shop';
 import { Ads } from '../meta/Ads';
-import { Flat, ON_LIGHT, onTone } from './Flat';
+import { Flat, ON_DARK, ON_LIGHT, onTone } from './Flat';
 import { I18n, tr, word } from './I18n';
 
 export interface PageCallbacks {
