@@ -56,6 +56,6 @@ Not checked: iOS and Android packages (no build run yet; Xcode and the Android S
 
 ### Open items
 
-- Real bundle ID, Apple team, Android package, AdMob app IDs and ad units, privacy-policy URL, WeChat app ID.
-- The claim button reads "领取 ×2" from existing painted words; the mockup's "双倍领取" would need new painted words.
+- Package ID set to `dabudian.top.birdsort` for iOS and Android (user, 2026-11-21). Still needed: Apple team, AdMob app IDs and ad units, privacy-policy URL, WeChat app ID.
+- The claim button reads "▶ 领取 ×2" (English "Claim ×2"), decided 2026-11-21: clear, matches the daily reward ×2, and reuses painted words.
 - The coin shop's yuan price buttons keep their painted prices (no payment provider).
