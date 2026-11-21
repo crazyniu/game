@@ -5,7 +5,7 @@ The single runtime is Cocos Creator 3.8.8 with TypeScript. Start at [CURRENT_GAM
 | Path | Principal symbols | Responsibility |
 | --- | --- | --- |
 | `package.json`, `assets/scenes/main.scene` | Creator project, entry scene | Project identity, pinned Creator version, and scene entry |
-| `assets/scripts/Boot.ts` | `Boot` | Canvas, startup, profile ownership/import, navigation, popup queue, isolated development test modes |
+| `assets/scripts/Boot.ts` | `Boot` | Canvas, startup, profile ownership/import, navigation, popup queue, isolated development test modes, debug autoplay |
 | `assets/scripts/core/Board.ts` | `Board` | Packed birds, branches, kinds, goals, deliveries, boosters, inventory; stable enum values |
 | `assets/scripts/core/Levels.ts` | `Levels` | Configures level data, builds boards, lists species; 210 fixed levels |
 | `assets/scripts/core/Rules.ts` | `Rules` | Transfers, homecoming waves/gifts, eggs, sleep, crows, branch mechanics, booster effects, events |
@@ -27,8 +27,9 @@ The single runtime is Cocos Creator 3.8.8 with TypeScript. Start at [CURRENT_GAM
 | `assets/resources/manifest.json` | Resource manifest | Asset paths, image dimensions/ink bounds, data and audio lookup |
 | `tests/core.test.ts` | Node/tsx tests | Pure rules and meta behavior, profile migrations, all stored level solutions |
 | `build-config/web-mobile.json` | Creator build configuration | Actual web-mobile output at `build/web-mobile` |
-| Repository `run.sh`, `scripts/serve.py` | Launcher and local server | Build/play/serve/editor/test commands; localhost-only prior-profile import |
-| Repository `tools/cocos-assets.mjs`, `tools/cocos-meta.py` | Resource tooling | Manifest and Creator metadata preparation |
+| Repository `run.sh`, `tools/cocos/creator.sh`, `tools/web/serve.mjs` | Launcher, Creator build, local server | Pull, build from an empty cache, play/serve/lan with level, autoplay and page options, check; prior-profile import answered to loopback only |
+| Repository `tools/cocos/cdp.mjs` | Player window debugging | Console, evaluation, captures, timed frames, stall call stacks |
+| Repository `tools/cocos-assets.mjs`, `tools/cocos/meta.mjs`, `tools/art/compress.mjs` | Resource tooling | Manifest, Creator metadata (`--check`), lossless PNG compression (`--check`) |
 
 Core and meta modules do not import Cocos. Screens use callbacks to the root and share presentation helpers; player-visible text uses painted sprites. Screen previews use the canonical classes rather than alternate demo implementations.
 

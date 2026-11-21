@@ -12,6 +12,7 @@ import {Popups,Kit,Dialog} from './game/Popups';
 import {Tutorial} from './game/Tutorial';
 import {Levels} from './core/Levels';
 import {Board} from './core/Board';
+import type {Move} from './core/Board';
 import {GameSession} from './core/GameSession';
 import {Solver} from './core/Solver';
 import {Profile,ProfileStorage} from './meta/Profile';
@@ -22,7 +23,7 @@ const {ccclass}=_decorator;
 type Screen=HomeView|MapView|BoardView|ShopView|AviaryView;
 @ccclass('Boot')
 export class Boot extends Component{
- profile!:Profile;screen:Screen|null=null;popups!:Popups;sound!:Sound;root!:Node;screenHost!:Node;popupHost!:Node;overlayHost!:Node;page='home';ready=false;instant=false;testMode=false;overlay:ShopView|AviaryView|null=null;trial=0;
+ profile!:Profile;screen:Screen|null=null;popups!:Popups;sound!:Sound;root!:Node;screenHost!:Node;popupHost!:Node;overlayHost!:Node;page='home';ready=false;instant=false;testMode=false;autoplay=false;overlay:ShopView|AviaryView|null=null;trial=0;
  private storage:ProfileStorage=sys.localStorage;private saveKey=Profile.SAVE_PATH;private args=new Map<string,string>();private loading!:Node;private nav=0;
  protected onLoad():void{view.setDesignResolutionSize(1080,1920,ResolutionPolicy.SHOW_ALL);profiler.hideStats();this.createCanvas();this.startGame().catch(e=>{console.error('Perch Sort startup failed',e);if(DEBUG)(globalThis as any).perchError=String(e);});}
  private createCanvas():void{
@@ -69,7 +70,9 @@ export class Boot extends Component{
   const requestedLevel=this.args.get('level')??null;
   const level=requestedLevel&&/^\d+$/.test(requestedLevel)?Number(requestedLevel):0;
   const validLevel=Number.isInteger(level)&&level>=1&&level<=Levels.COUNT;
-  const preview=requestedTrial===null&&validLevel&&!this.testMode;
+  // Autoplay drives real moves through the board on an in-memory copy of the save, exactly like a level preview.
+  this.autoplay=DEBUG&&this.args.has('autoplay')&&requestedTrial===null&&!this.testMode;
+  const preview=requestedTrial===null&&(validLevel||this.autoplay)&&!this.testMode;
   const temporary=preview||(this.testMode&&this.args.has('fresh'));
   if(this.testMode)this.saveKey='perch-sort.test.'+(this.args.get('test')||'session');
   if(DEBUG)(globalThis as any).perchBoot=this;
@@ -96,8 +99,9 @@ export class Boot extends Component{
   this.popups=new Popups(this.popupHost,this.profile,{save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
   if(this.profile.needs_recovery()){this.saveRecovery();await Art.waitPending();this.loading.destroy();return;}
   if(DEBUG)(globalThis as any).perch={app:this,UI,Art,Levels,Progress,Profile,Board,Kit,get state(){const app=this.app;return {page:app.page,ready:app.ready,profile:app.profile.to_dict(),audio:app.sound.debug,errors:Art.errors,board:app.screen instanceof BoardView?{busy:app.screen.busy,level:app.screen.level.id,moves:app.screen.session.move_count(),won:app.screen.session.state.is_won(),branches:app.screen.session.state.items}:null};}};
-  if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel)await this.open_board(level);else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
+  if(requestedTrial!==null)await this.open_trial(trial);else if(validLevel||this.autoplay)await this.open_board(validLevel?level:Math.min(Math.max(this.profile.highest_unlocked,1),Levels.COUNT));else if(requestedLevel!==null)await this.open_home();else if(this.args.get('page')==='map')await this.open_map(Number(this.args.get('world')||0));else if(this.args.get('page')==='shop')await this.open_shop();else if(this.args.get('page')==='aviary')await this.open_aviary();else await this.open_home();
   if(this.loading.isValid)this.loading.destroy();this.ready=true;
+  if(this.autoplay)void this.drive(Number(this.args.get('autoTo')||Levels.COUNT));
   const popup=this.args.get('popup');if(DEBUG&&popup){if(popup==='settings')this.settings();else if(popup==='daily')this.popups.daily_reward();else if(popup==='draw')this.popups.lucky_draw();else if(popup==='chest')this.popups.chest();else if(popup==='level')this.popups.level_card(Number(this.args.get('card')||1));}
   if(!this.testMode&&!this.instant&&this.profile.best_stars(1)>0&&Progress.daily_reward_available(this.profile,Progress.today()))this.scheduleOnce(()=>{if(this.screen instanceof HomeView&&!this.popupHost.children.length)this.popups.daily_reward();},.9);
   console.log('PERCH_READY',JSON.stringify({engine:'Cocos Creator 3.8.8',page:this.page,levels:Levels.COUNT,test:this.testMode}));
@@ -175,10 +179,34 @@ export class Boot extends Component{
   const opening=await Solver.hint_async(board.session.state.clone());
   if(this.screen===board&&board.session.move_count()===0&&opening.status===Solver.Status.SOLVED&&opening.moves.length)board.show_hint(opening.moves[0]);
  }
+ // Debug autoplay (./run.sh auto): plays the stored route, or the solver's move off-route, wins, then opens the next level until autoTo.
+ private async drive(last:number):Promise<void>{
+  const routes:Record<string,[number[],Move][]>=Art.data('levels/hints');
+  const pause=(seconds:number)=>new Promise<void>(done=>this.scheduleOnce(()=>done(),seconds));
+  while(this.node.isValid){
+   await pause(.35);
+   const board=this.screen;
+   if(!(board instanceof BoardView)||board.busy)continue;
+   const state=board.session.state,id=board.level.id;
+   if(state.is_won()){
+    if(id>=last){console.log('PERCH_AUTOPLAY_DONE',id);return;}
+    await pause(2.5);if(this.screen===board)await this.open_board(id+1);continue;
+   }
+   const key=state.search_key(false).join(',');
+   let move=(routes[String(id)]||[]).find(([route])=>route.join(',')===key)?.[1];
+   if(!move){
+    const result=await Solver.hint_async(state.clone(),[],400000,8000);
+    if(this.screen!==board)continue;
+    if(result.status!==Solver.Status.SOLVED||!result.moves.length){console.log('PERCH_AUTOPLAY_RESTART',id);board.restart();continue;}
+    move=result.moves[0];
+   }
+   if(move[1]<0)board.tap_swivel(move[0]);else{board.tap_branch(move[0]);board.tap_branch(move[1]);}
+  }
+ }
  async open_board(level:number):Promise<void>{
   this.profile.last_level=level;const def=Levels.get_level(level),newSpecies=Aviary.on_level_started(this.profile,Levels.species_ids(Levels.create_board(def),true),def.world);Progress.grant_starter_gifts(this.profile);this.save();
   await this.setScreen('board',()=>new BoardView(this.screenHost,this.profile,level,{settle:session=>this.settle(level,session),won:r=>this.onWon(level,r.session),settings:()=>this.settings(),buy:k=>this.buyTool(k),undo_more:()=>this.undoMore(),bird_info:s=>this.popups.goal_info(s,def.world),rescue_offer:()=>this.rescueOffer(),restart_offer:p=>this.restartOffer(p),profile_changed:()=>this.save(),sound:n=>this.sound.play(n)},{instant:this.instant,entrance:!this.instant}));
-  const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode)return;
+  const board=this.screen as BoardView;await this.until(()=>!board.busy||this.screen!==board);if(this.screen!==board||this.testMode||this.autoplay)return;
   const queue:Array<(done:()=>void)=>void>=newSpecies.map(species=>done=>{this.popups.new_friend(species,Aviary.NEW_SPECIES_COINS,done);});
   for(const [kind,id] of Progress.BOOSTERS){const flag='unlock.'+id;if(Progress.booster_unlock_level(kind)===level&&!this.profile.has_tutorial(flag))queue.push(done=>{this.profile.set_tutorial(flag);this.save();this.popups.unlock(kind,done);});}
   if(level===1&&!this.profile.has_tutorial(Tutorial.FLAG))queue.push(done=>{this.profile.set_tutorial(Tutorial.FLAG);this.save();Tutorial.open(this.popupHost,done,this.instant);});

@@ -7,22 +7,30 @@ A portrait bird-sorting puzzle game built with **Cocos Creator 3.8.8** and TypeS
 Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repository:
 
 ```bash
-./run.sh                         # build and open a dedicated portrait game window
-./run.sh play --level=12          # preview a level without changing normal progress
+./run.sh                          # pull, build and open a dedicated portrait game window
+./run.sh level 12                 # open level 12 on an in-memory copy of the save (also --level=12)
+./run.sh auto 3 30                # autoplay real moves from level 3 to 30 on an in-memory copy of the save
+./run.sh page shop                # open map [world], shop, aviary, or the settings/daily/draw/chest popup
 ./run.sh --trial=1                # open partial-goal trial 1 (three trials total)
-./run.sh serve                   # use the existing web build
-./run.sh editor                  # open PerchSort/ in Cocos Creator
-./run.sh build                   # build only
-./run.sh test                    # run the pure core/meta test suite
+./run.sh serve [options]          # use the existing web build
+./run.sh lan [serve] [options]    # serve on the local network for a phone or another computer
+./run.sh editor                   # open PerchSort/ in Cocos Creator
+./run.sh build                    # build only
+./run.sh cdp logs|eval|shot|burst|watch   # console, evaluation, captures and stall stacks in the game window
+./run.sh check                    # the CI checks: scripts, metas, PNG compression, source guards, tests, types
+./run.sh test                     # run the pure core/meta test suite
+./run.sh meta | art-compress | clean      # missing metas, lossless PNG recompression, Creator caches
 ```
 
-On macOS, `run.sh` opens the game in a 450×832 Chrome app window. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
+`play`, `serve`, `lan`, `build` and `editor` first fast-forward the current branch (`NO_PULL=1` skips); local changes are never discarded. Every build starts from an empty Creator cache and retries when Creator breaks the asset import (`tools/cocos/creator.sh`). `./run.sh lan` prints `http://<LAN IP>:8080/` (`LAN_PORT`) and serves until Ctrl+C; the prior-save import is answered only to this machine.
+
+On macOS, `run.sh` opens the game in a 450×832 Chrome app window with remote debugging on port 9333 (`CDP_PORT`) for `./run.sh cdp`. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
 
 The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator` by default. Set `COCOS_CREATOR` to another installation path. `WEB_PORT` changes the default local port of 8765. Use `NO_OPEN=1` to start just the server. The generated web build is in `PerchSort/build/web-mobile`.
 
 To open manually in Creator, select the `PerchSort/` project, identified by its `package.json`. The entry scene is `assets/scenes/main.scene`; the root component is `assets/scripts/Boot.ts`.
 
-Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, `scripts/serve.py` makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
+Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, the local server (`tools/web/serve.mjs`) makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
 
 The three partial-goal trials open with `--trial=1`, `--trial=2`, or `--trial=3` (Windows: `.\run.ps1 -Trial 1`). They use copied board profiles: no trial progress, rewards or consumed stock is saved. Explicitly buying a tool or extra undo still spends real feathers through the normal price confirmation. The trial tab therefore holds the normal save lock. Next advances through the trials; they never appear on the map. The [trial route report](docs/work-log/trial-route/report.md) records the remaining user-play decision.
 
@@ -45,7 +53,7 @@ Rules and solver live in `PerchSort/assets/scripts/core`; profiles and progressi
 Testing and acceptance belong to the user by default. The Cocos migration request explicitly authorizes self-testing; that authorization does not change the default for later tasks.
 
 ```bash
-npm --prefix PerchSort test
+./run.sh check
 npm --prefix PerchSort run typecheck
 ./run.sh build
 ```

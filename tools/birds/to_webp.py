@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """to_webp.py: convert every PNG of PerchSort/assets/resources/birds to WebP (quality 85) and delete the PNG and its .meta.
 
-Run after the skins are published; then run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py` to refresh the manifest and
+Run after the skins are published; then run `node tools/cocos-assets.mjs` and `node tools/cocos/meta.mjs` to refresh the manifest and
 asset identities. Run from the repository root.
 """
 import glob, os

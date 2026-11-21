@@ -24,11 +24,8 @@ elif [[ -z "${ANDROID_HOME:-}" && -d "${HOME}/Library/Android/sdk" ]]; then
 fi
 cd "$root"
 node tools/native/apply.mjs "$platform" "$mode"
-python3 tools/cocos-meta.py
-mkdir -p build
-status=0
-"$creator" --project "$project" --build "configPath=$root/build/native-config/$platform.json" > "build/cocos-$platform.log" 2>&1 || status=$?
-if [[ "$status" != 36 && "$status" != 0 ]]; then tail -45 "build/cocos-$platform.log" >&2; exit "$status"; fi
+source tools/cocos/creator.sh
+cocos_build "$root/build/native-config/$platform.json" "build/cocos-$platform.log"
 out="$project/build/$platform"
 if [[ ! -d "$out/proj" ]]; then echo "Creator did not generate $out/proj. See build/cocos-$platform.log." >&2; exit 1; fi
 node tools/native/icons.mjs

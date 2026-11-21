@@ -40,6 +40,7 @@ Perch Sort is one Cocos Creator **3.8.8** game written in TypeScript: portrait 1
 | Surface | Location |
 | --- | --- |
 | Project and entry | `PerchSort/package.json`, `assets/scenes/main.scene`, `assets/scripts/Boot.ts` |
+| Launcher and development tools | `run.sh`, `tools/cocos/{creator.sh,cdp.mjs,meta.mjs}`, `tools/web/serve.mjs`, `tools/art/compress.mjs` |
 | Pure rules and solver | `PerchSort/assets/scripts/core` (`Board`, `Levels`, `Rules`, `Solver`, `GameSession`) |
 | Profile, progression, shop, aviary | `PerchSort/assets/scripts/meta` |
 | Screens, animation, navigation, audio | `PerchSort/assets/scripts/game` |
@@ -64,9 +65,11 @@ Payment and rewarded-ad providers are not connected. The local game must not fal
 
 Use checks appropriate to the explicit request; do not expand into unnecessary repeated testing.
 
+- `./run.sh check`: the CI checks (script syntax, metas, PNG compression, source guards, names, painted words, core types) and `npm --prefix PerchSort test`.
 - `npm --prefix PerchSort test`: pure rules, profile/economy checks, and replay of the 210 stored level solutions.
 - `npm --prefix PerchSort run typecheck`: TypeScript checking against the local Creator declarations.
 - `./run.sh build`: build the actual Cocos web-mobile game; build output is `PerchSort/build/web-mobile`.
+- `./run.sh lan` serves the build to the local network for user testing; `./run.sh level N | auto A B | page NAME` and `./run.sh cdp` drive and inspect the player window on an in-memory copy of the save.
 - Exercise the built game in a browser when runtime verification is authorized. Check real navigation, moves, tools, undo, progression, saves, language, and audio; capture timed motion when assessing animation.
 - Report exact commands, results, evidence paths, and limits. Never weaken checks to get a passing result. CI/build success does not replace runtime or user acceptance.
 - `build/`, `PerchSort/build/`, and `docs/work-log/*/evidence/` are local generated output. Captures and frame sheets must never be committed or pushed.

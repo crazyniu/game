@@ -18,7 +18,7 @@ Current presentation lives in `PerchSort/assets/scripts/game` and is governed by
 | Home/map/board/shop/aviary, tutorials, popups, birds, audio | [game](../PerchSort/assets/scripts/game) |
 | Asset lookup and painted text | [Art.ts](../PerchSort/assets/scripts/game/Art.ts), [UI.ts](../PerchSort/assets/scripts/game/UI.ts), [locale packs](../PerchSort/assets/resources/art/locale) |
 | Level catalog and stored solutions | [levels](../PerchSort/assets/resources/levels) |
-| Local browser server and prior-save import | [serve.py](../scripts/serve.py) |
+| Launcher, local/LAN server and prior-save import | [run.sh](../run.sh), [serve.mjs](../tools/web/serve.mjs) |
 | Source organization | [CODE_MAP](spec/CODE_MAP.md) |
 
 Keep one canonical implementation. Do not recreate retired engine trees, parallel scenes, alternate resource roots, or numbered copies. Pure core/meta code stays independent of Cocos and presentation.
@@ -27,7 +27,7 @@ Keep one canonical implementation. Do not recreate retired engine trees, paralle
 
 `Profile.ts` retains the original JSON field names, including `coins`, `highestUnlockedLevel`, `boosters`, `bestStars`, `clearCounts`, `bestMoves`, `ownedOutfits`, and `equippedOutfits`, with `schemaVersion` and existing migrations. Schema 4 reorders prior puzzle records through `LEVEL_DIFFICULTY`; schema 5 spreads the former 100-level records across the 210-level catalog through `LEVEL_SPREAD`. Board enum values remain stable.
 
-The browser save key is `perch-sort.profile`. On localhost, when that key is absent, `Boot.ts` can read the prior Godot profile through `scripts/serve.py` and migrate it once into browser storage. The original file is never modified. The launcher uses real progress: no automatic top-ups, fabricated clears, or level unlocks. Test profiles use separate storage.
+The browser save key is `perch-sort.profile`. On localhost, when that key is absent, `Boot.ts` can read the prior Godot profile through `tools/web/serve.mjs` (loopback requests only) and migrate it once into browser storage. The original file is never modified. The launcher uses real progress: no automatic top-ups, fabricated clears, or level unlocks. Test profiles use separate storage.
 
 Payment and rewarded-ad providers are not connected. The UI cannot grant paid currency or ad rewards without a confirmed provider callback. This local playable migration does not constitute a store integration or release.
 
@@ -51,6 +51,6 @@ The [game design record](GAME_DESIGN.md) and [gameplay-depth specification](work
 
 ## Validation status
 
-Testing belongs to the user by default; the current migration explicitly authorizes self-tests. Available commands are `npm --prefix PerchSort test`, `npm --prefix PerchSort run typecheck`, and `./run.sh build`. The core suite includes stored-solution replay for all 210 levels. These checks do not prove browser, device, visual, or audio acceptance.
+Testing belongs to the user by default; the current migration explicitly authorizes self-tests. Available commands are `./run.sh check`, `npm --prefix PerchSort test`, `npm --prefix PerchSort run typecheck`, and `./run.sh build`. The core suite includes stored-solution replay for all 210 levels. These checks do not prove browser, device, visual, or audio acceptance.
 
 The coordinator owns the migration report and final runtime evidence. Until that report records the actual outcome, runtime validation remains pending. Keep screenshots and timed frame evidence local under `build/` or the feature's ignored `evidence/` directory. Never commit or push them.
