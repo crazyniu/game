@@ -3,7 +3,7 @@
 
 Takes out/skin/<species>_<slot>_<frame>.png (aligned, 320x320), writes PerchSort/assets/resources/birds/<species>_outfit_<slot>_<frame>.webp
 at quality 85, removes every older file of that skin (overlay art, icons, other formats and their .meta) and its entries in
-outfit_parts.json. Afterwards run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`.
+outfit_parts.json. Afterwards run `node tools/cocos-assets.mjs` and `node tools/cocos/meta.mjs`.
 """
 import glob, json, os, sys
 from PIL import Image

@@ -4,7 +4,7 @@
 Reads out/names/job_<lang>_gold_world<world>/words.png + texts.json (paint_names.py), cuts one label per line with tools/island/cut_rows.py, scales all
 labels of a sheet by one factor so the letters have the stored cap height (the same rule as tools/island/install_painted_words.py), writes
 PerchSort/assets/resources/art/locale/<lang>/island_words/lettering_bird_<bird>.png and registers it in the locale manifest ("painted": lettering_bird_<bird>, "words": bird.<bird>.name). Then run
-`node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`. Run from the repository root.
+`node tools/cocos-assets.mjs` and `node tools/cocos/meta.mjs`. Run from the repository root.
 """
 import json, os, sys
 import numpy as np

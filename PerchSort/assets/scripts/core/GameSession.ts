@@ -3,6 +3,9 @@ import { Levels, LevelDefinition } from './Levels';
 import { Rules, Gift } from './Rules';
 import { Solver, SolveResult } from './Solver';
 
+// Named so no cast reads `as X | Y`, which Creator's Babel can fail to compile (./run.sh check guards it).
+type LastMove = Move | [];
+
 export class GameSession {
   static readonly FREE_UNDOS = 3;
   static readonly TWO_STAR_SLACK = 3;
@@ -10,12 +13,12 @@ export class GameSession {
   par: number;
   events: GameEvent[] = [];
   selected = -1;
-  last_move: Move | [] = [];
+  last_move: LastMove = [];
   undos_left = GameSession.FREE_UNDOS;
   free_rescue_used = false;
   undo_gifts_paid = 0;
   private initial: Board;
-  private history: [Board, Move | []][] = [];
+  private history: [Board, LastMove][] = [];
   private rules = new Rules();
   constructor(public level: LevelDefinition, inventory: number[] = []) {
     this.initial = Levels.create_board(level, inventory); this.state = this.initial.clone(); this.par = level.par;
@@ -80,6 +83,6 @@ export class GameSession {
     const home = this.state.homed.filter(species => Rules.GIFT_BY_SPECIES[species] === Gift.SPARE_UNDO).length;
     if (home > this.undo_gifts_paid) { this.undos_left += home - this.undo_gifts_paid; this.undo_gifts_paid = home; }
   }
-  private push(): void { this.history.push([this.state.clone(), this.last_move.slice() as Move | []]); }
+  private push(): void { this.history.push([this.state.clone(), this.last_move.slice() as LastMove]); }
   private clear(): void { this.events.length = 0; this.selected = -1; }
 }

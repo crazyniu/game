@@ -1,0 +1,3 @@
+/* Written by tools/native/apply.mjs from game.json */
+"CFBundleDisplayName" = "小鸟归巢";
+"NSUserTrackingUsageDescription" = "用来给你推荐更相关的广告。";

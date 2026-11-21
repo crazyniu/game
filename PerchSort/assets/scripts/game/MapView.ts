@@ -57,7 +57,7 @@ export class MapView {
     });
     this.strip.on(Node.EventType.TOUCH_CANCEL,()=>{ this.pressed=false; this.showWorld(this.world); });
     this.strip.on(Node.EventType.MOUSE_WHEEL,(event:EventMouse)=>this.showWorld(this.world+(event.getScrollY()>0?-1:1)));
-    this.play=UI.button(this.node,'Play','btn_map_play',[220,1424,640,216],()=>this.enter(this.world));
+    this.play=Kit.button(this.node,'Play',[220,1432,640,Kit.PLAY_H],'white_play',()=>this.enter(this.world));
     UI.art(this.play,`label_home_island_play_${Art.locale}`,[164,40,312,120]);
     this.bar=UI.group(this.node,'Bar'); this.buildBar(); this.showWorld(this.world,true);
   }

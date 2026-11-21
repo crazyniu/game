@@ -1,6 +1,7 @@
 import {_decorator, Component, Node, Sprite} from 'cc';
 import {UI,Rect} from './UI';
 import {Art} from './Art';
+import {Kit} from './Popups';
 import {Profile} from '../meta/Profile';
 import {Progress} from '../meta/Progress';
 const {ccclass}=_decorator;
@@ -16,7 +17,7 @@ export class HomeView{
   this.addBird('macaw',330,228,4);this.addBird('yellow_chick',500,176,0);this.addBird('blue_chick',665,178,2);this.addBird('green_parrot',830,184,4);
   const size=Art.size('panel_home_perch_branch');UI.image(p,'panel_home_perch_branch',[-74,760,...size]);UI.feather_bar(p,[48,48],this.profile.coins,this.callbacks.coins);
   this.icon('Settings','pic_gear',976,104,96,0,this.callbacks.settings);
-  const play=UI.hit_area(p,'Play',[290,1360,500,200],()=>this.callbacks.play(Progress.resume_level(this.profile)));UI.image(play,`btn_home_island_play_${Art.locale}`,[0,0,500,200],true);
+  const play=Kit.button(p,'Play',[290,1360,500,Kit.PLAY_H],'white_play',()=>this.callbacks.play(Progress.resume_level(this.profile)));
   const daily=this.icon('DailyReward','pic_calendar',960,1230,120,184,this.callbacks.daily),draw=this.icon('LuckyDraw','icon_home_draw',960,1450,120,184,this.callbacks.draw);
   if(Progress.daily_reward_available(this.profile,Progress.today()))this.badge(daily,1);
   if(Progress.draws_available(this.profile,Progress.today()))this.badge(draw,1);

@@ -43,7 +43,7 @@ piece has one size and one look in every state (disabled is dimmed, never smalle
 - Badges: round, one diameter. Red = reward or new, green = owned count, check = equipped or done, padlock =
   locked. Numbers never exceed 99.
 - Tiles: cream rounded-square close (orange X) and back (orange arrow) tiles.
-- Primary button: long green pill, one calm fill, one soft shine, white painted word. Secondary: cream pill.
+- Worded buttons (user, 2026-11-21): one glossy candy plate, stretched horizontally (`btn_candy_green|orange|blue`). Green: main actions (play, next, claim, confirm, buy). Orange: watch an ad (claim ×2, +1, +60, ad offers). Blue: secondary actions (retry, home, exit). Action buttons are 176 high, the play buttons (home, map, level card) 200. Words are the existing white painted words at a fixed height (62 on action buttons, 44 on compact card plates), never scaled with the button, centred on the face at 43.5% of the plate height. The win popup is two aligned columns under the card: claim ×2 and next, then retry and home; without an ad, next spans the row.
 - Cards and rows: cream with a soft rim; the selected one has a bright green outline; icons may overhang the
   top edge a little so they feel alive.
 - Page and popup titles use painted lettering without a visible backing after PR #231 (`5d62178`). The older rope-hung wooden plank and later light-green banner requirements are historical; do not restore them from this document. Preserve independently scoped Home and Settings designs.

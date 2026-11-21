@@ -3,7 +3,7 @@
 
 Takes out/skin/<slot>_<bird>_<frame>.png (aligned by align.py with the world set, mirrored left frames included) and writes
 PerchSort/assets/resources/birds/<bird>_<frame>.webp (quality 85) plus <bird>_face.webp, a 160x160 head portrait cut from the front frame.
-Writes birds/feet.json (the row of the bird's feet in the 320 picture; the plain birds have 300). Afterwards run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`. Run from the repository root with pillow and numpy.
+Writes birds/feet.json (the row of the bird's feet in the 320 picture; the plain birds have 300). Afterwards run `node tools/cocos-assets.mjs` and `node tools/cocos/meta.mjs`. Run from the repository root with pillow and numpy.
 """
 import glob, json, os, sys
 import numpy as np

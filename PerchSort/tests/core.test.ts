@@ -11,6 +11,7 @@ import { Profile, ProfileStorage } from '../assets/scripts/meta/Profile';
 import { Progress } from '../assets/scripts/meta/Progress';
 import { Shop } from '../assets/scripts/meta/Shop';
 import { Aviary } from '../assets/scripts/meta/Aviary';
+import { Ads } from '../assets/scripts/meta/Ads';
 const resources = existsSync(resolve('assets/resources/levels/levels.json')) ? resolve('assets/resources/levels') : resolve('levels');
 Levels.configure(JSON.parse(readFileSync(resolve(resources, 'levels.json'), 'utf8')));
 const routes: Record<string, [number[], Move][]> = JSON.parse(readFileSync(resolve(resources, 'hints.json'), 'utf8'));
@@ -121,4 +122,25 @@ test('shop purchases, equipped cosmetics, discovery and resume survive serializa
   assert.deepEqual(Aviary.on_level_started(p, ['sunny', 'sky']), ['sunny', 'sky']); assert.deepEqual(Aviary.on_level_started(p, ['sunny', 'sky']), []);
   p.last_level = 18; assert.equal(Progress.resume_level(p), 18); p.stars[18] = 3; assert.equal(Progress.resume_level(p), 19);
   const restored = Profile.from_dict(p.to_dict()); assert.equal(restored.equipped.sunny, 'outfit.sunny.1'); assert.equal(restored.equipped_house, 'mushroom');
+});
+
+test('ad caps reset daily, survive saves, and interstitials respect pacing', () => {
+  const p = new Profile();
+  assert.equal(Ads.left(p, Ads.FREE_COINS, '2026-11-21'), 5);
+  assert.equal(Ads.left(p, Ads.TOOL, '2026-11-21'), Infinity);
+  for (let i = 0; i < 5; i++) Ads.record(p, Ads.FREE_COINS, '2026-11-21');
+  assert.equal(Ads.left(p, Ads.FREE_COINS, '2026-11-21'), 0);
+  const saved = Profile.from_dict(JSON.parse(JSON.stringify(p.to_dict())));
+  assert.equal(Ads.left(saved, Ads.FREE_COINS, '2026-11-21'), 0);
+  assert.equal(Ads.left(saved, Ads.FREE_COINS, '2026-11-22'), 5);
+  Ads.record(saved, Ads.DRAW, '2026-11-22');
+  assert.deepEqual(saved.ad_views, { rv_draw: 1 });
+  const pacing = Ads.pacing();
+  assert.equal(Ads.interstitial_due(pacing, Ads.INTERSTITIAL.minLevel - 1, 1000), false);
+  assert.equal(Ads.interstitial_due(pacing, Ads.INTERSTITIAL.minLevel, 1000), true);
+  Object.assign(pacing, { lastShown: 1000, levelsSince: 0 });
+  assert.equal(Ads.interstitial_due({ ...pacing, levelsSince: 5 }, 20, 1000 + Ads.INTERSTITIAL.minSeconds - 1), false);
+  assert.equal(Ads.interstitial_due({ ...pacing, levelsSince: 1 }, 20, 2000), false);
+  assert.equal(Ads.interstitial_due({ ...pacing, levelsSince: 2 }, 20, 2000), true);
+  assert.equal(Ads.interstitial_due({ ...pacing, levelsSince: 2, lastRewarded: 1990 }, 20, 2000), false);
 });
