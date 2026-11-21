@@ -36,13 +36,21 @@ export class GameSession {
   cancel_selection(): void { this.selected = -1; }
   try_move(from: number, to: number): boolean {
     this.clear(); if (!Rules.can_transfer(this.state, from, to)) return false;
-    this.push(); this.rules.transfer(this.state, from, to, this.events); this.pay_undo_gifts(); this.last_move = [from, to]; return true;
+    this.push(); this.rules.transfer(this.state, from, to, this.events); this.pay_undo_gifts(); this.last_move = [from, to]; this.best_chain = Math.max(this.best_chain, this.state.chain); return true;
   }
   swivel(branch: number): boolean {
     this.clear(); if (!Rules.can_swivel(this.state, branch)) return false;
-    this.push(); this.rules.swivel(this.state, branch, this.events); this.pay_undo_gifts(); this.last_move = [branch, -1]; return true;
+    this.push(); this.rules.swivel(this.state, branch, this.events); this.pay_undo_gifts(); this.last_move = [branch, -1]; this.best_chain = Math.max(this.best_chain, this.state.chain); return true;
+  }
+  /** The longest run of flocks home on consecutive moves along a stored route (the combo goal comes from it). */
+  static route_chain(level: LevelDefinition, route: [number[], number[]][]): number {
+    const s = new GameSession(level); let best = 0;
+    for (const [, action] of route) { if (!s.try_action(action)) break; best = Math.max(best, s.state.chain); }
+    return best;
   }
   try_action(move: number[]): boolean { return move[1] < 0 ? this.swivel(move[0]) : this.try_move(move[0], move[1]); }
+  /** The longest run of flocks home on consecutive moves in this level (the combo goal). */
+  best_chain = 0;
   /** Tools used in this level (the task center counts them). */
   tools_used = 0;
   use_booster(kind: number, max_states = 100000, max_ms = 3000): { applied: boolean; hint?: SolveResult } {

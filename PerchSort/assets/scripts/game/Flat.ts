@@ -1,5 +1,6 @@
 import { BlockInputEvents, Color, Font, HorizontalTextAlignment, Label, Layers, Node, TTFFont, UITransform, Vec3, VerticalTextAlignment, resources, tween } from 'cc';
 import { UI, Rect } from './UI';
+import { I18n } from './I18n';
 
 /**
  * The flat UI kit, taken from fishsort (its ui/kit.ts, popup.ts and docs/03): flat candy buttons with a darker bottom edge, blue
@@ -111,6 +112,16 @@ export class Flat {
     this.text(n, String(Math.min(99999, value)), [rect[3] + 4, 0, rect[2] - rect[3] - 36, rect[3]], Math.round(rect[3] * .57), ON_LIGHT, -1);
     if (onPlus) this.key(parent, 'FreeCoins', [rect[0] + rect[2] - 34, rect[1] + 8, rect[3] - 16, rect[3] - 16], 'green', 'f_g_plus', onPlus);
     return n;
+  }
+  /** fishsort's level-kind tag: an orange (hard) or purple (super hard) plate with the flame and the word; returns its width. */
+  static kindTag(parent: Node, kind: string, x: number, y: number, h = 64): number {
+    const label = kind === 'boss' ? 'UI_TAG_SUPER' : 'UI_CHALLENGE_TAG', probe = new Node(), size = Math.round(h * .55);
+    const tw = this.width(this.text(probe, I18n.tr(label), [0, 0, 2000, h], size)); probe.destroy();
+    const w = Math.ceil(h * .32 + h * .82 + 6 + tw + h * .4), n = UI.group(parent, 'KindTag', [x, y, w, h]);
+    this.plateIn(n, kind === 'boss' ? 'f_tag_boss' : 'f_tag_hard', [0, 0, w, h]);
+    UI.image(n, ART + 'kind_hard', [h * .32, h * .09, h * .82, h * .82]);
+    this.text(n, I18n.tr(label), [h * .32 + h * .82 + 6, 0, tw + 4, h], size, { color: '#FFFFFF', depth: kind === 'boss' ? '#4C1D95' : '#B23A0E' }, -1);
+    return w;
   }
   /** The red dot on an entry with something to collect. */
   static dot(parent: Node, x: number, y: number, side = 40): Node { return UI.image(parent, ART + 'f_dot', [x - side / 2, y - side / 2, side, side]); }

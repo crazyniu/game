@@ -44,6 +44,11 @@ export interface Dialog {
   close: () => void; invoke: (action: () => void) => void;
 }
 export interface CoinPack { id: string; coins: number; yuan: number }
+/** Each feature's home entry: picture, its drawn area, and the label key. */
+export const FEATURE_ENTRY: Record<string, [string, Rect | undefined, string]> = {
+  signin: ['pic_calendar', [49, 39, 154, 194], 'H_FEAT_SIGNIN'], draw: ['icon_home_draw', [175, 75, 958, 972], 'H_DRAW'], chest: ['pic_chest', [36, 50, 185, 170], 'H_CHEST'],
+  album: ['pic_aviary', [21, 49, 200, 164], 'H_ALBUM'], tasks: ['pic_tasks', undefined, 'UI_TAB_TASKS'],
+};
 export const BOOSTER_ART = ['firefly', 'sprout', 'owl_eye', 'bell', 'scarecrow', 'rain'];
 export const BOOSTER_WORD = ['firefly', 'sprout', 'owl_eye', 'wake_bell', 'scarecrow', 'spring_rain'];
 const WORLD_ID = ['', 'green', 'bamboo', 'autumn', 'snow', 'blossom', 'mushroom', 'lakeside', 'pine', 'rainforest', 'wisteria'];
@@ -206,6 +211,7 @@ export class Popups {
     const listed=Array.from(mechanics).filter(k=>mechanicArt[k]);const heights=[224,100];if(rows)heights.push(rows*tile+(rows-1)*20);if(listed.length)heights.push(96);if(tools.length)heights.push(188);
     const d=Kit.jungle(this.host,'',heights,{actionHeight:200,close:true,compact:true});
     Flat.title(d.content,tr('UI_LEVEL',level),540,d.rect[1]+12);
+    const kind=Progress.kind(level);if(kind!=='normal')Flat.kindTag(d.content,kind,d.rect[0]+40,d.rect[1]+70,58);
     for(let i=0;i<3;i++)UI.art(d.content,i<this.profile.best_stars(level)?'island_star_full':'island_star_empty',[450+(i-1)*216,d.ys[0]+22,180,180]);UI.art(d.content,'icon_star_budget_steps',[420,d.ys[1]+14,72,72],[317,217,652,801]);Kit.number(d.content,def.par,[508,d.ys[1]+18,150,64]);
     let g=2;species.forEach((s:string,i:number)=>{const row=Math.floor(i/perRow),n=Math.min(perRow,species.length-row*perRow),x=540+(i%perRow-(n-1)/2)*(tile+20)-tile/2,y=d.ys[g]+row*(tile+20);UI.art(d.content,'hud_tool_slot',[x,y,tile,tile]);const inner=tile*.82;Kit.liveBird(d.content,Worlds.look(Levels.world_of(def),s),[x+(tile-inner)/2,y+(tile-inner)/2-6,inner,inner]);const effect=({sunny:'wake',sky:'reveal',berry:'encore',mint:'grow',cocoa:'scare',snow:'undo',ember:'hatch',ink:'encore',hoot:'wake'} as Record<string,string>)[s];if(effect){const badge=tile*.42;UI.art(d.content,'gift_coin_'+effect,[x+tile-badge*.85,y+tile-badge*.85,badge,badge]);}UI.hit_area(d.content,'Bird_'+s,[x,y,tile,tile],()=>this.goal_info(s,Levels.world_of(def)));});if(rows)g++;
     if(listed.length){const y=d.ys[g++];listed.forEach((key,i)=>UI.art(d.content,mechanicArt[key],[540+(i-(listed.length-1)/2)*132-44,y+4,88,88]));}
@@ -251,7 +257,7 @@ export class Popups {
    * The win page (fishsort's game/result.ts): stars on top, the red ribbon with the title, the played world's birds cheering on a branch
    * over turning rays, the reward bar (feathers counting up, tool drops), a large Next, then Home, Retry and the doubling ad in one row.
    */
-  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[];world?:number},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
+  win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[];world?:number;kind?:string;first3?:number;first3Tool?:number;comboGoal?:number;comboCoins?:number},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
     const world=result.world??1,entry=result.reward>0?this.adEntry(Ads.DOUBLE_COINS):'hidden';
     const d=Kit.layer(this.host,'Win',undefined,true,`board_w${world}${world===1||world===Levels.WORLDS?'_open':''}_bg`),c=d.content;
     UI.fill(c,'Veil',[0,0,1080,1920],'#00123C50');
@@ -270,9 +276,17 @@ export class Popups {
     // rewards
     const bar=UI.group(c,'Rewards',[65,1060,950,220]);Flat.card(bar,'f_card',[0,0,950,220],240,116);
     const counts=new Map<number,number>();result.boosters.forEach(kind=>counts.set(kind,(counts.get(kind)||0)+1));
-    const cells:[string,number][]=[];if(result.reward>0)cells.push(['icon_purchase_feather',result.reward]);counts.forEach((n,kind)=>cells.push(['island_icon_'+BOOSTER_ART[kind],n]));
-    const cw=cells.length?Math.min(400,900/cells.length):0;let feathers:Label|null=null;
-    cells.forEach(([pic,n],i)=>{const x=475+(i-(cells.length-1)/2)*cw,cell=UI.group(bar,'Cell'+i,[x-cw/2,0,cw,220]);UI.art(cell,pic,[cw/2-150,50,120,120]);const l=Flat.text(cell,'+'+n,[cw/2-20,50,cw/2+10,120],72,ON_LIGHT,-1);if(i===0&&result.reward>0)feathers=l;Kit.pop(cell,1+i*.15);});
+    // cells: feathers (with the level-kind tag), tool drops, then the first three stars (medal and a tool) and a reached combo goal, each captioned
+    const cells:[string,string,string][]=[];if(result.reward>0)cells.push(['icon_purchase_feather','+'+result.reward,'']);counts.forEach((n,kind)=>cells.push(['island_icon_'+BOOSTER_ART[kind],'+'+n,'']));
+    if(result.first3){cells.push(['art/flat/medal_three_stars','+'+result.first3,tr('RESULT_FIRST_3STAR')]);if(result.first3Tool!==undefined)cells.push(['island_icon_'+BOOSTER_ART[result.first3Tool],'+1',tr('RESULT_FIRST_3STAR')]);}
+    if(result.comboCoins)cells.push(['combo','+'+result.comboCoins,tr('COMBO_GOAL')]);
+    const cw=cells.length?Math.min(400,900/cells.length):0,k=Math.min(1,cw/300);let feathers:Label|null=null;
+    cells.forEach(([pic,amount,caption],i)=>{const x=475+(i-(cells.length-1)/2)*cw,cell=UI.group(bar,'Cell'+i,[x-cw/2,0,cw,220]),ic=120*k,top=caption?66:50;
+      if(pic==='combo')Flat.text(cell,'×'+result.comboGoal,[cw/2-ic-12,top,ic+24,ic],Math.round(80*k),{color:'#FFD640',outline:'#C47400'});else UI.art(cell,pic,[cw/2-ic-10,top,ic,ic]);
+      const l=Flat.text(cell,amount,[cw/2,top,cw/2,ic],Math.round(72*k),ON_LIGHT,-1);if(i===0&&result.reward>0)feathers=l;
+      if(caption)Flat.text(cell,caption,[6,12,cw-12,48],34,{color:'#D98200'});
+      if(i===0&&result.kind&&result.kind!=='normal')Flat.kindTag(cell,result.kind,cw/2-ic-30,4,52);
+      Kit.pop(cell,1+i*.15);});
     if(feathers&&!Kit.instant){const l:Label=feathers,state={n:0};l.string='+0';tween(state).delay(1).to(.7,{n:result.reward},{onUpdate:()=>{if(l.isValid)l.string='+'+Math.round(state.n);}}).start();}
     if(!cells.length)Flat.text(bar,tr('UI_REPLAY_NO_REWARD'),[30,0,890,220],46,ON_LIGHT);
     // actions
@@ -406,6 +420,19 @@ export class Popups {
   }
   new_friend(species:string,reward:number,onOK:()=>void=()=>{}):Dialog {
     const d=Kit.jungle(this.host,'popup_new_friend_title',[440,124.8,128,120],{footer:72,width:880});Kit.liveBird(d.content,species,[350,d.ys[0]+20,380,400]);Kit.lettering(d.content,'bird_'+species,[220,d.ys[1],640,124.8]);UI.word(d.content,'bird.'+Worlds.slot_of(species)+'.ability',[172,d.ys[2],736,128]);UI.price_pill(d.content,[350,d.ys[3],380,120],reward);Kit.button(d.content,'Confirm',[325,d.actionY,430,Kit.BUTTON_H],'white_action_ok',()=>d.invoke(onOK));return d;
+  }
+  /** A short message that fades by itself (fishsort's toast). */
+  notice(words:string):void {
+    const n=UI.group(this.host,'Notice',[140,880,800,120]);Flat.plateIn(n,'f_hud',[0,0,800,120]);Flat.text(n,words,[40,0,720,120],48,ON_DARK);this.sound('error');
+    const op=n.addComponent(UIOpacity);tween(op).delay(1.2).to(.3,{opacity:0}).call(()=>Kit.destroy(n)).start();
+  }
+  /** A feature that just opened (fishsort's new-feature popup): its home icon and name. */
+  feature_open(feature:string,onOK:()=>void=()=>{}):Dialog {
+    const [icon,content,label]=FEATURE_ENTRY[feature],p=Flat.popup(this.host,'FeatureOpen',800,560,tr('H_UNLOCK_TITLE'),onOK);
+    const d:Dialog={node:p.node,content:p.body,rect:p.rect,ys:[],actionY:0,close:p.close,invoke(action){p.close();action();}};
+    Kit.glow(p.body,[260,30,280,280]);Kit.breathe(UI.art(p.body,icon,[270,40,260,260],content));
+    Flat.text(p.body,tr(label),[0,320,800,80],58,ON_LIGHT);
+    Flat.button(p.body,'Confirm',[200,420,400,120],'green',tr('UI_OK'),()=>d.invoke(()=>{}),50);this.sound('collect');return d;
   }
   /** A skin given as a prize (`<bird>_outfit_<n>`): the bird wearing it under the skin's name. */
   outfit_gift(outfit:string,onOK:()=>void=()=>{}):Dialog {

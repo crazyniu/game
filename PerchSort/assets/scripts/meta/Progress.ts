@@ -5,10 +5,28 @@ import type { Profile } from './Profile';
 import { Tasks } from './Tasks';
 export type RandomSource = () => number;
 export type Reward = Record<string, any>;
+export type LevelKind = 'normal' | 'hard' | 'boss';
 export class Progress {
   static readonly WORLD_COMPLETE_COINS = 500;
   static readonly FIRST_CLEAR_COINS = [0, 50, 80, 120];
   static readonly REPLAY_COINS = 20;
+  /** Level kinds (fishsort's level-types): every world's 7th and 14th level is hard, its 21st super hard; first clears pay more. */
+  static readonly KIND_SCALE: Record<LevelKind, number> = { normal: 1, hard: 1.5, boss: 2 };
+  /** The first three-star clear of a level: feathers and one tool (fishsort's first3). */
+  static readonly FIRST_THREE_STAR_COINS = 30;
+  /** Combo goal (fishsort's comboGoal): three quarters of the longest run in the level's stored route, from level 6, at least x2. */
+  static readonly COMBO_GOAL = { from: 6, share: .75, min: 2, coins: { normal: 20, hard: 40, boss: 60 } as Record<LevelKind, number> };
+  /** The level each entry opens at (fishsort's features); the shop is always open. */
+  static readonly FEATURES: Record<string, number> = { signin: 3, album: 4, draw: 6, tasks: 8, chest: 10 };
+  static kind(level: number): LevelKind { const n = (level - 1) % Levels.PER_WORLD + 1; return n === Levels.PER_WORLD ? 'boss' : n % 7 === 0 ? 'hard' : 'normal'; }
+  static feature_open(p: Profile, feature: string): boolean { return p.highest_unlocked >= this.FEATURES[feature]; }
+  /** Features that open between two unlocked levels, in opening order. */
+  static newly_open(before: number, after: number): string[] { return Object.keys(this.FEATURES).filter(f => this.FEATURES[f] > before && this.FEATURES[f] <= after).sort((a, b) => this.FEATURES[a] - this.FEATURES[b]); }
+  /** The combo goal of a level from the longest run its stored route makes; 0 when it has none. */
+  static combo_goal(level: number, route_best: number): number {
+    const c = this.COMBO_GOAL, n = Math.floor(route_best * c.share);
+    return level >= c.from && n >= c.min ? n : 0;
+  }
   static readonly IMPROVE_COINS = 30;
   static readonly UNDO_PRICE = 30;
   static readonly CHEST_STARS = 30;
@@ -57,16 +75,20 @@ export class Progress {
     return granted;
   }
   static stars_for_moves(counted: number, par: number): number { return GameSession.stars_for(counted, par); }
-  static on_win(p: Profile, level: number, counted_moves: number, par: number, chorus_coins: number, next_def: Partial<LevelDefinition> = {}, rng: RandomSource = Math.random): Reward {
+  static on_win(p: Profile, level: number, counted_moves: number, par: number, chorus_coins: number, next_def: Partial<LevelDefinition> = {}, rng: RandomSource = Math.random, combo_goal = 0, best_chain = 0): Reward {
     const stars = this.stars_for_moves(counted_moves, par), old = p.best_stars(level);
     p.stars[level] = Math.max(old, stars); p.clears[level]++;
     p.record_moves(level, counted_moves);
     p.highest_unlocked = Math.max(p.highest_unlocked, Math.min(Levels.COUNT, level + 1));
     const world = this.world_of_level(level), worldBonus = !p.rewarded_worlds[world] && this.is_world_complete(p, world);
     if (worldBonus) p.rewarded_worlds[world] = true;
-    const payout: Reward = { stars, first_clear: old === 0 ? this.FIRST_CLEAR_COINS[stars] : 0, replay: old > 0 ? this.REPLAY_COINS : 0, improvement: old > 0 ? this.IMPROVE_COINS * Math.max(0, stars - old) : 0, chorus: chorus_coins, world: worldBonus ? this.WORLD_COMPLETE_COINS : 0 };
-    payout.total = payout.first_clear + payout.replay + payout.improvement + payout.chorus + payout.world;
-    p.coins += payout.total; payout.starters = this.grant_starter_gifts(p); payout.boosters = this.win_drops(p, level, stars, old === 0, next_def, rng);
+    const kind = this.kind(level), first = old === 0;
+    const payout: Reward = { stars, kind, first_clear: first ? Math.round(this.FIRST_CLEAR_COINS[stars] * this.KIND_SCALE[kind]) : 0, replay: old > 0 ? this.REPLAY_COINS : 0, improvement: old > 0 ? this.IMPROVE_COINS * Math.max(0, stars - old) : 0, chorus: chorus_coins, world: worldBonus ? this.WORLD_COMPLETE_COINS : 0 };
+    payout.first3 = stars === 3 && old < 3 ? this.FIRST_THREE_STAR_COINS : 0;
+    payout.combo_goal = first && combo_goal > 0 && best_chain >= combo_goal ? this.COMBO_GOAL.coins[kind] : 0;
+    payout.total = payout.first_clear + payout.replay + payout.improvement + payout.chorus + payout.world + payout.first3 + payout.combo_goal;
+    p.coins += payout.total; payout.starters = this.grant_starter_gifts(p); payout.boosters = this.win_drops(p, level, stars, first, next_def, rng);
+    if (payout.first3) { const pool = this.unlocked_boosters(p); payout.first3_tool = pool[Math.floor(rng() * pool.length)]; p.inventory[payout.first3_tool]++; }
     return payout;
   }
   static win_drops(p: Profile, level: number, stars: number, first_clear: boolean, next_def: Partial<LevelDefinition>, rng: RandomSource): number[] {
