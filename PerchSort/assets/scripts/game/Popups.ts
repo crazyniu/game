@@ -10,6 +10,7 @@ import { Progress } from '../meta/Progress';
 import { Shop } from '../meta/Shop';
 import { Ads } from '../meta/Ads';
 import { Flat, ON_DARK, ON_LIGHT, onTone } from './Flat';
+import { Fx } from './Fx';
 import { I18n, tr, word } from './I18n';
 
 export interface PageCallbacks {
@@ -246,31 +247,43 @@ export class Popups {
     editorNode.on('text-changed',(edit:EditBox)=>{const number=parseInt(edit.string.replace(/[^0-9]/g,''),10);quantity=Number.isNaN(number)?1:Math.max(1,Math.min(max,number));refresh();});
     input.enabled=this.profile.coins>=it.price;editorNode.active=true;return d;
   }
+  /**
+   * The win page (fishsort's game/result.ts): stars on top, the red ribbon with the title, the played world's birds cheering on a branch
+   * over turning rays, the reward bar (feathers counting up, tool drops), a large Next, then Home, Retry and the doubling ad in one row.
+   */
   win(result:{stars:number;moves:number;par:number;reward:number;boosters:number[];world?:number},onNext:()=>void,onReplay:()=>void,onHome:()=>void,nextEnabled=true):Dialog {
-    const entry=result.reward>0?this.adEntry(Ads.DOUBLE_COINS):'hidden';let doubled=false;
+    const world=result.world??1,entry=result.reward>0?this.adEntry(Ads.DOUBLE_COINS):'hidden';
+    const d=Kit.layer(this.host,'Win',undefined,true,`board_w${world}${world===1||world===Levels.WORLDS?'_open':''}_bg`),c=d.content;
+    UI.fill(c,'Veil',[0,0,1080,1920],'#00123C50');
+    // stars
+    for(let i=0;i<3;i++){const side=i===1?216:173,star=UI.art(c,i<result.stars?'island_star_full':'island_star_empty',[540+(i-1)*245-side/2,(i===1?150:190)-side/2,side,side]);Kit.centerPivot(star);
+      if(i<result.stars&&!Kit.instant){star.setScale(.2,.2,1);tween(star).delay(.35+i*.2).to(.22,{scale:new Vec3(1.2,1.2,1)},{easing:'quadOut'}).to(.14,{scale:new Vec3(1,1,1)}).start();Kit.after(d.node,.35+i*.2,()=>this.sound('star_'+(i+1)));}}
+    // ribbon and title
+    const ribbon=UI.group(c,'Ribbon',[60,300,960,276]);Flat.plateIn(ribbon,'f_ribbon',[0,0,960,276]);
+    Flat.text(ribbon,tr('WIN_TITLE'),[150,Flat.face(276)-80,660,150],112,onTone('red'));
+    const small=48,mw=56+10+Kit.numberWidth(String(result.moves),small),mx=540-mw/2;
+    UI.art(c,'icon_star_budget_steps',[mx,600,56,56],[317,217,652,801]);Flat.text(c,String(result.moves),[mx+66,600,mw,56],small,ON_DARK,-1);
+    // the world's birds on a branch over turning rays
+    const rays=Fx.piece(c,'fx_rays',540,880,720,720);UI.opacity(rays,.55);if(!Kit.instant)tween(rays).repeatForever(tween().by(24,{angle:360})).start();
+    Kit.perch(c,[540,1010],700);
+    ([['sky',230,200],['sunny',540,250],['berry',850,200]] as [string,number,number][]).forEach(([slot,x,side],i)=>{const b=Kit.liveBird(c,Worlds.look(world,slot),[x-side/2,1010-side*1.1,side,side*1.1]);Kit.after(d.node,.6+i*.15,()=>b.showcase());});
+    // rewards
+    const bar=UI.group(c,'Rewards',[65,1060,950,220]);Flat.card(bar,'f_card',[0,0,950,220],240,116);
     const counts=new Map<number,number>();result.boosters.forEach(kind=>counts.set(kind,(counts.get(kind)||0)+1));
-    const items:Array<[string,number]>=[];if(result.reward>0)items.push(['icon_purchase_feather',result.reward]);counts.forEach((count,kind)=>items.push(['island_icon_'+BOOSTER_ART[kind],count]));
-    const heights=[280,60];if(items.length)heights.push(170);
-    const d=Kit.jungle(this.host,'win_title',heights,{footer:72,width:880,actionHeight:Kit.BUTTON_H*2+24,birdsAbove:true});
-    const bg=UI.image(d.node,'background_home_jungle',[0,0,1080,1920]);bg.setSiblingIndex(0);
-    this.celebration(d,result.world??1);Kit.stars(d.content,d.ys[0],result.stars,true);for(let i=0;i<result.stars;i++)Kit.after(d.node,.4+i*.18,()=>this.sound('star_'+(i+1)));
-    // Moves: a quiet line under the stars.
-    const small=48,si=56,mw=si+10+Kit.numberWidth(String(result.moves),small),mx=540-mw/2;
-    UI.art(d.content,'icon_star_budget_steps',[mx,d.ys[1]+30-si/2,si,si],[317,217,652,801]);this.count(d.content,result.moves,[mx+si+10,d.ys[1]+30-small/2,mw-si-10,small],.5);
-    // Rewards in one row: feathers first, then tools. The feather counter leaves room for the doubled amount.
-    const cap=64,icon=120,gap=72,widths=items.map(([,n],i)=>icon+12+Kit.numberWidth('+'+n*(i===0&&result.reward>0?2:1),cap));
-    let x=540-(widths.reduce((a,b)=>a+b,0)+gap*Math.max(0,items.length-1))/2;const row=d.ys[2]??0;
-    items.forEach(([pic,n],i)=>{const feathers=i===0&&result.reward>0,item=UI.group(d.content,feathers?'Feathers':'Drop'+i,[x,row,widths[i],170]);UI.art(item,pic,[0,85-icon/2,icon,icon]);
-      if(feathers)this.count(item,n,[icon+12,85-cap/2,widths[i]-icon-12,cap],1.35,'+');else{Kit.number(item,'+'+n,[icon+12,85-cap/2,widths[i]-icon-12,cap],-1);Kit.pop(item,1.8+i*.18);}x+=widths[i]+gap;});
-    const double=()=>this.watch(Ads.DOUBLE_COINS,()=>{doubled=true;this.profile.coins+=result.reward;this.save();this.sound('collect');
-      const counter=d.content.getChildByName('Feathers')?.getChildByName('Counter');if(counter){Kit.stop(counter);UI.clear(counter);const r=UI.rect(counter);Kit.number(counter,'+'+result.reward*2,[0,0,r[2],r[3]],-1);Kit.pop(counter);}actions();});
-    // Two aligned columns: [claim ×2][next] above [retry][home]; without an ad, next spans the row.
-    const box=UI.group(d.content,'Actions',[0,0,1080,1920]),Y=d.actionY,w=430,h=Kit.BUTTON_H,left=100,right=550;
-    const actions=()=>{UI.clear(box);
-      const next=(r:Rect)=>UI.enabled(Kit.button(box,'action_next',r,'white_action_next',()=>d.invoke(onNext)),nextEnabled);
-      if(entry!=='hidden'&&!doubled){this.claimDouble(box,[left,Y,w,h],entry,double);next([right,Y,w,h]);}else next([left,Y,880,h]);
-      Kit.button(box,'Retry',[left,Y+h+24,w,h],'white_action_replay',()=>d.invoke(onReplay),'blue');Kit.button(box,'Home',[right,Y+h+24,w,h],'white_settings_home',()=>d.invoke(onHome),'blue');};
-    actions();this.confetti(d.node);return d;
+    const cells:[string,number][]=[];if(result.reward>0)cells.push(['icon_purchase_feather',result.reward]);counts.forEach((n,kind)=>cells.push(['island_icon_'+BOOSTER_ART[kind],n]));
+    const cw=cells.length?Math.min(400,900/cells.length):0;let feathers:Label|null=null;
+    cells.forEach(([pic,n],i)=>{const x=475+(i-(cells.length-1)/2)*cw,cell=UI.group(bar,'Cell'+i,[x-cw/2,0,cw,220]);UI.art(cell,pic,[cw/2-150,50,120,120]);const l=Flat.text(cell,'+'+n,[cw/2-20,50,cw/2+10,120],72,ON_LIGHT,-1);if(i===0&&result.reward>0)feathers=l;Kit.pop(cell,1+i*.15);});
+    if(feathers&&!Kit.instant){const l:Label=feathers,state={n:0};l.string='+0';tween(state).delay(1).to(.7,{n:result.reward},{onUpdate:()=>{if(l.isValid)l.string='+'+Math.round(state.n);}}).start();}
+    if(!cells.length)Flat.text(bar,tr('UI_REPLAY_NO_REWARD'),[30,0,890,220],46,ON_LIGHT);
+    // actions
+    const next=Flat.button(c,'action_next',[151,1330,778,187],'green',tr('UI_NEXT_LEVEL'),()=>d.invoke(onNext),84);UI.enabled(next,nextEnabled);
+    if(!Kit.instant)Kit.breathe(next,2);
+    const row:[string,string,'blue'|'amber',()=>void][]=[['Home',tr('H_TO_HOME'),'blue',()=>d.invoke(onHome)],['Retry',tr('UI_REPLAY'),'blue',()=>d.invoke(onReplay)]];
+    let doubled=false;
+    if(entry!=='hidden')row.push(['WatchAd',tr('WIN_DOUBLE'),'amber',()=>{if(doubled)return;this.watch(Ads.DOUBLE_COINS,()=>{doubled=true;this.profile.coins+=result.reward;this.save();this.sound('collect');UI.enabled(c.getChildByName('WatchAd')!,false);if(feathers){const l:Label=feathers;l.string='+'+result.reward*2;Kit.pop(l.node.parent!);}});}]);
+    const bw=row.length===3?300:380,gap=24,left=540-(row.length*bw+(row.length-1)*gap)/2;
+    row.forEach(([name,label,tone,act],i)=>{const r:Rect=[left+i*(bw+gap),1560,bw,130];const b=tone==='amber'?Flat.iconButton(c,name,r,'amber','f_g_video',label,act,46):Flat.button(c,name,r,'blue',label,act,46);if(name==='WatchAd')UI.enabled(b,entry==='ready');});
+    this.confetti(d.node);return d;
   }
   /** "▶ Claim ×2": the doubled-feathers action, laid out like the other action words. */
   private claimDouble(parent:Node,r:Rect,entry:AdEntry,act:()=>void):Node{
