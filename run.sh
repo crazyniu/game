@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 ORIG_ARGS=("$@")
 source tools/cocos/creator.sh
 port="${WEB_PORT:-8765}"
-lan_port="${LAN_PORT:-8080}"
+lan_port="${LAN_PORT:-8770}"
 cdp_port="${CDP_PORT:-9333}"
 
 usage() {
@@ -14,7 +14,7 @@ Play (Mac with Cocos Creator 3.8.8):
   ./run.sh [play] [options]       Build web-mobile, serve on localhost, open the portrait player window
   ./run.sh serve [options]        Same without rebuilding
   ./run.sh lan [serve] [options]  Build (lan serve: reuse the build) and serve on the local network for phones and
-                                  other computers; prints http://<LAN IP>:8080/ and keeps running until Ctrl+C
+                                  other computers; prints http://<LAN IP>:8770/ and keeps running until Ctrl+C
   Options (combinable):
     level <N> | --level=N         Open level N on an in-memory copy of the save; nothing is written back
     auto [from] [to]              Autoplay real moves from level <from> (default: furthest unlocked) to <to>
@@ -35,7 +35,7 @@ Develop (Linux or CI, Node 22+):
   ./run.sh art-compress           Lossless PNG recompression (pixels unchanged), then metas
 
 play, serve, lan, build and editor first fast-forward the current branch (NO_PULL=1 skips); local changes are kept.
-Environment: WEB_PORT (8765), LAN_PORT (8080), CDP_PORT (9333), COCOS_CREATOR, NO_OPEN=1, NO_PULL=1,
+Environment: WEB_PORT (8765), LAN_PORT (8770), CDP_PORT (9333), COCOS_CREATOR, NO_OPEN=1, NO_PULL=1,
 PERCH_PLAYER_BROWSER, PERCH_PLAYER_PROFILE.
 HELP
 }

@@ -22,7 +22,7 @@ Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repos
 ./run.sh meta | art-compress | clean      # missing metas, lossless PNG recompression, Creator caches
 ```
 
-`play`, `serve`, `lan`, `build` and `editor` first fast-forward the current branch (`NO_PULL=1` skips); local changes are never discarded. Every build starts from an empty Creator cache and retries when Creator breaks the asset import (`tools/cocos/creator.sh`). `./run.sh lan` prints `http://<LAN IP>:8080/` (`LAN_PORT`) and serves until Ctrl+C; the prior-save import is answered only to this machine.
+`play`, `serve`, `lan`, `build` and `editor` first fast-forward the current branch (`NO_PULL=1` skips); local changes are never discarded. Every build starts from an empty Creator cache and retries when Creator breaks the asset import (`tools/cocos/creator.sh`). `./run.sh lan` prints `http://<LAN IP>:8770/` (`LAN_PORT`; fishsort uses 8080 on the same Mac) and serves until Ctrl+C; the prior-save import is answered only to this machine.
 
 On macOS, `run.sh` opens the game in a 450×832 Chrome app window with remote debugging on port 9333 (`CDP_PORT`) for `./run.sh cdp`. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
 
