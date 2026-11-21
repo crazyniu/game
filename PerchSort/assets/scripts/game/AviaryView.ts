@@ -7,6 +7,8 @@ import { Aviary } from '../meta/Aviary';
 import { Worlds } from '../meta/Worlds';
 import { Shop } from '../meta/Shop';
 import { Kit, PageCallbacks } from './Popups';
+import { Flat } from './Flat';
+import { word } from './I18n';
 
 /** The canonical forest collection and six-look bird detail page. */
 export class AviaryView {
@@ -28,7 +30,7 @@ export class AviaryView {
   private reset():void { if(this.page)Kit.destroy(this.page);this.page=UI.group(this.node,'Page');this.coins=undefined;this.hero=undefined; }
   private outfit(species:string):string { const id=this.profile.equipped[species];return id?`${species}_outfit_${id.split('.')[2]}`:''; }
   private navigation(back:boolean,action:()=>void):void {const key=back?'btn_forest_back':'btn_purchase_close',size=Art.size(key),ink=Art.ink(key),height=133.07;Kit.close(this.page,[48,119-(ink[1]+ink[3]/2)*height/size[1]],action,back);}
-  private title(key:string,rect:Rect):void { const h=rect[3]*.7,y=119-h/2;Kit.lettering(this.page,key,[rect[0]+rect[2]*.12,y+h*.17,rect[2]*.76,h*.76]); }
+  private title(key:string,rect:Rect):void { Flat.title(this.page,word(key),rect[0]+rect[2]/2,119,115,560); }
   show_list():void {
     this.species='';this.reset();
     const ids=this.world_ids(this.world),top=232,view=1696-top;
@@ -58,14 +60,14 @@ export class AviaryView {
   /** The last world whose birds all have their pictures and painted names; worlds beyond it are not offered. */
   static last_world():number {
     let last=1;
-    for(let world=2;world<=Worlds.COUNT;world++){if(Worlds.birds(world).every(id=>Art.has(id+'_front')&&!!Art.pack().painted['lettering_bird_'+id]))last=world;else break;}
+    for(let world=2;world<=Worlds.COUNT;world++){if(Worlds.birds(world).every(id=>Art.has(id+'_front')))last=world;else break;}
     return last;
   }
   private switch_world(step:number):void { this.world=Math.max(1,Math.min(AviaryView.last_world(),this.world+step));this.listScroll=0;this.show_list(); }
   show_detail(id:string):void {
     this.species=id;this.reset();Kit.glow(this.page,[232,204,616,472]);Kit.perch(this.page,[540,644],640);
     this.hero=Kit.liveBird(this.page,id,[336,212,408,432],this.outfit(id));UI.hit_area(this.page,'Showcase',[336,212,408,432],()=>this.hero?.showcase());
-    UI.art(this.page,'panel_aviary_ability',[232,714,616,104]);const ability=UI.paint(this.page,Art.word('bird.'+Worlds.slot_of(id)+'.ability'),[304,740,472,52]);UI.effect(ability,'ability_ink');
+    UI.art(this.page,'panel_aviary_ability',[232,714,616,104]);UI.word(this.page,'bird.'+Worlds.slot_of(id)+'.ability',[264,732,552,68],'gold');
     this.navigation(true,()=>this.fromShop?this.callbacks.close():this.show_list());this.title('bird_'+id,[308,32,464,174]);this.refresh_balance();
     if(Worlds.skins(id)){this.tiles=UI.group(this.page,'Outfits');this.buildTiles();}
   }

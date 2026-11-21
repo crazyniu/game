@@ -91,6 +91,24 @@ export class Flat {
   }
   /** The plate of a group laid over its whole rect. */
   static plateIn(n: Node, skin: string, rect: Rect): Node { return this.plate(n, skin, [0, 0, rect[2], rect[3]]); }
+  /** A page or popup title (fishsort pageTitle): white words on a blue plate as wide as the words, centred on (cx, cy). */
+  static title(parent: Node, words: string, cx: number, cy: number, h = 115, maxW = 900): Node {
+    const size = Math.round(h * .56), probe = new Node(), w = Math.min(maxW, Math.max(374, this.width(this.text(probe, words, [0, 0, 4000, h], size, onTone('plate'))) + h * 1.2));
+    probe.destroy();
+    const n = UI.group(parent, 'Title', [cx - w / 2, cy - h / 2, w, h]);
+    this.plateIn(n, 'f_plate_blue', [0, 0, w, h]);
+    this.text(n, words, [h * .5, this.face(h) - size * .7, w - h, size * 1.4], size, onTone('plate'));
+    return n;
+  }
+  /** The feather balance: a white capsule with the feather and the number; onPlus adds the green plus key (free feathers). */
+  static capsule(parent: Node, rect: Rect, value: number, onPlus?: () => void): Node {
+    const n = UI.group(parent, 'Coins', rect);
+    this.plateIn(n, 'f_dock', rect);
+    UI.art(n, 'icon_purchase_feather', [8, rect[3] * .07, rect[3] * .86, rect[3] * .86]);
+    this.text(n, String(Math.min(99999, value)), [rect[3] + 4, 0, rect[2] - rect[3] - 36, rect[3]], Math.round(rect[3] * .57), ON_LIGHT, -1);
+    if (onPlus) this.key(parent, 'FreeCoins', [rect[0] + rect[2] - 34, rect[1] + 8, rect[3] - 16, rect[3] - 16], 'green', 'f_g_plus', onPlus);
+    return n;
+  }
   /** The red dot on an entry with something to collect. */
   static dot(parent: Node, x: number, y: number, side = 40): Node { return UI.image(parent, ART + 'f_dot', [x - side / 2, y - side / 2, side, side]); }
   /** A popup (fishsort popup.ts): dimmed backdrop, white card growing a head for the blue title plate, red close key on the corner. */

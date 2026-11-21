@@ -1,5 +1,7 @@
 import { Node, UITransform, Sprite, Color, UIOpacity, Graphics, Mask, ScrollView, Vec2, Vec3, Vec4, BlockInputEvents, Button, Tween, tween, EventTouch, Layers, Material, EffectAsset, resources } from 'cc';
 import { Art } from './Art';
+import { Flat, ON_DARK, ON_LIGHT, onTone } from './Flat';
+import { word } from './I18n';
 export type Rect=[number,number,number,number];
 export type Point=[number,number];
 const rects=new WeakMap<Node,Rect>();
@@ -42,8 +44,9 @@ export class UI {
     const c=entry.region??Art.ink(entry.name),k=Math.min(r[2]/c[2],r[3]/c[3]),w=c[2]*k,h=c[3]*k;
     return this.image_region(parent,entry.name,c,[r[0]+(r[2]-w)*(.5+.5*align),r[1]+(r[3]-h)/2,w,h]);
   }
-  static word(parent:Node,id:string,r:Rect,style='brown',align=0):Node{const n=this.paint(parent,Art.word(id,style),r,align);if(style==='brown'||style==='caption')this.warm(n);return n;}
-  static painted(parent:Node,id:string,r:Rect,align=0):Node{const n=this.paint(parent,Art.painted(id),r,align);if(/^(brown_|row_|tab_|cap_|caption_)/.test(id))this.warm(n);return n;}
+  /** Screen words in the game font: navy on light (brown, caption), white with an outline on art (gold), white on buttons (white). */
+  static word(parent:Node,id:string,r:Rect,style='brown',align=0):Node{const ink=style==='white'?onTone('green'):style==='gold'?ON_DARK:ON_LIGHT;return Flat.text(parent,word(id),r,Math.round(Math.min(r[3]*.75,72)),ink,align).node.parent!;}
+  static painted(parent:Node,id:string,r:Rect,align=0):Node{const light=/^(brown_|row_|tab_|cap_|caption_)/.test(id);return Flat.text(parent,word(id.replace(/^(brown|caption|gold|white)_/,'')),r,Math.round(Math.min(r[3]*.75,72)),light?ON_LIGHT:ON_DARK,align).node.parent!;}
   static number(parent:Node,value:string|number,r:Rect,style='brown',align=0):Node{const n=this.group(parent,'Number',r);numbers.set(n,{style,align,digits:false});this.set_number(n,String(value));return n;}
   static digits(parent:Node,value:string|number,r:Rect):Node{const n=this.group(parent,'Digits',r);numbers.set(n,{style:'cream',align:0,digits:true});this.set_number(n,String(value));return n;}
   static set_number(n:Node,value:string|number,style?:string):void{
@@ -73,10 +76,9 @@ export class UI {
   static invoke(n:Node):void{if(!disabled.has(n)){this.onTap();actions.get(n)?.();}}
   static badge(parent:Node,c:Point,count:number,red=false):Node|null{if(count<=0)return null;const n=this.group(parent,'Badge',[c[0]-33,c[1]-33,66,66]);this.image(n,red?'island_badge_red':'island_badge_green',[0,0,66,66]);this.digits(n,Math.min(count,99),[9,11,48,44]);return n;}
   static check_badge(parent:Node,c:Point):Node{return this.image(parent,'island_badge_check',[c[0]-33,c[1]-33,66,66]);}
-  static feather_bar(parent:Node,p:Point,balance:number,onPurchase?:()=>void):Node{
-    const n=this.group(parent,'Coins',[p[0],p[1],320,320*117/350]);this.image(n,'panel_home_island_coin',[0,0,320,320*117/350]);this.digits(n,Math.max(0,Math.min(balance,99999)),[117.5*320/350,40.5*320/350,135*320/350,38*320/350]);if(onPurchase)this.hit_area(n,'BuyCoins',[0,0,320,112],onPurchase);return n;
-  }
-  static price_pill(parent:Node,r:Rect,price:number):Node{const s=Art.size('island_price_gold'),k=Math.min(r[2]/s[0],r[3]/s[1]),w=s[0]*k,h=s[1]*k,n=this.group(parent,'Price',[r[0]+(r[2]-w)/2,r[1]+(r[3]-h)/2,w,h]);this.image(n,'island_price_gold',[0,0,w,h]);this.digits(n,price,[w*.38,h*.22,w*.50,h*.56]);return n;}
+  static feather_bar(parent:Node,p:Point,balance:number,onPurchase?:()=>void):Node{return Flat.capsule(parent,[p[0],p[1]+16,320,88],balance,onPurchase);}
+  /** A feather reward: the feather and +amount in the game font. */
+  static price_pill(parent:Node,r:Rect,price:number):Node{const n=this.group(parent,'Price',r),h=r[3];this.art(n,'icon_purchase_feather',[r[2]/2-h*1.1,0,h,h]);Flat.text(n,'+'+price,[r[2]/2,0,r[2]/2,h],Math.round(h*.6),ON_DARK,-1);return n;}
   static hanging_sign(parent:Node,cx:number,cy:number,w:number):Rect{const s=Art.size('island_sign_blank'),h=w*s[1]/s[0],top=cy-.68*h,left=cx-w/2;this.image(parent,'island_sign_blank',[left,top,w,h]);return [left+w*.27,top+h*.5,w*.46,h*.38];}
   static fill(parent:Node,name:string,r:Rect,hex:string,radius=0):Node{const n=this.group(parent,name,r),g=n.addComponent(Graphics);g.fillColor=new Color().fromHEX(hex);if(radius)g.roundRect(0,-r[3],r[2],r[3],radius);else g.rect(0,-r[3],r[2],r[3]);g.fill();return n;}
   static line(parent:Node,points:Point[],hex:string,width:number):Node{const n=this.group(parent,'Line'),g=n.addComponent(Graphics);g.strokeColor=new Color().fromHEX(hex);g.lineWidth=width;g.moveTo(points[0][0],-points[0][1]);points.slice(1).forEach(p=>g.lineTo(p[0],-p[1]));g.stroke();return n;}

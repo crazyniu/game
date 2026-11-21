@@ -10,7 +10,7 @@ import { Progress } from '../meta/Progress';
 import { Shop } from '../meta/Shop';
 import { Ads } from '../meta/Ads';
 import { Flat, ON_LIGHT, onTone } from './Flat';
-import { I18n, tr } from './I18n';
+import { I18n, tr, word } from './I18n';
 
 export interface PageCallbacks {
   close: () => void;
@@ -53,19 +53,12 @@ const DRAW_PICTURES: Rect[] = [[41,21,176,137],[32,15,203,142],[29,15,195,149],[
 /** The existing painted ButtonKit, with native Cocos nodes and unchanged design geometry. */
 export class Kit {
   static instant = false;
-  static numberWidth(value: string, height: number): number {
-    return Array.from(value).reduce((width, c) => { const size = Art.size(Kit.glyph(c)); return width + size[0] * height / size[1] + height * .02; }, 0) - height * .02;
-  }
+  /** Width of a number in the game font (digits are about 0.6 of the size). */
+  static numberWidth(value: string, height: number): number { return String(value).length * height * .6; }
   static glyph(c: string): string { return 'digit_ui_' + (({'/':'slash','+':'plus','×':'x','x':'x'} as Record<string,string>)[c] || c); }
-  static number(parent: Node, value: string | number, rect: Rect, align = 0): Node {
-    const text = String(value), box = UI.group(parent, 'Digits', rect);
-    const h = Math.min(rect[3], rect[3] * rect[2] / Math.max(1, Kit.numberWidth(text, rect[3])));
-    let x = (rect[2] - Kit.numberWidth(text,h)) * (.5 + align * .5);
-    for (const c of text) { const key = Kit.glyph(c), size = Art.size(key), w = size[0] * h / size[1]; UI.image(box,key,[x,(rect[3]-h)/2,w,h]); x += w+h*.02; }
-    return box;
-  }
-  static lettering(parent:Node,key:string,rect:Rect):Node { return UI.painted(parent,'lettering_'+key,rect); }
-  /** Every worded button: one candy plate per role (green primary, orange watch-ad, blue secondary), one height. */
+  /** A number in the game font, white with a navy outline. */
+  static number(parent: Node, value: string | number, rect: Rect, align = 0): Node { return Flat.text(parent, String(value).replace(/x/g, '×'), rect, Math.round(rect[3] * .92), ON_DARK, align).node.parent!; }
+  static lettering(parent:Node,key:string,rect:Rect):Node { return Flat.text(parent,word(key),rect,Math.round(Math.min(rect[3]*.8,72)),ON_DARK).node.parent!; }
   static readonly BUTTON_H=176;
   /** The play buttons (home, map, level card) share one larger height. */
   static readonly PLAY_H=200;
@@ -75,41 +68,37 @@ export class Kit {
   /** Vertical centre of the candy face (above the darker bottom edge), as a share of the plate height. */
   static readonly FACE_CENTRE=.435;
   static face(parent:Node, rect:Rect, kind='green'): Node {
-    const candy = ({green:'btn_candy_green',wide:'btn_candy_green',orange:'btn_candy_orange',blue:'btn_candy_blue'} as Record<string,string>)[kind];
-    if (candy) { const size = Art.size(candy); return UI.nine(parent,candy,rect,[size[1]*.75,0,size[1]*.75,0],rect[3]/size[1]); }
-    if (kind === 'plate') { const size = Art.size('btn_plate_green'); return UI.nine(parent,'btn_plate_green',rect,[size[1]*.6,0,size[1]*.6,0],rect[3]/size[1]); }
+    const flat = ({green:'j_btn_green',wide:'j_btn_green',plate:'j_btn_green',orange:'j_btn_amber',blue:'j_btn_blue'} as Record<string,string>)[kind];
+    if (flat) return Flat.plate(parent, flat, rect);
     const asset = ({key_green:'btn_key_green',key_cream:'btn_key_cream',field:'field_quantity'} as Record<string,string>)[kind];
     return UI.image(parent,asset,rect,true);
   }
   static plate(parent:Node,rect:Rect,kind='green'):Node { const box=UI.group(parent,'Plate',rect); Kit.face(box,[0,0,rect[2],rect[3]],kind); return box; }
   /** A white painted word at a fixed height, centred on the candy face. */
-  static word(parent:Node,id:string,size:Point,x=0,width=size[0]):Node { const cap=size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP; const rect:Rect=[x+width*.08,size[1]*Kit.FACE_CENTRE-cap*.625,width*.84,cap*1.25]; const node=Art.pack().painted[id]?UI.painted(parent,id,rect):UI.word(parent,id,rect,'white');UI.effect(node,'white_ink');return node; }
-  static wordWidth(id:string,size:Point):number { const cap=(size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP)*1.25,e=Art.pack().painted[id]?Art.painted(id):Art.word(id,'white'),c=e.region??Art.ink(e.name);return c[2]*cap/c[3]; }
+  /** A button's words in the game font, centred on the face; tone picks the solid line under the words. */
+  static word(parent:Node,id:string,size:Point,x=0,width=size[0],tone='green'):Node { const fs=Math.round(size[1]*(size[1]>=140?.38:.4)); return Flat.text(parent,word(id),[x+width*.06,Flat.face(size[1])-fs*.7,width*.88,fs*1.4],fs,onTone(Kit.tone(tone))).node.parent!; }
+  static tone(kind:string):string { return ({orange:'amber',blue:'blue',key_green:'green',key_cream:'blue'} as Record<string,string>)[kind] ?? 'green'; }
+  static wordWidth(id:string,size:Point):number { const n=new Node(),fs=Math.round(size[1]*(size[1]>=140?.38:.4)),w=Flat.width(Flat.text(n,word(id),[0,0,4000,fs*1.4],fs));n.destroy();return w; }
   static button(parent:Node,name:string,rect:Rect,word:string,action:()=>void,kind='green'):Node {
-    const hit=UI.hit_area(parent,name,rect,action); Kit.face(hit,[0,0,rect[2],rect[3]],kind); if(word) Kit.word(hit,word,[rect[2],rect[3]]); return hit;
+    const hit=UI.hit_area(parent,name,rect,action); Kit.face(hit,[0,0,rect[2],rect[3]],kind); if(word) Kit.word(hit,word,[rect[2],rect[3]],0,rect[2],kind); return hit;
   }
+  /** A feather and a price on a button face. */
   static price(parent:Node,size:Point,value:number):Node {
-    const h=size[1]>=140?Kit.WORD_CAP:Kit.COMPACT_CAP, feather=h*1.15, gap=h*.2;
-    const width=Math.min(Kit.numberWidth(String(value),h),size[0]*.72-feather-gap), x=(size[0]-feather-gap-width)/2;
+    const fs=Math.round(size[1]*(size[1]>=140?.38:.4)), feather=fs*1.15, gap=fs*.2, width=Math.min(Kit.numberWidth(String(value),fs),size[0]*.72-feather-gap), x=(size[0]-feather-gap-width)/2;
     const box=UI.group(parent,'FeatherPrice',[0,0,...size]);
-    UI.image(box,'icon_purchase_feather',[x,size[1]*Kit.FACE_CENTRE-feather/2,feather,feather],true);
-    Kit.number(box,value,[x+feather+gap,size[1]*Kit.FACE_CENTRE-h/2,width,h],-1); return box;
+    UI.image(box,'icon_purchase_feather',[x,Flat.face(size[1])-feather/2,feather,feather],true);
+    Flat.text(box,String(value),[x+feather+gap,Flat.face(size[1])-fs*.7,width+fs,fs*1.4],fs,onTone('green'),-1); return box;
   }
-  static panel(parent:Node,rect:Rect):Node { return UI.nine(parent,'panel_card_cream',rect,[120,120,120,120],.42); }
-  static close(parent:Node,at:Point,action:()=>void,back=false):Node { return UI.button(parent,back?'Back':'Close',back?'btn_forest_back':'btn_purchase_close',[...at,129.72,133.07],action); }
-  static sign(parent:Node,key:string,rect:Rect):Node { return Kit.lettering(parent,key,[rect[0]+rect[2]*.1,rect[1]+rect[3]*.42,rect[2]*.8,rect[3]*.56]); }
+  static panel(parent:Node,rect:Rect):Node { return Flat.card(parent,'f_card',rect,240,116); }
+  static close(parent:Node,at:Point,action:()=>void,back=false):Node { return Flat.key(parent,back?'Back':'Close',[at[0],at[1],120,120],back?'blue':'red',back?'f_g_back':'f_g_x',action,.5); }
+  /** A title on a blue plate, centred where the painted sign used to be. */
+  static sign(parent:Node,key:string,rect:Rect):Node { return Flat.title(parent,word(key),rect[0]+rect[2]/2,rect[1]+rect[3]*.6); }
   static simpleWord(parent:Node,id:string,style:string,anchor:Point,cap:number,align=0):Node {
     const name=`label_${id}_${style}_${Art.locale}`,meta=Art.data('art/labels/labels'),asset='art/labels/'+name,size=Art.size(asset),k=cap/meta.cap;
     const node=UI.image(parent,asset,[anchor[0]-size[0]*k*(.5+.5*align),anchor[1]-meta[name]*k,size[0]*k,size[1]*k]);if(style==='ink'||style==='soft')UI.warm(node);return node;
   }
-  static drawNumber(parent:Node,value:string,rect:Rect):Node {
-    const names:Record<string,string>={'0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine','+':'plus','×':'multiply','¥':'yuan','/':'slash','-':'minus'},metadata=Art.data('art/island/draw_purchase_ink');
-    const keys=Array.from(value).map(c=>'label_draw_purchase_'+names[c]),ink=keys.map(k=>metadata[k] as Rect),width=ink.reduce((a,r)=>a+r[2]/r[3]*rect[3]+rect[3]*.04,0)-rect[3]*.04,k=Math.min(1,rect[2]/width),box=UI.group(parent,'Number',rect);let x=(rect[2]-width*k)/2;
-    keys.forEach((key,i)=>{const w=ink[i][2]/ink[i][3]*rect[3]*k;UI.art(box,key,[x,(rect[3]-rect[3]*k)/2,w,rect[3]*k],ink[i]);x+=w+rect[3]*.04*k;});return box;
-  }
-  static chestNumber(parent:Node,value:string,rect:Rect):Node {
-    const keys=Array.from(value).map(c=>c==='/'?'label_chest_slash':'icon_home_island_digit_'+c),ink=keys.map(k=>k==='label_chest_slash'?[294,294,458,912] as Rect:Art.ink(k)),width=ink.reduce((a,r)=>a+r[2]/r[3]*rect[3]+rect[3]*.06,0)-rect[3]*.06,k=Math.min(1,rect[2]/width),box=UI.group(parent,'Number',rect);let x=(rect[2]-width*k)/2;keys.forEach((key,i)=>{const w=ink[i][2]/ink[i][3]*rect[3]*k;UI.art(box,key,[x,(rect[3]-rect[3]*k)/2,w,rect[3]*k],ink[i]);x+=w+rect[3]*.06*k;});return box;
-  }
+  static drawNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
+  static chestNumber(parent:Node,value:string,rect:Rect):Node { return Kit.number(parent,value,rect); }
   static centerPivot(node:Node):void { const r=UI.rect(node);node.getComponent(UITransform)!.setAnchorPoint(.5,.5);node.setPosition(r[0]+r[2]/2,-r[1]-r[3]/2); }
   static stop(node:Node):void { Tween.stopAllByTarget(node); const opacity=node.getComponent(UIOpacity); if(opacity) Tween.stopAllByTarget(opacity); node.children.forEach(Kit.stop); }
   static destroy(node:Node):void { if(!isValid(node,true))return;Kit.stop(node); node.removeFromParent(); node.destroy(); }
@@ -123,36 +112,28 @@ export class Kit {
     const close=()=>{ if(closed)return; closed=true; Kit.destroy(node); onClose?.(); };
     return {node,content,rect:[0,0,1080,1920],ys:[],actionY:0,close,invoke(action){close();action();}};
   }
-  static warmFrame(parent:Node,rect:Rect):void {
-    UI.fill(parent,'OpaqueFace',[rect[0]+14,rect[1]+14,rect[2]-28,rect[3]-28],'#fff0c2',70*rect[2]/960);
-    UI.nine_region(parent,'panel_warm_wood_rim',[28,28,1222,1174],rect,[100,100,100,100],rect[2]/1222);
-    UI.fill(parent,'CleanFace',[rect[0]+26,rect[1]+26,rect[2]-52,rect[3]-52],'#fff0c2',70*rect[2]/960);
-  }
-  static toyFrame(parent:Node,rect:Rect):void {
-    const k=rect[2]/1136;
-    UI.fill(parent,'OpaqueFace',[rect[0]+24*k,rect[1]+24*k,rect[2]-48*k,rect[3]-48*k],'#fff0c2',90*k);
-    UI.nine_region(parent,'panel_shop_toy_rim',[60,80,1136,1100],rect,[150,150,150,150],rect[2]/1136);
-  }
+  static warmFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
+  static toyFrame(parent:Node,rect:Rect):void { Flat.card(parent,'f_popup',rect,300,146); }
   static jungle(host:Node,title:string,heights:number[],options:{width?:number; actionHeight?:number; close?:boolean; compact?:boolean; birdsAbove?:boolean; footer?:number; onClose?:()=>void}={}):Dialog {
-    const width=options.width??960, head=options.compact?208:236, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
+    const width=options.width??960, head=options.compact?96:120, foot=options.compact?72:(options.footer??168), actionHeight=options.actionHeight??Kit.BUTTON_H;
     const inner=heights.reduce((a,b)=>a+b,0)+Math.max(0,heights.length-1)*24, above=options.birdsAbove?180:0;
     const height=head+inner+foot, top=Math.max(32,(1920-above-height-48-actionHeight)/2)+above;
     const d=Kit.layer(host,'Popup',options.onClose); d.rect=[(1080-width)/2,top,width,height]; d.actionY=top+height+48;
-    Kit.warmFrame(d.content,d.rect); if(title) Kit.sign(d.content,title,[220,top-14,640,223]);
+    Kit.warmFrame(d.content,d.rect); if(title) Flat.title(d.content,word(title),540,top+12);
     let y=top+head; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;});
-    if(options.close) Kit.close(d.content,[d.rect[0]+width-185,top+(options.compact?48:156)],d.close);
+    if(options.close) Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
     Kit.pop(d.content); return d;
   }
   static purchase(host:Node,title:string,heights:number[],actionHeight=Kit.BUTTON_H):Dialog {
     const width=heights.length>=3?880:840, inner=heights.reduce((a,b)=>a+b,0)+(heights.length-1)*24;
-    const height=220+inner+(heights.length>=3?88:72), top=(1920-height-32-actionHeight)/2;
+    const height=120+inner+(heights.length>=3?88:72), top=(1920-height-32-actionHeight)/2;
     const d=Kit.layer(host,'Purchase'); d.rect=[(1080-width)/2,top,width,height]; d.actionY=top+height+32;
-    Kit.toyFrame(d.content,d.rect); Kit.sign(d.content,title,[270,top-14,540,223]); Kit.close(d.content,[d.rect[0]+width-185,top+48],d.close);
-    let y=top+220; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;}); Kit.pop(d.content); return d;
+    Kit.toyFrame(d.content,d.rect); Flat.title(d.content,word(title),540,top+12); Kit.close(d.content,[d.rect[0]+width-84,top-32],d.close);
+    let y=top+120; d.ys=heights.map(h=>{const at=y;y+=h+24;return at;}); Kit.pop(d.content); return d;
   }
   static page(host:Node,name:string,title:string,balance?:number,onClose?:()=>void,coins?:()=>void):Dialog {
-    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Kit.sign(d.content,title,[240,96,600,209]); Kit.close(d.content,[48,48],d.close);
-    if(balance!==undefined) UI.feather_bar(d.content,[736,48],balance,coins); return d;
+    const background=['DailyReward','DailyDraw','DrawResult','CoinShop'].includes(name)?'background_shop_forest':'background_home_jungle';const d=Kit.layer(host,name,onClose,true,background); Flat.title(d.content,word(title),540,170); Kit.close(d.content,[32,52],d.close,true);
+    if(balance!==undefined) Flat.capsule(d.content,[728,64,320,88],balance,coins); return d;
   }
   static glow(parent:Node,rect:Rect):void { const glow=UI.image(parent,'glow_soft',[rect[0]-rect[2]*.22,rect[1]-rect[3]*.22,rect[2]*1.44,rect[3]*1.44]); UI.opacity(glow,.65); }
   static stars(parent:Node,y:number,filled:number,animate=false):void {

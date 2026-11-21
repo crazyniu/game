@@ -8,6 +8,8 @@ import { Levels } from '../core/Levels';
 import { AviaryView } from './AviaryView';
 import { Worlds } from '../meta/Worlds';
 import { BOOSTER_ART, BOOSTER_WORD, Kit, PageCallbacks, Popups } from './Popups';
+import { Flat } from './Flat';
+import { word } from './I18n';
 
 type CatalogItem=NonNullable<ReturnType<typeof Shop.item>>;
 export interface ShopCallbacks extends PageCallbacks { boosterPurchased?: (kind:number,count:number)=>void }
@@ -33,7 +35,7 @@ export class ShopView {
   owned_outfits(species:string):number {return 1+Shop.catalog().filter(it=>it.kind===Shop.OUTFIT&&it.species===species&&this.profile.owns_outfit(it.id)).length;}
   private build():void {
     if(this.page)Kit.destroy(this.page);this.page=UI.group(this.node,'Page');UI.image(this.page,'background_home_jungle',[0,0,1080,1920]);
-    Kit.close(this.page,[48,48],this.callbacks.close);Kit.lettering(this.page,'tab_'+['boosters','outfits','nests'][this.tab],[284,232,512,132]);UI.feather_bar(this.page,[736,48],this.profile.coins,this.callbacks.coins);
+    Kit.close(this.page,[48,48],this.callbacks.close);Flat.title(this.page,word('tab_'+['boosters','outfits','nests'][this.tab]),540,298);UI.feather_bar(this.page,[728,48],this.profile.coins,this.callbacks.coins);
     const outfits=this.tab===Shop.OUTFIT,count=outfits?Worlds.birds(this.world).length:this.items().length;
     const top=outfits?504:384,view=1668-top,height=Math.max(view,this.tab===Shop.BOOSTER?count*256-20+8:Math.ceil(count/2)*432-20+8);
     this.scroll=UI.scroll(this.page,'Scroll',[48,top,984,view],height);

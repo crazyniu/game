@@ -21,7 +21,6 @@ export class HomeView {
   private build(): void {
     const p = this.node, level = Progress.resume_level(this.profile), world = Levels.world_of(Levels.get_level(level)), today = Progress.today();
     UI.image(p, `board_w${world}${world === 1 || world === 10 ? '_open' : ''}_bg`, [0, 0, 1080, 1920]);
-    this.capsule();
     const left: [string, string, Rect | undefined, string, () => void, boolean][] = [
       ['DailyReward', 'pic_calendar', [49, 39, 154, 194], 'H_FEAT_SIGNIN', this.callbacks.daily, Progress.daily_reward_available(this.profile, today)],
       ['LuckyDraw', 'icon_home_draw', [175, 75, 958, 972], 'H_DRAW', this.callbacks.draw, Progress.draws_available(this.profile, today)],
@@ -33,18 +32,13 @@ export class HomeView {
       ['Tasks', 'pic_tasks', undefined, 'UI_TAB_TASKS', this.callbacks.tasks, true],
     ];
     UI.image(p, 'panel_home_title_sign', [162, 40, 758, 563]);
+    this.capsule();
     this.birds(world);
     left.forEach((e, i) => this.entry(e, 225 + i * 315, 1010, i * .06));
     right.forEach((e, i) => this.entry(e, 225 + i * 315, 1255, .18 + i * .06));
     this.bottom(level);
   }
-  private capsule(): void {
-    const n = UI.group(this.node, 'Coins', [32, 64, 320, 88]);
-    Flat.plateIn(n, 'f_dock', [0, 0, 320, 88]);
-    UI.art(n, 'icon_purchase_feather', [8, 6, 76, 76]);
-    Flat.text(n, String(Math.min(99999, this.profile.coins)), [92, 0, 196, 88], 50, ON_LIGHT, -1);
-    if (this.callbacks.freeCoins()) Flat.key(this.node, 'FreeCoins', [318, 72, 72, 72], 'green', 'f_g_plus', this.callbacks.coins);
-  }
+  private capsule(): void { Flat.capsule(this.node, [32, 64, 320, 88], this.profile.coins, this.callbacks.freeCoins() ? this.callbacks.coins : undefined); }
   private entry([name, icon, content, word, action, dot]: [string, string, Rect | undefined, string, () => void, boolean], cx: number, top: number, delay: number): void {
     const n = UI.hit_area(this.node, name, [cx - 90, top, 180, 194], action);
     Flat.image(n, 'f_card_glass', [10, 0, 161, 161]);
