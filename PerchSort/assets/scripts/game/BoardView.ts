@@ -747,10 +747,12 @@ export class BoardView {
 
   private async watchStuck():Promise<void> {
     if(this.instant||this.busy||this.suspended||this.state.is_won()||!this.session.can_undo())return;
-    const snapshot=this.state,key=this.key();
+    const snapshot=this.state,key=this.key(),history=this.session.history_size();
     if(Rules.has_legal_move(snapshot)&&this.failures.get(key)!==Solver.Status.UNSOLVABLE)return;
-    const generation=this.generation;await this.wait(.8);
-    if(!this.valid(generation)||this.state!==snapshot||this.busy||this.suspended)return;
+    // Moves change the board in place, so the position is compared as well as the board object.
+    const generation=this.generation,stale=()=>!this.valid(generation)||this.state!==snapshot||this.key()!==key||this.session.history_size()!==history;
+    await this.wait(.8);
+    if(stale()||this.busy||this.suspended)return;
     if(!this.rescueDeclined&&this.state.world===1&&!this.session.free_rescue_used){
       this.rescueDeclined=true;this.point_at_tool(-1,true);this.suspend_input();this.callbacks.rescue_offer();return;
     }
@@ -762,10 +764,11 @@ export class BoardView {
       let candidate:Board;
       if(kind<0){if(!this.session.can_undo())continue;candidate=this.session.history_state(1).clone();}
       else{if(!Rules.booster_has_effect(snapshot,kind))continue;candidate=snapshot.clone();new Rules().booster(candidate,kind,false);}
-      if(this.winnable.has(candidate.search_key().join(','))||(await Solver.hint_async(candidate,[],20000,600)).status===Solver.Status.SOLVED){chosen=kind;break;}
-      if(!this.valid(generation)||this.state!==snapshot)return;
+      const solved=this.winnable.has(candidate.search_key().join(','))||(await Solver.hint_async(candidate,[],20000,600)).status===Solver.Status.SOLVED;
+      if(stale())return;
+      if(solved){chosen=kind;break;}
     }
-    if(!this.valid(generation)||this.state!==snapshot||this.busy||this.suspended)return;
+    if(stale()||this.busy||this.suspended)return;
     this.rescue_tool=chosen;this.point_at_tool(chosen,true);
     if(shouldOffer){this.suspend_input();this.callbacks.restart_offer(chosen<0?'island_icon_undo':BoardView.TOOL_PICTURES[chosen]);}
   }
@@ -969,7 +972,7 @@ export class BoardView {
     for(let i=0;i<count;i++){
       const picture=fall[i%fall.length],native=Art.size(picture),scale=world===4?.06+(i%5)*.015:.28+(i%5)*.045;
       const x=(i*367+43)%1180-50,y=(i*433+111)%2000-80,node=UI.image(holder,picture,[x,y,native[0]*scale,native[1]*scale]);
-      if(world===10)UI.tint(node,'#d1b2ff');if(world===3&&i%3===0)UI.tint(node,'#ff765c');
+      if(world===10)UI.tint(node,'#d1b2ff');if(world===3&&i%3===0)UI.tint(node,'#ff765c');UI.opacity(node,world===4?.65:.8);
       this.ambient.push({node,x,y,speed:(world===4?40:80)+(i%5)*9,sway:world===4?24:44,phase:i*.7,opacity:world===4?.65:.8,kind:world===4?'snow':'leaf'});
     }
     for(let i=0;i<motes;i++){
@@ -992,7 +995,7 @@ export class BoardView {
       if(piece.kind==='mist'){UI.move(piece.node,((piece.x+t*piece.speed+1800)%2700)-1300,piece.y+Math.sin(t*.1+p)*18);UI.opacity(piece.node,piece.opacity*(.8+.2*Math.sin(t*.2+p)));continue;}
       if(piece.kind==='mote'){UI.move(piece.node,piece.x+Math.sin(t*.45+p)*piece.sway,piece.y-Math.sin(t*.2+p)*100);UI.opacity(piece.node,piece.opacity*(.5+.5*Math.sin(t*.8+p)));continue;}
       const y=((piece.y+t*piece.speed+80)%2080)-80,x=piece.x+Math.sin(t*.8+p)*piece.sway+(this.state.variant==='windy'?t*35%220:0);
-      UI.move(piece.node,x,y);UI.opacity(piece.node,piece.opacity);
+      UI.move(piece.node,x,y);
       if(piece.kind==='leaf')piece.node.angle=Math.sin(t*.6+p)*35;
     }
     this.tickHand();

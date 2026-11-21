@@ -8,6 +8,8 @@ export class Art {
   static manifest:Manifest;
   static locale='en';
   static pending = new Map<string,Promise<SpriteFrame>>();
+  /** Pending keys some page asked for; background loads from `defer` stay out until a page asks for them too. */
+  private static needed = new Set<string>();
   /** Loaded frames by manifest key. */
   static cache = new Map<string,SpriteFrame>();
   private static sheets = new Map<string,Promise<SpriteFrame>>();
@@ -28,12 +30,13 @@ export class Art {
   static frames(prefix:string):string[] {const out:string[]=[];for(let i=1;this.has(`${prefix}_${String(i).padStart(2,'0')}`);i++)out.push(`${prefix}_${String(i).padStart(2,'0')}`);return out;}
   static setLocale(code:string):void {this.locale=code.startsWith('zh')?'zh':'en';}
   static pack():any{return this.data(`art/locale/${this.locale}/manifest`);}
-  static load(name:string):Promise<SpriteFrame> {
+  static load(name:string,background=false):Promise<SpriteFrame> {
     const key=this.key(name),e=this.entry(name);
     if(this.cache.has(key))return Promise.resolve(this.cache.get(key)!);
+    if(!background)this.needed.add(key);
     if(this.pending.has(key))return this.pending.get(key)!;
     const source=e.piece?this.sheet(e.path).then(sheet=>this.cut(sheet,e)):this.fetch(e.path);
-    const promise=source.then(frame=>{this.cache.set(key,frame);return frame;}).finally(()=>this.pending.delete(key));this.pending.set(key,promise);return promise;
+    const promise=source.then(frame=>{this.cache.set(key,frame);return frame;}).finally(()=>{this.pending.delete(key);this.needed.delete(key);});this.pending.set(key,promise);return promise;
   }
   private static fetch(path:string):Promise<SpriteFrame> {
     return new Promise<SpriteFrame>((resolve,reject)=>resources.load(path+'/spriteFrame',SpriteFrame,(error,frame)=>{
@@ -52,7 +55,8 @@ export class Art {
     sf.texture=sheet.texture;sf.rect=new CocosRect(x,y,w,h);sf.originalSize=new Size(fw,fh);sf.offset=new Vec2(left+w/2-fw/2,fh/2-top-h/2);sf.packable=false;return sf;
   }
   static async preload(names:string[]):Promise<void>{await Promise.all(Array.from(new Set(names)).map(n=>this.load(n)));}
-  static async waitPending():Promise<void>{while(this.pending.size)await Promise.all(Array.from(this.pending.values()));}
+  /** Settles when every picture a page asked for has loaded or failed; a failed picture is logged in `errors` and never holds the page back. */
+  static async waitPending():Promise<void>{while(this.needed.size)await Promise.allSettled(Array.from(this.needed,key=>this.pending.get(key)));}
   private static deferred:string[]=[];
   private static draining=false;
   /** Loads frames a screen does not need to open, a few at a time once nothing else is loading, so opening a page never waits for them. */
@@ -65,7 +69,7 @@ export class Art {
       if(this.pending.size){this.drain();return;}
       const batch=this.deferred.splice(0,6);
       if(!batch.length){this.draining=false;return;}
-      void Promise.all(batch.map(name=>this.load(name))).finally(()=>this.drain());
+      void Promise.allSettled(batch.map(name=>this.load(name,true))).then(()=>this.drain());
     },30);
   }
   static region(source:SpriteFrame, region:Rect):SpriteFrame {
