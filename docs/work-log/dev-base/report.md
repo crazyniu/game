@@ -13,7 +13,7 @@ Branch `dev-tools`.
 | Node server for local and LAN play; prior Godot save answered to loopback only | `tools/web/serve.mjs` (replaces `scripts/serve.py`) |
 | Player window debugging: logs, eval, shot, burst, watch | `tools/cocos/cdp.mjs` |
 | Metas in Creator's own formats, `--check` | `tools/cocos/meta.mjs` (replaces `tools/cocos-meta.py`), `birds/feet.json.meta` |
-| Lossless PNG compression, header check for CI | `tools/art/compress.mjs`, `tools/art/approved-uncompressed.txt` |
+| Lossless PNG compression, header check for CI; 47 PNGs recompressed | `tools/art/compress.mjs`, 47 files under `assets/resources` |
 | Debug autoplay on an in-memory save | `assets/scripts/Boot.ts` |
 | CI runs `./run.sh check` | `.github/workflows/ci.yml` |
 
@@ -30,6 +30,6 @@ Branch `dev-tools`.
 
 Not checked: `cdp burst` and `watch`, Windows `run.ps1`, native and WeChat builds through the shared build function, phone play over the LAN (left to the user).
 
-### Open items
+### PNG recompression
 
-- 47 approved PNGs (52.1 MB) are stored at the fastest zlib level; lossless recompression would make them 21.4 MB with identical pixels. They stay untouched unless the user authorizes it.
+47 PNGs (approved art included) were stored at the fastest zlib level. With the user's approval (2026-11-21, on condition that the experience is unaffected) they were recompressed losslessly: 52.1 MB to 44.0 MB. Each file was compared with its committed original as 16-bit raw pixels, colour profile and density: 47 identical, 0 different. An earlier 21.4 MB estimate came from sharp's `effort` option, which silently switches to palette output; the tool never sets it.

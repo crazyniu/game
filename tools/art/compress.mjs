@@ -1,19 +1,16 @@
 // PNG compression for PerchSort/assets (./run.sh art-compress, ./run.sh check).
-// Approved art must look identical, so nothing is quantised: a file is rewritten only when a maximum-effort lossless encoding
+// Approved art must look identical, so nothing is quantised: a file is rewritten only when a maximum-compression lossless encoding (never palette)
 // decodes to exactly the same pixels, keeps its colour profile and is smaller.
 // A PNG counts as uncompressed when its zlib stream was written at the fastest level (header FLEVEL 0).
-// approved-uncompressed.txt lists approved art kept byte-identical; it is never rewritten unless named on the command line.
-// Usage: node tools/art/compress.mjs           recompress uncompressed PNGs that are not listed
+// Usage: node tools/art/compress.mjs           recompress uncompressed PNGs
 //        node tools/art/compress.mjs <files>   recompress exactly these files
-//        node tools/art/compress.mjs --check   exit 1 when an unlisted PNG is uncompressed (fast: reads headers only)
+//        node tools/art/compress.mjs --check   exit 1 when a PNG is uncompressed (fast: reads headers only)
 import { readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 
-const PREFIX = 'PerchSort/assets/';
 const check = process.argv.includes('--check');
 const named = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-const kept = new Set(readFileSync(new URL('approved-uncompressed.txt', import.meta.url), 'utf8').split('\n').filter((l) => l && !l.startsWith('#')));
 
 /** zlib FLEVEL (0 fastest .. 3 maximum) of the first IDAT chunk. */
 function level(buf) {
@@ -23,8 +20,8 @@ function level(buf) {
   throw new Error('PNG without image data');
 }
 
-const all = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', `${PREFIX}*.png`], { encoding: 'utf8' }).split('\n').filter(Boolean);
-const loose = all.filter((f) => !kept.has(f.slice(PREFIX.length)) && level(readFileSync(f)) === 0);
+const all = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', 'PerchSort/assets/*.png'], { encoding: 'utf8' }).split('\n').filter(Boolean);
+const loose = all.filter((f) => level(readFileSync(f)) === 0);
 if (check) {
   for (const f of loose) console.error(`uncompressed PNG: ${f}`);
   if (loose.length) {
@@ -43,7 +40,7 @@ let before = 0, after = 0;
 const targets = named.length ? named : loose;
 for (const file of targets) {
   const input = readFileSync(file);
-  const output = await sharp(input).keepIccProfile().png({ compressionLevel: 9, effort: 10, adaptiveFiltering: true }).toBuffer();
+  const output = await sharp(input).keepIccProfile().png({ compressionLevel: 9, adaptiveFiltering: true, palette: false }).toBuffer();
   before += input.length;
   if (output.length < input.length && (await samePixels(input, output))) {
     writeFileSync(file, output);
